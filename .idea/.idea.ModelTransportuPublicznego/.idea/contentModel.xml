@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/.Rider2018.3/system/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.Rider2018.3/system/resharper-host/local/Transient/ReSharperHost/v183/SolutionCaches/_ModelTransportuPublicznego.-1512206610.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="ModelTransportuPublicznego" t="IncludeRecursive">
+        <e p="Implementacja" t="Include">
+          <e p="DomyslnaFirma.cs" t="Include" />
+          <e p="DomyslnyPrzystanek.cs" t="Include" />
+          <e p="DomyslnyZarzadTranspotu.cs" t="Include" />
+        </e>
+        <e p="Model" t="Include">
+          <e p="Akcja.cs" t="Include" />
+          <e p="Autobus.cs" t="Include" />
+          <e p="Firma.cs" t="Include" />
+          <e p="Linia.cs" t="Include" />
+          <e p="Przystanek.cs" t="Include" />
+          <e p="RozkladJazdy.cs" t="Include" />
+          <e p="Trasa.cs" t="Include" />
+          <e p="ZarzadTransportu.cs" t="Include" />
+        </e>
+        <e p="ModelTransportuPublicznego.csproj" t="IncludeRecursive" />
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+      </e>
+      <e p="ModelTransportuPublicznego.sln" t="IncludeFlat" />
+      <e p="ModelTransportuPublicznegoTest" t="IncludeRecursive">
+        <e p="Model" t="Include">
+          <e p="ZarzadTransportuTest.cs" t="Include" />
+        </e>
+        <e p="ModelTransportuPublicznegoTest.csproj" t="IncludeRecursive" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>

@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelTransportuPublicznego", "ModelTransportuPublicznego\ModelTransportuPublicznego.csproj", "{3DDCDA15-B7ED-4C42-9D81-5B1D701B5796}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelTransportuPublicznegoTest", "ModelTransportuPublicznegoTest\ModelTransportuPublicznegoTest.csproj", "{2BD2349D-48DC-490C-8835-4B89380C02B0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3DDCDA15-B7ED-4C42-9D81-5B1D701B5796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DDCDA15-B7ED-4C42-9D81-5B1D701B5796}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DDCDA15-B7ED-4C42-9D81-5B1D701B5796}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DDCDA15-B7ED-4C42-9D81-5B1D701B5796}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BD2349D-48DC-490C-8835-4B89380C02B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BD2349D-48DC-490C-8835-4B89380C02B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BD2349D-48DC-490C-8835-4B89380C02B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BD2349D-48DC-490C-8835-4B89380C02B0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
