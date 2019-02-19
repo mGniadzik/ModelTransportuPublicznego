@@ -39,5 +39,15 @@ namespace ModelTransportuPublicznego.Model {
         public virtual IEnumerable<Pasazer> ZwrocPasazerowOczekujacychNaLinie(Linia linia) {
             return oczekujacyPasazerowie;
         }
+
+        public virtual Trasa ZnajdzTraseDoNastepnegoPrzystanku(Przystanek nastepnyPrzystanek) {
+            foreach (var trasa in trasy) {
+                if (trasa.PrzystanekDrugi == nastepnyPrzystanek) {
+                    return trasa;
+                }
+            }
+
+            return null;
+        }
     }
 }

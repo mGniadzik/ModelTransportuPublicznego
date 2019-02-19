@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.AccessControl;
 using System.Threading.Tasks;
 
 namespace ModelTransportuPublicznego.Model {
@@ -10,14 +9,23 @@ namespace ModelTransportuPublicznego.Model {
         protected int maksymalnaPojemnosc;
         protected List<Pasazer> obecniPasazerowie;
         protected int iloscDzwi;
-        protected Autobus(string idAutobusu, int maksymalnaPojemnosc, int iloscDzwi) {
+        protected double przyspieszenie;
+        protected double trasaHamowania100;
+        protected double predkoscMaksymalna;
+        protected Autobus(string idAutobusu, int maksymalnaPojemnosc, int iloscDzwi, double przyspieszenie, double trasaHamowania100, 
+            double predkoscMaksymalna) {
             this.idAutobusu = idAutobusu;
             this.maksymalnaPojemnosc = maksymalnaPojemnosc;
             this.iloscDzwi = iloscDzwi;
+            this.przyspieszenie = przyspieszenie;
+            this.trasaHamowania100 = trasaHamowania100;
+            this.predkoscMaksymalna = predkoscMaksymalna;
             obecniPasazerowie = new List<Pasazer>();
         }
 
-        protected Autobus(string idAutobusu, int maksymalnaPojemnosc, int iloscDzwi, IEnumerable<Pasazer> obecniPasazerowie) : this(idAutobusu, maksymalnaPojemnosc, iloscDzwi) {
+        protected Autobus(string idAutobusu, int maksymalnaPojemnosc, int iloscDzwi, double przyspieszenie, double trasaHamowania100,
+            double predkoscMaksymalna, IEnumerable<Pasazer> obecniPasazerowie) : this(idAutobusu, maksymalnaPojemnosc, 
+            iloscDzwi, przyspieszenie, trasaHamowania100, predkoscMaksymalna) {
             foreach (var pasazer in obecniPasazerowie) {
                 this.obecniPasazerowie.Add(pasazer);
             }
@@ -145,6 +153,50 @@ namespace ModelTransportuPublicznego.Model {
 
         protected virtual void UsunPasazera(Pasazer pasazer) {
             this.obecniPasazerowie.Remove(pasazer);
+        }
+
+//        public virtual int PrzejedzTrase(Trasa trasa) {
+//            var dystansPrzyspiesznia = TrasaPrzyspieszaniaDoPredkosciMaksymalnej();
+//            var dystansHamowania = TrasaHamowaniaAutobusu();
+//            
+//            if (dystansPrzyspiesznia + dystansHamowania >= trasa.DystansTrasy) {
+//                // var zatrzymaniePrzyspieszania = (ObliczWspolczynnikHamowaniaAutobusu() * Math.Sqrt(2 * ))
+//            }
+//            else {
+//                
+//            }
+//        }
+
+        public virtual int PrzejedzTrase(Trasa trasa) {
+            return 0;
+        }
+
+        protected virtual double TrasaPrzyspieszaniaDoPredkosciMaksymalnej() {
+            return predkoscMaksymalna / przyspieszenie;
+        }
+
+        protected virtual double TrasaHamowaniaAutobusu() {
+            return predkoscMaksymalna / ObliczWspolczynnikHamowaniaAutobusu();
+        }
+
+        protected virtual double ObliczWspolczynnikHamowaniaAutobusu() {
+            return -Math.Pow(100, 2) / (2 * trasaHamowania100);
+        }
+
+        protected virtual double CzasJazdyZPredkosciaMaksymalna(int dystans) {
+            return dystans * predkoscMaksymalna;
+        }
+
+        protected virtual double CzasHamowania(double predkosc) {
+            return predkosc / ObliczWspolczynnikHamowaniaAutobusu();
+        }
+        
+        protected virtual void CzasHamowania(int dystans) {
+            
+        }
+
+        public virtual double CzasJazdyZMaksymalnaPredkosciaNaDystansie(int dystans) {
+            return dystans * predkoscMaksymalna;
         }
     }
 }

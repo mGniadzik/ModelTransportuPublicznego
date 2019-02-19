@@ -15,6 +15,7 @@
           <e p="Firma.cs" t="Include" />
           <e p="Kierowca.cs" t="Include" />
           <e p="Linia.cs" t="Include" />
+          <e p="Pasazer.cs" t="Include" />
           <e p="Przejazd.cs" t="Include" />
           <e p="Przystanek.cs" t="Include" />
           <e p="RozkladJazdy.cs" t="Include" />

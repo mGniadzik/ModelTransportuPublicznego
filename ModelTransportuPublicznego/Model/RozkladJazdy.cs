@@ -1,5 +1,10 @@
+using System;
+using System.Collections.Generic;
+
 namespace ModelTransportuPublicznego.Model {
-    public abstract class RozkladJazdy {
-        
+    public class RozkladJazdy {
+        private List<TimeSpan> czasyPrzejazdow;
+
+        public List<TimeSpan> CzasyPrzejazdow => czasyPrzejazdow;
     }
 }

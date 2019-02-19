@@ -6,6 +6,7 @@ namespace ModelTransportuPublicznego.Model {
         
         protected List<Przystanek> siecPrzystankow;
         protected List<Firma> listaFirm;
+        protected List<Przejazd> listaPrzejazdow;
 
         public IEnumerable<Przystanek> SiecPrzystankow => siecPrzystankow;
         public IEnumerable<Firma> ListaFirm => listaFirm;
@@ -67,6 +68,14 @@ namespace ModelTransportuPublicznego.Model {
 
         public void UsunFirme(Firma firma) {
             listaFirm.Remove(firma);
+        }
+
+        public void UzupelnijListePrzejazdow() {
+            foreach (var firma in listaFirm) {
+                listaPrzejazdow.AddRange(firma.UtworzListePrzejazdow());
+            }
+            
+            listaPrzejazdow.Sort();
         }
     }
 }
