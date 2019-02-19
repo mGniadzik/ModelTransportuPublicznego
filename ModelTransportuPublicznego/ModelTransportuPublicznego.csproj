@@ -45,6 +45,7 @@
     <Compile Include="Model\Firma.cs" />
     <Compile Include="Model\Kierowca.cs" />
     <Compile Include="Model\Linia.cs" />
+    <Compile Include="Model\Pasazer.cs" />
     <Compile Include="Model\Przejazd.cs" />
     <Compile Include="Model\Przystanek.cs" />
     <Compile Include="Model\RozkladJazdy.cs" />

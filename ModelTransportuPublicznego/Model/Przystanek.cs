@@ -3,25 +3,41 @@ using System.Collections.Generic;
 namespace ModelTransportuPublicznego.Model {
     public abstract class Przystanek {
         protected string nazwaPrzystanku;
-        protected int obecnaLiczbaOczekujacych;
+        protected List<Pasazer> oczekujacyPasazerowie;
         protected List<Trasa> trasy;
 
         public Przystanek(string nazwaPrzystanku) {
             this.nazwaPrzystanku = nazwaPrzystanku;
-            obecnaLiczbaOczekujacych = 0;
+            oczekujacyPasazerowie = new List<Pasazer>();
             trasy = new List<Trasa>();
         }
 
-        protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy) {
-            this.nazwaPrzystanku = nazwaPrzystanku;
-
+        protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy) : this(nazwaPrzystanku) {
             foreach (var trasa in trasy) {
                 this.trasy.Add(trasa);
             }
         }
 
+        protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy, IEnumerable<Pasazer> oczekujacyPasazerowie) : this(nazwaPrzystanku, trasy) {
+            foreach (var pasazer in oczekujacyPasazerowie) {
+                this.oczekujacyPasazerowie.Add(pasazer);
+            }
+        }
+
         protected IEnumerable<Trasa> ZwrocTrasyPrzystanku() {
             return trasy;
+        }
+
+        public virtual void UsunPasazera(Pasazer pasazer) {
+            this.oczekujacyPasazerowie.Remove(pasazer);
+        }
+        
+        public virtual void DodajPasazera(Pasazer pasazer) {
+            this.oczekujacyPasazerowie.Add(pasazer);
+        }
+
+        public virtual IEnumerable<Pasazer> ZwrocPasazerowOczekujacychNaLinie(Linia linia) {
+            return oczekujacyPasazerowie;
         }
     }
 }
