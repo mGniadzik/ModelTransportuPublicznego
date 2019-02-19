@@ -11,10 +11,11 @@
           <e p="DomyslnyZarzadTranspotu.cs" t="Include" />
         </e>
         <e p="Model" t="Include">
-          <e p="Akcja.cs" t="Include" />
           <e p="Autobus.cs" t="Include" />
           <e p="Firma.cs" t="Include" />
+          <e p="Kierowca.cs" t="Include" />
           <e p="Linia.cs" t="Include" />
+          <e p="Przejazd.cs" t="Include" />
           <e p="Przystanek.cs" t="Include" />
           <e p="RozkladJazdy.cs" t="Include" />
           <e p="Trasa.cs" t="Include" />
