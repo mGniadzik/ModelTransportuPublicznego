@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 
 namespace ModelTransportuPublicznego.Model {
-    public abstract class Przystanek {
+    public class Przystanek {
         protected string nazwaPrzystanku;
         protected List<Pasazer> oczekujacyPasazerowie;
         protected List<Trasa> trasy;
+
+        public string NazwaPrzystanku => nazwaPrzystanku;
 
         public Przystanek(string nazwaPrzystanku) {
             this.nazwaPrzystanku = nazwaPrzystanku;
@@ -34,6 +36,10 @@ namespace ModelTransportuPublicznego.Model {
         
         public virtual void DodajPasazera(Pasazer pasazer) {
             this.oczekujacyPasazerowie.Add(pasazer);
+        }
+
+        public virtual void DodajTrase(Trasa trasa) {
+            trasy.Add(trasa);
         }
 
         public virtual IEnumerable<Pasazer> ZwrocPasazerowOczekujacychNaLinie(Linia linia) {

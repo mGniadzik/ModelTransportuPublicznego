@@ -14,6 +14,7 @@ namespace ModelTransportuPublicznego.Model {
         protected ZarzadTransportu() {
             siecPrzystankow = new List<Przystanek>();
             listaFirm = new List<Firma>();
+            listaPrzejazdow = new List<Przejazd>();
         }
 
         protected ZarzadTransportu(IEnumerable<Przystanek> siecPrzystankow) : this() {
@@ -79,9 +80,15 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         public void DodajPrzejazdDoListy(Przejazd przejazd) {
+            if (listaPrzejazdow.Count == 0) {
+                listaPrzejazdow.Add(przejazd);
+                return;
+            }
+            
             for (var i = 0; i < listaPrzejazdow.Count; i++) {
                 if (listaPrzejazdow[i].CzasNastepnejAkcji() > przejazd.CzasNastepnejAkcji()) {
                     listaPrzejazdow.Insert(i, przejazd);
+                    break;
                 }
             }
         }

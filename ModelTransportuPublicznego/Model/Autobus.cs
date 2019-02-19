@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace ModelTransportuPublicznego.Model {
-    public abstract class Autobus {
+    public class Autobus {
         protected string idAutobusu;
         protected int maksymalnaPojemnosc;
         protected List<Pasazer> obecniPasazerowie;
@@ -12,7 +12,8 @@ namespace ModelTransportuPublicznego.Model {
         protected double przyspieszenie;
         protected double trasaHamowania100;
         protected double predkoscMaksymalna;
-        protected Autobus(string idAutobusu, int maksymalnaPojemnosc, int iloscDzwi, double przyspieszenie, double trasaHamowania100, 
+        
+        public Autobus(string idAutobusu, int maksymalnaPojemnosc, int iloscDzwi, double przyspieszenie, double trasaHamowania100, 
             double predkoscMaksymalna) {
             this.idAutobusu = idAutobusu;
             this.maksymalnaPojemnosc = maksymalnaPojemnosc;
@@ -99,42 +100,32 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         protected virtual int ObliczCzasWsiadaniaPasazerow(IEnumerable<IEnumerable<Pasazer>> listaKolejek) {
-            return ObliczCzas(listaKolejek, StworzListeTaskowDlaWsiadajacych);
+            return ObliczCzas(listaKolejek, PoliczDlaWsiadajacych);
         }
 
         protected virtual int ObliczCzasWysiadaniaPasazerow(IEnumerable<IEnumerable<Pasazer>> listaKolejek) {
-            return ObliczCzas(listaKolejek, StworzListeTaskowDlaWysiadajacych);
+            return ObliczCzas(listaKolejek, PoliczDlaWysiadajacych);
         }
 
         protected virtual int ObliczCzas(IEnumerable<IEnumerable<Pasazer>> listaKolejek,
-            Func<IEnumerable<IEnumerable<Pasazer>>, IEnumerable<Task<int>>> stworzListeTaskow) {
+            Func<IEnumerable<IEnumerable<Pasazer>>, IEnumerable<int>> metodaObliczania) {
             var czasKoncowy = 0;
-            
-            var listaTaskow = stworzListeTaskow(listaKolejek);
 
-            foreach (var task in listaTaskow) {
-                task.Start();
-            }
-
-            Task.WaitAll(listaTaskow.ToArray());
-
-            foreach (var task in listaTaskow) {
-                czasKoncowy += task.Result;
+            foreach (var liczba in metodaObliczania(listaKolejek)) {
+                czasKoncowy += liczba;
             }
 
             return czasKoncowy;
         }
 
-        protected virtual IEnumerable<Task<int>> StworzListeTaskowDlaWysiadajacych(
+        protected virtual IEnumerable<int> PoliczDlaWysiadajacych(
             IEnumerable<IEnumerable<Pasazer>> listaKolejek) {
-            return listaKolejek.Select(lista => new Task<int>(() => { return lista.Sum(pasazer => pasazer.CzasWysiadania); }));
+            return listaKolejek.Select(lista => { return lista.Sum(pasazer => pasazer.CzasWysiadania); });
         }
 
-        protected virtual IEnumerable<Task<int>> StworzListeTaskowDlaWsiadajacych(
+        protected virtual IEnumerable<int> PoliczDlaWsiadajacych(
             IEnumerable<IEnumerable<Pasazer>> listaKolejek) {
-            return listaKolejek.Select(lista => new Task<int>(() => {
-                return lista.Sum(pasazer => pasazer.CzasWsiadania);
-            }));
+            return listaKolejek.Select(lista => { return lista.Sum(pasazer => pasazer.CzasWsiadania); });
         }
 
         protected virtual List<List<Pasazer>> StworzListeKolejek() {
@@ -154,19 +145,7 @@ namespace ModelTransportuPublicznego.Model {
         protected virtual void UsunPasazera(Pasazer pasazer) {
             this.obecniPasazerowie.Remove(pasazer);
         }
-
-//        public virtual int PrzejedzTrase(Trasa trasa) {
-//            var dystansPrzyspiesznia = TrasaPrzyspieszaniaDoPredkosciMaksymalnej();
-//            var dystansHamowania = TrasaHamowaniaAutobusu();
-//            
-//            if (dystansPrzyspiesznia + dystansHamowania >= trasa.DystansTrasy) {
-//                // var zatrzymaniePrzyspieszania = (ObliczWspolczynnikHamowaniaAutobusu() * Math.Sqrt(2 * ))
-//            }
-//            else {
-//                
-//            }
-//        }
-
+        
         public virtual int PrzejedzTrase(Trasa trasa) {
             return 0;
         }

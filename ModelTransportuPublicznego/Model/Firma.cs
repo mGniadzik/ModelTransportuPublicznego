@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 
 namespace ModelTransportuPublicznego.Model {
-    public abstract class Firma {
+    public class Firma {
 
         protected string NazwaFirmy;
         protected List<Autobus> tabor;
@@ -17,6 +17,21 @@ namespace ModelTransportuPublicznego.Model {
             tabor = new List<Autobus>();
             listaKierowcow = new List<Kierowca>();
             linieAutobusowe = new List<Linia>();
+        }
+
+        public Firma(string nazwaFirmy, IEnumerable<Autobus> tabor, IEnumerable<Kierowca> listaKierowcow,
+            IEnumerable<Linia> linieAutobusowe) : this(nazwaFirmy) {
+            foreach (var autobus in tabor) {
+                this.tabor.Add(autobus);
+            }
+
+            foreach (var kierowca in listaKierowcow) {
+                this.listaKierowcow.Add(kierowca);
+            }
+
+            foreach (var linia in linieAutobusowe) {
+                this.linieAutobusowe.Add(linia);
+            }
         }
 
         public void DodajAutobus(Autobus autobus) {

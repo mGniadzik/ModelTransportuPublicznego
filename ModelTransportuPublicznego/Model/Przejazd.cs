@@ -1,7 +1,7 @@
 using System;
 
 namespace ModelTransportuPublicznego.Model {
-    public class Przejazd {
+    public class Przejazd : IComparable<Przejazd> {
         private Linia liniaPrzejazdu;
         private Autobus autobus;
         private Kierowca kierowca;
@@ -29,23 +29,33 @@ namespace ModelTransportuPublicznego.Model {
         public void WykonajNastepnaAkcje() {
             switch (nastepnaAkcja) {
                 case Akcja.PobieraniePasazerow:
-                    czasPrzejazdu += new TimeSpan(autobus.PobierzPasazerow(obecnyPrzystanek, liniaPrzejazdu));
+                    czasPrzejazdu += new TimeSpan(0, 0,autobus.PobierzPasazerow(obecnyPrzystanek, liniaPrzejazdu));
                     nastepnaAkcja = Akcja.Przejazd;
+                    
+                    Console.WriteLine("Pobrano Pasazerow z przystanku {0}", obecnyPrzystanek.NazwaPrzystanku);
+                    
                     break;
                 case Akcja.Przejazd:
-                    nastepnaAkcja = Akcja.WypuszczniePasazerow;
                     var trasa = obecnyPrzystanek.ZnajdzTraseDoNastepnegoPrzystanku(
                         liniaPrzejazdu.ZwrocNastepnyPrzystanek(obecnyPrzystanek));
-                    czasPrzejazdu += new TimeSpan(autobus.PrzejedzTrase(trasa));
-                    obecnyPrzystanek = trasa.PrzystanekDrugi;
+                    czasPrzejazdu += new TimeSpan(0, 0, autobus.PrzejedzTrase(trasa));
+
+                    Console.WriteLine("Przejechano Trase!");
+                    
                     nastepnaAkcja = Akcja.WypuszczniePasazerow;
+                    obecnyPrzystanek = trasa.PrzystanekDrugi;
                     break;
                 case Akcja.WypuszczniePasazerow:
-                    czasPrzejazdu += new TimeSpan(autobus.WysadzPasazerow(obecnyPrzystanek));
+                    czasPrzejazdu += new TimeSpan(0, 0,autobus.WysadzPasazerow(obecnyPrzystanek));
+                    
+                    Console.WriteLine("Wypuszczono Pasazerow na przystanku {0}", obecnyPrzystanek.NazwaPrzystanku);
+                    
                     if (obecnyPrzystanek == liniaPrzejazdu.ZwrocOstatniPrzystanek()) {
                         trasaZakonczona = true;
                         break;
                     }
+
+                    
                     
                     nastepnaAkcja = Akcja.PobieraniePasazerow;
                     break;
@@ -56,6 +66,12 @@ namespace ModelTransportuPublicznego.Model {
 
         public TimeSpan CzasNastepnejAkcji() {
             return rozpoczeciePrzejazdu + czasPrzejazdu;
+        }
+
+        public int CompareTo(Przejazd other) {
+            if (other == null) return 1;
+
+            return CzasNastepnejAkcji().CompareTo(other.CzasNastepnejAkcji());
         }
     }
 }

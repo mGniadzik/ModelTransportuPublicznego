@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 namespace ModelTransportuPublicznego.Model {
-    public abstract class Linia {
+    public class Linia {
         protected string idLinii;
         protected List<Przystanek> trasaLinii;
         protected RozkladJazdy rozkladPrzejazdow;
