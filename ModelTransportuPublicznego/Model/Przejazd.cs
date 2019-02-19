@@ -11,6 +11,8 @@ namespace ModelTransportuPublicznego.Model {
         private TimeSpan rozpoczeciePrzejazdu;
         private bool trasaZakonczona;
 
+        public bool TrasaZakonczona => trasaZakonczona;
+
         public Przejazd(Linia liniaPrzejazdu, Autobus autobus, Kierowca kierowca, TimeSpan rozpoczeciePrzejazdu) {
             this.liniaPrzejazdu = liniaPrzejazdu;
             this.autobus = autobus;

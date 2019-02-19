@@ -70,12 +70,34 @@ namespace ModelTransportuPublicznego.Model {
             listaFirm.Remove(firma);
         }
 
-        public void UzupelnijListePrzejazdow() {
+        public void StworzListePrzejazdow() {
             foreach (var firma in listaFirm) {
                 listaPrzejazdow.AddRange(firma.UtworzListePrzejazdow());
             }
             
             listaPrzejazdow.Sort();
+        }
+
+        public void DodajPrzejazdDoListy(Przejazd przejazd) {
+            for (var i = 0; i < listaPrzejazdow.Count; i++) {
+                if (listaPrzejazdow[i].CzasNastepnejAkcji() > przejazd.CzasNastepnejAkcji()) {
+                    listaPrzejazdow.Insert(i, przejazd);
+                }
+            }
+        }
+
+        public void WykonajPrzejazdy() {
+            Przejazd przejazd;
+            
+            while (listaPrzejazdow.Count != 0) {
+                przejazd = listaPrzejazdow[0];
+                listaPrzejazdow.RemoveAt(0);
+                przejazd.WykonajNastepnaAkcje();
+
+                if (!przejazd.TrasaZakonczona) {
+                    DodajPrzejazdDoListy(przejazd);
+                }
+            }
         }
     }
 }
