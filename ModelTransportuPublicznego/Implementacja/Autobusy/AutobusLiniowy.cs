@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ModelTransportuPublicznego.Model;
 
-namespace ModelTransportuPublicznego.Implementacja {
+namespace ModelTransportuPublicznego.Implementacja.Autobusy {
     public sealed class AutobusLiniowy : Autobus {
         private double przyspieszenie;
         private double trasaHamowania100;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ModelTransportuPublicznego.Implementacja;
+using ModelTransportuPublicznego.Implementacja.Autobusy;
 using ModelTransportuPublicznego.Model;
 
 namespace ModelTransportuPublicznego {
@@ -35,7 +36,7 @@ namespace ModelTransportuPublicznego {
                 new AutobusLiniowy("A1", 80, 4, 3, 100, 50),
                 new AutobusLiniowy("A1", 80, 4, 3, 100, 50)};
             
-            var tp1 = new TrasaPasazera(new List<Przystanek>{p3}, new List<Linia>{l1});
+            var tp1 = new TrasaPasazera(p1, new List<Przystanek>{p3}, new List<Linia>{l1});
             
             var pas1 = new Pasazer(tp1, 5, 5, p1, p3);
             

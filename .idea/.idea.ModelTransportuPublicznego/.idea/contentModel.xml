@@ -6,10 +6,18 @@
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="ModelTransportuPublicznego" t="IncludeRecursive">
         <e p="Implementacja" t="Include">
-          <e p="AutobusLiniowy.cs" t="Include" />
+          <e p="Autobusy" t="Include">
+            <e p="AutobusLiniowy.cs" t="Include" />
+          </e>
           <e p="DomyslnyPrzystanek.cs" t="Include" />
           <e p="FirmaLosowa.cs" t="Include" />
-          <e p="PasazerDijkstry.cs" t="Include" />
+          <e p="Pasazerowie" t="Include">
+            <e p="PasazerowieOparciNaGrafie" t="Include">
+              <e p="KrawedzGrafu.cs" t="Include" />
+              <e p="PasazerDijkstry.cs" t="Include" />
+              <e p="WierzcholekGrafu.cs" t="Include" />
+            </e>
+          </e>
           <e p="SynchronicznyZarzadTransportu.cs" t="Include" />
         </e>
         <e p="Misc" t="Include">

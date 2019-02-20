@@ -2,10 +2,12 @@ using System.Collections.Generic;
 
 namespace ModelTransportuPublicznego.Model {
     public struct TrasaPasazera {
+        public Przystanek przystanekPoczatkowy;
         public List<Przystanek> oczekiwanePrzystanki;
         public List<Linia> oczekiwaneLinie;
 
-        public TrasaPasazera(IEnumerable<Przystanek> oczekiwanePrzystanki, IEnumerable<Linia> oczekiwaneLinie) {
+        public TrasaPasazera(Przystanek przystanekPoczatkowy, IEnumerable<Przystanek> oczekiwanePrzystanki, IEnumerable<Linia> oczekiwaneLinie) {
+            this.przystanekPoczatkowy = przystanekPoczatkowy;
             this.oczekiwanePrzystanki = new List<Przystanek>();
             this.oczekiwaneLinie = new List<Linia>();
 
@@ -32,6 +34,10 @@ namespace ModelTransportuPublicznego.Model {
 
         public void UsunPierwszyOczekiwanyPrzystanek() {
             oczekiwanePrzystanki.RemoveAt(0);
+        }
+
+        public Przystanek ZwrocPrzystanekKoncowy() {
+            return oczekiwanePrzystanki[oczekiwanePrzystanki.Count - 1];
         }
     }
 }
