@@ -30,17 +30,17 @@ namespace ModelTransportuPublicznegoTest.Model {
         [Test]
         public void KonstruktorListaFirmListaPosiadaElementy() {
             
-            var listaFirm = new List<Firma> { new DomyslnaFirma(""), new DomyslnaFirma("") };
+            var listaFirm = new List<Firma> { new FirmaLosowa(""), new FirmaLosowa("") };
             var zt = new DomyslnyZarzadTranspotu("ZT1", listaFirm);
 
-            Assert.AreNotEqual(null, zt.ListaFirm);
+            Assert.AreNotEqual(null, zt.ListaFirm);    
             Assert.AreEqual(2, zt.ListaFirm.Count());
         }
         
         [Test]
         public void KonstruktorListyPosiadajaElementy() {
             var siecPrzystankow = new List<Przystanek> { new DomyslnyPrzystanek(""), new DomyslnyPrzystanek("") };
-            var listaFirm = new List<Firma> { new DomyslnaFirma(""), new DomyslnaFirma("") };
+            var listaFirm = new List<Firma> { new FirmaLosowa(""), new FirmaLosowa("") };
             var zt = new DomyslnyZarzadTranspotu("ZT1", siecPrzystankow, listaFirm);
 
             Assert.AreNotEqual(null, zt.SiecPrzystankow);

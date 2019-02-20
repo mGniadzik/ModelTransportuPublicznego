@@ -19,7 +19,7 @@ namespace ModelTransportuPublicznego {
             p1.DodajTrase(t1);
             p2.DodajTrase(t2);
 
-            var r1 = new RozkladJazdy(new List<TimeSpan> {new TimeSpan(8, 0, 0), new TimeSpan(10, 0, 0)});
+             var r1 = new RozkladJazdy(new List<TimeSpan> {new TimeSpan(8, 0, 0), new TimeSpan(10, 0, 0)});
             
             // var r1 = new RozkladJazdy(new List<TimeSpan> {new TimeSpan(8, 0, 0)});
             
@@ -31,8 +31,12 @@ namespace ModelTransportuPublicznego {
                 new AutobusLiniowy("A1", 80, 4, 3, 100, 50),
                 new AutobusLiniowy("A1", 80, 4, 3, 100, 50)};
             
+            var pas1 = new Pasazer(l1, 5, 5, p3);
             
-            var f1 = new Firma("F1", ta1, lk1, new List<Linia> {l1});
+            p1.DodajPasazera(pas1);
+            
+            var f1 = new FirmaLosowa("F1", ta1, lk1, new List<Linia> {l1});
+            f1.UstawLinieNaPrzystankach();
             zt.DodajFirme(f1);
             
             zt.StworzListePrzejazdow();

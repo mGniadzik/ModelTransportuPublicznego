@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 
 namespace ModelTransportuPublicznego.Model {
-    public class Firma {
+    public abstract class Firma {
 
         protected string NazwaFirmy;
         protected List<Autobus> tabor;
@@ -34,74 +34,64 @@ namespace ModelTransportuPublicznego.Model {
             }
         }
 
-        public void DodajAutobus(Autobus autobus) {
+        public virtual void DodajAutobus(Autobus autobus) {
             tabor.Add(autobus);
         }
 
-        public void UsunAutobus(Autobus autobus) {
+        public virtual void UsunAutobus(Autobus autobus) {
             tabor.Remove(autobus);
         }
 
-        public void DodajLinieAutobusowa(Linia linia) {
+        public virtual void DodajLinieAutobusowa(Linia linia) {
             linieAutobusowe.Add(linia);
         }
 
-        public void UsunLinieAutobusowa(Linia linia) {
+        public virtual void UsunLinieAutobusowa(Linia linia) {
             linieAutobusowe.Remove(linia);
         }
 
-        public IEnumerable<Autobus> ZwrocTabor() {
+        public virtual IEnumerable<Autobus> ZwrocTabor() {
             return tabor;
         }
 
-        public IEnumerable<Kierowca> ZwrocKierowcow() {
+        public virtual IEnumerable<Kierowca> ZwrocKierowcow() {
             return listaKierowcow;
         }
 
-        public IEnumerable<Linia> ZwrocLinieAutobusowe() {
+        public virtual IEnumerable<Linia> ZwrocLinieAutobusowe() {
             return linieAutobusowe;
         }
 
-        public void DodajAutobusy(IEnumerable<Autobus> autobusy) {
+        public virtual void DodajAutobusy(IEnumerable<Autobus> autobusy) {
             foreach (var autobus in autobusy) {
                 tabor.Add(autobus);
             }
         }
 
-        public void DodajKierowcow(IEnumerable<Kierowca> listaKierowcow) {
+        public virtual void DodajKierowcow(IEnumerable<Kierowca> listaKierowcow) {
             foreach (var kierowca in listaKierowcow) {
                 this.listaKierowcow.Add(kierowca);
             }
         }
 
-        public void DodajLinie(IEnumerable<Linia> listaLinii) {
+        public virtual void DodajLinie(IEnumerable<Linia> listaLinii) {
             foreach (var linia in listaLinii) {
                 linieAutobusowe.Add(linia);
             }
         }
 
-        public List<Przejazd> UtworzListePrzejazdow() {
-            var listaPrzejazdow = new List<Przejazd>();
-
+        public virtual void UstawLinieNaPrzystankach() {
             foreach (var linia in linieAutobusowe) {
-                foreach (var wpis in linia.RozkladPrzejazdow.CzasyPrzejazdow) {
-                    listaPrzejazdow.Add(new Przejazd(linia, WybierzAutobusDoObslugiPrzejazdu(), WybierzKierowceDoObslugiPrzejazdu(), wpis));
+                foreach (var przystanek in linia.ZwrocTrasy()) {
+                    przystanek.DodajLinie(linia);
                 }
             }
-
-            return listaPrzejazdow;
         }
 
-        protected Autobus WybierzAutobusDoObslugiPrzejazdu() {
-            Random rand = new Random();
+        public abstract List<Przejazd> UtworzListePrzejazdow();
 
-            return tabor[rand.Next(tabor.Count)];
-        }
+        protected abstract Autobus WybierzAutobusDoObslugiPrzejazdu();
 
-        protected Kierowca WybierzKierowceDoObslugiPrzejazdu() {
-            Random rand = new Random();
-
-            return listaKierowcow[rand.Next(listaKierowcow.Count)];
-        }
+        protected abstract Kierowca WybierzKierowceDoObslugiPrzejazdu();
     }
 }

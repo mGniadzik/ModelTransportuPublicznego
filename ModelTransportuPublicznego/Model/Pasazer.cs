@@ -27,6 +27,12 @@ namespace ModelTransportuPublicznego.Model {
             this.czasWsiadania = czasWsiadania;
             this.czasWysiadania = czasWysiadania;
         }
+        
+        public Pasazer(Linia oczekiwanaLinia, int czasWsiadania, int czasWysiadania, Przystanek przystanekKoncowy) 
+            : this(oczekiwanaLinia, czasWsiadania, czasWysiadania) {
+            this.przystanekKoncowy = przystanekKoncowy;
+            oczekiwanyPrzystanek = przystanekKoncowy;
+        }
 
         public virtual void WybierzKolejke(List<List<Pasazer>> listaKolejek) {
             var obecnyWybor = listaKolejek.ElementAt(0);

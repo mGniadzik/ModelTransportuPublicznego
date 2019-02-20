@@ -5,6 +5,7 @@ namespace ModelTransportuPublicznego.Model {
         protected string nazwaPrzystanku;
         protected List<Pasazer> oczekujacyPasazerowie;
         protected List<Trasa> trasy;
+        protected List<Linia> linieAutobusowe;
 
         public string NazwaPrzystanku => nazwaPrzystanku;
 
@@ -12,6 +13,7 @@ namespace ModelTransportuPublicznego.Model {
             this.nazwaPrzystanku = nazwaPrzystanku;
             oczekujacyPasazerowie = new List<Pasazer>();
             trasy = new List<Trasa>();
+            linieAutobusowe = new List<Linia>();
         }
 
         protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy) : this(nazwaPrzystanku) {
@@ -30,6 +32,10 @@ namespace ModelTransportuPublicznego.Model {
             return trasy;
         }
 
+        public virtual void DodajLinie(Linia linia) {
+            linieAutobusowe.Add(linia);
+        }
+
         public virtual void UsunPasazera(Pasazer pasazer) {
             this.oczekujacyPasazerowie.Remove(pasazer);
         }
@@ -44,6 +50,10 @@ namespace ModelTransportuPublicznego.Model {
 
         public virtual IEnumerable<Pasazer> ZwrocPasazerowOczekujacychNaLinie(Linia linia) {
             return oczekujacyPasazerowie;
+        }
+
+        public virtual int IloscPasazerowOczekujacych() {
+            return oczekujacyPasazerowie.Count;
         }
 
         public virtual Trasa ZnajdzTraseDoNastepnegoPrzystanku(Przystanek nastepnyPrzystanek) {

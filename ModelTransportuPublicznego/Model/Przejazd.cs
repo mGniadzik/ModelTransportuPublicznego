@@ -29,9 +29,10 @@ namespace ModelTransportuPublicznego.Model {
         public void WykonajNastepnaAkcje() {
             switch (nastepnaAkcja) {
                 case Akcja.PobieraniePasazerow:
+                    
                     czasPrzejazdu += new TimeSpan(0, 0,autobus.PobierzPasazerow(obecnyPrzystanek, liniaPrzejazdu));
                     nastepnaAkcja = Akcja.Przejazd;
-                    
+
                     Console.WriteLine("Pobrano Pasazerow z przystanku {0}", obecnyPrzystanek.NazwaPrzystanku);
                     
                     break;
@@ -40,7 +41,7 @@ namespace ModelTransportuPublicznego.Model {
                         liniaPrzejazdu.ZwrocNastepnyPrzystanek(obecnyPrzystanek));
                     czasPrzejazdu += new TimeSpan(0, 0, autobus.PrzejedzTrase(trasa));
 
-                    Console.WriteLine("Przejechano Trase!");
+                    Console.WriteLine("Przejechano Trase! z {0} pasazerami.", autobus.IloscPasazerow());
                     
                     nastepnaAkcja = Akcja.WypuszczniePasazerow;
                     obecnyPrzystanek = trasa.PrzystanekDrugi;
@@ -52,6 +53,7 @@ namespace ModelTransportuPublicznego.Model {
                     
                     if (obecnyPrzystanek == liniaPrzejazdu.ZwrocOstatniPrzystanek()) {
                         trasaZakonczona = true;
+                        Console.WriteLine("Zakonczono trase!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                         break;
                     }
 

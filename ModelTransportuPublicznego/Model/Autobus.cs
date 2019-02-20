@@ -31,11 +31,14 @@ namespace ModelTransportuPublicznego.Model {
                 foreach (var pasazer in obecnyPrzystanek.ZwrocPasazerowOczekujacychNaLinie(liniaAutobusu)) {
                     if (obecniPasazerowie.Count < maksymalnaPojemnosc) {
                         listaWsiadajacych.Add(pasazer);
-                        obecnyPrzystanek.UsunPasazera(pasazer);
                     }
                     else {
                         break;
                     }
+                }
+
+                foreach (var pasazer in listaWsiadajacych) {
+                    obecnyPrzystanek.UsunPasazera(pasazer);
                 }
             }
 
@@ -47,9 +50,12 @@ namespace ModelTransportuPublicznego.Model {
             
             foreach (var pasazer in obecniPasazerowie) {
                 if (pasazer.OczekiwanyPrzystanek == obecnyPrzystanek) {
-                    obecniPasazerowie.Remove(pasazer);
                     listaWysiadajacych.Add(pasazer);
                 }
+            }
+
+            foreach (var pasazer in listaWysiadajacych) {
+                obecniPasazerowie.Remove(pasazer);
             }
             
             return listaWysiadajacych;
@@ -134,6 +140,10 @@ namespace ModelTransportuPublicznego.Model {
 
         protected virtual void UsunPasazera(Pasazer pasazer) {
             this.obecniPasazerowie.Remove(pasazer);
+        }
+
+        public virtual int IloscPasazerow() {
+            return obecniPasazerowie.Count;
         }
 
         public abstract int PrzejedzTrase(Trasa trasa);
