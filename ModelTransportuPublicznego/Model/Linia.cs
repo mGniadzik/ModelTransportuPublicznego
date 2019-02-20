@@ -4,40 +4,35 @@ using System.Collections.Generic;
 namespace ModelTransportuPublicznego.Model {
     public class Linia {
         protected string idLinii;
-        protected List<Przystanek> trasaLinii;
         protected RozkladJazdy rozkladPrzejazdow;
-        protected List<TimeSpan> spodziewaneCzasyPrzejazdow;
+        protected List<WpisLinii> trasaLinii;
 
         public RozkladJazdy RozkladPrzejazdow => rozkladPrzejazdow;
 
         public Linia(string idLinii) {
             this.idLinii = idLinii;
-            trasaLinii = new List<Przystanek>();
-            spodziewaneCzasyPrzejazdow = new List<TimeSpan>();
+            trasaLinii = new List<WpisLinii>();
         }
 
-        public Linia(string idLinii, IEnumerable<Przystanek> trasaLinii) : this(idLinii) {
+        public Linia(string idLinii, IEnumerable<WpisLinii> trasaLinii) : this(idLinii) {
 
             foreach (var przystanek in trasaLinii) {
                 this.trasaLinii.Add(przystanek);
             }
         }
 
-        public Linia(string idLinii, IEnumerable<Przystanek> trasaLinii, RozkladJazdy rozkladPrzejazdow, 
-            IEnumerable<TimeSpan> spodziewaneCzasyPrzejazdow) : this(idLinii, trasaLinii) {
-            this.rozkladPrzejazdow = rozkladPrzejazdow;
+        public Linia(string idLinii, IEnumerable<WpisLinii> trasaLinii, RozkladJazdy rozkladPrzejazdow) 
+            : this(idLinii, trasaLinii) {
             
-            foreach (var czas in spodziewaneCzasyPrzejazdow) {
-                this.spodziewaneCzasyPrzejazdow.Add(czas);
-            }
+            this.rozkladPrzejazdow = rozkladPrzejazdow;
         }
 
         public Przystanek ZwrocNastepnyPrzystanek(Przystanek przystanek) {
-            if (trasaLinii[trasaLinii.Count - 1] == przystanek) {
+            if (trasaLinii[trasaLinii.Count - 1].przystanek == przystanek) {
                 throw new ArgumentOutOfRangeException();   
             }
 
-            return trasaLinii[ZwrocIndeksPrzystanku(przystanek) + 1];
+            return trasaLinii[ZwrocIndeksPrzystanku(przystanek) + 1].przystanek;
         }
 
         public Przystanek ZwrocOstatniPrzystanek() {
@@ -52,13 +47,13 @@ namespace ModelTransportuPublicznego.Model {
             // TODO
         }
 
-        public IEnumerable<Przystanek> ZwrocTrasy() {
+        public IEnumerable<WpisLinii> ZwrocTrasy() {
             return trasaLinii;
         }
 
         public int ZwrocIndeksPrzystanku(Przystanek przystanek) {
             for (int i = 0; i < trasaLinii.Count; i++) {
-                if (trasaLinii[i] == przystanek) {
+                if (trasaLinii[i].przystanek == przystanek) {
                     return i;
                 }
             }
@@ -66,7 +61,7 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         public Przystanek ZwrocPrzystanekIndeks(int indeks) {
-            return trasaLinii[indeks];
+            return trasaLinii[indeks].przystanek;
         }
     }
 }

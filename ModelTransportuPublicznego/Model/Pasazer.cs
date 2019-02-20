@@ -3,17 +3,15 @@ using System.Linq;
 
 namespace ModelTransportuPublicznego.Model {
     public class Pasazer {
-        protected Linia oczekiwanaLinia;
-        protected Przystanek przystanekObecny;
-        protected List<Linia> oczekiwaneLinie;
-        protected List<Przystanek> oczekiwanePrzystanki;
         protected Przystanek przystanekKoncowy;
         protected int czasWsiadania;
         protected int czasWysiadania;
+        protected TrasaPasazera trasaPasazera;
+        
 
-        protected Linia OczekiwanaLinia => oczekiwaneLinie[0];
+        protected Linia OczekiwanaLinia => trasaPasazera.ZwrocOczekiwanaLinie();
 
-        public Przystanek OczekiwanyPrzystanek => oczekiwanePrzystanki[0];
+        public Przystanek OczekiwanyPrzystanek => trasaPasazera.ZwrocOczekiwanyPrzystanek();
 
         public Przystanek PrzystanekKoncowy => przystanekKoncowy;
 
@@ -21,18 +19,17 @@ namespace ModelTransportuPublicznego.Model {
 
         public int CzasWysiadania => czasWysiadania;
 
-        public Pasazer(Linia oczekiwanaLinia) {
-            this.oczekiwanaLinia = oczekiwanaLinia;      
+        public Pasazer(TrasaPasazera trasaPasazera) {
+            this.trasaPasazera = trasaPasazera;
         }
 
-        public Pasazer(Linia oczekiwanaLinia, int czasWsiadania, int czasWysiadania) : this(oczekiwanaLinia) {
+        public Pasazer(TrasaPasazera trasaPasazera, int czasWsiadania, int czasWysiadania) : this(trasaPasazera) {
             this.czasWsiadania = czasWsiadania;
             this.czasWysiadania = czasWysiadania;
         }
         
-        public Pasazer(Linia oczekiwanaLinia, int czasWsiadania, int czasWysiadania, Przystanek przystanekPoczatkowy, Przystanek przystanekKoncowy) 
-            : this(oczekiwanaLinia, czasWsiadania, czasWysiadania) {
-            this.przystanekObecny = przystanekKoncowy;
+        public Pasazer(TrasaPasazera trasaPasazera, int czasWsiadania, int czasWysiadania, Przystanek przystanekPoczatkowy, Przystanek przystanekKoncowy) 
+            : this(trasaPasazera, czasWsiadania, czasWysiadania) {
             this.przystanekKoncowy = przystanekKoncowy;
         }
 

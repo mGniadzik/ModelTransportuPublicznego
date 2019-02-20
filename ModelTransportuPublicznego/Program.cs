@@ -23,15 +23,21 @@ namespace ModelTransportuPublicznego {
             
             // var r1 = new RozkladJazdy(new List<TimeSpan> {new TimeSpan(8, 0, 0)});
             
-            var l1 = new Linia("L1", new List<Przystanek> { p1, p2, p3 }, r1, new List<TimeSpan> {
-                new TimeSpan(0, 0, 0), new TimeSpan(0, 0, 0), new TimeSpan(0, 0, 0) });
+            //var l1 = new Linia("L1", new List<Przystanek> { p1, p2, p3 }, r1, new List<TimeSpan> {
+              //  new TimeSpan(0, 0, 0), new TimeSpan(0, 0, 0), new TimeSpan(0, 0, 0) });
+            
+            var l1 = new Linia("L1", new List<WpisLinii>{new WpisLinii(p1, new TimeSpan(0)), 
+                new WpisLinii(p2, new TimeSpan(0, 10, 0)), new WpisLinii(p3, 
+                    new TimeSpan(0, 15, 0))}, r1);
 
             var lk1 = new List<Kierowca> {new Kierowca(), new Kierowca()};
             var ta1 = new List<Autobus> {
                 new AutobusLiniowy("A1", 80, 4, 3, 100, 50),
                 new AutobusLiniowy("A1", 80, 4, 3, 100, 50)};
             
-            var pas1 = new Pasazer(l1, 5, 5, p1, p3);
+            var tp1 = new TrasaPasazera(new List<Przystanek>{p3}, new List<Linia>{l1});
+            
+            var pas1 = new Pasazer(tp1, 5, 5, p1, p3);
             
             p1.DodajPasazera(pas1);
             

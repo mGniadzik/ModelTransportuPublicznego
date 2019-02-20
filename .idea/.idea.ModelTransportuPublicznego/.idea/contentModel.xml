@@ -9,7 +9,7 @@
           <e p="AutobusLiniowy.cs" t="Include" />
           <e p="DomyslnyPrzystanek.cs" t="Include" />
           <e p="FirmaLosowa.cs" t="Include" />
-          <e p="PasazerDjikstry.cs" t="Include" />
+          <e p="PasazerDijkstry.cs" t="Include" />
           <e p="SynchronicznyZarzadTransportu.cs" t="Include" />
         </e>
         <e p="Misc" t="Include">
@@ -25,6 +25,8 @@
           <e p="Przystanek.cs" t="Include" />
           <e p="RozkladJazdy.cs" t="Include" />
           <e p="Trasa.cs" t="Include" />
+          <e p="TrasaPasazera.cs" t="Include" />
+          <e p="WpisLinii.cs" t="Include" />
           <e p="ZarzadTransportu.cs" t="Include" />
         </e>
         <e p="ModelTransportuPublicznego.csproj" t="IncludeRecursive" />

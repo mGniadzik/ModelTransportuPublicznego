@@ -82,8 +82,8 @@ namespace ModelTransportuPublicznego.Model {
 
         public virtual void UstawLinieNaPrzystankach() {
             foreach (var linia in linieAutobusowe) {
-                foreach (var przystanek in linia.ZwrocTrasy()) {
-                    przystanek.DodajLinie(linia);
+                foreach (var wpis in linia.ZwrocTrasy()) {
+                    wpis.przystanek.DodajLinie(linia);
                 }
             }
         }
