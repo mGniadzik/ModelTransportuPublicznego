@@ -4,6 +4,7 @@ using System.Linq;
 namespace ModelTransportuPublicznego.Model {
     public class Pasazer {
         protected Linia oczekiwanaLinia;
+        protected Przystanek przystanekObecny;
         protected Przystanek oczekiwanyPrzystanek;
         protected Przystanek przystanekKoncowy;
         protected int czasWsiadania;
@@ -28,8 +29,9 @@ namespace ModelTransportuPublicznego.Model {
             this.czasWysiadania = czasWysiadania;
         }
         
-        public Pasazer(Linia oczekiwanaLinia, int czasWsiadania, int czasWysiadania, Przystanek przystanekKoncowy) 
+        public Pasazer(Linia oczekiwanaLinia, int czasWsiadania, int czasWysiadania, Przystanek przystanekPoczatkowy, Przystanek przystanekKoncowy) 
             : this(oczekiwanaLinia, czasWsiadania, czasWysiadania) {
+            this.przystanekObecny = przystanekKoncowy;
             this.przystanekKoncowy = przystanekKoncowy;
             oczekiwanyPrzystanek = przystanekKoncowy;
         }
