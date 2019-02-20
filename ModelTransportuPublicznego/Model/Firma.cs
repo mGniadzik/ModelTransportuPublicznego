@@ -7,26 +7,30 @@ namespace ModelTransportuPublicznego.Model {
     public abstract class Firma {
 
         protected string NazwaFirmy;
-        protected List<Autobus> tabor;
-        protected List<Kierowca> listaKierowcow;
+        protected List<Autobus> dostepnyTabor;
+        protected List<Kierowca> listaDostepnychKierowcow;
         protected List<Linia> linieAutobusowe;
+        protected List<Autobus> listaAutobusowZajetych;
+        protected List<Kierowca> listaKierwcowZajetych;
         protected int liczbaOtrzymanychKar;
 
         public Firma(string nazwaFirmy) {
             this.NazwaFirmy = nazwaFirmy;
-            tabor = new List<Autobus>();
-            listaKierowcow = new List<Kierowca>();
+            dostepnyTabor = new List<Autobus>();
+            listaDostepnychKierowcow = new List<Kierowca>();
             linieAutobusowe = new List<Linia>();
+            listaAutobusowZajetych = new List<Autobus>();
+            listaKierwcowZajetych = new List<Kierowca>();
         }
 
         public Firma(string nazwaFirmy, IEnumerable<Autobus> tabor, IEnumerable<Kierowca> listaKierowcow,
             IEnumerable<Linia> linieAutobusowe) : this(nazwaFirmy) {
             foreach (var autobus in tabor) {
-                this.tabor.Add(autobus);
+                this.dostepnyTabor.Add(autobus);
             }
 
             foreach (var kierowca in listaKierowcow) {
-                this.listaKierowcow.Add(kierowca);
+                this.listaDostepnychKierowcow.Add(kierowca);
             }
 
             foreach (var linia in linieAutobusowe) {
@@ -35,11 +39,11 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         public virtual void DodajAutobus(Autobus autobus) {
-            tabor.Add(autobus);
+            dostepnyTabor.Add(autobus);
         }
 
         public virtual void UsunAutobus(Autobus autobus) {
-            tabor.Remove(autobus);
+            dostepnyTabor.Remove(autobus);
         }
 
         public virtual void DodajLinieAutobusowa(Linia linia) {
@@ -51,11 +55,11 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         public virtual IEnumerable<Autobus> ZwrocTabor() {
-            return tabor;
+            return dostepnyTabor;
         }
 
         public virtual IEnumerable<Kierowca> ZwrocKierowcow() {
-            return listaKierowcow;
+            return listaDostepnychKierowcow;
         }
 
         public virtual IEnumerable<Linia> ZwrocLinieAutobusowe() {
@@ -64,13 +68,13 @@ namespace ModelTransportuPublicznego.Model {
 
         public virtual void DodajAutobusy(IEnumerable<Autobus> autobusy) {
             foreach (var autobus in autobusy) {
-                tabor.Add(autobus);
+                dostepnyTabor.Add(autobus);
             }
         }
 
         public virtual void DodajKierowcow(IEnumerable<Kierowca> listaKierowcow) {
             foreach (var kierowca in listaKierowcow) {
-                this.listaKierowcow.Add(kierowca);
+                listaDostepnychKierowcow.Add(kierowca);
             }
         }
 
@@ -88,10 +92,20 @@ namespace ModelTransportuPublicznego.Model {
             }
         }
 
-        public abstract List<Przejazd> UtworzListePrzejazdow();
+        public abstract IEnumerable<Przejazd> UtworzListePrzejazdow();
 
         protected abstract Autobus WybierzAutobusDoObslugiPrzejazdu();
 
         protected abstract Kierowca WybierzKierowceDoObslugiPrzejazdu();
+
+        protected virtual void ZwolnijKierowce(Kierowca kierowca) {
+            listaKierwcowZajetych.Remove(kierowca);
+            listaDostepnychKierowcow.Add(kierowca);
+        }
+
+        protected virtual void ZwolnijAutobus(Autobus autobus) {
+            listaAutobusowZajetych.Remove(autobus);
+            dostepnyTabor.Add(autobus);
+        }
     }
 }

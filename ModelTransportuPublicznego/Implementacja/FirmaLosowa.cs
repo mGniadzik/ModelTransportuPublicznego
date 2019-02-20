@@ -15,7 +15,7 @@ namespace ModelTransportuPublicznego.Implementacja {
             rand = new Random();
         }
         
-        public override List<Przejazd> UtworzListePrzejazdow() {
+        public override IEnumerable<Przejazd> UtworzListePrzejazdow() {
             var listaPrzejazdow = new List<Przejazd>();
 
             foreach (var linia in linieAutobusowe) {
@@ -28,11 +28,21 @@ namespace ModelTransportuPublicznego.Implementacja {
         }
 
         protected override Autobus WybierzAutobusDoObslugiPrzejazdu() {
-            return tabor[rand.Next(tabor.Count)];
+            var wybor = rand.Next(dostepnyTabor.Count);
+            var autobus = dostepnyTabor[wybor];
+            dostepnyTabor.RemoveAt(wybor);
+            listaAutobusowZajetych.Add(autobus);
+
+            return autobus;
         }
 
         protected override Kierowca WybierzKierowceDoObslugiPrzejazdu() {
-            return listaKierowcow[rand.Next(listaKierowcow.Count)];
+            var wybor = rand.Next(listaDostepnychKierowcow.Count);
+            var kierowca = listaDostepnychKierowcow[wybor];
+            listaDostepnychKierowcow.RemoveAt(wybor);
+            listaKierwcowZajetych.Add(kierowca);
+            
+            return kierowca;
         }
     }
 }

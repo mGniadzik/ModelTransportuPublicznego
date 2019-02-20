@@ -39,7 +39,7 @@ namespace ModelTransportuPublicznego.Model {
             return ZwrocPrzystanekIndeks(trasaLinii.Count - 1);
         }
 
-        public void DodajTrase(Trasa trasa) {
+        public void DodajTrase() {
             // TODO
         }
 
