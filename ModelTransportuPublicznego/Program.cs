@@ -31,7 +31,7 @@ namespace ModelTransportuPublicznego {
                 new AutobusLiniowy("A1", 80, 4, 3, 100, 50),
                 new AutobusLiniowy("A1", 80, 4, 3, 100, 50)};
             
-            var pas1 = new Pasazer(l1, 5, 5, p3);
+            var pas1 = new Pasazer(l1, 5, 5, p1, p3);
             
             p1.DodajPasazera(pas1);
             
