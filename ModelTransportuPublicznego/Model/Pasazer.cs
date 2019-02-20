@@ -25,7 +25,7 @@ namespace ModelTransportuPublicznego.Model {
 
         public Pasazer(Linia oczekiwanaLinia, int czasWsiadania, int czasWysiadania) : this(oczekiwanaLinia) {
             this.czasWsiadania = czasWsiadania;
-            this.czasWysiadania = this.czasWysiadania;
+            this.czasWysiadania = czasWysiadania;
         }
 
         public virtual void WybierzKolejke(List<List<Pasazer>> listaKolejek) {

@@ -11,7 +11,7 @@ namespace ModelTransportuPublicznegoTest.Model {
 
         [Test]
         public void KonstruktorDomyslnyZmienneNieNull() {
-            var zt = new DomyslnyZarzadTranspotu();
+            var zt = new DomyslnyZarzadTranspotu("ZT1");
             
             Assert.AreNotEqual(null, zt.SiecPrzystankow);
             Assert.AreNotEqual(null, zt.ListaFirm);
@@ -21,7 +21,7 @@ namespace ModelTransportuPublicznegoTest.Model {
         public void KonstruktorListaPrzystankowListaPosiadaElementy() {
             
             var siecPrzystankow = new List<Przystanek> { new DomyslnyPrzystanek(""), new DomyslnyPrzystanek("") };
-            var zt = new DomyslnyZarzadTranspotu(siecPrzystankow);
+            var zt = new DomyslnyZarzadTranspotu("ZT1", siecPrzystankow);
 
             Assert.AreNotEqual(null, zt.SiecPrzystankow);
             // Assert.AreEqual(2, zt.SiecPrzystankow.Count());
@@ -31,7 +31,7 @@ namespace ModelTransportuPublicznegoTest.Model {
         public void KonstruktorListaFirmListaPosiadaElementy() {
             
             var listaFirm = new List<Firma> { new DomyslnaFirma(""), new DomyslnaFirma("") };
-            var zt = new DomyslnyZarzadTranspotu(listaFirm);
+            var zt = new DomyslnyZarzadTranspotu("ZT1", listaFirm);
 
             Assert.AreNotEqual(null, zt.ListaFirm);
             Assert.AreEqual(2, zt.ListaFirm.Count());
@@ -41,7 +41,7 @@ namespace ModelTransportuPublicznegoTest.Model {
         public void KonstruktorListyPosiadajaElementy() {
             var siecPrzystankow = new List<Przystanek> { new DomyslnyPrzystanek(""), new DomyslnyPrzystanek("") };
             var listaFirm = new List<Firma> { new DomyslnaFirma(""), new DomyslnaFirma("") };
-            var zt = new DomyslnyZarzadTranspotu(siecPrzystankow, listaFirm);
+            var zt = new DomyslnyZarzadTranspotu("ZT1", siecPrzystankow, listaFirm);
 
             Assert.AreNotEqual(null, zt.SiecPrzystankow);
             Assert.AreNotEqual(null, zt.ListaFirm);

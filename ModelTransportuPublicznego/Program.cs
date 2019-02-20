@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Security.Cryptography;
 using ModelTransportuPublicznego.Implementacja;
 using ModelTransportuPublicznego.Model;
 
@@ -9,7 +7,7 @@ namespace ModelTransportuPublicznego {
 
     internal static class Program {
         public static void Main(string[] args) {
-            ZarzadTransportu zt = new DomyslnyZarzadTranspotu();
+            ZarzadTransportu zt = new DomyslnyZarzadTranspotu("ZT1");
 
             var p1 = new Przystanek("P1");
             var p2 = new Przystanek("P2");
@@ -30,8 +28,8 @@ namespace ModelTransportuPublicznego {
 
             var lk1 = new List<Kierowca> {new Kierowca(), new Kierowca()};
             var ta1 = new List<Autobus> {
-                new Autobus("A1", 80, 4, 3, 100, 50),
-                new Autobus("A1", 80, 4, 3, 100, 50)};
+                new AutobusLiniowy("A1", 80, 4, 3, 100, 50),
+                new AutobusLiniowy("A1", 80, 4, 3, 100, 50)};
             
             
             var f1 = new Firma("F1", ta1, lk1, new List<Linia> {l1});

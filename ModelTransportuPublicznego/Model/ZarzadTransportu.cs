@@ -3,21 +3,21 @@ using System.Collections.Generic;
 
 namespace ModelTransportuPublicznego.Model {
     public abstract class ZarzadTransportu {
-        
+
+        protected string nazwaFirmy;
         protected List<Przystanek> siecPrzystankow;
         protected List<Firma> listaFirm;
-        protected List<Przejazd> listaPrzejazdow;
 
         public IEnumerable<Przystanek> SiecPrzystankow => siecPrzystankow;
         public IEnumerable<Firma> ListaFirm => listaFirm;
 
-        protected ZarzadTransportu() {
+        public ZarzadTransportu(string nazwaFirmy) {
+            this.nazwaFirmy = nazwaFirmy;
             siecPrzystankow = new List<Przystanek>();
             listaFirm = new List<Firma>();
-            listaPrzejazdow = new List<Przejazd>();
         }
 
-        protected ZarzadTransportu(IEnumerable<Przystanek> siecPrzystankow) : this() {
+        public ZarzadTransportu(string nazwaFirmy, IEnumerable<Przystanek> siecPrzystankow) : this(nazwaFirmy) {
             foreach (var przystanek in siecPrzystankow) {
                 this.siecPrzystankow.Add(przystanek);
             }
@@ -25,7 +25,7 @@ namespace ModelTransportuPublicznego.Model {
             listaFirm = new List<Firma>();
         }
 
-        protected ZarzadTransportu(IEnumerable<Firma> listaFirm) : this() {
+        public ZarzadTransportu(string nazwaFirmy, IEnumerable<Firma> listaFirm) : this(nazwaFirmy) {
             foreach (var firma in listaFirm) {
                 this.listaFirm.Add(firma);
             }
@@ -33,7 +33,7 @@ namespace ModelTransportuPublicznego.Model {
             siecPrzystankow = new List<Przystanek>();
         }
 
-        protected ZarzadTransportu(IEnumerable<Przystanek> siecPrzystankow, IEnumerable<Firma> listaFirm) : this() {
+        protected ZarzadTransportu(string nazwaFirmy, IEnumerable<Przystanek> siecPrzystankow, IEnumerable<Firma> listaFirm) : this(nazwaFirmy) {
             foreach (var przystanek in siecPrzystankow) {
                 this.siecPrzystankow.Add(przystanek);
             }
@@ -43,68 +43,38 @@ namespace ModelTransportuPublicznego.Model {
             }
         }
 
-        public void DodajPrzystanek(Przystanek przystanek) {
+        public virtual void DodajPrzystanek(Przystanek przystanek) {
             siecPrzystankow.Add(przystanek);
         }
 
-        public void DodajPrzystanki(IEnumerable<Przystanek> przystanki) {
+        public virtual void DodajPrzystanki(IEnumerable<Przystanek> przystanki) {
             foreach (var przystanek in przystanki) {
                 siecPrzystankow.Add(przystanek);
             }
         }
 
-        public void UsunPrzystanek(Przystanek przystanek) {
+        public virtual void UsunPrzystanek(Przystanek przystanek) {
             siecPrzystankow.Remove(przystanek);
         }
 
-        public void DodajFirme(Firma firma) {
+        public virtual void DodajFirme(Firma firma) {
             listaFirm.Add(firma);
         }
 
-        public void DodajFirmy(IEnumerable<Firma> firmy) {
+        public virtual void DodajFirmy(IEnumerable<Firma> firmy) {
             foreach (var firma in firmy) {
                 listaFirm.Add(firma);
             }
         }
 
-        public void UsunFirme(Firma firma) {
+        public virtual void UsunFirme(Firma firma) {
             listaFirm.Remove(firma);
         }
 
-        public void StworzListePrzejazdow() {
-            foreach (var firma in listaFirm) {
-                listaPrzejazdow.AddRange(firma.UtworzListePrzejazdow());
-            }
-            
-            listaPrzejazdow.Sort();
-        }
+        public abstract void StworzListePrzejazdow();
 
-        public void DodajPrzejazdDoListy(Przejazd przejazd) {
-            if (listaPrzejazdow.Count == 0) {
-                listaPrzejazdow.Add(przejazd);
-                return;
-            }
-            
-            for (var i = 0; i < listaPrzejazdow.Count; i++) {
-                if (listaPrzejazdow[i].CzasNastepnejAkcji() > przejazd.CzasNastepnejAkcji()) {
-                    listaPrzejazdow.Insert(i, przejazd);
-                    break;
-                }
-            }
-        }
+        public abstract void DodajPrzejazdDoListy(Przejazd przejazd);
 
-        public void WykonajPrzejazdy() {
-            Przejazd przejazd;
-            
-            while (listaPrzejazdow.Count != 0) {
-                przejazd = listaPrzejazdow[0];
-                listaPrzejazdow.RemoveAt(0);
-                przejazd.WykonajNastepnaAkcje();
-
-                if (!przejazd.TrasaZakonczona) {
-                    DodajPrzejazdDoListy(przejazd);
-                }
-            }
-        }
+        public abstract void WykonajPrzejazdy();
     }
 }

@@ -38,15 +38,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementacja\DomyslnaFirma.cs" />
+    <Compile Include="Implementacja\AutobusLiniowy.cs" />
+    <Compile Include="Implementacja\FirmaLosowa.cs" />
     <Compile Include="Implementacja\DomyslnyPrzystanek.cs" />
-    <Compile Include="Implementacja\DomyslnyZarzadTranspotu.cs" />
+    <Compile Include="Implementacja\Przejazd.cs" />
+    <Compile Include="Implementacja\SynchronicznyZarzadTransportu.cs" />
     <Compile Include="Model\Autobus.cs" />
     <Compile Include="Model\Firma.cs" />
     <Compile Include="Model\Kierowca.cs" />
     <Compile Include="Model\Linia.cs" />
     <Compile Include="Model\Pasazer.cs" />
-    <Compile Include="Model\Przejazd.cs" />
     <Compile Include="Model\Przystanek.cs" />
     <Compile Include="Model\RozkladJazdy.cs" />
     <Compile Include="Model\Trasa.cs" />
