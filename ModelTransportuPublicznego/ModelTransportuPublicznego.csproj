@@ -41,6 +41,7 @@
     <Compile Include="Implementacja\AutobusLiniowy.cs" />
     <Compile Include="Implementacja\FirmaLosowa.cs" />
     <Compile Include="Implementacja\DomyslnyPrzystanek.cs" />
+    <Compile Include="Implementacja\PasazerDjikstry.cs" />
     <Compile Include="Implementacja\SynchronicznyZarzadTransportu.cs" />
     <Compile Include="Misc\Logger.cs" />
     <Compile Include="Model\Autobus.cs" />

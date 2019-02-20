@@ -9,6 +9,7 @@
           <e p="AutobusLiniowy.cs" t="Include" />
           <e p="DomyslnyPrzystanek.cs" t="Include" />
           <e p="FirmaLosowa.cs" t="Include" />
+          <e p="PasazerDjikstry.cs" t="Include" />
           <e p="SynchronicznyZarzadTransportu.cs" t="Include" />
         </e>
         <e p="Misc" t="Include">

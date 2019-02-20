@@ -5,14 +5,15 @@ namespace ModelTransportuPublicznego.Model {
     public class Pasazer {
         protected Linia oczekiwanaLinia;
         protected Przystanek przystanekObecny;
-        protected Przystanek oczekiwanyPrzystanek;
+        protected List<Linia> oczekiwaneLinie;
+        protected List<Przystanek> oczekiwanePrzystanki;
         protected Przystanek przystanekKoncowy;
         protected int czasWsiadania;
         protected int czasWysiadania;
 
-        protected Linia OczekiwanaLinia => oczekiwanaLinia;
+        protected Linia OczekiwanaLinia => oczekiwaneLinie[0];
 
-        public Przystanek OczekiwanyPrzystanek => oczekiwanyPrzystanek;
+        public Przystanek OczekiwanyPrzystanek => oczekiwanePrzystanki[0];
 
         public Przystanek PrzystanekKoncowy => przystanekKoncowy;
 
@@ -33,7 +34,6 @@ namespace ModelTransportuPublicznego.Model {
             : this(oczekiwanaLinia, czasWsiadania, czasWysiadania) {
             this.przystanekObecny = przystanekKoncowy;
             this.przystanekKoncowy = przystanekKoncowy;
-            oczekiwanyPrzystanek = przystanekKoncowy;
         }
 
         public virtual void WybierzKolejke(List<List<Pasazer>> listaKolejek) {
