@@ -7,9 +7,8 @@ namespace ModelTransportuPublicznego.Model {
         protected int czasWsiadania;
         protected int czasWysiadania;
         protected TrasaPasazera trasaPasazera;
-        
 
-        protected Linia OczekiwanaLinia => trasaPasazera.ZwrocOczekiwanaLinie();
+        public List<Linia> OczekiwaneLinie => trasaPasazera.ZwrocOczekiwanaLinie();
 
         public Przystanek OczekiwanyPrzystanek => trasaPasazera.ZwrocOczekiwanyPrzystanek();
 

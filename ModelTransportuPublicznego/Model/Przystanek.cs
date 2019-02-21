@@ -49,7 +49,15 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         public virtual IEnumerable<Pasazer> ZwrocPasazerowOczekujacychNaLinie(Linia linia) {
-            return oczekujacyPasazerowie;
+            var oczekujacyNaLinie = new List<Pasazer>();
+            
+            foreach (var pasazer in oczekujacyPasazerowie) {
+                if (pasazer.OczekiwaneLinie.Contains(linia)) {
+                    oczekujacyNaLinie.Add(pasazer);
+                }
+            }
+
+            return oczekujacyNaLinie;
         }
 
         public virtual int IloscPasazerowOczekujacych() {

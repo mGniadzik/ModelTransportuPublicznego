@@ -1,26 +1,28 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ModelTransportuPublicznego.Model {
     public struct TrasaPasazera {
         public Przystanek przystanekPoczatkowy;
         public List<Przystanek> oczekiwanePrzystanki;
-        public List<Linia> oczekiwaneLinie;
+        public List<List<Linia>> oczekiwaneLinie;
 
-        public TrasaPasazera(Przystanek przystanekPoczatkowy, IEnumerable<Przystanek> oczekiwanePrzystanki, IEnumerable<Linia> oczekiwaneLinie) {
+        public TrasaPasazera(Przystanek przystanekPoczatkowy, IEnumerable<Przystanek> oczekiwanePrzystanki, IEnumerable<IEnumerable<Linia>> oczekiwaneLinie) {
             this.przystanekPoczatkowy = przystanekPoczatkowy;
             this.oczekiwanePrzystanki = new List<Przystanek>();
-            this.oczekiwaneLinie = new List<Linia>();
+            this.oczekiwaneLinie = new List<List<Linia>>();
 
             foreach (var przystanek in oczekiwanePrzystanki) {
                 this.oczekiwanePrzystanki.Add(przystanek);
             }
 
-            foreach (var linia in oczekiwaneLinie) {
-                this.oczekiwaneLinie.Add(linia);
+            foreach (var listaLinii in oczekiwaneLinie) {
+                var l = listaLinii.ToList();
+                this.oczekiwaneLinie.Add(l);
             }
         }
 
-        public Linia ZwrocOczekiwanaLinie() {
+        public List<Linia> ZwrocOczekiwanaLinie() {
             return oczekiwaneLinie[0];
         }
 

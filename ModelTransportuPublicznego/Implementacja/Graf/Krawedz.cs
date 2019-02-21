@@ -1,7 +1,7 @@
 using System;
 
 namespace ModelTransportuPublicznego.Implementacja.Graf {
-    public struct Krawedz {
+    public class Krawedz {
         public Wierzcholek wierzcholekStartowy;
         public Wierzcholek wierzcholekKoncowy;
         public TimeSpan spodziewanyCzasPrzejazdu;

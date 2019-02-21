@@ -50,6 +50,7 @@
     <Compile Include="Implementacja\Wyjatki\KierowcaNieZnalezionyWyjatek.cs" />
     <Compile Include="Implementacja\Wyjatki\ZasobNieZnalezionyWyjatek.cs" />
     <Compile Include="Misc\Logger.cs" />
+    <Compile Include="Misc\MinKopiec.cs" />
     <Compile Include="Model\Autobus.cs" />
     <Compile Include="Model\Firma.cs" />
     <Compile Include="Model\Kierowca.cs" />

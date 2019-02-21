@@ -19,7 +19,7 @@ namespace ModelTransportuPublicznego.Model {
             this.kierowca = kierowca;
             nastepnaAkcja = Akcja.PobieraniePasazerow;
             obecnyPrzystanek = liniaPrzejazdu.ZwrocPrzystanekIndeks(0);
-            czasPrzejazdu = new TimeSpan();
+            czasPrzejazdu = TimeSpan.Zero;
             this.rozpoczeciePrzejazdu = rozpoczeciePrzejazdu;
             trasaZakonczona = false;
         }

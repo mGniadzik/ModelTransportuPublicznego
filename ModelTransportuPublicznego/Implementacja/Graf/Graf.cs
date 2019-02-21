@@ -1,13 +1,16 @@
 using System;
 using System.Collections.Generic;
+using ModelTransportuPublicznego.Misc;
 using ModelTransportuPublicznego.Model;
 
 namespace ModelTransportuPublicznego.Implementacja.Graf {
     public class Graf {
-        private List<Wierzcholek> wierzcholki;
+        private MinKopiec<Wierzcholek> wierzcholki;
+        private List<Wierzcholek> odwiedzoneWierzcholki;
 
         private Graf() {
-            wierzcholki = new List<Wierzcholek>();
+            wierzcholki = new MinKopiec<Wierzcholek>();
+            odwiedzoneWierzcholki = new List<Wierzcholek>();
         }
         
         public Graf(IEnumerable<Przystanek> listaPrzystankow) : this() {
@@ -28,14 +31,28 @@ namespace ModelTransportuPublicznego.Implementacja.Graf {
             }
         }
 
-        private Wierzcholek ZnajdzWierzcholekZawierajacyPrzystanek(Przystanek przystanek) {
-            foreach (var wierzcholek in wierzcholki) {
+        public Wierzcholek ZnajdzWierzcholekZawierajacyPrzystanek(Przystanek przystanek) {
+            foreach (Wierzcholek wierzcholek in wierzcholki) {
                 if (wierzcholek.przystanek == przystanek) {
                     return wierzcholek;
                 }
             }
 
             throw new Exception($"Nie odnaleziono przystanku {przystanek.NazwaPrzystanku} w grafie!");
+        }
+
+        public void NaprawKopiec() {
+            wierzcholki.Heapify();
+        }
+
+        public void OdwiedzNajmniejszy() {
+            odwiedzoneWierzcholki.Add(wierzcholki.PopMin());
+        }
+
+        private void ZresetujGraf() {
+            foreach (Wierzcholek wierzcholek in wierzcholki) {
+                wierzcholek.waga = TimeSpan.MaxValue;
+            }
         }
     }
 }
