@@ -11,14 +11,20 @@
           </e>
           <e p="DomyslnyPrzystanek.cs" t="Include" />
           <e p="FirmaLosowa.cs" t="Include" />
+          <e p="Graf" t="Include">
+            <e p="Graf.cs" t="Include" />
+            <e p="Krawedz.cs" t="Include" />
+            <e p="Wierzcholek.cs" t="Include" />
+          </e>
           <e p="Pasazerowie" t="Include">
-            <e p="PasazerowieOparciNaGrafie" t="Include">
-              <e p="KrawedzGrafu.cs" t="Include" />
-              <e p="PasazerDijkstry.cs" t="Include" />
-              <e p="WierzcholekGrafu.cs" t="Include" />
-            </e>
+            <e p="PasazerDijkstry.cs" t="Include" />
           </e>
           <e p="SynchronicznyZarzadTransportu.cs" t="Include" />
+          <e p="Wyjatki" t="Include">
+            <e p="AutobusNieZnalezionyWyjatek.cs" t="Include" />
+            <e p="KierowcaNieZnalezionyWyjatek.cs" t="Include" />
+            <e p="ZasobNieZnalezionyWyjatek.cs" t="Include" />
+          </e>
         </e>
         <e p="Misc" t="Include">
           <e p="Logger.cs" t="Include" />

@@ -71,6 +71,16 @@ namespace ModelTransportuPublicznego.Model {
             listaFirm.Remove(firma);
         }
 
+        public virtual IEnumerable<Linia> ZwrocLinie() {
+            var linie = new List<Linia>();
+
+            foreach (var firma in listaFirm) {
+                linie.AddRange(firma.ZwrocLinieAutobusowe());
+            }
+
+            return linie;
+        }
+
         public abstract void StworzListePrzejazdow();
 
         public abstract void DodajPrzejazdDoListy(Przejazd przejazd);

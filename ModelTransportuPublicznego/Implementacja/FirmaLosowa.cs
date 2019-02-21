@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using ModelTransportuPublicznego.Implementacja.Wyjatki;
+using ModelTransportuPublicznego.Misc;
 using ModelTransportuPublicznego.Model;
 
 namespace ModelTransportuPublicznego.Implementacja {
     public class FirmaLosowa : Firma {
         Random rand;
+        Logger logger = new Logger();
 
         public FirmaLosowa(string nazwaFirmy) : base(nazwaFirmy) {
             rand = new Random();
@@ -20,7 +23,16 @@ namespace ModelTransportuPublicznego.Implementacja {
 
             foreach (var linia in linieAutobusowe) {
                 foreach (var wpis in linia.RozkladPrzejazdow.CzasyPrzejazdow) {
-                    listaPrzejazdow.Add(new Przejazd(linia, WybierzAutobusDoObslugiPrzejazdu(), WybierzKierowceDoObslugiPrzejazdu(), wpis));
+                    try {
+                        listaPrzejazdow.Add(new Przejazd(linia, WybierzAutobusDoObslugiPrzejazdu(),
+                            WybierzKierowceDoObslugiPrzejazdu(), wpis));
+                    }
+                    catch (AutobusNieZnalezionyWyjatek) {
+                        logger.ZalogujBrakDostepnegoAutobusu();
+                    }
+                    catch (KierowcaNieZnalezionyWyjatek) {
+                        logger.ZalogujBrakDostepnegoKierowcy();
+                    }
                 }
             }
 
@@ -28,6 +40,9 @@ namespace ModelTransportuPublicznego.Implementacja {
         }
 
         protected override Autobus WybierzAutobusDoObslugiPrzejazdu() {
+            if (!IstniejaDostepneAutobusy()) {
+                throw new AutobusNieZnalezionyWyjatek("Nie instnieja autobusy, które moglyby obsłużyć dany przejazd.");
+            }
             var wybor = rand.Next(dostepnyTabor.Count);
             var autobus = dostepnyTabor[wybor];
             dostepnyTabor.RemoveAt(wybor);
@@ -36,7 +51,19 @@ namespace ModelTransportuPublicznego.Implementacja {
             return autobus;
         }
 
+        private bool IstniejaDostepneAutobusy() {
+            return dostepnyTabor.Count != 0;
+        }
+
+        private bool IstniejaDostepniKierowcy() {
+            return listaDostepnychKierowcow.Count != 0;
+        }
+
         protected override Kierowca WybierzKierowceDoObslugiPrzejazdu() {
+            if (!IstniejaDostepniKierowcy()) {
+                throw new KierowcaNieZnalezionyWyjatek("Nie istnieja kierowcy, którzy mogliby obsłużyć dany przejazd.");
+            }
+            
             var wybor = rand.Next(listaDostepnychKierowcow.Count);
             var kierowca = listaDostepnychKierowcow[wybor];
             listaDostepnychKierowcow.RemoveAt(wybor);

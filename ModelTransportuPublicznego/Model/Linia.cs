@@ -1,13 +1,19 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 
 namespace ModelTransportuPublicznego.Model {
-    public class Linia {
+    public class Linia : IEnumerable {
         protected string idLinii;
         protected RozkladJazdy rozkladPrzejazdow;
         protected List<WpisLinii> trasaLinii;
 
         public RozkladJazdy RozkladPrzejazdow => rozkladPrzejazdow;
+        
+        public WpisLinii this[int indeks] => trasaLinii[indeks];
+
+        public int Count => trasaLinii.Count;
 
         public Linia(string idLinii) {
             this.idLinii = idLinii;
@@ -62,6 +68,43 @@ namespace ModelTransportuPublicznego.Model {
 
         public Przystanek ZwrocPrzystanekIndeks(int indeks) {
             return trasaLinii[indeks].przystanek;
+        }
+
+        public IEnumerator GetEnumerator() {
+            return new LiniaEnumerator(trasaLinii);
+        }
+
+        private class LiniaEnumerator : IEnumerator {
+
+            private List<WpisLinii> trasaLinii;
+            private int pozycja = -1;
+
+            public LiniaEnumerator(List<WpisLinii> trasaLinii) {
+                this.trasaLinii = trasaLinii;
+            }
+            public bool MoveNext() {
+                pozycja++;
+                return (pozycja < trasaLinii.Count);
+            }
+
+            public void Reset() {
+                pozycja = -1;
+            }
+
+            object IEnumerator.Current {
+                get { return Current; }
+            }
+
+            public WpisLinii Current {
+                get {
+                    try {
+                        return trasaLinii[pozycja];
+                    }
+                    catch (ArgumentOutOfRangeException) {
+                        throw new InvalidOperationException();
+                    }
+                }    
+            }
         }
     }
 }
