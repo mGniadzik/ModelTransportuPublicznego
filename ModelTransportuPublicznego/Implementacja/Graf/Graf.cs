@@ -54,10 +54,21 @@ namespace ModelTransportuPublicznego.Implementacja.Graf {
             return wierzcholek;
         }
 
-        private void ZresetujGraf() {
+        public Wierzcholek WynikAlgorytmuDijkstry() {
+            return odwiedzoneWierzcholki[odwiedzoneWierzcholki.Count - 1];
+        }
+
+        public void ZresetujGraf() {
+            wierzcholki.AddRange(odwiedzoneWierzcholki);
+            odwiedzoneWierzcholki = new List<Wierzcholek>();
+            
             foreach (Wierzcholek wierzcholek in wierzcholki) {
                 wierzcholek.waga = TimeSpan.MaxValue;
+                wierzcholek.czyOdwiedzony = false;
+                wierzcholek.poprzedniWierzcholek = null;
             }
+            
+            NaprawKopiec();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace ModelTransportuPublicznego {
             p1.DodajTrase(t1);
             p2.DodajTrase(t2);
 
-             var r1 = new RozkladJazdy(new List<TimeSpan> {new TimeSpan(8, 0, 0), new TimeSpan(10, 0, 0)});
+             var r1 = new RozkladPrzejazdow(new List<TimeSpan> {new TimeSpan(8, 0, 0), new TimeSpan(10, 0, 0)});
              
              var p4 = new Przystanek("P4");
              var p5 = new Przystanek("P5");
@@ -34,7 +34,7 @@ namespace ModelTransportuPublicznego {
              p4.DodajTrase(t3);
              p2.DodajTrase(t4);
              
-             var r2 = new RozkladJazdy(new List<TimeSpan>{new TimeSpan(9, 0, 0), new TimeSpan(9, 30, 0)});
+             var r2 = new RozkladPrzejazdow(new List<TimeSpan>{new TimeSpan(9, 0, 0), new TimeSpan(9, 30, 0)});
              
              var l2 = new Linia("L2", new List<WpisLinii>{new WpisLinii(p4, new TimeSpan(0)), 
                  new WpisLinii(p2, new TimeSpan(0, 5, 0)), new WpisLinii(p5, new TimeSpan(0, 10, 0))}, r2);
@@ -51,19 +51,18 @@ namespace ModelTransportuPublicznego {
             var lk1 = new List<Kierowca> {new Kierowca(), new Kierowca(), new Kierowca(), new Kierowca()};
             var ta1 = new List<Autobus> {
                 new AutobusLiniowy("A1", 80, 4, 3, 100, 50),
-                new AutobusLiniowy("A1", 80, 4, 3, 100, 50),
-                new AutobusLiniowy("A1", 80, 4, 3, 100, 50),
-                new AutobusLiniowy("A1", 80, 4, 3, 100, 50)
+                new AutobusLiniowy("A2", 80, 4, 3, 100, 50),
+                new AutobusLiniowy("A3", 80, 4, 3, 100, 50),
+                new AutobusLiniowy("A4", 80, 4, 3, 100, 50)
             };
             
             var tp1 = new TrasaPasazera(p1, new List<Przystanek>{p3}, new List<List<Linia>> {new List<Linia> {l1}});
             
-            var pas1 = new Pasazer(tp1, 5, 5, p1, p3);
+            // var pas1 = new Pasazer(tp1, 5, 5, p1, p3);
             
-            p1.DodajPasazera(pas1);
+            // p1.DodajPasazera(pas1);
 
-            var tp2 = new TrasaPasazera(p1, new List<Przystanek>{p5}, new List<List<Linia>> {new List<Linia>{l1}, new List<Linia>{l2}});
-            var pasD1 = new PasazerDjikstry(tp2, 5, 5);
+            // var pasD1 = new PasazerDjikstry(tp2, 5, 5);
             
             var f1 = new FirmaLosowa("F1", ta1, lk1, new List<Linia> {l1});
             f1.DodajLinie(new List<Linia> {l2});
@@ -74,10 +73,16 @@ namespace ModelTransportuPublicznego {
             var g1 = new Graf(zt.SiecPrzystankow);
             g1.DodajKrawedzie(zt.ZwrocLinie());
             
-            pasD1.ZnajdzNajkrotszaTrase(g1);
+            /* var list = pasD1.ZnajdzNajkrotszaTrase(g1);
+
+            Console.WriteLine("Dlugość listy: {0}", list.Count);
             
-            zt.StworzListePrzejazdow();
-            zt.WykonajPrzejazdy();
+            foreach (var przystanek in list) {
+                Console.WriteLine(przystanek.NazwaPrzystanku);    
+            } */
+            
+            // zt.StworzListePrzejazdow();
+            // zt.WykonajPrzejazdy();
         }
     }
 

@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
 
 namespace ModelTransportuPublicznego.Model {
     public abstract class Firma {
@@ -85,9 +83,12 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         public virtual void UstawLinieNaPrzystankach() {
+            
+            throw new NotImplementedException();
+            
             foreach (var linia in linieAutobusowe) {
                 foreach (var wpis in linia.ZwrocTrasy()) {
-                    wpis.przystanek.DodajLinie(linia);
+                     // wpis.przystanek.DodajLinie(linia);
                 }
             }
         }

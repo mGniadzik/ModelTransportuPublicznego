@@ -1,32 +1,27 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ModelTransportuPublicznego.Implementacja.Graf;
 using ModelTransportuPublicznego.Model;
 
 namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
     public class PasazerDjikstry : Pasazer {
 
-        private static List<TrasaPasazera> obliczoneTrasy;
+        private static List<List<Przystanek>> obliczoneTrasy = new List<List<Przystanek>>();
 
-        public PasazerDjikstry(TrasaPasazera trasaPasazera) : base(trasaPasazera) {
-            obliczoneTrasy = new List<TrasaPasazera>();
-        }
+        public PasazerDjikstry(IEnumerable<Przystanek> trasaPasazera) : base(trasaPasazera) { }
 
-        public PasazerDjikstry(TrasaPasazera trasaPasazera, int czasWsiadania, int czasWysiadania) : base(trasaPasazera,
-            czasWsiadania, czasWysiadania) {
-            obliczoneTrasy = new List<TrasaPasazera>();
-        }
+        public PasazerDjikstry(List<Przystanek> trasaPasazera, int czasWsiadania, int czasWysiadania) : base(trasaPasazera,
+            czasWsiadania, czasWysiadania) { }
 
-        private PasazerDjikstry(TrasaPasazera trasaPasazera, int czasWsiadania, int czasWysiadania,
+        private PasazerDjikstry(List<Przystanek> trasaPasazera, int czasWsiadania, int czasWysiadania,
             Przystanek przystanekPoczatkowy, Przystanek przystanekKoncowy)
-            : base(trasaPasazera, czasWsiadania, czasWysiadania, przystanekPoczatkowy, przystanekKoncowy) {
-            obliczoneTrasy = new List<TrasaPasazera>();
-        }
+            : base(trasaPasazera, czasWsiadania, czasWysiadania, przystanekPoczatkowy, przystanekKoncowy) { }
 
         private bool CzyTrasaObliczona(Przystanek przystanekStartowy, Przystanek przystanekKoncowy) {
             foreach (var otrasa in obliczoneTrasy) {
-                if (otrasa.przystanekPoczatkowy == przystanekStartowy &&
-                    otrasa.ZwrocPrzystanekKoncowy() == przystanekKoncowy) {
+                if (otrasa[0] == przystanekStartowy &&
+                    otrasa[otrasa.Count - 1] == przystanekKoncowy) {
                     return true;
                 }
             }
@@ -36,28 +31,49 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
 
         public void ZnajdzTrase(Graf.Graf graf) {
             foreach (var trasa in obliczoneTrasy) {
-                if (trasa.przystanekPoczatkowy == trasaPasazera.przystanekPoczatkowy &&
-                    trasa.ZwrocPrzystanekKoncowy() == przystanekKoncowy) {
+                if (trasa[0] == przystanekPoczatkowy &&
+                    trasa[trasa.Count - 1] == przystanekKoncowy) {
                     trasaPasazera = trasa;
+                    return;
                 }
-
-                // trasaPasazera = ZnajdzNajkrotszaTrase(graf);
             }
+            
+            trasaPasazera = ZnajdzNajkrotszaTrase(graf);
         }
 
-        public static void DodajTrase(TrasaPasazera trasaPasazera) {
-            obliczoneTrasy.Add(trasaPasazera);
+        public static void DodajTrase(IEnumerable<Przystanek> trasaPasazera) {
+            obliczoneTrasy.Add(trasaPasazera.ToList());
         }
 
-        public void ZnajdzNajkrotszaTrase(Graf.Graf graf) {
-            var wStartowy = graf.ZnajdzWierzcholekZawierajacyPrzystanek(trasaPasazera.przystanekPoczatkowy);
+        public List<Przystanek> ZnajdzNajkrotszaTrase(Graf.Graf graf) {
+            var wStartowy = graf.ZnajdzWierzcholekZawierajacyPrzystanek(przystanekPoczatkowy);
             wStartowy.waga = TimeSpan.Zero;
 
             AlgorytmDijkstry(graf.OdwiedzNajmniejszy(), graf);
+            var wierzcholekKoncowy = graf.WynikAlgorytmuDijkstry();
+
+            var rezultat = KonwertujWynikAlgorytmuNaTrase(wierzcholekKoncowy);
+            
+            graf.ZresetujGraf();
+
+            return rezultat;
+        }
+
+        private static List<Przystanek> KonwertujWynikAlgorytmuNaTrase(Wierzcholek wierzcholekKoncowy) {
+            var trasa = new List<Przystanek>();
+            Wierzcholek w1;
+
+            for (w1 = wierzcholekKoncowy; w1 != null; w1 = w1.poprzedniWierzcholek) {
+                trasa.Insert(0, w1.przystanek);
+            }
+            
+            // Dodac Rozklad Jazdy na przystankach!!!
+
+            return trasa;
         }
 
         private void AlgorytmDijkstry(Wierzcholek wierzcholek, Graf.Graf graf) {
-            if (wierzcholek.przystanek != trasaPasazera.ZwrocPrzystanekKoncowy()) {
+            if (wierzcholek.przystanek != przystanekKoncowy) {
 
                 foreach (var krawedz in wierzcholek.krawedzie) {
                     if (krawedz.wierzcholekKoncowy.czyOdwiedzony) continue;
@@ -69,6 +85,14 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
                 
                 AlgorytmDijkstry(graf.OdwiedzNajmniejszy(), graf);
             }
+        }
+
+        protected override void Wysiadz() {
+            throw new NotImplementedException();
+        }
+
+        protected override void Wsiadz() {
+            throw new NotImplementedException();
         }
     }
 }

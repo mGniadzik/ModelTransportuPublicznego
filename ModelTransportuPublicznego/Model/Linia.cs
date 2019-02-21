@@ -6,10 +6,10 @@ using System.Data.Common;
 namespace ModelTransportuPublicznego.Model {
     public class Linia : IEnumerable {
         protected string idLinii;
-        protected RozkladJazdy rozkladPrzejazdow;
+        protected RozkladPrzejazdow rozkladPrzejazdow;
         protected List<WpisLinii> trasaLinii;
 
-        public RozkladJazdy RozkladPrzejazdow => rozkladPrzejazdow;
+        public RozkladPrzejazdow RozkladPrzejazdow => rozkladPrzejazdow;
         
         public WpisLinii this[int indeks] => trasaLinii[indeks];
 
@@ -27,7 +27,7 @@ namespace ModelTransportuPublicznego.Model {
             }
         }
 
-        public Linia(string idLinii, IEnumerable<WpisLinii> trasaLinii, RozkladJazdy rozkladPrzejazdow) 
+        public Linia(string idLinii, IEnumerable<WpisLinii> trasaLinii, RozkladPrzejazdow rozkladPrzejazdow) 
             : this(idLinii, trasaLinii) {
             
             this.rozkladPrzejazdow = rozkladPrzejazdow;

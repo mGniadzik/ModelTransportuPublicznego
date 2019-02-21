@@ -14,6 +14,12 @@ namespace ModelTransportuPublicznego.Misc {
             HeapifyUp(elementy.Count - 1);
         }
 
+        public void AddRange(IEnumerable<T> elementy) {
+            foreach (var elem in elementy) {
+                Add(elem);
+            }
+        }
+
         public T ZwrocNajmniejszy() {
             return this.elementy.Count > 0 ? this.elementy[0] : throw new IndexOutOfRangeException("Kopiec nie posiada elementow!");
         }

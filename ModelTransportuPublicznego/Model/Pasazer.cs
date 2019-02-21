@@ -2,15 +2,17 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace ModelTransportuPublicznego.Model {
-    public class Pasazer {
+    public abstract class Pasazer {
+        protected Przystanek przystanekPoczatkowy;
         protected Przystanek przystanekKoncowy;
         protected int czasWsiadania;
         protected int czasWysiadania;
-        protected TrasaPasazera trasaPasazera;
+        protected List<Przystanek> trasaPasazera;
+        protected Linia oczekiwanaLinia;
 
-        public List<Linia> OczekiwaneLinie => trasaPasazera.ZwrocOczekiwanaLinie();
+        public Linia OczekiwanaLinia => oczekiwanaLinia;
 
-        public Przystanek OczekiwanyPrzystanek => trasaPasazera.ZwrocOczekiwanyPrzystanek();
+        public Przystanek OczekiwanyPrzystanek => trasaPasazera[0];
 
         public Przystanek PrzystanekKoncowy => przystanekKoncowy;
 
@@ -18,17 +20,27 @@ namespace ModelTransportuPublicznego.Model {
 
         public int CzasWysiadania => czasWysiadania;
 
-        public Pasazer(TrasaPasazera trasaPasazera) {
-            this.trasaPasazera = trasaPasazera;
+        public Pasazer(IEnumerable<Przystanek> trasaPasazera) {
+            this.trasaPasazera = new List<Przystanek>();
+
+            foreach (var przystanek in trasaPasazera) {
+                this.trasaPasazera.Add(przystanek);
+            }
         }
 
-        public Pasazer(TrasaPasazera trasaPasazera, int czasWsiadania, int czasWysiadania) : this(trasaPasazera) {
+        protected abstract void Wysiadz();
+
+        protected abstract void Wsiadz();
+        
+
+        public Pasazer(List<Przystanek> trasaPasazera, int czasWsiadania, int czasWysiadania) : this(trasaPasazera) {
             this.czasWsiadania = czasWsiadania;
             this.czasWysiadania = czasWysiadania;
         }
         
-        public Pasazer(TrasaPasazera trasaPasazera, int czasWsiadania, int czasWysiadania, Przystanek przystanekPoczatkowy, Przystanek przystanekKoncowy) 
+        public Pasazer(List<Przystanek> trasaPasazera, int czasWsiadania, int czasWysiadania, Przystanek przystanekPoczatkowy, Przystanek przystanekKoncowy) 
             : this(trasaPasazera, czasWsiadania, czasWysiadania) {
+            this.przystanekPoczatkowy = przystanekPoczatkowy;
             this.przystanekKoncowy = przystanekKoncowy;
         }
 
