@@ -7,12 +7,13 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
     public class PasazerDjikstry : Pasazer {
 
         private static List<TrasaPasazera> obliczoneTrasy;
-        
+
         public PasazerDjikstry(TrasaPasazera trasaPasazera) : base(trasaPasazera) {
             obliczoneTrasy = new List<TrasaPasazera>();
         }
 
-        public PasazerDjikstry(TrasaPasazera trasaPasazera, int czasWsiadania, int czasWysiadania) : base(trasaPasazera, czasWsiadania, czasWysiadania) {
+        public PasazerDjikstry(TrasaPasazera trasaPasazera, int czasWsiadania, int czasWysiadania) : base(trasaPasazera,
+            czasWsiadania, czasWysiadania) {
             obliczoneTrasy = new List<TrasaPasazera>();
         }
 
@@ -40,7 +41,7 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
                     trasaPasazera = trasa;
                 }
 
-                trasaPasazera = ZnajdzNajkrotszaTrase(graf);
+                // trasaPasazera = ZnajdzNajkrotszaTrase(graf);
             }
         }
 
@@ -48,42 +49,26 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
             obliczoneTrasy.Add(trasaPasazera);
         }
 
-        private TrasaPasazera ZnajdzNajkrotszaTrase(Graf.Graf graf) {
+        public void ZnajdzNajkrotszaTrase(Graf.Graf graf) {
             var wStartowy = graf.ZnajdzWierzcholekZawierajacyPrzystanek(trasaPasazera.przystanekPoczatkowy);
             wStartowy.waga = TimeSpan.Zero;
-            wStartowy.czyOdwiedzony = true;
-            graf.NaprawKopiec();
-            graf.OdwiedzNajmniejszy();
-            
-            AlgorytmDijkstry(wStartowy, graf);
 
-            throw new NotImplementedException();
+            AlgorytmDijkstry(graf.OdwiedzNajmniejszy(), graf);
         }
 
         private void AlgorytmDijkstry(Wierzcholek wierzcholek, Graf.Graf graf) {
-            while (wierzcholek.przystanek != trasaPasazera.ZwrocPrzystanekKoncowy()) {
-                Wierzcholek najmniejszy = null;
-                
+            if (wierzcholek.przystanek != trasaPasazera.ZwrocPrzystanekKoncowy()) {
+
                 foreach (var krawedz in wierzcholek.krawedzie) {
                     if (krawedz.wierzcholekKoncowy.czyOdwiedzony) continue;
-                    if (krawedz.wierzcholekKoncowy.waga < wierzcholek.waga + krawedz.spodziewanyCzasPrzejazdu) {
+                    if (krawedz.wierzcholekKoncowy.waga > wierzcholek.waga + krawedz.spodziewanyCzasPrzejazdu) {
                         krawedz.wierzcholekKoncowy.waga = wierzcholek.waga + krawedz.spodziewanyCzasPrzejazdu;
                         krawedz.wierzcholekKoncowy.poprzedniWierzcholek = wierzcholek;
                     }
-
-                    if (najmniejszy == null) {
-                        najmniejszy = krawedz.wierzcholekKoncowy;
-                    }
-                    else if (najmniejszy.waga > krawedz.wierzcholekKoncowy.waga) {
-                        najmniejszy = krawedz.wierzcholekKoncowy;
-                    }
                 }
                 
-                graf.OdwiedzNajmniejszy();
-                AlgorytmDijkstry(najmniejszy, graf);
+                AlgorytmDijkstry(graf.OdwiedzNajmniejszy(), graf);
             }
         }
-        
-        
     }
 }

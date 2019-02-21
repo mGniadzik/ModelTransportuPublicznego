@@ -4,6 +4,7 @@ using System.Xml.Schema;
 using ModelTransportuPublicznego.Implementacja;
 using ModelTransportuPublicznego.Implementacja.Autobusy;
 using ModelTransportuPublicznego.Implementacja.Graf;
+using ModelTransportuPublicznego.Implementacja.Pasazerowie;
 using ModelTransportuPublicznego.Model;
 
 namespace ModelTransportuPublicznego {
@@ -60,6 +61,9 @@ namespace ModelTransportuPublicznego {
             var pas1 = new Pasazer(tp1, 5, 5, p1, p3);
             
             p1.DodajPasazera(pas1);
+
+            var tp2 = new TrasaPasazera(p1, new List<Przystanek>{p5}, new List<List<Linia>> {new List<Linia>{l1}, new List<Linia>{l2}});
+            var pasD1 = new PasazerDjikstry(tp2, 5, 5);
             
             var f1 = new FirmaLosowa("F1", ta1, lk1, new List<Linia> {l1});
             f1.DodajLinie(new List<Linia> {l2});
@@ -67,8 +71,10 @@ namespace ModelTransportuPublicznego {
             zt.DodajFirme(f1);
             zt.DodajPrzystanki(new List<Przystanek> {p1, p2, p3, p4, p5});
             
-            var graf = new Graf(zt.SiecPrzystankow);
-            graf.DodajKrawedzie(zt.ZwrocLinie());
+            var g1 = new Graf(zt.SiecPrzystankow);
+            g1.DodajKrawedzie(zt.ZwrocLinie());
+            
+            pasD1.ZnajdzNajkrotszaTrase(g1);
             
             zt.StworzListePrzejazdow();
             zt.WykonajPrzejazdy();

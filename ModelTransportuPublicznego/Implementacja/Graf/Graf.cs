@@ -45,8 +45,13 @@ namespace ModelTransportuPublicznego.Implementacja.Graf {
             wierzcholki.Heapify();
         }
 
-        public void OdwiedzNajmniejszy() {
-            odwiedzoneWierzcholki.Add(wierzcholki.PopMin());
+        public Wierzcholek OdwiedzNajmniejszy() {
+            NaprawKopiec();
+            var wierzcholek = wierzcholki.PopMin();
+            wierzcholek.czyOdwiedzony = true;
+            odwiedzoneWierzcholki.Add(wierzcholek);
+
+            return wierzcholek;
         }
 
         private void ZresetujGraf() {
