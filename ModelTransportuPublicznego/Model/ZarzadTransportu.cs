@@ -86,5 +86,11 @@ namespace ModelTransportuPublicznego.Model {
         public abstract void DodajPrzejazdDoListy(Przejazd przejazd);
 
         public abstract void WykonajPrzejazdy();
+
+        public virtual void StworzRozkladJazdyNaPrzystankach() {
+            foreach (var firma in listaFirm) {
+                firma.UstawLinieNaPrzystankach();
+            }
+        }
     }
 }

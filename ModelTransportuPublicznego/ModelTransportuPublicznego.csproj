@@ -61,7 +61,6 @@
     <Compile Include="Model\RozkladJazdy.cs" />
     <Compile Include="Model\RozkladPrzejazdow.cs" />
     <Compile Include="Model\Trasa.cs" />
-    <Compile Include="Model\TrasaPasazera.cs" />
     <Compile Include="Model\WpisLinii.cs" />
     <Compile Include="Model\WpisRozkladuJazdu.cs" />
     <Compile Include="Model\ZarzadTransportu.cs" />

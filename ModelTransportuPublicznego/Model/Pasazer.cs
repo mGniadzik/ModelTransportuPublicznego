@@ -5,6 +5,7 @@ namespace ModelTransportuPublicznego.Model {
     public abstract class Pasazer {
         protected Przystanek przystanekPoczatkowy;
         protected Przystanek przystanekKoncowy;
+        protected Przystanek obecnyPrzystanek;
         protected int czasWsiadania;
         protected int czasWysiadania;
         protected List<Przystanek> trasaPasazera;

@@ -1,8 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace ModelTransportuPublicznego.Model {
-    public class RozkladPrzejazdow {
+    public class RozkladPrzejazdow : IEnumerable<TimeSpan> {
         private List<TimeSpan> czasyPrzejazdow;
 
         public RozkladPrzejazdow(IEnumerable<TimeSpan> listaPrzejazdow) {
@@ -13,6 +14,15 @@ namespace ModelTransportuPublicznego.Model {
             }
         }
         
-        public List<TimeSpan> CzasyPrzejazdow => czasyPrzejazdow;
+        public IEnumerable<TimeSpan> CzasyPrzejazdow => czasyPrzejazdow;
+
+
+        public IEnumerator<TimeSpan> GetEnumerator() {
+            return czasyPrzejazdow.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
+        }
     }
 }

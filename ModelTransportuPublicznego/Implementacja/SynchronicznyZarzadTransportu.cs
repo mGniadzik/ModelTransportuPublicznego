@@ -53,7 +53,7 @@ namespace ModelTransportuPublicznego.Implementacja {
             
             listaPrzejazdow.Sort();
         }
-
+        
         public override void DodajPrzejazdDoListy(Przejazd przejazd) {
             if (listaPrzejazdow.Count == 0) {
                 listaPrzejazdow.Add(przejazd);

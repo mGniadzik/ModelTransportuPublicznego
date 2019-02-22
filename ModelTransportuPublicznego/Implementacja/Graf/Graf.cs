@@ -15,7 +15,7 @@ namespace ModelTransportuPublicznego.Implementacja.Graf {
         
         public Graf(IEnumerable<Przystanek> listaPrzystankow) : this() {
             foreach (var przystanek in listaPrzystankow) {
-                wierzcholki.Add(new Wierzcholek(przystanek));
+                wierzcholki.Dodaj(new Wierzcholek(przystanek));
             }
         }
 
@@ -42,12 +42,12 @@ namespace ModelTransportuPublicznego.Implementacja.Graf {
         }
 
         public void NaprawKopiec() {
-            wierzcholki.Heapify();
+            wierzcholki.NaprawKopiec();
         }
 
         public Wierzcholek OdwiedzNajmniejszy() {
             NaprawKopiec();
-            var wierzcholek = wierzcholki.PopMin();
+            var wierzcholek = wierzcholki.ZdejminNajmniejszy();
             wierzcholek.czyOdwiedzony = true;
             odwiedzoneWierzcholki.Add(wierzcholek);
 
@@ -59,7 +59,7 @@ namespace ModelTransportuPublicznego.Implementacja.Graf {
         }
 
         public void ZresetujGraf() {
-            wierzcholki.AddRange(odwiedzoneWierzcholki);
+            wierzcholki.DodajWiele(odwiedzoneWierzcholki);
             odwiedzoneWierzcholki = new List<Wierzcholek>();
             
             foreach (Wierzcholek wierzcholek in wierzcholki) {

@@ -83,13 +83,8 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         public virtual void UstawLinieNaPrzystankach() {
-            
-            throw new NotImplementedException();
-            
             foreach (var linia in linieAutobusowe) {
-                foreach (var wpis in linia.ZwrocTrasy()) {
-                     // wpis.przystanek.DodajLinie(linia);
-                }
+                linia.DodajWpisDoRozkladuPrzystankowLinii();
             }
         }
 

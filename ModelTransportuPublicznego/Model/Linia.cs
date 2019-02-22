@@ -74,6 +74,16 @@ namespace ModelTransportuPublicznego.Model {
             return new LiniaEnumerator(trasaLinii);
         }
 
+        public void DodajWpisDoRozkladuPrzystankowLinii() {
+            foreach (var czas in rozkladPrzejazdow) {
+                var suma = TimeSpan.Zero;
+                foreach (var wpis in trasaLinii) {
+                    suma += wpis.czasPrzyjaduDoPrzystanku;
+                    wpis.przystanek.RozkladJazdy.DodajWpisDoRozkladu(new WpisRozkladuJazdy(this, czas + suma));
+                }
+            }
+        }
+
         private class LiniaEnumerator : IEnumerator {
 
             private List<WpisLinii> trasaLinii;

@@ -41,7 +41,6 @@
           <e p="RozkladJazdy.cs" t="Include" />
           <e p="RozkladPrzejazdow.cs" t="Include" />
           <e p="Trasa.cs" t="Include" />
-          <e p="TrasaPasazera.cs" t="Include" />
           <e p="WpisLinii.cs" t="Include" />
           <e p="WpisRozkladuJazdu.cs" t="Include" />
           <e p="ZarzadTransportu.cs" t="Include" />

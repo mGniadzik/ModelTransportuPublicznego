@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace ModelTransportuPublicznego.Model {
@@ -5,13 +6,18 @@ namespace ModelTransportuPublicznego.Model {
         protected string nazwaPrzystanku;
         protected List<Pasazer> oczekujacyPasazerowie;
         protected List<Trasa> trasy;
+        protected RozkladJazdy rozkladJazdy;
+        protected List<Autobus> obecneAutobusy;
 
         public string NazwaPrzystanku => nazwaPrzystanku;
+
+        public RozkladJazdy RozkladJazdy => rozkladJazdy;
 
         public Przystanek(string nazwaPrzystanku) {
             this.nazwaPrzystanku = nazwaPrzystanku;
             oczekujacyPasazerowie = new List<Pasazer>();
             trasy = new List<Trasa>();
+            rozkladJazdy = new RozkladJazdy();
         }
 
         protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy) : this(nazwaPrzystanku) {

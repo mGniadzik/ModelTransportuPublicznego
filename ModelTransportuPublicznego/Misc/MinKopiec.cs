@@ -1,130 +1,117 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 
 namespace ModelTransportuPublicznego.Misc {
-    public class MinKopiec<T> : IEnumerable where T : IComparable<T> {
+    internal class MinKopiec<T> : IEnumerable where T : IComparable<T>
+    {
+        private List<T> elementy;
 
-        private List<T> elementy = new List<T>();
+        public MinKopiec()
+        {
+            elementy = new List<T>();
+        }
 
         public int Count => elementy.Count;
 
-        public void Add(T element) {
-            elementy.Add(element);
-            HeapifyUp(elementy.Count - 1);
+        private int IndexLewegoDziecka(int index) => 2 * index + 1;
+        private int IndexPrawegoDziecka(int index) => 2 * index + 2;
+        private int IndexRodzica(int index) => (index - 1) / 2;
+        private T ZwrocLeweDziecko(int index) => elementy[IndexLewegoDziecka(index)];
+        private T ZwrocPraweDziecko(int index) => elementy[IndexPrawegoDziecka(index)];
+        private T ZwrocRodzica(int index) => elementy[IndexRodzica(index)];
+
+        private bool IstniejeLeweDziecko(int index) => IndexLewegoDziecka(index) < elementy.Count;
+        private bool IstniejePraweDziecko(int index) => IndexPrawegoDziecka(index) < elementy.Count;
+        private bool JestKorzeniem(int index) => index == 0;
+        public bool JestPusty => elementy.Count == 0;
+
+        private void Zamien(int firstIndex, int secondIndex)
+        {
+            var temp = elementy[firstIndex];
+            elementy[firstIndex] = elementy[secondIndex];
+            elementy[secondIndex] = temp;
         }
 
-        public void AddRange(IEnumerable<T> elementy) {
-            foreach (var elem in elementy) {
-                Add(elem);
-            }
+        public T Peek()
+        {
+            if (JestPusty) throw new IndexOutOfRangeException();
+
+            return elementy[0];
         }
 
-        public T ZwrocNajmniejszy() {
-            return this.elementy.Count > 0 ? this.elementy[0] : throw new IndexOutOfRangeException("Kopiec nie posiada elementow!");
-        }
+        public T ZdejminNajmniejszy()
+        {
+            if (JestPusty) throw new IndexOutOfRangeException();
 
-        public T PopMin() {
-            if (elementy.Count > 0) {
-                var element = elementy[0];
+            var rezultat = elementy[0];
+
+            if (elementy.Count != 1)
+            {
                 elementy[0] = elementy[elementy.Count - 1];
-                elementy.RemoveAt(elementy.Count - 1);
-                
-                HeapifyDown(0);
-                return element;
+                elementy.Remove(elementy[elementy.Count - 1]);
+                HeapifyDown();
+            } else
+            {
+                elementy.Clear();
+            }
+
+            return rezultat;
+        }
+
+        public void Dodaj(T elem)
+        {
+            elementy.Add(elem);
+
+            HeapifyUp();
+        }
+
+        public void NaprawKopiec() {
+            Dodaj(ZdejminNajmniejszy());
+        }
+
+        public void DodajWiele(IEnumerable<T> elems) {
+            foreach (var elem in elems) {
+                elementy.Add(elem);
             }
             
-            throw new InvalidOperationException("Kopiec jest pusty!");
+            HeapifyUp();
         }
 
-        private void HeapifyUp(int indeks) {
-            var rodzic = ZwrocRodzica(indeks);
-
-            if (rodzic >= 0 && elementy[indeks].CompareTo(elementy[rodzic]) < 0) {
-                var temp = elementy[indeks];
-                elementy[indeks] = elementy[rodzic];
-                elementy[rodzic] = temp;
-                HeapifyUp(rodzic);
-            }
-
-        }
-
-        private void HeapifyDown(int indeks) {
-            var najmniejszy = indeks;
-            var lewy = ZwrocLewy(indeks);
-            var prawy = ZwrocPrawy(indeks);
-
-            if (lewy < elementy.Count && elementy[lewy].CompareTo(elementy[indeks]) < 0) {
-                najmniejszy = lewy;
-            }
-
-            if (prawy < elementy.Count && elementy[prawy].CompareTo(elementy[indeks]) < 0) {
-                najmniejszy = prawy;
-            }
-
-            if (najmniejszy != indeks) {
-                var temp = elementy[indeks];
-                elementy[indeks] = elementy[najmniejszy];
-                elementy[najmniejszy] = temp;
-                
-                HeapifyDown(najmniejszy);
-            }
-        }
-
-        public void Heapify() {
-            HeapifyDown(0);
-        }
-
-        private int ZwrocRodzica(int indeks) {
-            if (indeks <= 0) {
-                return -1;
-            }
-
-            return (indeks - 1) / 2;
-        }
-
-        private int ZwrocLewy(int indeks) {
-            return 2 * indeks + 1;
-        }
-
-        private int ZwrocPrawy(int indeks) {
-            return 2 * indeks + 2;
-        }
-
-        public class KopiecEnum : IEnumerator {
-
-            private List<T> elementy;
-            private int position;
-
-            public KopiecEnum(List<T> elementy) {
-                this.elementy = elementy;
-                position = -1;
-            }
-
-            public bool MoveNext() {
-                return ++position < elementy.Count;
-            }
-
-            public void Reset() {
-                position = -1;
-            }
-
-            object IEnumerator.Current => Current;
-
-            private T Current {
-                get {
-                    try {
-                        return elementy[position];
-                    }
-                    catch (IndexOutOfRangeException) {
-                        throw new InvalidOperationException();
-                    }
+        private void HeapifyDown()
+        {
+            int index = 0;
+            
+            while(IstniejeLeweDziecko(index))
+            {
+                var mniejszyIndex = IndexLewegoDziecka(index);
+                if (IstniejePraweDziecko(index) && ZwrocPraweDziecko(index).CompareTo(ZwrocLeweDziecko(index)) < 0)
+                {
+                    mniejszyIndex = IndexPrawegoDziecka(index);
                 }
+
+                if (elementy[mniejszyIndex].CompareTo(elementy[index]) >= 0) break;
+
+                Zamien(mniejszyIndex, index);
+                index = mniejszyIndex;
+            }
+        }
+
+        private void HeapifyUp()
+        {
+            var index = elementy.Count - 1;
+
+            while(!JestKorzeniem(index) && elementy[index].CompareTo(ZwrocRodzica(index)) < 0)
+            {
+                var indexRodzica = IndexRodzica(index);
+                Zamien(indexRodzica, index);
+                index = indexRodzica;
             }
         }
 
         public IEnumerator GetEnumerator() {
-            return new MinKopiec<T>.KopiecEnum(elementy);
+            return elementy.GetEnumerator();
         }
     }
 }

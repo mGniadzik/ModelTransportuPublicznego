@@ -14,7 +14,7 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
         public PasazerDjikstry(List<Przystanek> trasaPasazera, int czasWsiadania, int czasWysiadania) : base(trasaPasazera,
             czasWsiadania, czasWysiadania) { }
 
-        private PasazerDjikstry(List<Przystanek> trasaPasazera, int czasWsiadania, int czasWysiadania,
+        public PasazerDjikstry(List<Przystanek> trasaPasazera, int czasWsiadania, int czasWysiadania,
             Przystanek przystanekPoczatkowy, Przystanek przystanekKoncowy)
             : base(trasaPasazera, czasWsiadania, czasWysiadania, przystanekPoczatkowy, przystanekKoncowy) { }
 
@@ -66,8 +66,6 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
             for (w1 = wierzcholekKoncowy; w1 != null; w1 = w1.poprzedniWierzcholek) {
                 trasa.Insert(0, w1.przystanek);
             }
-            
-            // Dodac Rozklad Jazdy na przystankach!!!
 
             return trasa;
         }
