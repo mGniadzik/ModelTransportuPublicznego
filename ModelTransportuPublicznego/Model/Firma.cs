@@ -12,6 +12,8 @@ namespace ModelTransportuPublicznego.Model {
         protected List<Kierowca> listaKierwcowZajetych;
         protected int liczbaOtrzymanychKar;
 
+        public IEnumerable<Linia> LinieAutobusowe => linieAutobusowe;
+
         public Firma(string nazwaFirmy) {
             this.NazwaFirmy = nazwaFirmy;
             dostepnyTabor = new List<Autobus>();
@@ -80,6 +82,10 @@ namespace ModelTransportuPublicznego.Model {
             foreach (var linia in listaLinii) {
                 linieAutobusowe.Add(linia);
             }
+        }
+
+        public virtual void DodajLinie(Linia linia) {
+            linieAutobusowe.Add(linia);
         }
 
         public virtual void UstawLinieNaPrzystankach() {

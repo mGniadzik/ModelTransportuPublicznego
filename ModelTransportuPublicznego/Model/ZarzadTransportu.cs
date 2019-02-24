@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ModelTransportuPublicznego.Model {
     public abstract class ZarzadTransportu {
@@ -75,7 +76,7 @@ namespace ModelTransportuPublicznego.Model {
             var linie = new List<Linia>();
 
             foreach (var firma in listaFirm) {
-                linie.AddRange(firma.ZwrocLinieAutobusowe());
+                linie.AddRange(firma.LinieAutobusowe);
             }
 
             return linie;
@@ -90,6 +91,15 @@ namespace ModelTransportuPublicznego.Model {
         public virtual void StworzRozkladJazdyNaPrzystankach() {
             foreach (var firma in listaFirm) {
                 firma.UstawLinieNaPrzystankach();
+            }
+        }
+
+        public virtual void DodajLiniePowrotne() {
+            var linie = new List<Linia>();
+            
+            foreach (var firma in listaFirm) {
+                linie.AddRange(firma.LinieAutobusowe.Select(linia => linia.LiniaOdwrotna));
+                firma.DodajLinie(linie);
             }
         }
     }

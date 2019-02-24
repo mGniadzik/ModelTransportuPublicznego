@@ -13,6 +13,8 @@ namespace ModelTransportuPublicznego.Model {
 
         public string IdLinii => idLinii;
 
+        public Linia LiniaOdwrotna => ZwrocLiniePowrotna();
+
         public WpisLinii this[int indeks] => trasaLinii[indeks];
 
         public int Count => trasaLinii.Count;
@@ -43,7 +45,7 @@ namespace ModelTransportuPublicznego.Model {
             return trasaLinii[ZwrocIndeksPrzystanku(przystanek) + 1].przystanek;
         }*/
 
-        public Przystanek ZwrocOstatniPrzystanek() {
+        public virtual Przystanek ZwrocOstatniPrzystanek() {
             return ZwrocPrzystanekIndeks(trasaLinii.Count - 1);
         }
 
@@ -55,11 +57,11 @@ namespace ModelTransportuPublicznego.Model {
             // TODO
         }
 
-        public IEnumerable<WpisLinii> ZwrocTrasy() {
+        public virtual IEnumerable<WpisLinii> ZwrocTrasy() {
             return trasaLinii;
         }
 
-        public int ZwrocIndeksPrzystanku(Przystanek przystanek) {
+        public virtual int ZwrocIndeksPrzystanku(Przystanek przystanek) {
             for (int i = 0; i < trasaLinii.Count; i++) {
                 if (trasaLinii[i].przystanek == przystanek) {
                     return i;
@@ -68,7 +70,7 @@ namespace ModelTransportuPublicznego.Model {
             return -1;
         }
 
-        public Przystanek ZwrocPrzystanekIndeks(int indeks) {
+        public virtual Przystanek ZwrocPrzystanekIndeks(int indeks) {
             return trasaLinii[indeks].przystanek;
         }
 
@@ -86,7 +88,7 @@ namespace ModelTransportuPublicznego.Model {
             return trasaLinii[rezultat + 1].przystanek;
         }
 
-        public int ZnajdzIndexPrzystanku(Przystanek przystanek) {
+        public virtual int ZnajdzIndexPrzystanku(Przystanek przystanek) {
             var rezultat = 0;
 
             foreach (var wpis in trasaLinii) {
@@ -100,13 +102,34 @@ namespace ModelTransportuPublicznego.Model {
             return -1;
         }
 
-        public void DodajWpisDoRozkladuPrzystankowLinii() {
+        public virtual void DodajWpisDoRozkladuPrzystankowLinii() {
             foreach (var czas in rozkladPrzejazdow) {
                 var suma = TimeSpan.Zero;
                 foreach (var wpis in trasaLinii) {
                     suma += wpis.czasPrzyjaduDoPrzystanku;
                     wpis.przystanek.RozkladJazdy.DodajWpisDoRozkladu(new WpisRozkladuJazdy(this, czas + suma));
                 }
+            }
+        }
+
+        protected virtual Linia ZwrocLiniePowrotna() {
+            var rozkladPrzejazdow = new RozkladPrzejazdow(this.rozkladPrzejazdow);
+            var wpisyLinii = new List<WpisLinii>();
+
+            foreach (var wpis in trasaLinii) {
+                wpisyLinii.Add(wpis);   
+            }
+            
+            OdwrocCzasyPrzejazdow(wpisyLinii);
+            
+            return new Linia(idLinii + "R", wpisyLinii, rozkladPrzejazdow);
+        }
+
+        protected virtual void OdwrocCzasyPrzejazdow(List<WpisLinii> listaWpisow) {
+            for (int i = 0; i < listaWpisow.Count; i++) {
+                var temp = listaWpisow[i].czasPrzyjaduDoPrzystanku;
+                listaWpisow[i].czasPrzyjaduDoPrzystanku = listaWpisow[listaWpisow.Count - (i + 1)].czasPrzyjaduDoPrzystanku;
+                listaWpisow[listaWpisow.Count - (i + 1)].czasPrzyjaduDoPrzystanku = temp;
             }
         }
 

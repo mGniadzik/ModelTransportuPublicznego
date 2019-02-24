@@ -39,7 +39,6 @@ namespace ModelTransportuPublicznego.Model {
                     czasPrzejazdu += czasAkcji;
                     
                     Logger.ZalogujPobieraniePasazerow(autobus, obecnyPrzystanek, pasazerowie.Count, czasAkcji);
-                    Console.WriteLine($"Na przystanku zostało: {obecnyPrzystanek.IloscPasazerowOczekujacych()} pasazerów!");
                     
                     nastepnaAkcja = Akcja.Przejazd;
                     break;

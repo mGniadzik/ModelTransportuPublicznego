@@ -162,6 +162,8 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
         }
 
         protected virtual void UsunPrzebytePrzystanki() {
+            if (!trasaPasazera.Contains(obecnyPrzystanek)) return;
+            
             foreach (var przystanek in trasaPasazera) {
                 if (obecnyPrzystanek == przystanek) {
                     break;

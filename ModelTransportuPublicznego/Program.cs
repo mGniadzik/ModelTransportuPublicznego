@@ -65,6 +65,7 @@ namespace ModelTransportuPublicznego {
             f1.DodajLinie(new List<Linia> {l2});
             zt.DodajFirme(f1);
             zt.DodajPrzystanki(new List<Przystanek> {p1, p2, p3, p4, p5});
+            zt.DodajLiniePowrotne();
             
             var g1 = new Graf(zt.SiecPrzystankow);
             g1.DodajKrawedzie(zt.ZwrocLinie());

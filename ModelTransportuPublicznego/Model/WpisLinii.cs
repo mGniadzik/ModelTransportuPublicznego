@@ -1,7 +1,7 @@
 using System;
 
 namespace ModelTransportuPublicznego.Model {
-    public struct WpisLinii {
+    public class WpisLinii {
         public Przystanek przystanek;
         public TimeSpan czasPrzyjaduDoPrzystanku;
 
