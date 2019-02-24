@@ -8,12 +8,25 @@ namespace ModelTransportuPublicznego.Model {
         protected int maksymalnaPojemnosc;
         protected List<Pasazer> obecniPasazerowie;
         protected int iloscDzwi;
-        
+        public Linia liniaAutobusu;
+        public Kierowca kierowcaAutobusu;
+
+        public Kierowca KierowcaAutobusu => kierowcaAutobusu;
+
+        public string IdAutobusu => idAutobusu;
+
+        public virtual int IloscPasazerow => obecniPasazerowie.Count;
+
         public Autobus(string idAutobusu, int maksymalnaPojemnosc, int iloscDzwi) {
             this.idAutobusu = idAutobusu;
             this.maksymalnaPojemnosc = maksymalnaPojemnosc;
             this.iloscDzwi = iloscDzwi;
             obecniPasazerowie = new List<Pasazer>();
+        }
+
+        public Autobus(Autobus autobus, Linia liniaAutobusu, Kierowca kierowcaAutobusu) : this(autobus.idAutobusu, autobus.maksymalnaPojemnosc, autobus.iloscDzwi) {
+            this.liniaAutobusu = liniaAutobusu;
+            this.kierowcaAutobusu = kierowcaAutobusu;
         }
 
         protected Autobus(string idAutobusu, int maksymalnaPojemnosc, int iloscDzwi, IEnumerable<Pasazer> obecniPasazerowie) 
@@ -39,6 +52,7 @@ namespace ModelTransportuPublicznego.Model {
 
                 foreach (var pasazer in listaWsiadajacych) {
                     obecnyPrzystanek.UsunPasazera(pasazer);
+                    pasazer.Wsiadz(this);
                 }
             }
 
@@ -51,6 +65,7 @@ namespace ModelTransportuPublicznego.Model {
             foreach (var pasazer in obecniPasazerowie) {
                 if (pasazer.OczekiwanyPrzystanek == obecnyPrzystanek) {
                     listaWysiadajacych.Add(pasazer);
+                    pasazer.Wysiadz(obecnyPrzystanek);
                 }
             }
 
@@ -61,9 +76,8 @@ namespace ModelTransportuPublicznego.Model {
             return listaWysiadajacych;
         }
 
-        public virtual int PobierzPasazerow(Przystanek obecnyPrzystanek, Linia liniaAutobusu) {
+        public virtual int PobierzPasazerow(Przystanek obecnyPrzystanek, Linia liniaAutobusu, IEnumerable<Pasazer> listaWsiadajacych) {
             var listaKolejekPasazerow = new List<List<Pasazer>>();
-            var listaWsiadajacych = StworzListeWsiadajacychPasazerow(obecnyPrzystanek, liniaAutobusu);
 
             listaKolejekPasazerow = StworzListeKolejek();
             PodzielPasazerowNaKolejki(listaWsiadajacych, listaKolejekPasazerow);
@@ -77,9 +91,8 @@ namespace ModelTransportuPublicznego.Model {
             return ObliczCzasWsiadaniaPasazerow(listaKolejekPasazerow);
         }
 
-        public virtual int WysadzPasazerow(Przystanek obecnyPrzystanek) {
+        public virtual int WysadzPasazerow(Przystanek obecnyPrzystanek, IEnumerable<Pasazer> listaWysiadajacych) {
             var listaKolejkaPasazerow = new List<List<Pasazer>>();
-            var listaWysiadajacych = StworzListeWysiadajacychPasazerow(obecnyPrzystanek);
 
             listaKolejkaPasazerow = StworzListeKolejek();
             PodzielPasazerowNaKolejki(listaWysiadajacych, listaKolejkaPasazerow);
@@ -94,7 +107,7 @@ namespace ModelTransportuPublicznego.Model {
 
             return ObliczCzasWysiadaniaPasazerow(listaKolejkaPasazerow);
         }
-
+        
         protected virtual int ObliczCzasWsiadaniaPasazerow(IEnumerable<IEnumerable<Pasazer>> listaKolejek) {
             return ObliczCzas(listaKolejek, PoliczDlaWsiadajacych);
         }
@@ -102,18 +115,7 @@ namespace ModelTransportuPublicznego.Model {
         protected virtual int ObliczCzasWysiadaniaPasazerow(IEnumerable<IEnumerable<Pasazer>> listaKolejek) {
             return ObliczCzas(listaKolejek, PoliczDlaWysiadajacych);
         }
-
-        protected virtual int ObliczCzas(IEnumerable<IEnumerable<Pasazer>> listaKolejek,
-            Func<IEnumerable<IEnumerable<Pasazer>>, IEnumerable<int>> metodaObliczania) {
-            var czasKoncowy = 0;
-
-            foreach (var liczba in metodaObliczania(listaKolejek)) {
-                czasKoncowy += liczba;
-            }
-
-            return czasKoncowy;
-        }
-
+        
         protected virtual IEnumerable<int> PoliczDlaWysiadajacych(
             IEnumerable<IEnumerable<Pasazer>> listaKolejek) {
             return listaKolejek.Select(lista => { return lista.Sum(pasazer => pasazer.CzasWysiadania); });
@@ -122,6 +124,23 @@ namespace ModelTransportuPublicznego.Model {
         protected virtual IEnumerable<int> PoliczDlaWsiadajacych(
             IEnumerable<IEnumerable<Pasazer>> listaKolejek) {
             return listaKolejek.Select(lista => { return lista.Sum(pasazer => pasazer.CzasWsiadania); });
+        }
+
+        protected virtual int ObliczCzas(IEnumerable<IEnumerable<Pasazer>> listaKolejek,
+            Func<IEnumerable<IEnumerable<Pasazer>>, IEnumerable<int>> metodaObliczania) {
+            var czasKoncowy = 0;
+
+            foreach (var czas in metodaObliczania(listaKolejek)) {
+                if (czas > czasKoncowy) {
+                    czasKoncowy = czas;
+                }
+            }
+
+            return czasKoncowy;
+        }
+
+        protected virtual int ObliczIloscPasazerow(IEnumerable<List<Pasazer>> listaPasazerow) {
+            return listaPasazerow.Sum(lista => lista.Count);
         }
 
         protected virtual List<List<Pasazer>> StworzListeKolejek() {
@@ -140,10 +159,6 @@ namespace ModelTransportuPublicznego.Model {
 
         protected virtual void UsunPasazera(Pasazer pasazer) {
             this.obecniPasazerowie.Remove(pasazer);
-        }
-
-        public virtual int IloscPasazerow() {
-            return obecniPasazerowie.Count;
         }
 
         public abstract int PrzejedzTrase(Trasa trasa);

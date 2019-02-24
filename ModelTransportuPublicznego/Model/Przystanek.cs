@@ -13,11 +13,14 @@ namespace ModelTransportuPublicznego.Model {
 
         public RozkladJazdy RozkladJazdy => rozkladJazdy;
 
+        public IEnumerable<Autobus> ObecneAutobusy => obecneAutobusy;
+
         public Przystanek(string nazwaPrzystanku) {
             this.nazwaPrzystanku = nazwaPrzystanku;
             oczekujacyPasazerowie = new List<Pasazer>();
             trasy = new List<Trasa>();
             rozkladJazdy = new RozkladJazdy();
+            obecneAutobusy = new List<Autobus>();
         }
 
         protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy) : this(nazwaPrzystanku) {
@@ -72,6 +75,14 @@ namespace ModelTransportuPublicznego.Model {
             }
 
             return null;
+        }
+
+        public virtual void DodajAutobus(Autobus autobus) {
+            obecneAutobusy.Add(autobus);
+        }
+
+        public virtual void UsunAutobus(Autobus autobus) {
+            obecneAutobusy.Remove(autobus);
         }
     }
 }

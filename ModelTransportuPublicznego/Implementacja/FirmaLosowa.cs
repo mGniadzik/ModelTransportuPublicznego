@@ -7,7 +7,6 @@ using ModelTransportuPublicznego.Model;
 namespace ModelTransportuPublicznego.Implementacja {
     public class FirmaLosowa : Firma {
         Random rand;
-        Logger logger = new Logger();
 
         public FirmaLosowa(string nazwaFirmy) : base(nazwaFirmy) {
             rand = new Random();
@@ -24,14 +23,16 @@ namespace ModelTransportuPublicznego.Implementacja {
             foreach (var linia in linieAutobusowe) {
                 foreach (var wpis in linia.RozkladPrzejazdow.CzasyPrzejazdow) {
                     try {
-                        listaPrzejazdow.Add(new Przejazd(linia, WybierzAutobusDoObslugiPrzejazdu(),
-                            WybierzKierowceDoObslugiPrzejazdu(), wpis));
+                        var wybranyAutobus = WybierzAutobusDoObslugiPrzejazdu();
+                        wybranyAutobus.kierowcaAutobusu = WybierzKierowceDoObslugiPrzejazdu();
+                        wybranyAutobus.liniaAutobusu = linia;
+                        listaPrzejazdow.Add(new Przejazd(wybranyAutobus, this, wpis));
                     }
                     catch (AutobusNieZnalezionyWyjatek) {
-                        logger.ZalogujBrakDostepnegoAutobusu();
+                        Logger.ZalogujBrakDostepnegoAutobusu();
                     }
                     catch (KierowcaNieZnalezionyWyjatek) {
-                        logger.ZalogujBrakDostepnegoKierowcy();
+                        Logger.ZalogujBrakDostepnegoKierowcy();
                     }
                 }
             }

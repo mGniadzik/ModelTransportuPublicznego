@@ -6,42 +6,51 @@ namespace ModelTransportuPublicznego.Model {
         protected Przystanek przystanekPoczatkowy;
         protected Przystanek przystanekKoncowy;
         protected Przystanek obecnyPrzystanek;
+        protected Przystanek oczekiwanyPrzystanek;
         protected int czasWsiadania;
         protected int czasWysiadania;
         protected List<Przystanek> trasaPasazera;
-        protected Linia oczekiwanaLinia;
 
-        public Linia OczekiwanaLinia => oczekiwanaLinia;
 
-        public Przystanek OczekiwanyPrzystanek => trasaPasazera[0];
+        public virtual Przystanek OczekiwanyPrzystanek => trasaPasazera[0];
 
-        public Przystanek PrzystanekKoncowy => przystanekKoncowy;
+        public virtual Linia OczekiwanaLinia => WybierzLinie();
 
-        public int CzasWsiadania => czasWsiadania;
+        public virtual Przystanek PrzystanekKoncowy => przystanekKoncowy;
 
-        public int CzasWysiadania => czasWysiadania;
+        public virtual int CzasWsiadania => czasWsiadania;
 
-        public Pasazer(IEnumerable<Przystanek> trasaPasazera) {
-            this.trasaPasazera = new List<Przystanek>();
+        public virtual int CzasWysiadania => czasWysiadania;
 
+        public Pasazer() {
+            trasaPasazera = new List<Przystanek>();
+        }
+        
+        public Pasazer(IEnumerable<Przystanek> trasaPasazera) : this() {
             foreach (var przystanek in trasaPasazera) {
                 this.trasaPasazera.Add(przystanek);
             }
+
+            przystanekPoczatkowy = this.trasaPasazera[0];
+            przystanekKoncowy = this.trasaPasazera[this.trasaPasazera.Count - 1];
+            obecnyPrzystanek = przystanekPoczatkowy;
         }
 
-        protected abstract void Wysiadz();
-
-        protected abstract void Wsiadz();
-        
-
-        public Pasazer(List<Przystanek> trasaPasazera, int czasWsiadania, int czasWysiadania) : this(trasaPasazera) {
+        public Pasazer(int czasWsiadania, int czasWysiadania) {
             this.czasWsiadania = czasWsiadania;
             this.czasWysiadania = czasWysiadania;
         }
-        
-        public Pasazer(List<Przystanek> trasaPasazera, int czasWsiadania, int czasWysiadania, Przystanek przystanekPoczatkowy, Przystanek przystanekKoncowy) 
-            : this(trasaPasazera, czasWsiadania, czasWysiadania) {
+
+        public Pasazer(IEnumerable<Przystanek> trasaPasazera, int czasWsiadania, int czasWysiadania) : this(trasaPasazera) {
+            this.czasWsiadania = czasWsiadania;
+            this.czasWysiadania = czasWysiadania;
+        }
+
+        public Pasazer(int czasWsiadania, int czasWysiadania, Przystanek przystanekPoczatkowy,
+            Przystanek przystanekKoncowy)
+            : this(czasWsiadania, czasWysiadania) {
             this.przystanekPoczatkowy = przystanekPoczatkowy;
+            obecnyPrzystanek = przystanekPoczatkowy;
             this.przystanekKoncowy = przystanekKoncowy;
         }
 
@@ -56,5 +65,11 @@ namespace ModelTransportuPublicznego.Model {
 
             obecnyWybor.Add(this);
         }
+
+        protected abstract Linia WybierzLinie();
+        
+        public abstract void Wysiadz(Przystanek przystanek);
+
+        public abstract void Wsiadz(Autobus autobus);
     }
 }

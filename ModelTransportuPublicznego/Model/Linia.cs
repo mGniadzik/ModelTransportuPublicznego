@@ -10,7 +10,9 @@ namespace ModelTransportuPublicznego.Model {
         protected List<WpisLinii> trasaLinii;
 
         public RozkladPrzejazdow RozkladPrzejazdow => rozkladPrzejazdow;
-        
+
+        public string IdLinii => idLinii;
+
         public WpisLinii this[int indeks] => trasaLinii[indeks];
 
         public int Count => trasaLinii.Count;
@@ -33,13 +35,13 @@ namespace ModelTransportuPublicznego.Model {
             this.rozkladPrzejazdow = rozkladPrzejazdow;
         }
 
-        public Przystanek ZwrocNastepnyPrzystanek(Przystanek przystanek) {
+        /*public Przystanek ZwrocNastepnyPrzystanek(Przystanek przystanek) {
             if (trasaLinii[trasaLinii.Count - 1].przystanek == przystanek) {
                 throw new ArgumentOutOfRangeException();   
             }
 
             return trasaLinii[ZwrocIndeksPrzystanku(przystanek) + 1].przystanek;
-        }
+        }*/
 
         public Przystanek ZwrocOstatniPrzystanek() {
             return ZwrocPrzystanekIndeks(trasaLinii.Count - 1);
@@ -72,6 +74,30 @@ namespace ModelTransportuPublicznego.Model {
 
         public IEnumerator GetEnumerator() {
             return new LiniaEnumerator(trasaLinii);
+        }
+
+        public Przystanek ZwrocNastepnyPrzystanek(Przystanek przystanek) {
+            var rezultat = ZnajdzIndexPrzystanku(przystanek);
+
+            if (rezultat == -1 || rezultat == trasaLinii.Count - 1) {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            return trasaLinii[rezultat + 1].przystanek;
+        }
+
+        public int ZnajdzIndexPrzystanku(Przystanek przystanek) {
+            var rezultat = 0;
+
+            foreach (var wpis in trasaLinii) {
+                if (przystanek == wpis.przystanek) {
+                    return rezultat;
+                }
+
+                rezultat++;
+            }
+
+            return -1;
         }
 
         public void DodajWpisDoRozkladuPrzystankowLinii() {

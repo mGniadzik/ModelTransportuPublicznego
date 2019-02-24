@@ -1,24 +1,25 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using ModelTransportuPublicznego.Misc;
 
 namespace ModelTransportuPublicznego.Model {
     public class Przejazd : IComparable<Przejazd> {
-        private Linia liniaPrzejazdu;
         private Autobus autobus;
-        private Kierowca kierowca;
         private Akcja nastepnaAkcja;
         private Przystanek obecnyPrzystanek;
         private TimeSpan czasPrzejazdu;
         private TimeSpan rozpoczeciePrzejazdu;
         private bool trasaZakonczona;
+        private Firma firma;
 
         public bool TrasaZakonczona => trasaZakonczona;
 
-        public Przejazd(Linia liniaPrzejazdu, Autobus autobus, Kierowca kierowca, TimeSpan rozpoczeciePrzejazdu) {
-            this.liniaPrzejazdu = liniaPrzejazdu;
+        public Przejazd(Autobus autobus, Firma firma, TimeSpan rozpoczeciePrzejazdu) {
             this.autobus = autobus;
-            this.kierowca = kierowca;
+            this.firma = firma;
             nastepnaAkcja = Akcja.PobieraniePasazerow;
-            obecnyPrzystanek = liniaPrzejazdu.ZwrocPrzystanekIndeks(0);
+            obecnyPrzystanek = autobus.liniaAutobusu.ZwrocPrzystanekIndeks(0);
             czasPrzejazdu = TimeSpan.Zero;
             this.rozpoczeciePrzejazdu = rozpoczeciePrzejazdu;
             trasaZakonczona = false;
@@ -27,39 +28,50 @@ namespace ModelTransportuPublicznego.Model {
         protected enum Akcja { PobieraniePasazerow, Przejazd, WypuszczniePasazerow };
 
         public void WykonajNastepnaAkcje() {
+            TimeSpan czasAkcji;
+            List<Pasazer> pasazerowie;
+            
             switch (nastepnaAkcja) {
                 case Akcja.PobieraniePasazerow:
+                    obecnyPrzystanek.DodajAutobus(autobus);
+                    pasazerowie = autobus.StworzListeWsiadajacychPasazerow(obecnyPrzystanek, autobus.liniaAutobusu);
+                    czasAkcji = new TimeSpan(0, 0,autobus.PobierzPasazerow(obecnyPrzystanek, autobus.liniaAutobusu, pasazerowie));
+                    czasPrzejazdu += czasAkcji;
                     
-                    czasPrzejazdu += new TimeSpan(0, 0,autobus.PobierzPasazerow(obecnyPrzystanek, liniaPrzejazdu));
+                    Logger.ZalogujPobieraniePasazerow(autobus, obecnyPrzystanek, pasazerowie.Count, czasAkcji);
+                    Console.WriteLine($"Na przystanku zostało: {obecnyPrzystanek.IloscPasazerowOczekujacych()} pasazerów!");
+                    
                     nastepnaAkcja = Akcja.Przejazd;
-
-                    Console.WriteLine("Pobrano Pasazerow z przystanku {0}", obecnyPrzystanek.NazwaPrzystanku);
-                    
                     break;
                 case Akcja.Przejazd:
                     var trasa = obecnyPrzystanek.ZnajdzTraseDoNastepnegoPrzystanku(
-                        liniaPrzejazdu.ZwrocNastepnyPrzystanek(obecnyPrzystanek));
-                    czasPrzejazdu += new TimeSpan(0, 0, autobus.PrzejedzTrase(trasa));
-
-                    Console.WriteLine("Przejechano Trase! z {0} pasazerami.", autobus.IloscPasazerow());
+                        autobus.liniaAutobusu.ZwrocNastepnyPrzystanek(obecnyPrzystanek));
+                    czasAkcji = new TimeSpan(0, 0, autobus.PrzejedzTrase(trasa));
                     
+                    Logger.ZalogujPrzejechanieTrasy(autobus, trasa, czasAkcji);
+
+                    czasPrzejazdu += czasAkcji;
                     nastepnaAkcja = Akcja.WypuszczniePasazerow;
                     obecnyPrzystanek = trasa.PrzystanekDrugi;
                     break;
                 case Akcja.WypuszczniePasazerow:
-                    czasPrzejazdu += new TimeSpan(0, 0,autobus.WysadzPasazerow(obecnyPrzystanek));
+                    pasazerowie = autobus.StworzListeWysiadajacychPasazerow(obecnyPrzystanek);
+                    czasAkcji = new TimeSpan(0, 0,autobus.WysadzPasazerow(obecnyPrzystanek, pasazerowie));
+                    czasPrzejazdu += czasAkcji;
                     
-                    Console.WriteLine("Wypuszczono Pasazerow na przystanku {0}", obecnyPrzystanek.NazwaPrzystanku);
+                    Logger.ZalogujWypuszczniePasazerow(autobus, obecnyPrzystanek, pasazerowie.Count, czasAkcji);
                     
-                    if (obecnyPrzystanek == liniaPrzejazdu.ZwrocOstatniPrzystanek()) {
+                    if (obecnyPrzystanek == autobus.liniaAutobusu.ZwrocOstatniPrzystanek()) {
                         trasaZakonczona = true;
-                        Console.WriteLine("Zakonczono trase!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        obecnyPrzystanek.UsunAutobus(autobus);
+                        
+                        Logger.ZalogujZakonczenieTrasy(autobus, obecnyPrzystanek, autobus.liniaAutobusu, czasPrzejazdu);
+                        
                         break;
                     }
 
-                    
-                    
                     nastepnaAkcja = Akcja.PobieraniePasazerow;
+                    obecnyPrzystanek.UsunAutobus(autobus);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -75,5 +87,7 @@ namespace ModelTransportuPublicznego.Model {
 
             return CzasNastepnejAkcji().CompareTo(other.CzasNastepnejAkcji());
         }
+        
+        
     }
 }
