@@ -59,12 +59,6 @@ namespace ModelTransportuPublicznego {
                 new AutobusLiniowy("A8", 80, 4, 3, 100, 50)
             };
             
-//            var tp1 = new TrasaPasazera(p1, new List<Przystanek>{p3}, new List<List<Linia>> {new List<Linia> {l1}});
-//            
-//            var pas1 = new Pasazer(tp1, 5, 5, p1, p3);
-//            
-//            p1.DodajPasazera(pas1);
-            
             var f1 = new FirmaLosowa("F1", ta1, lk1, new List<Linia> {l1});
             f1.DodajLinie(new List<Linia> {l2});
             zt.DodajFirme(f1);
@@ -77,16 +71,10 @@ namespace ModelTransportuPublicznego {
             var pasD1 = new PasazerDjikstry(5, 5, p1, p5, g1);
             
             var list = pasD1.ZnajdzNajkrotszaTrase(g1);
-            var pasL1 = new PasazerLosowy(5, 5, p1, p5);
+            var pasL1 = new PasazerLosowy(7, 7, p1, p5);
             
             p1.DodajPasazera(pasD1);
             p1.DodajPasazera(pasL1);
-
-//            Console.WriteLine("Dlugość listy: {0}", list.Count);
-//            
-//            foreach (var przystanek in list) {
-//                Console.WriteLine(przystanek.NazwaPrzystanku);    
-//            }
             
             zt.StworzRozkladJazdyNaPrzystankach();
             

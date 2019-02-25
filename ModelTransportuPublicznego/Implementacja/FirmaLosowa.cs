@@ -22,25 +22,14 @@ namespace ModelTransportuPublicznego.Implementacja {
 
             foreach (var linia in linieAutobusowe) {
                 foreach (var wpis in linia.RozkladPrzejazdow.CzasyPrzejazdow) {
-                    try {
-                        var wybranyAutobus = WybierzAutobusDoObslugiPrzejazdu();
-                        wybranyAutobus.kierowcaAutobusu = WybierzKierowceDoObslugiPrzejazdu();
-                        wybranyAutobus.liniaAutobusu = linia;
-                        listaPrzejazdow.Add(new Przejazd(wybranyAutobus, this, wpis));
-                    }
-                    catch (AutobusNieZnalezionyWyjatek) {
-                        Logger.ZalogujBrakDostepnegoAutobusu(this, linia);
-                    }
-                    catch (KierowcaNieZnalezionyWyjatek) {
-                        Logger.ZalogujBrakDostepnegoKierowcy(this, linia);
-                    }
+                    listaPrzejazdow.Add(new Przejazd(this, linia, wpis));
                 }
             }
 
             return listaPrzejazdow;
         }
 
-        protected override Autobus WybierzAutobusDoObslugiPrzejazdu() {
+        public override Autobus WybierzAutobusDoObslugiPrzejazdu() {
             if (!IstniejaDostepneAutobusy()) {
                 throw new AutobusNieZnalezionyWyjatek("Nie instnieja autobusy, które moglyby obsłużyć dany przejazd.");
             }
@@ -60,7 +49,7 @@ namespace ModelTransportuPublicznego.Implementacja {
             return listaDostepnychKierowcow.Count != 0;
         }
 
-        protected override Kierowca WybierzKierowceDoObslugiPrzejazdu() {
+        public override Kierowca WybierzKierowceDoObslugiPrzejazdu() {
             if (!IstniejaDostepniKierowcy()) {
                 throw new KierowcaNieZnalezionyWyjatek("Nie istnieja kierowcy, którzy mogliby obsłużyć dany przejazd.");
             }

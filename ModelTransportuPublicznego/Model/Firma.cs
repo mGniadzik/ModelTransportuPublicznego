@@ -98,9 +98,9 @@ namespace ModelTransportuPublicznego.Model {
 
         public abstract IEnumerable<Przejazd> UtworzListePrzejazdow();
 
-        protected abstract Autobus WybierzAutobusDoObslugiPrzejazdu();
+        public abstract Autobus WybierzAutobusDoObslugiPrzejazdu();
 
-        protected abstract Kierowca WybierzKierowceDoObslugiPrzejazdu();
+        public abstract Kierowca WybierzKierowceDoObslugiPrzejazdu();
 
         protected virtual void ZwolnijKierowce(Kierowca kierowca) {
             listaKierwcowZajetych.Remove(kierowca);
