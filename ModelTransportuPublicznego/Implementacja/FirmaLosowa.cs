@@ -29,10 +29,10 @@ namespace ModelTransportuPublicznego.Implementacja {
                         listaPrzejazdow.Add(new Przejazd(wybranyAutobus, this, wpis));
                     }
                     catch (AutobusNieZnalezionyWyjatek) {
-                        Logger.ZalogujBrakDostepnegoAutobusu();
+                        Logger.ZalogujBrakDostepnegoAutobusu(this, linia);
                     }
                     catch (KierowcaNieZnalezionyWyjatek) {
-                        Logger.ZalogujBrakDostepnegoKierowcy();
+                        Logger.ZalogujBrakDostepnegoKierowcy(this, linia);
                     }
                 }
             }

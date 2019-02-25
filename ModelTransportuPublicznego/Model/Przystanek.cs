@@ -112,6 +112,14 @@ namespace ModelTransportuPublicznego.Model {
             return rezultat;
         }
 
+        public virtual Trasa ZwrocTraseDo(Przystanek przystanek) {
+            foreach (var trasa in trasy) {
+                if (trasa.PrzystanekDrugi == przystanek) return trasa;
+            }
+            
+            throw new ArgumentException($"Przystanek {nazwaPrzystanku} nie posiada trasy do przystanku {przystanek.NazwaPrzystanku}!");
+        } 
+
         public virtual void OznaczPrzejazdJakoWykonany(Linia linia) {
             var lista = rozkladJazdy.ZwrocRozkladJazdy().Where(wpis => wpis.CzyWykonany = false)
                 .OrderBy(wpis => wpis.CzasPrzyjazdu).ToList();

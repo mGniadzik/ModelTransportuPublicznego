@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace ModelTransportuPublicznego.Model {
     public abstract class Firma {
 
-        protected string NazwaFirmy;
+        protected string nazwaFirmy;
         protected List<Autobus> dostepnyTabor;
         protected List<Kierowca> listaDostepnychKierowcow;
         protected List<Linia> linieAutobusowe;
@@ -14,8 +14,10 @@ namespace ModelTransportuPublicznego.Model {
 
         public IEnumerable<Linia> LinieAutobusowe => linieAutobusowe;
 
+        public virtual string NazwaFirmy => nazwaFirmy;
+
         public Firma(string nazwaFirmy) {
-            this.NazwaFirmy = nazwaFirmy;
+            this.nazwaFirmy = nazwaFirmy;
             dostepnyTabor = new List<Autobus>();
             listaDostepnychKierowcow = new List<Kierowca>();
             linieAutobusowe = new List<Linia>();

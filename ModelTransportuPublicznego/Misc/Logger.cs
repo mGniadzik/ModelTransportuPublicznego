@@ -3,10 +3,13 @@ using ModelTransportuPublicznego.Model;
 
 namespace ModelTransportuPublicznego.Misc {
     public static class Logger {
-        public static void ZalogujBrakDostepnegoAutobusu() {
-            
+        public static void ZalogujBrakDostepnegoAutobusu(Firma firma, Linia linia) {
+            Console.WriteLine($"Firma {firma.NazwaFirmy} nie posiadała dostępnego autobusu do obsługi linii {linia.IdLinii}.");
         }
-        public static void ZalogujBrakDostepnegoKierowcy() { }
+
+        public static void ZalogujBrakDostepnegoKierowcy(Firma firma, Linia linia) {
+            Console.WriteLine($"Firma {firma.NazwaFirmy} nie posiadała dostępnego kierowcy do obsługi linii {linia.IdLinii}.");
+        }
 
         public static void ZalogujPobieraniePasazerow(Autobus autobus, Przystanek przystanek, int ilosc, TimeSpan czas) {
             Console.WriteLine($"Autobus {autobus.IdAutobusu} pobrał {ilosc} pasażerów na przystanku: " +

@@ -47,12 +47,16 @@ namespace ModelTransportuPublicznego {
                 new WpisLinii(p2, new TimeSpan(0, 10, 0)), new WpisLinii(p3, 
                     new TimeSpan(0, 15, 0))}, r1);
 
-            var lk1 = new List<Kierowca> {new Kierowca(), new Kierowca(), new Kierowca(), new Kierowca()};
+            var lk1 = new List<Kierowca> {new Kierowca(), new Kierowca(), new Kierowca(), new Kierowca(), new Kierowca(), new Kierowca(), new Kierowca(), new Kierowca()};
             var ta1 = new List<Autobus> {
                 new AutobusLiniowy("A1", 80, 4, 3, 100, 50),
                 new AutobusLiniowy("A2", 80, 4, 3, 100, 50),
                 new AutobusLiniowy("A3", 80, 4, 3, 100, 50),
-                new AutobusLiniowy("A4", 80, 4, 3, 100, 50)
+                new AutobusLiniowy("A4", 80, 4, 3, 100, 50),
+                new AutobusLiniowy("A5", 80, 4, 3, 100, 50),
+                new AutobusLiniowy("A6", 80, 4, 3, 100, 50),
+                new AutobusLiniowy("A7", 80, 4, 3, 100, 50),
+                new AutobusLiniowy("A8", 80, 4, 3, 100, 50)
             };
             
 //            var tp1 = new TrasaPasazera(p1, new List<Przystanek>{p3}, new List<List<Linia>> {new List<Linia> {l1}});

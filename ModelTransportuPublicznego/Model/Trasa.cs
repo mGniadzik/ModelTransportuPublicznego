@@ -9,6 +9,8 @@ namespace ModelTransportuPublicznego.Model {
         public Przystanek PrzystanekPierwszy => przystanekPierwszy;
         public Przystanek PrzystanekDrugi => przystanekDrugi;
 
+        public virtual Trasa TrasaOdwrotna => OdwrocTrase();
+
         public int DystansTrasy => dystansTrasy;
 
         public Trasa(string nazwaTrasy, Przystanek przystanekPierwszy, Przystanek przystanekDrugi, int dystansTrasy) {
@@ -16,6 +18,10 @@ namespace ModelTransportuPublicznego.Model {
             this.przystanekPierwszy = przystanekPierwszy;
             this.przystanekDrugi = przystanekDrugi;
             this.dystansTrasy = dystansTrasy;
+        }
+
+        protected virtual Trasa OdwrocTrase() {
+            return new Trasa(nazwaTrasy, PrzystanekDrugi, przystanekPierwszy, dystansTrasy);
         }
     }
 }

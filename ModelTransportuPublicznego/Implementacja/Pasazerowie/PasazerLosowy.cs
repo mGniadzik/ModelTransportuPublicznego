@@ -32,6 +32,11 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
         }
 
         public override void Wsiadz(Autobus autobus) {
+            if (autobus.liniaAutobusu.ZwrocPozostalePrzystanki(obecnyPrzystanek).Contains(przystanekKoncowy)) {
+                oczekiwanyPrzystanek = przystanekKoncowy;
+                return;
+            }
+            
             oczekiwanyPrzystanek = WybierzLosowyPrzystanekLinii(autobus.liniaAutobusu);
         }
 

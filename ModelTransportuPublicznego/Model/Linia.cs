@@ -37,24 +37,8 @@ namespace ModelTransportuPublicznego.Model {
             this.rozkladPrzejazdow = rozkladPrzejazdow;
         }
 
-        /*public Przystanek ZwrocNastepnyPrzystanek(Przystanek przystanek) {
-            if (trasaLinii[trasaLinii.Count - 1].przystanek == przystanek) {
-                throw new ArgumentOutOfRangeException();   
-            }
-
-            return trasaLinii[ZwrocIndeksPrzystanku(przystanek) + 1].przystanek;
-        }*/
-
         public virtual Przystanek ZwrocOstatniPrzystanek() {
             return ZwrocPrzystanekIndeks(trasaLinii.Count - 1);
-        }
-
-        public void DodajTrase() {
-            // TODO
-        }
-
-        public void UsunTrase(Trasa trasa) {
-            // TODO
         }
 
         public virtual IEnumerable<WpisLinii> ZwrocTrasy() {
@@ -125,10 +109,12 @@ namespace ModelTransportuPublicznego.Model {
             }
             
             wpisyLinii.Reverse();
-            
             OdwrocCzasyPrzejazdow(wpisyLinii);
             
-            return new Linia(idLinii + "R", wpisyLinii, rozkladPrzejazdow);
+            var rezultat = new Linia(idLinii + "R", wpisyLinii, rozkladPrzejazdow);
+            rezultat.DodajTrasyPowrotne();
+
+            return rezultat;
         }
 
         protected virtual void OdwrocCzasyPrzejazdow(List<WpisLinii> listaWpisow) {
@@ -136,6 +122,13 @@ namespace ModelTransportuPublicznego.Model {
                 var temp = listaWpisow[i].czasPrzyjaduDoPrzystanku;
                 listaWpisow[i].czasPrzyjaduDoPrzystanku = listaWpisow[listaWpisow.Count - (i + 1)].czasPrzyjaduDoPrzystanku;
                 listaWpisow[listaWpisow.Count - (i + 1)].czasPrzyjaduDoPrzystanku = temp;
+            }
+        }
+
+        protected virtual void DodajTrasyPowrotne() {
+            for (int i = 0; i < trasaLinii.Count - 1; i++) {
+                var trasaOdwrotna = trasaLinii[i + 1].przystanek.ZwrocTraseDo(trasaLinii[i].przystanek).TrasaOdwrotna;
+                trasaLinii[i].przystanek.DodajTrase(trasaOdwrotna);
             }
         }
 
