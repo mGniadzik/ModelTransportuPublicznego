@@ -12,7 +12,7 @@ namespace ModelTransportuPublicznego.Model {
         protected List<Przystanek> trasaPasazera;
 
 
-        public virtual Przystanek OczekiwanyPrzystanek => trasaPasazera[0];
+        public virtual Przystanek OczekiwanyPrzystanek => oczekiwanyPrzystanek;
 
         public virtual Linia OczekiwanaLinia => WybierzLinie();
 

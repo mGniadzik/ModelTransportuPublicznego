@@ -11,6 +11,11 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
         public PasazerLosowy(int czasWsiadania, int czasWysiadania) : base(czasWsiadania, czasWysiadania) {
             wybranaLinia = null;
         }
+
+        public PasazerLosowy(int czasWsiadania, int czasWysiadania, Przystanek przystanekPoczatkowy,
+            Przystanek przystanekKoncowy) : base(czasWsiadania, czasWysiadania, przystanekPoczatkowy, przystanekKoncowy) { }
+
+        public override Przystanek OczekiwanyPrzystanek => oczekiwanyPrzystanek;
         
         protected override Linia WybierzLinie() {
             if (wybranaLinia != null) {
@@ -40,8 +45,9 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
         private Linia WybierzLosowaLinie(IEnumerable<Linia> linie) {
             var linieAutobusowe = linie.ToList();
             var rand = new Random();
+            var los = rand.Next(linieAutobusowe.Count);
 
-            return linieAutobusowe[rand.Next(linieAutobusowe.Count)];
+            return linieAutobusowe[los];
         }
     }
 }

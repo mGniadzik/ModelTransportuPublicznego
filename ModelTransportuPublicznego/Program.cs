@@ -73,8 +73,10 @@ namespace ModelTransportuPublicznego {
             var pasD1 = new PasazerDjikstry(5, 5, p1, p5, g1);
             
             var list = pasD1.ZnajdzNajkrotszaTrase(g1);
+            var pasL1 = new PasazerLosowy(5, 5, p1, p5);
             
             p1.DodajPasazera(pasD1);
+            p1.DodajPasazera(pasL1);
 
 //            Console.WriteLine("Dlugość listy: {0}", list.Count);
 //            

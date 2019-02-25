@@ -112,6 +112,10 @@ namespace ModelTransportuPublicznego.Model {
             }
         }
 
+        public virtual bool JestPrzystankiemKoncowym(Przystanek przystanek) {
+            return przystanek == trasaLinii[trasaLinii.Count - 1].przystanek;
+        }
+
         protected virtual Linia ZwrocLiniePowrotna() {
             var rozkladPrzejazdow = new RozkladPrzejazdow(this.rozkladPrzejazdow);
             var wpisyLinii = new List<WpisLinii>();
@@ -120,13 +124,15 @@ namespace ModelTransportuPublicznego.Model {
                 wpisyLinii.Add(wpis);   
             }
             
+            wpisyLinii.Reverse();
+            
             OdwrocCzasyPrzejazdow(wpisyLinii);
             
             return new Linia(idLinii + "R", wpisyLinii, rozkladPrzejazdow);
         }
 
         protected virtual void OdwrocCzasyPrzejazdow(List<WpisLinii> listaWpisow) {
-            for (int i = 0; i < listaWpisow.Count; i++) {
+            for (int i = 0; i < listaWpisow.Count / 2; i++) {
                 var temp = listaWpisow[i].czasPrzyjaduDoPrzystanku;
                 listaWpisow[i].czasPrzyjaduDoPrzystanku = listaWpisow[listaWpisow.Count - (i + 1)].czasPrzyjaduDoPrzystanku;
                 listaWpisow[listaWpisow.Count - (i + 1)].czasPrzyjaduDoPrzystanku = temp;

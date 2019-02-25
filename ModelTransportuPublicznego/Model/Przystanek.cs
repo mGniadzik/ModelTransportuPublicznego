@@ -103,8 +103,10 @@ namespace ModelTransportuPublicznego.Model {
 
             foreach (var wpis in PozostalePrzejazdy()) {
                 if (rezultat.Contains(wpis.LiniaObslugujaca)) continue;
-                
-                rezultat.Add(wpis.LiniaObslugujaca);
+
+                if (!wpis.LiniaObslugujaca.JestPrzystankiemKoncowym(this)) {
+                    rezultat.Add(wpis.LiniaObslugujaca);
+                }
             }
 
             return rezultat;
