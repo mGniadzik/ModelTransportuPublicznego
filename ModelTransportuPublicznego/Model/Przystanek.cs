@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ModelTransportuPublicznego.Implementacja.Graf;
+using ModelTransportuPublicznego.Implementacja.Pasazerowie;
+using ModelTransportuPublicznego.Misc;
 
 namespace ModelTransportuPublicznego.Model {
     public class Przystanek {
@@ -9,6 +12,8 @@ namespace ModelTransportuPublicznego.Model {
         protected List<Trasa> trasy;
         protected RozkladJazdy rozkladJazdy;
         protected List<Autobus> obecneAutobusy;
+        protected List<PrzyplywPasazerow> przyplywyPasazerow;
+        protected ZarzadTransportu zt;
 
         public string NazwaPrzystanku => nazwaPrzystanku;
 
@@ -16,21 +21,23 @@ namespace ModelTransportuPublicznego.Model {
 
         public IEnumerable<Autobus> ObecneAutobusy => obecneAutobusy;
 
-        public Przystanek(string nazwaPrzystanku) {
+        public Przystanek(string nazwaPrzystanku, ZarzadTransportu zt) {
             this.nazwaPrzystanku = nazwaPrzystanku;
             oczekujacyPasazerowie = new List<Pasazer>();
             trasy = new List<Trasa>();
             rozkladJazdy = new RozkladJazdy();
             obecneAutobusy = new List<Autobus>();
+            przyplywyPasazerow = new List<PrzyplywPasazerow>();
+            this.zt = zt;
         }
 
-        protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy) : this(nazwaPrzystanku) {
+        protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy, ZarzadTransportu zt) : this(nazwaPrzystanku, zt) {
             foreach (var trasa in trasy) {
                 this.trasy.Add(trasa);
             }
         }
 
-        protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy, IEnumerable<Pasazer> oczekujacyPasazerowie) : this(nazwaPrzystanku, trasy) {
+        protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy, IEnumerable<Pasazer> oczekujacyPasazerowie, ZarzadTransportu zt) : this(nazwaPrzystanku, trasy, zt) {
             foreach (var pasazer in oczekujacyPasazerowie) {
                 this.oczekujacyPasazerowie.Add(pasazer);
             }
@@ -130,6 +137,50 @@ namespace ModelTransportuPublicznego.Model {
                     return;
                 }
             }
+        }
+
+        public virtual void DodajPrzyplyw(TimeSpan czas, int ilosc) {
+            przyplywyPasazerow.Add(new PrzyplywPasazerow(czas, ilosc));
+            przyplywyPasazerow.Sort();
+        }
+
+        public virtual void DodajPrzyplyw(PrzyplywPasazerow przyplywPasazerow) {
+            przyplywyPasazerow.Add(przyplywPasazerow);
+            przyplywyPasazerow.Sort();
+        }
+
+        public virtual void DodajPrzyplywy(IEnumerable<PrzyplywPasazerow> przyplywyPasazerow) {
+            foreach (var przyplyw in przyplywyPasazerow) {
+                this.przyplywyPasazerow.Add(przyplyw);
+            }
+            
+            this.przyplywyPasazerow.Sort();
+        }
+
+        public virtual void WykonajPrzyplywy(TimeSpan czas) {
+            foreach (var przyplyw in przyplywyPasazerow.Where(p => p.CzyWykonany == false && p.CzasPrzyplywu < czas).ToList()) {
+                WykonajPrzyplyw(przyplyw);   
+            }
+        }
+
+        protected virtual void WykonajPrzyplyw(PrzyplywPasazerow przyplyw) {
+            for (int i = 0; i < przyplyw.IloscPasazerow; i++) {
+                DodajPasazera(WygenerujPasazeraDijkstry());
+            }
+        }
+
+        protected virtual PasazerDijkstry WygenerujPasazeraDijkstry() {
+            var rand = new Random();
+            
+            var graf = new Graf(zt.SiecPrzystankow);
+            graf.DodajKrawedzie(zt.ZwrocLinie());
+            Przystanek pKoncowy;
+
+            do {
+                pKoncowy = zt.SiecPrzystankow.ToList()[rand.Next(zt.SiecPrzystankow.Count())];
+            } while (pKoncowy == this);
+            
+            return new PasazerDijkstry(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, graf);
         }
     }
 }

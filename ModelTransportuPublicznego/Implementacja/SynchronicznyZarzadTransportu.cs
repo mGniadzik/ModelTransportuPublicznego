@@ -79,6 +79,8 @@ namespace ModelTransportuPublicznego.Implementacja {
                 if (!przejazd.TrasaZakonczona) {
                     DodajPrzejazdDoListy(przejazd);
                 }
+                
+                przejazd.Firma.DodajPrzejazdDoHistorii(przejazd);
             }
         }
     }

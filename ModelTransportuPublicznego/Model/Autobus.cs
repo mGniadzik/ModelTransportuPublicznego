@@ -40,20 +40,18 @@ namespace ModelTransportuPublicznego.Model {
         public virtual List<Pasazer> StworzListeWsiadajacychPasazerow(Przystanek obecnyPrzystanek, Linia liniaAutobusu) {
             var listaWsiadajacych = new List<Pasazer>();
 
-            if (obecniPasazerowie.Count < maksymalnaPojemnosc) {
-                foreach (var pasazer in obecnyPrzystanek.ZwrocPasazerowOczekujacychNaLinie(liniaAutobusu)) {
-                    if (obecniPasazerowie.Count < maksymalnaPojemnosc) {
-                        listaWsiadajacych.Add(pasazer);
-                    }
-                    else {
-                        break;
-                    }
+            foreach (var pasazer in obecnyPrzystanek.ZwrocPasazerowOczekujacychNaLinie(liniaAutobusu)) {
+                if ((obecniPasazerowie.Count + listaWsiadajacych.Count) < maksymalnaPojemnosc) {
+                    listaWsiadajacych.Add(pasazer);
                 }
+                else {
+                    break;
+                }
+            }
 
-                foreach (var pasazer in listaWsiadajacych) {
-                    obecnyPrzystanek.UsunPasazera(pasazer);
-                    pasazer.Wsiadz(this);
-                }
+            foreach (var pasazer in listaWsiadajacych) {
+                obecnyPrzystanek.UsunPasazera(pasazer);
+                pasazer.Wsiadz(this);
             }
 
             return listaWsiadajacych;

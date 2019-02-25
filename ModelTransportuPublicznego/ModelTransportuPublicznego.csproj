@@ -40,7 +40,6 @@
   <ItemGroup>
     <Compile Include="Implementacja\Autobusy\AutobusLiniowy.cs" />
     <Compile Include="Implementacja\FirmaLosowa.cs" />
-    <Compile Include="Implementacja\DomyslnyPrzystanek.cs" />
     <Compile Include="Implementacja\Graf\Graf.cs" />
     <Compile Include="Implementacja\Graf\Krawedz.cs" />
     <Compile Include="Implementacja\Graf\Wierzcholek.cs" />
@@ -58,6 +57,7 @@
     <Compile Include="Model\Linia.cs" />
     <Compile Include="Model\Pasazer.cs" />
     <Compile Include="Model\Przejazd.cs" />
+    <Compile Include="Model\PrzyplywPasazerow.cs" />
     <Compile Include="Model\Przystanek.cs" />
     <Compile Include="Model\RozkladJazdy.cs" />
     <Compile Include="Model\RozkladPrzejazdow.cs" />

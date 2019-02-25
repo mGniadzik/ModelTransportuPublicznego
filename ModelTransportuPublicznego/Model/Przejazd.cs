@@ -19,6 +19,8 @@ namespace ModelTransportuPublicznego.Model {
         
         public TimeSpan CzasNastepnejAkcji => rozpoczeciePrzejazdu + czasPrzejazdu;
 
+        public Firma Firma => firma;
+
         private Przejazd() {
             autobus = null;
             nastepnaAkcja = Akcja.PobieraniePasazerow;
@@ -45,6 +47,7 @@ namespace ModelTransportuPublicznego.Model {
         protected enum Akcja { PobieraniePasazerow, Przejazd, WypuszczniePasazerow };
 
         public void WykonajNastepnaAkcje() {
+            obecnyPrzystanek.WykonajPrzyplywy(rozpoczeciePrzejazdu + czasPrzejazdu);
             SprawdzCzyPrzejazdPosiadaAutobus();
 
             if (trasaZakonczona) {
@@ -106,6 +109,7 @@ namespace ModelTransportuPublicznego.Model {
             if (obecnyPrzystanek == autobus.liniaAutobusu.ZwrocOstatniPrzystanek()) {
                 trasaZakonczona = true;
                 obecnyPrzystanek.UsunAutobus(autobus);
+                firma.DodajPrzejazdDoHistorii(this);
                         
                 Logger.ZalogujZakonczenieTrasy(autobus, obecnyPrzystanek, autobus.liniaAutobusu, czasPrzejazdu);
                 return;

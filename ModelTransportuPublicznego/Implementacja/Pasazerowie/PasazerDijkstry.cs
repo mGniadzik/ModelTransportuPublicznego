@@ -5,20 +5,21 @@ using ModelTransportuPublicznego.Implementacja.Graf;
 using ModelTransportuPublicznego.Model;
 
 namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
-    public class PasazerDjikstry : Pasazer {
+    public class PasazerDijkstry : Pasazer {
 
         private static List<List<Przystanek>> obliczoneTrasy = new List<List<Przystanek>>();
         private Graf.Graf graf;
 
-        public PasazerDjikstry(IEnumerable<Przystanek> trasaPasazera) : base(trasaPasazera) { }
+        public PasazerDijkstry(IEnumerable<Przystanek> trasaPasazera) : base(trasaPasazera) { }
 
-        public PasazerDjikstry(List<Przystanek> trasaPasazera, int czasWsiadania, int czasWysiadania) : base(trasaPasazera,
+        public PasazerDijkstry(List<Przystanek> trasaPasazera, int czasWsiadania, int czasWysiadania) : base(trasaPasazera,
             czasWsiadania, czasWysiadania) { }
 
-        public PasazerDjikstry(int czasWsiadania, int czasWysiadania, Przystanek przystanekPoczatkowy, Przystanek przystanekKoncowy, Graf.Graf graf)
+        public PasazerDijkstry(int czasWsiadania, int czasWysiadania, Przystanek przystanekPoczatkowy, Przystanek przystanekKoncowy, Graf.Graf graf)
             : base(czasWsiadania, czasWysiadania, przystanekPoczatkowy, przystanekKoncowy) {
             this.graf = graf;
             trasaPasazera = ZnajdzTrase(graf);
+            graf.ZresetujGraf();
 
             if (trasaPasazera.Count > 1) {
                 przystanekPoczatkowy = trasaPasazera[0];

@@ -10,6 +10,7 @@ namespace ModelTransportuPublicznego.Model {
         protected List<Linia> linieAutobusowe;
         protected List<Autobus> listaAutobusowZajetych;
         protected List<Kierowca> listaKierwcowZajetych;
+        protected List<Przejazd> historiaPrzejazdow;
         protected int liczbaOtrzymanychKar;
 
         public IEnumerable<Linia> LinieAutobusowe => linieAutobusowe;
@@ -23,6 +24,7 @@ namespace ModelTransportuPublicznego.Model {
             linieAutobusowe = new List<Linia>();
             listaAutobusowZajetych = new List<Autobus>();
             listaKierwcowZajetych = new List<Kierowca>();
+            historiaPrzejazdow = new List<Przejazd>();
         }
 
         public Firma(string nazwaFirmy, IEnumerable<Autobus> tabor, IEnumerable<Kierowca> listaKierowcow,
@@ -110,6 +112,10 @@ namespace ModelTransportuPublicznego.Model {
         protected virtual void ZwolnijAutobus(Autobus autobus) {
             listaAutobusowZajetych.Remove(autobus);
             dostepnyTabor.Add(autobus);
+        }
+
+        public virtual void DodajPrzejazdDoHistorii(Przejazd przejazd) {
+            historiaPrzejazdow.Add(przejazd);
         }
     }
 }

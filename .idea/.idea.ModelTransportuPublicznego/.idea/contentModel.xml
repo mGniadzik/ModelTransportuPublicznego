@@ -9,7 +9,6 @@
           <e p="Autobusy" t="Include">
             <e p="AutobusLiniowy.cs" t="Include" />
           </e>
-          <e p="DomyslnyPrzystanek.cs" t="Include" />
           <e p="FirmaLosowa.cs" t="Include" />
           <e p="Graf" t="Include">
             <e p="Graf.cs" t="Include" />
@@ -38,6 +37,7 @@
           <e p="Linia.cs" t="Include" />
           <e p="Pasazer.cs" t="Include" />
           <e p="Przejazd.cs" t="Include" />
+          <e p="PrzyplywPasazerow.cs" t="Include" />
           <e p="Przystanek.cs" t="Include" />
           <e p="RozkladJazdy.cs" t="Include" />
           <e p="RozkladPrzejazdow.cs" t="Include" />
