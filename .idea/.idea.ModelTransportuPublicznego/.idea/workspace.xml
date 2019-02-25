@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="46c13938-56d5-4c61-93a3-1f0ace9d1f6c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ModelTransportuPublicznego/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ModelTransportuPublicznego/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ModelTransportuPublicznego/Implementacja/FirmaLosowa.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ModelTransportuPublicznego/Implementacja/FirmaLosowa.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ModelTransportuPublicznego/Model/Firma.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ModelTransportuPublicznego/Model/Firma.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ModelTransportuPublicznego/Model/Przejazd.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ModelTransportuPublicznego/Model/Przejazd.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ModelTransportuPublicznego/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ModelTransportuPublicznego/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ModelTransportuPublicznego/bin/Debug/ModelTransportuPublicznego.exe" beforeDir="false" afterPath="$PROJECT_DIR$/ModelTransportuPublicznego/bin/Debug/ModelTransportuPublicznego.exe" afterDir="false" />
@@ -82,8 +80,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ModelTransportuPublicznego/Implementacja/SynchronicznyZarzadTransportu.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
-              <caret line="50" column="61" lean-forward="true" selection-start-line="50" selection-start-column="61" selection-end-line="50" selection-end-column="61" />
+            <state relative-caret-position="277">
+              <caret line="80" column="16" selection-start-line="80" selection-start-column="16" selection-end-line="80" selection-end-column="16" />
               <folding>
                 <marker date="1551088873006" expanded="false" signature="6:73" ph="..." />
                 <marker date="1551088873006" expanded="true" signature="126:2904" ph="{...}" />
@@ -209,17 +207,16 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ModelTransportuPublicznego/Program.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="59" column="14" selection-start-line="59" selection-start-column="14" selection-end-line="59" selection-end-column="14" />
+            <state relative-caret-position="405">
+              <caret line="54" column="14" selection-start-line="54" selection-start-column="14" selection-end-line="54" selection-end-column="14" />
               <folding>
-                <marker date="1551111962773" expanded="false" signature="6:305" ph="..." />
-                <marker date="1551111962773" expanded="true" signature="344:3676" ph="{...}" />
-                <marker date="1551111962773" expanded="true" signature="381:3672" ph="{...}" />
-                <marker date="1551111962773" expanded="true" signature="430:3666" ph="{...}" />
-                <marker date="1551111962773" expanded="true" signature="1422:1561" ph="{...}" />
-                <marker date="1551111962773" expanded="true" signature="1593:1870" ph="/* var r1 = new RozkladJazdy(new List&lt;TimeSpan&gt; {new TimeSpan(8, 0, 0)}); ... */" />
-                <marker date="1551111962773" expanded="true" signature="1940:2100" ph="{...}" />
-                <marker date="1551111962773" expanded="true" signature="2319:2821" ph="{...}" />
+                <marker date="1551113440053" expanded="false" signature="6:305" ph="..." />
+                <marker date="1551113440053" expanded="true" signature="344:3373" ph="{...}" />
+                <marker date="1551113440053" expanded="true" signature="381:3369" ph="{...}" />
+                <marker date="1551113440053" expanded="true" signature="430:3363" ph="{...}" />
+                <marker date="1551113440053" expanded="true" signature="1422:1561" ph="{...}" />
+                <marker date="1551113440053" expanded="true" signature="1637:1797" ph="{...}" />
+                <marker date="1551113440053" expanded="true" signature="2016:2518" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -315,27 +312,28 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ModelTransportuPublicznego/Model/Przejazd.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="118" column="43" selection-start-line="118" selection-start-column="43" selection-end-line="118" selection-end-column="43" />
+            <state relative-caret-position="322">
+              <caret line="136" column="9" lean-forward="true" selection-start-line="136" selection-start-column="9" selection-end-line="136" selection-end-column="9" />
               <folding>
-                <marker date="1551111826376" expanded="false" signature="6:161" ph="..." />
-                <marker date="1551111826376" expanded="true" signature="206:5211" ph="{...}" />
-                <marker date="1551111826376" expanded="true" signature="258:5209" ph="{...}" />
-                <marker date="1551111826376" expanded="true" signature="736:910" ph="{...}" />
-                <marker date="1551111826376" expanded="true" signature="1014:1277" ph="{...}" />
-                <marker date="1551111826376" expanded="true" signature="1360:1588" ph="{...}" />
-                <marker date="1551111826376" expanded="true" signature="1728:2280" ph="{...}" />
-                <marker date="1551111826376" expanded="true" signature="1813:2270" ph="{...}" />
-                <marker date="1551111826376" expanded="true" signature="2327:2455" ph="{...}" />
-                <marker date="1551111826376" expanded="true" signature="2507:3053" ph="{...}" />
-                <marker date="1551111826376" expanded="true" signature="3094:3585" ph="{...}" />
-                <marker date="1551111826376" expanded="true" signature="3639:4495" ph="{...}" />
-                <marker date="1551111826376" expanded="true" signature="4106:4378" ph="{...}" />
-                <marker date="1551111826376" expanded="true" signature="4553:5203" ph="{...}" />
-                <marker date="1551111826376" expanded="true" signature="4588:5193" ph="{...}" />
-                <marker date="1551111826376" expanded="true" signature="4610:4890" ph="{...}" />
-                <marker date="1551111826376" expanded="true" signature="4943:5034" ph="{...}" />
-                <marker date="1551111826376" expanded="true" signature="5088:5179" ph="{...}" />
+                <marker date="1551113380356" expanded="false" signature="6:161" ph="..." />
+                <marker date="1551113380356" expanded="true" signature="206:5471" ph="{...}" />
+                <marker date="1551113380356" expanded="true" signature="258:5469" ph="{...}" />
+                <marker date="1551113380356" expanded="true" signature="736:910" ph="{...}" />
+                <marker date="1551113380356" expanded="true" signature="1014:1277" ph="{...}" />
+                <marker date="1551113380356" expanded="true" signature="1360:1588" ph="{...}" />
+                <marker date="1551113380356" expanded="true" signature="1728:2367" ph="{...}" />
+                <marker date="1551113380356" expanded="true" signature="1812:1851" ph="{...}" />
+                <marker date="1551113380356" expanded="true" signature="1900:2357" ph="{...}" />
+                <marker date="1551113380356" expanded="true" signature="2414:2542" ph="{...}" />
+                <marker date="1551113380356" expanded="true" signature="2594:3140" ph="{...}" />
+                <marker date="1551113380356" expanded="true" signature="3181:3672" ph="{...}" />
+                <marker date="1551113380356" expanded="true" signature="3726:4582" ph="{...}" />
+                <marker date="1551113380356" expanded="true" signature="4193:4465" ph="{...}" />
+                <marker date="1551113380356" expanded="true" signature="4640:5463" ph="{...}" />
+                <marker date="1551113380356" expanded="true" signature="4675:5453" ph="{...}" />
+                <marker date="1551113380356" expanded="true" signature="4697:5062" ph="{...}" />
+                <marker date="1551113380356" expanded="true" signature="5115:5250" ph="{...}" />
+                <marker date="1551113380356" expanded="true" signature="5304:5439" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -449,8 +447,8 @@
         <option value="$PROJECT_DIR$/ModelTransportuPublicznego/Implementacja/Pasazerowie/PasazerLosowy.cs" />
         <option value="$PROJECT_DIR$/ModelTransportuPublicznego/Model/Linia.cs" />
         <option value="$PROJECT_DIR$/ModelTransportuPublicznego/Model/Firma.cs" />
-        <option value="$PROJECT_DIR$/ModelTransportuPublicznego/Model/Przejazd.cs" />
         <option value="$PROJECT_DIR$/ModelTransportuPublicznego/Implementacja/FirmaLosowa.cs" />
+        <option value="$PROJECT_DIR$/ModelTransportuPublicznego/Model/Przejazd.cs" />
         <option value="$PROJECT_DIR$/ModelTransportuPublicznego/Program.cs" />
       </list>
     </option>
@@ -616,7 +614,7 @@
       <workItem from="1551005101094" duration="11620000" />
       <workItem from="1551087494993" duration="1573000" />
       <workItem from="1551089605274" duration="10086000" />
-      <workItem from="1551110523192" duration="1440000" />
+      <workItem from="1551110523192" duration="2917000" />
     </task>
     <task id="LOCAL-00001" summary="Zmiany w strukturze projektu.">
       <created>1550576690729</created>
@@ -779,11 +777,18 @@
       <option name="project" value="LOCAL" />
       <updated>1551107936106</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Teraz kierowcy oraz autobusy są wybierani przy rozpoczęciu przejazdu zamiast podczas jego inicjalizacji.">
+      <created>1551112046717</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1551112046718</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="135339000" />
+    <option name="totallyTimeSpent" value="136816000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -805,8 +810,8 @@
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.46379128" weight="0.32875264" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.8684771" visible="true" weight="0.29915434" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.46059638" visible="true" weight="0.32875264" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.86315227" weight="0.29915434" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49946752" weight="0.32875264" />
@@ -816,8 +821,8 @@
       <window_info anchor="bottom" id="Database Changes" order="10" />
       <window_info anchor="bottom" id="Unit Tests" order="11" weight="0.32946146" />
       <window_info anchor="bottom" id="Terminal" order="12" weight="0.32980973" />
-      <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.1315229" side_tool="true" visible="true" weight="0.29915434" />
-      <window_info anchor="bottom" id="Build" order="14" sideWeight="0.4030884" weight="0.32875264" />
+      <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.5394036" side_tool="true" visible="true" weight="0.32875264" />
+      <window_info anchor="bottom" id="Build" order="14" sideWeight="0.39456868" weight="0.32875264" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -851,7 +856,8 @@
     <MESSAGE value="Implementacja Pasazera Losowego." />
     <MESSAGE value="Poprawiono błędy związane z odwracaniem linii, które uniemożliwiały poprawne funkcjionowanie PasażeraLosowego." />
     <MESSAGE value="Poprawiono błędy oraz przeoczenia przy odwracaniu linii autobusowych oraz w logice Pasażera Losowego." />
-    <option name="LAST_COMMIT_MESSAGE" value="Poprawiono błędy oraz przeoczenia przy odwracaniu linii autobusowych oraz w logice Pasażera Losowego." />
+    <MESSAGE value="Teraz kierowcy oraz autobusy są wybierani przy rozpoczęciu przejazdu zamiast podczas jego inicjalizacji." />
+    <option name="LAST_COMMIT_MESSAGE" value="Teraz kierowcy oraz autobusy są wybierani przy rozpoczęciu przejazdu zamiast podczas jego inicjalizacji." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -860,6 +866,19 @@
           <properties exception="System.Threading.ThreadAbortException" displayValue="System.Threading.ThreadAbortException" />
           <option name="timeStamp" value="1" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/ModelTransportuPublicznego/Model/Przejazd.cs</url>
+          <line>46</line>
+          <properties documentPath="$PROJECT_DIR$/ModelTransportuPublicznego/Model/Przejazd.cs" initialLine="46">
+            <startOffsets>
+              <option value="1728" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1729" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -1423,36 +1442,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ModelTransportuPublicznego/Implementacja/SynchronicznyZarzadTransportu.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="50" column="61" lean-forward="true" selection-start-line="50" selection-start-column="61" selection-end-line="50" selection-end-column="61" />
-          <folding>
-            <marker date="1551088873006" expanded="false" signature="6:73" ph="..." />
-            <marker date="1551088873006" expanded="true" signature="126:2904" ph="{...}" />
-            <marker date="1551088873006" expanded="true" signature="200:2902" ph="{...}" />
-            <marker date="1551088873006" expanded="true" signature="329:392" ph="{...}" />
-            <marker date="1551088873006" expanded="true" signature="945:1001" ph="{...}" />
-            <marker date="1551088873006" expanded="true" signature="1084:1211" ph="{...}" />
-            <marker date="1551088873006" expanded="true" signature="1137:1201" ph="{...}" />
-            <marker date="1551088873006" expanded="true" signature="1280:1339" ph="{...}" />
-            <marker date="1551088873006" expanded="true" signature="1394:1439" ph="{...}" />
-            <marker date="1551088873006" expanded="true" signature="1507:1613" ph="{...}" />
-            <marker date="1551088873006" expanded="true" signature="1550:1603" ph="{...}" />
-            <marker date="1551088873006" expanded="true" signature="1667:1715" ph="{...}" />
-            <marker date="1551088873006" expanded="true" signature="1770:1964" ph="{...}" />
-            <marker date="1551088873006" expanded="true" signature="1817:1905" ph="{...}" />
-            <marker date="1551088873006" expanded="true" signature="2043:2467" ph="{...}" />
-            <marker date="1551088873006" expanded="true" signature="2089:2175" ph="{...}" />
-            <marker date="1551088873006" expanded="true" signature="2249:2457" ph="{...}" />
-            <marker date="1551088873006" expanded="true" signature="2340:2443" ph="{...}" />
-            <marker date="1551088873006" expanded="true" signature="2517:2896" ph="{...}" />
-            <marker date="1551088873006" expanded="true" signature="2610:2886" ph="{...}" />
-            <marker date="1551088873006" expanded="true" signature="2801:2872" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ModelTransportuPublicznego/Model/Firma.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7">
@@ -1488,33 +1477,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ModelTransportuPublicznego/Model/Przejazd.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="118" column="43" selection-start-line="118" selection-start-column="43" selection-end-line="118" selection-end-column="43" />
-          <folding>
-            <marker date="1551111826376" expanded="false" signature="6:161" ph="..." />
-            <marker date="1551111826376" expanded="true" signature="206:5211" ph="{...}" />
-            <marker date="1551111826376" expanded="true" signature="258:5209" ph="{...}" />
-            <marker date="1551111826376" expanded="true" signature="736:910" ph="{...}" />
-            <marker date="1551111826376" expanded="true" signature="1014:1277" ph="{...}" />
-            <marker date="1551111826376" expanded="true" signature="1360:1588" ph="{...}" />
-            <marker date="1551111826376" expanded="true" signature="1728:2280" ph="{...}" />
-            <marker date="1551111826376" expanded="true" signature="1813:2270" ph="{...}" />
-            <marker date="1551111826376" expanded="true" signature="2327:2455" ph="{...}" />
-            <marker date="1551111826376" expanded="true" signature="2507:3053" ph="{...}" />
-            <marker date="1551111826376" expanded="true" signature="3094:3585" ph="{...}" />
-            <marker date="1551111826376" expanded="true" signature="3639:4495" ph="{...}" />
-            <marker date="1551111826376" expanded="true" signature="4106:4378" ph="{...}" />
-            <marker date="1551111826376" expanded="true" signature="4553:5203" ph="{...}" />
-            <marker date="1551111826376" expanded="true" signature="4588:5193" ph="{...}" />
-            <marker date="1551111826376" expanded="true" signature="4610:4890" ph="{...}" />
-            <marker date="1551111826376" expanded="true" signature="4943:5034" ph="{...}" />
-            <marker date="1551111826376" expanded="true" signature="5088:5179" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ModelTransportuPublicznego/Implementacja/FirmaLosowa.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="127">
@@ -1538,19 +1500,76 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ModelTransportuPublicznego/Implementacja/SynchronicznyZarzadTransportu.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="80" column="16" selection-start-line="80" selection-start-column="16" selection-end-line="80" selection-end-column="16" />
+          <folding>
+            <marker date="1551088873006" expanded="false" signature="6:73" ph="..." />
+            <marker date="1551088873006" expanded="true" signature="126:2904" ph="{...}" />
+            <marker date="1551088873006" expanded="true" signature="200:2902" ph="{...}" />
+            <marker date="1551088873006" expanded="true" signature="329:392" ph="{...}" />
+            <marker date="1551088873006" expanded="true" signature="945:1001" ph="{...}" />
+            <marker date="1551088873006" expanded="true" signature="1084:1211" ph="{...}" />
+            <marker date="1551088873006" expanded="true" signature="1137:1201" ph="{...}" />
+            <marker date="1551088873006" expanded="true" signature="1280:1339" ph="{...}" />
+            <marker date="1551088873006" expanded="true" signature="1394:1439" ph="{...}" />
+            <marker date="1551088873006" expanded="true" signature="1507:1613" ph="{...}" />
+            <marker date="1551088873006" expanded="true" signature="1550:1603" ph="{...}" />
+            <marker date="1551088873006" expanded="true" signature="1667:1715" ph="{...}" />
+            <marker date="1551088873006" expanded="true" signature="1770:1964" ph="{...}" />
+            <marker date="1551088873006" expanded="true" signature="1817:1905" ph="{...}" />
+            <marker date="1551088873006" expanded="true" signature="2043:2467" ph="{...}" />
+            <marker date="1551088873006" expanded="true" signature="2089:2175" ph="{...}" />
+            <marker date="1551088873006" expanded="true" signature="2249:2457" ph="{...}" />
+            <marker date="1551088873006" expanded="true" signature="2340:2443" ph="{...}" />
+            <marker date="1551088873006" expanded="true" signature="2517:2896" ph="{...}" />
+            <marker date="1551088873006" expanded="true" signature="2610:2886" ph="{...}" />
+            <marker date="1551088873006" expanded="true" signature="2801:2872" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ModelTransportuPublicznego/Model/Przejazd.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="136" column="9" lean-forward="true" selection-start-line="136" selection-start-column="9" selection-end-line="136" selection-end-column="9" />
+          <folding>
+            <marker date="1551113380356" expanded="false" signature="6:161" ph="..." />
+            <marker date="1551113380356" expanded="true" signature="206:5471" ph="{...}" />
+            <marker date="1551113380356" expanded="true" signature="258:5469" ph="{...}" />
+            <marker date="1551113380356" expanded="true" signature="736:910" ph="{...}" />
+            <marker date="1551113380356" expanded="true" signature="1014:1277" ph="{...}" />
+            <marker date="1551113380356" expanded="true" signature="1360:1588" ph="{...}" />
+            <marker date="1551113380356" expanded="true" signature="1728:2367" ph="{...}" />
+            <marker date="1551113380356" expanded="true" signature="1812:1851" ph="{...}" />
+            <marker date="1551113380356" expanded="true" signature="1900:2357" ph="{...}" />
+            <marker date="1551113380356" expanded="true" signature="2414:2542" ph="{...}" />
+            <marker date="1551113380356" expanded="true" signature="2594:3140" ph="{...}" />
+            <marker date="1551113380356" expanded="true" signature="3181:3672" ph="{...}" />
+            <marker date="1551113380356" expanded="true" signature="3726:4582" ph="{...}" />
+            <marker date="1551113380356" expanded="true" signature="4193:4465" ph="{...}" />
+            <marker date="1551113380356" expanded="true" signature="4640:5463" ph="{...}" />
+            <marker date="1551113380356" expanded="true" signature="4675:5453" ph="{...}" />
+            <marker date="1551113380356" expanded="true" signature="4697:5062" ph="{...}" />
+            <marker date="1551113380356" expanded="true" signature="5115:5250" ph="{...}" />
+            <marker date="1551113380356" expanded="true" signature="5304:5439" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ModelTransportuPublicznego/Program.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="59" column="14" selection-start-line="59" selection-start-column="14" selection-end-line="59" selection-end-column="14" />
+        <state relative-caret-position="405">
+          <caret line="54" column="14" selection-start-line="54" selection-start-column="14" selection-end-line="54" selection-end-column="14" />
           <folding>
-            <marker date="1551111962773" expanded="false" signature="6:305" ph="..." />
-            <marker date="1551111962773" expanded="true" signature="344:3676" ph="{...}" />
-            <marker date="1551111962773" expanded="true" signature="381:3672" ph="{...}" />
-            <marker date="1551111962773" expanded="true" signature="430:3666" ph="{...}" />
-            <marker date="1551111962773" expanded="true" signature="1422:1561" ph="{...}" />
-            <marker date="1551111962773" expanded="true" signature="1593:1870" ph="/* var r1 = new RozkladJazdy(new List&lt;TimeSpan&gt; {new TimeSpan(8, 0, 0)}); ... */" />
-            <marker date="1551111962773" expanded="true" signature="1940:2100" ph="{...}" />
-            <marker date="1551111962773" expanded="true" signature="2319:2821" ph="{...}" />
+            <marker date="1551113440053" expanded="false" signature="6:305" ph="..." />
+            <marker date="1551113440053" expanded="true" signature="344:3373" ph="{...}" />
+            <marker date="1551113440053" expanded="true" signature="381:3369" ph="{...}" />
+            <marker date="1551113440053" expanded="true" signature="430:3363" ph="{...}" />
+            <marker date="1551113440053" expanded="true" signature="1422:1561" ph="{...}" />
+            <marker date="1551113440053" expanded="true" signature="1637:1797" ph="{...}" />
+            <marker date="1551113440053" expanded="true" signature="2016:2518" ph="{...}" />
           </folding>
         </state>
       </provider>

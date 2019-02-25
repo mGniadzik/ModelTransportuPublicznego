@@ -46,6 +46,11 @@ namespace ModelTransportuPublicznego.Model {
 
         public void WykonajNastepnaAkcje() {
             SprawdzCzyPrzejazdPosiadaAutobus();
+
+            if (trasaZakonczona) {
+                return;
+            }
+            
             switch (nastepnaAkcja) {
                 case Akcja.PobieraniePasazerow:
                     WykonajPobieraniaPasazerow();
@@ -114,15 +119,19 @@ namespace ModelTransportuPublicznego.Model {
             if (autobus == null) {
                 try {
                     var autobus = firma.WybierzAutobusDoObslugiPrzejazdu();
-                    autobus.kierowcaAutobusu = firma.WybierzKierowceDoObslugiPrzejazdu();
+                    var kierowca = firma.WybierzKierowceDoObslugiPrzejazdu();
+                    
+                    autobus.kierowcaAutobusu = kierowca;                   
                     autobus.liniaAutobusu = linia;
                     this.autobus = autobus;
                 }
                 catch (AutobusNieZnalezionyWyjatek) {
                     Logger.ZalogujBrakDostepnegoAutobusu(firma, linia);
+                    trasaZakonczona = true;
                 }
                 catch (KierowcaNieZnalezionyWyjatek) {
                     Logger.ZalogujBrakDostepnegoKierowcy(firma, linia);
+                    trasaZakonczona = true;
                 }
             }
         }

@@ -38,11 +38,6 @@ namespace ModelTransportuPublicznego {
              var l2 = new Linia("L2", new List<WpisLinii>{new WpisLinii(p4, new TimeSpan(0)), 
                  new WpisLinii(p2, new TimeSpan(0, 5, 0)), new WpisLinii(p5, new TimeSpan(0, 10, 0))}, r2);
             
-            // var r1 = new RozkladJazdy(new List<TimeSpan> {new TimeSpan(8, 0, 0)});
-            
-            //var l1 = new Linia("L1", new List<Przystanek> { p1, p2, p3 }, r1, new List<TimeSpan> {
-              //  new TimeSpan(0, 0, 0), new TimeSpan(0, 0, 0), new TimeSpan(0, 0, 0) });
-            
             var l1 = new Linia("L1", new List<WpisLinii>{new WpisLinii(p1, new TimeSpan(0)), 
                 new WpisLinii(p2, new TimeSpan(0, 10, 0)), new WpisLinii(p3, 
                     new TimeSpan(0, 15, 0))}, r1);
