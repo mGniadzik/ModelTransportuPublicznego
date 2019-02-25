@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ModelTransportuPublicznego.Model {
     public class Przystanek {
@@ -83,6 +84,42 @@ namespace ModelTransportuPublicznego.Model {
 
         public virtual void UsunAutobus(Autobus autobus) {
             obecneAutobusy.Remove(autobus);
+        }
+
+        public virtual IEnumerable<WpisRozkladuJazdy> PozostalePrzejazdy() {
+            var rezultat = new List<WpisRozkladuJazdy>();
+
+            foreach (var wpis in rozkladJazdy) {
+                if (!wpis.CzyWykonany) {
+                    rezultat.Add(wpis);
+                }
+            }
+            
+            return rezultat;
+        }
+
+        public virtual IEnumerable<Linia> PozostaleLiniePrzejazdow() {
+            var rezultat = new List<Linia>();
+
+            foreach (var wpis in PozostalePrzejazdy()) {
+                if (rezultat.Contains(wpis.LiniaObslugujaca)) continue;
+                
+                rezultat.Add(wpis.LiniaObslugujaca);
+            }
+
+            return rezultat;
+        }
+
+        public virtual void OznaczPrzejazdJakoWykonany(Linia linia) {
+            var lista = rozkladJazdy.ZwrocRozkladJazdy().Where(wpis => wpis.CzyWykonany = false)
+                .OrderBy(wpis => wpis.CzasPrzyjazdu).ToList();
+
+            foreach (var wpis in lista) {
+                if (wpis.LiniaObslugujaca == linia) {
+                    wpis.CzyWykonany = true;
+                    return;
+                }
+            }
         }
     }
 }

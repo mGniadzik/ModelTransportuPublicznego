@@ -45,6 +45,7 @@
     <Compile Include="Implementacja\Graf\Krawedz.cs" />
     <Compile Include="Implementacja\Graf\Wierzcholek.cs" />
     <Compile Include="Implementacja\Pasazerowie\PasazerDijkstry.cs" />
+    <Compile Include="Implementacja\Pasazerowie\PasazerLosowy.cs" />
     <Compile Include="Implementacja\SynchronicznyZarzadTransportu.cs" />
     <Compile Include="Implementacja\Wyjatki\AutobusNieZnalezionyWyjatek.cs" />
     <Compile Include="Implementacja\Wyjatki\KierowcaNieZnalezionyWyjatek.cs" />

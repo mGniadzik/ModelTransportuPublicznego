@@ -14,6 +14,8 @@ namespace ModelTransportuPublicznego.Model {
         private Firma firma;
 
         public bool TrasaZakonczona => trasaZakonczona;
+        
+        public TimeSpan CzasNastepnejAkcji => rozpoczeciePrzejazdu + czasPrzejazdu;
 
         public Przejazd(Autobus autobus, Firma firma, TimeSpan rozpoczeciePrzejazdu) {
             this.autobus = autobus;
@@ -77,14 +79,10 @@ namespace ModelTransportuPublicznego.Model {
             }
         }
 
-        public TimeSpan CzasNastepnejAkcji() {
-            return rozpoczeciePrzejazdu + czasPrzejazdu;
-        }
-
         public int CompareTo(Przejazd other) {
             if (other == null) return 1;
 
-            return CzasNastepnejAkcji().CompareTo(other.CzasNastepnejAkcji());
+            return CzasNastepnejAkcji.CompareTo(other.CzasNastepnejAkcji);
         }
         
         

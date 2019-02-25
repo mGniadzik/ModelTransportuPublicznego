@@ -133,6 +133,18 @@ namespace ModelTransportuPublicznego.Model {
             }
         }
 
+        public virtual IEnumerable<Przystanek> ZwrocPozostalePrzystanki(Przystanek przystanek) {
+            var rezultat = new List<Przystanek>();
+            var czyZnaleziony = false;
+            
+            foreach (var wpis in trasaLinii) {
+                if (czyZnaleziony) rezultat.Add(wpis.przystanek);
+                if (wpis.przystanek == przystanek) czyZnaleziony = true;
+            }
+
+            return rezultat;
+        }
+
         private class LiniaEnumerator : IEnumerator {
 
             private List<WpisLinii> trasaLinii;

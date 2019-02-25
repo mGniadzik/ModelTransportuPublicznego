@@ -61,7 +61,7 @@ namespace ModelTransportuPublicznego.Implementacja {
             }
             
             for (var i = 0; i < listaPrzejazdow.Count; i++) {
-                if (listaPrzejazdow[i].CzasNastepnejAkcji() > przejazd.CzasNastepnejAkcji()) {
+                if (listaPrzejazdow[i].CzasNastepnejAkcji > przejazd.CzasNastepnejAkcji) {
                     listaPrzejazdow.Insert(i, przejazd);
                     break;
                 }

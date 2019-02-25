@@ -18,6 +18,7 @@
           </e>
           <e p="Pasazerowie" t="Include">
             <e p="PasazerDijkstry.cs" t="Include" />
+            <e p="PasazerLosowy.cs" t="Include" />
           </e>
           <e p="SynchronicznyZarzadTransportu.cs" t="Include" />
           <e p="Wyjatki" t="Include">

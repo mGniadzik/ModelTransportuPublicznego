@@ -1,10 +1,13 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ModelTransportuPublicznego.Misc;
 
 namespace ModelTransportuPublicznego.Model {
-    public class RozkladJazdy {
+    public class RozkladJazdy : IEnumerable<WpisRozkladuJazdy> {
         private List<WpisRozkladuJazdy> rozkladJazdy;
+
+        public IEnumerable<WpisRozkladuJazdy> WpisyRozkladuJazdy => rozkladJazdy;
 
         public RozkladJazdy() {
             rozkladJazdy = new List<WpisRozkladuJazdy>();
@@ -22,6 +25,15 @@ namespace ModelTransportuPublicznego.Model {
 
         public IEnumerable<WpisRozkladuJazdy> ZwrocRozkladJazdy() {
             return rozkladJazdy.OrderBy(x => x.CzasPrzyjazdu);
+        }
+
+
+        public IEnumerator<WpisRozkladuJazdy> GetEnumerator() {
+            return rozkladJazdy.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
         }
     }
 }
