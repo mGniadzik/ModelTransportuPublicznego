@@ -77,7 +77,7 @@ namespace ModelTransportuPublicznego.Model {
 
         public virtual Trasa ZnajdzTraseDoNastepnegoPrzystanku(Przystanek nastepnyPrzystanek) {
             foreach (var trasa in trasy) {
-                if (trasa.PrzystanekDrugi == nastepnyPrzystanek) {
+                if (trasa.PrzystanekPrawy == nastepnyPrzystanek) {
                     return trasa;
                 }
             }
@@ -121,7 +121,7 @@ namespace ModelTransportuPublicznego.Model {
 
         public virtual Trasa ZwrocTraseDo(Przystanek przystanek) {
             foreach (var trasa in trasy) {
-                if (trasa.PrzystanekDrugi == przystanek) return trasa;
+                if (trasa.PrzystanekPrawy == przystanek) return trasa;
             }
             
             throw new ArgumentException($"Przystanek {nazwaPrzystanku} nie posiada trasy do przystanku {przystanek.NazwaPrzystanku}!");

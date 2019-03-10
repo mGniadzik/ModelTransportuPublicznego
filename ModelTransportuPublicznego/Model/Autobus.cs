@@ -75,9 +75,7 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         public virtual int PobierzPasazerow(Przystanek obecnyPrzystanek, Linia liniaAutobusu, IEnumerable<Pasazer> listaWsiadajacych) {
-            var listaKolejekPasazerow = new List<List<Pasazer>>();
-
-            listaKolejekPasazerow = StworzListeKolejek();
+            var listaKolejekPasazerow = StworzListeKolejek();
             PodzielPasazerowNaKolejki(listaWsiadajacych, listaKolejekPasazerow);
 
             foreach (var lista in listaKolejekPasazerow) {

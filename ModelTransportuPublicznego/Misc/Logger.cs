@@ -19,7 +19,7 @@ namespace ModelTransportuPublicznego.Misc {
         public static void ZalogujPrzejechanieTrasy(Autobus autobus, Trasa trasa, TimeSpan czas) {
             Console.WriteLine($"Autobus: {autobus.IdAutobusu} linii: {autobus.liniaAutobusu.IdLinii} przewiózł " +
                               $"{autobus.IloscPasazerow} pasażerów na trasie {trasa.NazwaTrasy} po między przystankani " +
-                              $"{trasa.PrzystanekPierwszy.NazwaPrzystanku} - {trasa.PrzystanekDrugi.NazwaPrzystanku}. " +
+                              $"{trasa.PrzystanekLewy.NazwaPrzystanku} - {trasa.PrzystanekPrawy.NazwaPrzystanku}. " +
                               $"Zajeło to: {czas}.");
         }
 

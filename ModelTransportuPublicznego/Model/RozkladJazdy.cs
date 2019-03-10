@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using ModelTransportuPublicznego.Misc;
 
@@ -32,6 +34,23 @@ namespace ModelTransportuPublicznego.Model {
             return rozkladJazdy.GetEnumerator();
         }
 
+        public IEnumerable<WpisRozkladuJazdy> ZwrocPozostaleWpisy(TimeSpan czas) {
+            return rozkladJazdy.Where((wpis) => !wpis.CzyWykonany && wpis.CzasPrzyjazdu > czas).OrderBy(wpis => wpis.CzasPrzyjazdu);
+        }
+
+        public void UstawJakoOdwiedzony(Linia linia, TimeSpan czas) {
+            foreach (var wpis in rozkladJazdy) {
+                if (wpis.LiniaObslugujaca == linia && wpis.CzasPrzyjazdu == czas && !wpis.CzyWykonany) {
+                    wpis.CzyWykonany = true;
+                    return;
+                }
+            } 
+            
+            
+            throw new InvalidEnumArgumentException(
+                $"W rozkładzie nie ma przejazdu linii {linia.IdLinii} o godzinie {czas}");
+        }
+        
         IEnumerator IEnumerable.GetEnumerator() {
             return GetEnumerator();
         }

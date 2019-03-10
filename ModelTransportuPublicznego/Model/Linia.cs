@@ -59,7 +59,19 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         public IEnumerator GetEnumerator() {
-            return new LiniaEnumerator(trasaLinii);
+            // return new LiniaEnumerator(trasaLinii);
+            return trasaLinii.GetEnumerator();
+        }
+
+        public TimeSpan SpodziewanyCzasPrzejazduDoPrzystanku(Przystanek przystanek) {
+            var rezultat = TimeSpan.Zero;
+            
+            foreach (var wpis in trasaLinii) {
+                rezultat += wpis.czasPrzyjaduDoPrzystanku;
+                if (wpis.przystanek == przystanek) return rezultat;
+            }
+            
+            throw new ArgumentException($"Przystanek {przystanek.NazwaPrzystanku} nie występuje na trasie linii {idLinii}.");
         }
 
         public Przystanek ZwrocNastepnyPrzystanek(Przystanek przystanek) {

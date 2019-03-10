@@ -35,8 +35,8 @@ namespace ModelTransportuPublicznego {
 
              var prz1 = new List<PrzyplywPasazerow>
                  {new PrzyplywPasazerow(new TimeSpan(7, 50, 0), 20), 
-//                     new PrzyplywPasazerow(new TimeSpan(8, 5, 0), 20),
-//                     new PrzyplywPasazerow(new TimeSpan(8, 20, 0), 30)
+                     new PrzyplywPasazerow(new TimeSpan(8, 5, 0), 20),
+                     new PrzyplywPasazerow(new TimeSpan(8, 20, 0), 30)
                  };
              
              p1.DodajPrzyplywy(prz1);

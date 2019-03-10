@@ -1,27 +1,27 @@
 namespace ModelTransportuPublicznego.Model {
     public class Trasa {
         protected string nazwaTrasy;
-        protected Przystanek przystanekPierwszy;
-        protected Przystanek przystanekDrugi;
+        protected Przystanek przystanekLewy;
+        protected Przystanek przystanekPrawy;
         protected int dystansTrasy;
 
         public string NazwaTrasy => nazwaTrasy;
-        public Przystanek PrzystanekPierwszy => przystanekPierwszy;
-        public Przystanek PrzystanekDrugi => przystanekDrugi;
+        public Przystanek PrzystanekLewy => przystanekLewy;
+        public Przystanek PrzystanekPrawy => przystanekPrawy;
 
         public virtual Trasa TrasaOdwrotna => OdwrocTrase();
 
         public int DystansTrasy => dystansTrasy;
 
-        public Trasa(string nazwaTrasy, Przystanek przystanekPierwszy, Przystanek przystanekDrugi, int dystansTrasy) {
+        public Trasa(string nazwaTrasy, Przystanek przystanekLewy, Przystanek przystanekPrawy, int dystansTrasy) {
             this.nazwaTrasy = nazwaTrasy;
-            this.przystanekPierwszy = przystanekPierwszy;
-            this.przystanekDrugi = przystanekDrugi;
+            this.przystanekLewy = przystanekLewy;
+            this.przystanekPrawy = przystanekPrawy;
             this.dystansTrasy = dystansTrasy;
         }
 
         protected virtual Trasa OdwrocTrase() {
-            return new Trasa(nazwaTrasy, PrzystanekDrugi, przystanekPierwszy, dystansTrasy);
+            return new Trasa(nazwaTrasy, PrzystanekPrawy, przystanekLewy, dystansTrasy);
         }
     }
 }
