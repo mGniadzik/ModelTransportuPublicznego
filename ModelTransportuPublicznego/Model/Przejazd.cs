@@ -80,8 +80,7 @@ namespace ModelTransportuPublicznego.Model {
             obecnyPrzystanek.DodajAutobus(autobus);
             var pasazerowie = autobus.StworzListeWsiadajacychPasazerow(obecnyPrzystanek, autobus.liniaAutobusu);
             var czasAkcji = new TimeSpan(0, 0,autobus.PobierzPasazerow(obecnyPrzystanek, autobus.liniaAutobusu, pasazerowie));
-            var spodziewanyCzasPrzyjazdu =
-                rozpoczeciePrzejazdu + linia.SpodziewanyCzasPrzejazduDoPrzystanku(obecnyPrzystanek);
+            var spodziewanyCzasPrzyjazdu = linia.SpodziewanyCzasPrzejazduDoPrzystanku(obecnyPrzystanek);                    // Spodziewany czas przez jaki autobus jest w trasie
 //            czasPrzejazdu += czasAkcji;
 
             if (czasPrzejazdu + czasAkcji < spodziewanyCzasPrzyjazdu) {                                                    // Aby autobus nie mógł odjechać z przystanku przed spodziewanym czasem.
@@ -91,9 +90,9 @@ namespace ModelTransportuPublicznego.Model {
                 czasPrzejazdu += czasAkcji;
             }
             
-            obecnyPrzystanek.RozkladJazdy.UstawJakoOdwiedzony(linia, spodziewanyCzasPrzyjazdu);
+            obecnyPrzystanek.RozkladJazdy.UstawJakoOdwiedzony(linia, rozpoczeciePrzejazdu + spodziewanyCzasPrzyjazdu);
                     
-            Logger.ZalogujPobieraniePasazerow(autobus, obecnyPrzystanek, pasazerowie.Count, czasAkcji);
+            Logger.ZalogujPobieraniePasazerow(rozpoczeciePrzejazdu + czasPrzejazdu, autobus, obecnyPrzystanek, pasazerowie.Count, czasAkcji);
                     
             nastepnaAkcja = Akcja.Przejazd;
         }
@@ -103,7 +102,7 @@ namespace ModelTransportuPublicznego.Model {
                 autobus.liniaAutobusu.ZwrocNastepnyPrzystanek(obecnyPrzystanek));
             var czasAkcji = new TimeSpan(0, 0, autobus.PrzejedzTrase(trasa));
                     
-            Logger.ZalogujPrzejechanieTrasy(autobus, trasa, czasAkcji);
+            Logger.ZalogujPrzejechanieTrasy(rozpoczeciePrzejazdu + czasPrzejazdu, autobus, trasa, czasAkcji);
 
             czasPrzejazdu += czasAkcji;
             nastepnaAkcja = Akcja.WypuszczniePasazerow;
@@ -115,14 +114,14 @@ namespace ModelTransportuPublicznego.Model {
             var czasAkcji = new TimeSpan(0, 0,autobus.WysadzPasazerow(obecnyPrzystanek, pasazerowie));
             czasPrzejazdu += czasAkcji;
                     
-            Logger.ZalogujWypuszczniePasazerow(autobus, obecnyPrzystanek, pasazerowie.Count, czasAkcji);
+            Logger.ZalogujWypuszczniePasazerow(rozpoczeciePrzejazdu + czasPrzejazdu, autobus, obecnyPrzystanek, pasazerowie.Count, czasAkcji);
                     
             if (obecnyPrzystanek == autobus.liniaAutobusu.ZwrocOstatniPrzystanek()) {
                 trasaZakonczona = true;
                 obecnyPrzystanek.UsunAutobus(autobus);
                 firma.DodajPrzejazdDoHistorii(this);
                         
-                Logger.ZalogujZakonczenieTrasy(autobus, obecnyPrzystanek, autobus.liniaAutobusu, czasPrzejazdu);
+                Logger.ZalogujZakonczenieTrasy(rozpoczeciePrzejazdu + czasPrzejazdu, autobus, obecnyPrzystanek, autobus.liniaAutobusu, czasPrzejazdu);
                 return;
             }
 

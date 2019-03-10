@@ -47,10 +47,10 @@ namespace ModelTransportuPublicznego {
              
              var r2 = new RozkladPrzejazdow(new List<TimeSpan>{new TimeSpan(9, 0, 0), new TimeSpan(9, 30, 0)});
              
-             var l2 = new Linia("L2", new List<WpisLinii>{new WpisLinii(p4, new TimeSpan(0)), 
+             var l2 = new Linia("L2", new List<WpisLinii>{new WpisLinii(p4, TimeSpan.Zero), 
                  new WpisLinii(p2, new TimeSpan(0, 5, 0)), new WpisLinii(p5, new TimeSpan(0, 10, 0))}, r2);
             
-            var l1 = new Linia("L1", new List<WpisLinii>{new WpisLinii(p1, new TimeSpan(0)), 
+            var l1 = new Linia("L1", new List<WpisLinii>{new WpisLinii(p1, TimeSpan.Zero), 
                 new WpisLinii(p2, new TimeSpan(0, 10, 0)), new WpisLinii(p3, 
                     new TimeSpan(0, 15, 0))}, r1);
 
