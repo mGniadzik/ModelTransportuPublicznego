@@ -65,6 +65,8 @@ namespace ModelTransportuPublicznego.Model {
 
         public TimeSpan SpodziewanyCzasPrzejazduDoPrzystanku(Przystanek przystanek) {
             var rezultat = TimeSpan.Zero;
+
+//            if (przystanek == trasaLinii[0].przystanek) return TimeSpan.Zero;
             
             foreach (var wpis in trasaLinii) {
                 rezultat += wpis.czasPrzyjaduDoPrzystanku;
@@ -117,13 +119,14 @@ namespace ModelTransportuPublicznego.Model {
             var wpisyLinii = new List<WpisLinii>();
 
             foreach (var wpis in trasaLinii) {
-                wpisyLinii.Add(wpis);   
+                wpisyLinii.Add(new WpisLinii(wpis));   
             }
             
             wpisyLinii.Reverse();
             OdwrocCzasyPrzejazdow(wpisyLinii);
             
             var rezultat = new Linia(idLinii + "R", wpisyLinii, rozkladPrzejazdow);
+            
             rezultat.DodajTrasyPowrotne();
 
             return rezultat;

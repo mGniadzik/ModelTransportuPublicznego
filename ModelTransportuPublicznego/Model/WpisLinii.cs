@@ -9,5 +9,10 @@ namespace ModelTransportuPublicznego.Model {
             this.przystanek = przystanek;
             this.czasPrzyjaduDoPrzystanku = czasPrzyjaduDoPrzystanku;
         }
+
+        public WpisLinii(WpisLinii wl) {
+            this.przystanek = wl.przystanek;
+            this.czasPrzyjaduDoPrzystanku = new TimeSpan(wl.czasPrzyjaduDoPrzystanku.Ticks);
+        }
     }
 }
