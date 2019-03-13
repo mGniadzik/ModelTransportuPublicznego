@@ -2,46 +2,38 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ModelTransportuPublicznego.Implementacja.Graf;
+using ModelTransportuPublicznego.Misc;
 using ModelTransportuPublicznego.Model;
 
 namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
     public class PasazerDijkstry : Pasazer {
-
-        private static List<List<Przystanek>> obliczoneTrasy = new List<List<Przystanek>>();
+        
+        private static List<TrasaPasazera> obliczoneTrasy = new List<TrasaPasazera>();
         private Graf.Graf graf;
+        private TrasaPasazera trasaPasazera;
+        private TimeSpan czasOstatniegoStworzeniaTrasy;
+        
+        public PasazerDijkstry(IEnumerable<ElementTrasy> trasaPasazera, TimeSpan czasUtworzenia, int czasWsiadania, int czasWysiadania)
+            : base(czasWsiadania, czasWsiadania) {
+            trasaPasazera = new TrasaPasazera(trasaPasazera, czasUtworzenia);
 
-        public PasazerDijkstry(IEnumerable<Przystanek> trasaPasazera) : base(trasaPasazera) { }
-
-        public PasazerDijkstry(List<Przystanek> trasaPasazera, int czasWsiadania, int czasWysiadania) : base(trasaPasazera,
-            czasWsiadania, czasWysiadania) { }
-
-        public PasazerDijkstry(int czasWsiadania, int czasWysiadania, Przystanek przystanekPoczatkowy, Przystanek przystanekKoncowy, Graf.Graf graf)
-            : base(czasWsiadania, czasWysiadania, przystanekPoczatkowy, przystanekKoncowy) {
-            this.graf = graf;
-            trasaPasazera = ZnajdzTrase(graf);
-            graf.ZresetujGraf();
-
-            if (trasaPasazera.Count > 1) {
-                przystanekPoczatkowy = trasaPasazera[0];
-                przystanekKoncowy = trasaPasazera[trasaPasazera.Count - 1];
-                obecnyPrzystanek = przystanekPoczatkowy;
-            }
-            
-            UsunPierwszyElementTrasy(); // Usuwanie pierwszego elementu dla ulatwienia implementacji logiki porozy.
+            przystanekPoczatkowy = this.trasaPasazera.PrzystanekStartowy;
+            przystanekKoncowy = this.trasaPasazera.PrzystanekKoncowy;
+            czasOstatniegoStworzeniaTrasy = TimeSpan.Zero;
         }
 
-        private void UsunPierwszyElementTrasy() {
-            if (trasaPasazera.Count == 0) {
-                throw new ArgumentOutOfRangeException($"trasaPasazera", "Trasa PasazeraDijkstry nie posiada zadnych elementow!");
-            }
-            
-            trasaPasazera.RemoveAt(0);
+        public PasazerDijkstry(int czasWsiadania, int czasWysiadania, Przystanek przystanekPoczatkowy,
+            Przystanek przystanekKoncowy, Graf.Graf graf, TimeSpan czasOstatniegoStworzeniaTrasy)
+            : base(czasWsiadania, czasWysiadania, przystanekPoczatkowy, przystanekKoncowy) {
+            this.graf = graf;
+            trasaPasazera = ZnajdzTrase(graf, czasOstatniegoStworzeniaTrasy);
+            this.czasOstatniegoStworzeniaTrasy = czasOstatniegoStworzeniaTrasy;
         }
         
         private bool CzyTrasaObliczona(Przystanek przystanekStartowy, Przystanek przystanekKoncowy) {
             foreach (var otrasa in obliczoneTrasy) {
-                if (otrasa[0] == przystanekStartowy &&
-                    otrasa[otrasa.Count - 1] == przystanekKoncowy) {
+                if (otrasa[0].Przystanek == przystanekStartowy &&
+                    otrasa[otrasa.Count - 1].Przystanek == przystanekKoncowy) {
                     return true;
                 }
             }
@@ -49,131 +41,162 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
             return false;
         }
 
-        public List<Przystanek> ZnajdzTrase(Graf.Graf graf) {
+        public TrasaPasazera ZnajdzTrase(Graf.Graf graf, TimeSpan czasUtworzenia) {
+            UsunPrzedawnioneTrasy(czasUtworzenia);
+            
             foreach (var trasa in obliczoneTrasy) {
-                if (trasa[0] == przystanekPoczatkowy &&
-                    trasa[trasa.Count - 1] == przystanekKoncowy) {
+                if (trasa.PrzystanekStartowy == przystanekPoczatkowy &&
+                    trasa.PrzystanekKoncowy == przystanekKoncowy) {
                     return trasa;
                 }
             }
             
-            return ZnajdzNajkrotszaTrase(graf);
+            return ZnajdzNajkrotszaTrase(graf, czasUtworzenia);
         }
 
-        public static void DodajTrase(IEnumerable<Przystanek> trasaPasazera) {
-            obliczoneTrasy.Add(trasaPasazera.ToList());
+        public void UsunPrzedawnioneTrasy(TimeSpan czas) {
+            obliczoneTrasy.RemoveAll(t => t.CzyPrzedawniony(czas));
         }
 
-        public List<Przystanek> ZnajdzNajkrotszaTrase(Graf.Graf graf) {
+        public static void DodajTrase(TrasaPasazera trasaPasazera) {
+            obliczoneTrasy.Add(trasaPasazera);
+        }
+
+        public TrasaPasazera ZnajdzNajkrotszaTrase(Graf.Graf graf, TimeSpan czasPoczatkowy) {
             var wStartowy = graf.ZnajdzWierzcholekZawierajacyPrzystanek(przystanekPoczatkowy);
             wStartowy.waga = TimeSpan.Zero;
 
-            AlgorytmDijkstry(graf.OdwiedzNajmniejszy(), graf);
-            var wierzcholekKoncowy = graf.WynikAlgorytmuDijkstry();
-
-            var rezultat = KonwertujWynikAlgorytmuNaTrase(wierzcholekKoncowy);
+            AlgorytmDijkstry(graf.OdwiedzNajmniejszy(), graf, czasPoczatkowy);
+            var wKoncowy = graf.WynikAlgorytmuDijkstry();
+            
+            if (wKoncowy == null) return new TrasaPasazera();
+            
+            var rezultat = KonwertujWynikAlgorytmuNaTrase(wKoncowy);
             
             graf.ZresetujGraf();
-
-            return rezultat;
+            
+            return rezultat.Count == 0 ? new TrasaPasazera() : new TrasaPasazera(rezultat, rezultat[0].CzasOczekiwania + czasPoczatkowy);
         }
 
-        private static List<Przystanek> KonwertujWynikAlgorytmuNaTrase(Wierzcholek wierzcholekKoncowy) {
-            var trasa = new List<Przystanek>();
-            Wierzcholek w1;
-
-            for (w1 = wierzcholekKoncowy; w1 != null; w1 = w1.poprzedniWierzcholek) {
-                trasa.Insert(0, w1.przystanek);
-            }
-
-            return trasa;
-        }
-
-        private void AlgorytmDijkstry(Wierzcholek wierzcholek, Graf.Graf graf) {
+        private void AlgorytmDijkstry(Wierzcholek wierzcholek, Graf.Graf graf, TimeSpan czasPoczatkowy) {
+            var rezultat = new List<ElementTrasy>();
+            
             if (wierzcholek.przystanek != przystanekKoncowy) {
 
-                foreach (var krawedz in wierzcholek.krawedzie) {
-                    if (krawedz.wierzcholekKoncowy.czyOdwiedzony) continue;
-                    if (krawedz.wierzcholekKoncowy.waga > wierzcholek.waga + krawedz.spodziewanyCzasPrzejazdu) {
-                        krawedz.wierzcholekKoncowy.waga = wierzcholek.waga + krawedz.spodziewanyCzasPrzejazdu;
-                        krawedz.wierzcholekKoncowy.poprzedniWierzcholek = wierzcholek;
+                TimeSpan minWaga;
+                WpisRozkladuJazdy min;
+
+                foreach (var k in wierzcholek.krawedzie) {
+                    if (k.wierzcholekKoncowy.czyOdwiedzony) continue;
+
+                    var pozostalePrzejazdy = ZwrocPozostalePrzejazdy(k, czasPoczatkowy);
+
+
+                    if (!pozostalePrzejazdy.Any()) return;
+                    
+                    min = null;
+                    minWaga = TimeSpan.MaxValue;
+
+                    foreach (var wrj in pozostalePrzejazdy) {
+                        var czasPrzejazdu = wrj.PozostalyCzas(czasPoczatkowy) +
+                                                 wrj.LiniaObslugujaca.CzasPrzejazduPoMiedzyPrzystankami(
+                                                     k.wierzcholekStartowy.przystanek,
+                                                     k.wierzcholekKoncowy.przystanek);
+                        if (czasPrzejazdu < minWaga) {
+                            min = wrj;
+                            minWaga = czasPrzejazdu;
+                        }   
                     }
+
+                    k.wierzcholekKoncowy.waga = minWaga;
+                    k.wierzcholekKoncowy.elementTrasy = new ElementTrasy(min.LiniaObslugujaca, min.PozostalyCzas(czasPoczatkowy), 
+                        min.LiniaObslugujaca.CzasPrzejazduPoMiedzyPrzystankami(k.wierzcholekKoncowy.przystanek, k.wierzcholekKoncowy.przystanek), 
+                        k.wierzcholekKoncowy.przystanek);
+                    k.wierzcholekKoncowy.poprzedniWierzcholek = wierzcholek;
                 }
                 
-                AlgorytmDijkstry(graf.OdwiedzNajmniejszy(), graf);
+                AlgorytmDijkstry(graf.OdwiedzNajmniejszy(), graf, czasPoczatkowy + minWaga);
             }
         }
 
-        protected override Linia WybierzLinie() {
-            Linia linia = null;
-            var maksymalnyWinik = 0;
+        protected virtual List<ElementTrasy> KonwertujWynikAlgorytmuNaTrase(Wierzcholek wKoncowy) {
+            var rezultat = new List<ElementTrasy>();
             
-            foreach (var autobus in obecnyPrzystanek.ObecneAutobusy) {
-                var ocena = OcenLinie(autobus.liniaAutobusu);
+            for (var w1 = wKoncowy; w1.poprzedniWierzcholek != null; w1 = w1.poprzedniWierzcholek) {
+                rezultat.Insert(0, w1.elementTrasy);
 
-                if (ocena > maksymalnyWinik) {
-                    maksymalnyWinik = ocena;
-                    linia = autobus.liniaAutobusu;
+                if (w1.poprzedniWierzcholek.elementTrasy == null) {
+                    rezultat.Insert(0, new ElementTrasy(w1.elementTrasy.Linia, w1.poprzedniWierzcholek.przystanek,
+                        w1.poprzedniWierzcholek.przystanek.ZwrocPierwszyPrzejazdDanejLinii(w1.elementTrasy.Linia), 
+                        TimeSpan.Zero));
+                    break;
                 }
-            }
-
-            return linia;
-        }
-
-        private int OcenLinie(Linia linia) {
-            var numerPrzystanku = linia.ZnajdzIndexPrzystanku(obecnyPrzystanek) + 1;
-            var iterLimit = Math.Min(linia.Count - numerPrzystanku, trasaPasazera.Count);
-            var rezultat = 0;
-
-            if (numerPrzystanku == -1) {
-                throw new InvalidOperationException($"Cos poszło nie tak... Autobus linii {linia} nie powinien być na przystanku {obecnyPrzystanek}!");
-            }
-            
-            for (var i = 0; i < iterLimit; i++) {
-                if (linia[numerPrzystanku + i].przystanek != trasaPasazera[i]) return rezultat;
-
-                rezultat++;
             }
 
             return rezultat;
+        }
+
+        protected virtual List<WpisRozkladuJazdy> ZwrocPozostalePrzejazdy(Krawedz k, TimeSpan czasPoczatkowy) {
+            return k.wierzcholekStartowy.przystanek.PozostalePrzejazdy(
+                k.wierzcholekStartowy.przystanek.PozostaleLiniePrzejazdow().Where(l => 
+                    l.CzyPrzystanekPozostalDoOdwiedzenia(k.wierzcholekStartowy.przystanek, 
+                        k.wierzcholekKoncowy.przystanek)).ToList(), czasPoczatkowy).ToList();
+        }
+        public override Linia OczekiwanaLinia(TimeSpan obecnyCzas) {
+            if (trasaPasazera.Count == 0) return null;
+            if (obecnyCzas > trasaPasazera[0].CzasOczekiwania + czasOstatniegoStworzeniaTrasy)
+                trasaPasazera = ZnajdzTrase(graf, obecnyCzas);
+            return ZwrocLinieNastepnegoElementu(ZwrocNastepnyElementTrasy());
         }
 
         public override void Wysiadz(Przystanek przystanek) {
-            obecnyPrzystanek = przystanek;
-            
-            UsunPrzebytePrzystanki();
+            UstawElementyTrasyJakoPrzebyte(przystanek);
         }
 
         public override void Wsiadz(Autobus autobus) {
-            var numerPrzystankuLinii = autobus.liniaAutobusu.ZnajdzIndexPrzystanku(obecnyPrzystanek);
-            var iterLimit = Math.Min(autobus.liniaAutobusu.Count - numerPrzystankuLinii, trasaPasazera.Count);
-            var i = 0;
-
-            for (; i < iterLimit; i++) {
-                if (trasaPasazera[i] != autobus.liniaAutobusu[numerPrzystankuLinii + i].przystanek) {
-                    oczekiwanyPrzystanek = trasaPasazera[i];
-                    break;
-                }
-            }
-
-//            for (; i > 0; i--) {
-//                trasaPasazera.RemoveAt(0);
-//            }
-
+            oczekiwanyPrzystanek = ZwrocNastepnyElementTrasy().Przystanek;
+            UstawJakoPrzebyty();
+            oczekiwanyPrzystanek = ZnajdzOczekiwanyPrzystanek();
         }
 
-        protected virtual void UsunPrzebytePrzystanki() {
-            if (!trasaPasazera.Contains(obecnyPrzystanek)) return;
-            
-            foreach (var przystanek in trasaPasazera) {
-                if (obecnyPrzystanek == przystanek) {
-                    break;
-                }
+        protected virtual Przystanek ZnajdzOczekiwanyPrzystanek() {
+            var elementy = trasaPasazera.Where(e => !e.CzyPrzebyty).ToList();
 
-                trasaPasazera.Remove(przystanek);
+            for (int i = 0; i < elementy.Count; i++) {
+                if (i == elementy.Count - 1) return elementy[i].Przystanek;
+                if (elementy[i].Linia != elementy[i + 1].Linia) return elementy[i].Przystanek;
             }
             
-            trasaPasazera.RemoveAt(0);
+            throw new Exception("Nie odnaleziono oczekiwanego przystanku.");
+        }
+
+        protected virtual void UstawElementyTrasyJakoPrzebyte(Przystanek przystanek) {
+            foreach (var elem in trasaPasazera) {
+                if (!elem.CzyPrzebyty && elem.Przystanek != przystanek) {
+                    elem.CzyPrzebyty = true;
+                    return;
+                }
+            }
+        }
+
+        protected virtual void UstawJakoPrzebyty() {
+            foreach (var elem in trasaPasazera)
+                if (!elem.CzyPrzebyty) {
+                    elem.CzyPrzebyty = true;
+                    return;
+                }
+        }
+
+        protected virtual ElementTrasy ZwrocNastepnyElementTrasy() {
+            foreach (var elemTrasy in trasaPasazera) {
+                if (!elemTrasy.CzyPrzebyty) return elemTrasy;
+            }
+
+            return null;
+        }
+
+        protected virtual Linia ZwrocLinieNastepnegoElementu(ElementTrasy et) {
+            return et?.Linia;
         }
     }
 }

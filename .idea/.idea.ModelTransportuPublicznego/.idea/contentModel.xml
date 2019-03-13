@@ -16,8 +16,11 @@
             <e p="Wierzcholek.cs" t="Include" />
           </e>
           <e p="Pasazerowie" t="Include">
+            <e p="ElementTrasy.cs" t="Include" />
             <e p="PasazerDijkstry.cs" t="Include" />
             <e p="PasazerLosowy.cs" t="Include" />
+            <e p="PrymitywnyPasazerDijkstry.cs" t="Include" />
+            <e p="TrasaPasazera.cs" t="Include" />
           </e>
           <e p="SynchronicznyZarzadTransportu.cs" t="Include" />
           <e p="Wyjatki" t="Include">
@@ -37,9 +40,11 @@
           <e p="Linia.cs" t="Include" />
           <e p="Pasazer.cs" t="Include" />
           <e p="Przejazd.cs" t="Include" />
-          <e p="PrzyplywPasazerow.cs" t="Include" />
-          <e p="Przystanek.cs" t="Include" />
-          <e p="RozkladJazdy.cs" t="Include" />
+          <e p="Przystanek" t="Include">
+            <e p="PrzyplywPasazerow.cs" t="Include" />
+            <e p="Przystanek.cs" t="Include" />
+            <e p="RozkladJazdy.cs" t="Include" />
+          </e>
           <e p="RozkladPrzejazdow.cs" t="Include" />
           <e p="Trasa.cs" t="Include" />
           <e p="WpisLinii.cs" t="Include" />

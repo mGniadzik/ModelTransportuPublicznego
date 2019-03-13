@@ -43,8 +43,11 @@
     <Compile Include="Implementacja\Graf\Graf.cs" />
     <Compile Include="Implementacja\Graf\Krawedz.cs" />
     <Compile Include="Implementacja\Graf\Wierzcholek.cs" />
+    <Compile Include="Implementacja\Pasazerowie\ElementTrasy.cs" />
+    <Compile Include="Implementacja\Pasazerowie\PrymitywnyPasazerDijkstry.cs" />
     <Compile Include="Implementacja\Pasazerowie\PasazerDijkstry.cs" />
     <Compile Include="Implementacja\Pasazerowie\PasazerLosowy.cs" />
+    <Compile Include="Implementacja\Pasazerowie\TrasaPasazera.cs" />
     <Compile Include="Implementacja\SynchronicznyZarzadTransportu.cs" />
     <Compile Include="Implementacja\Wyjatki\AutobusNieZnalezionyWyjatek.cs" />
     <Compile Include="Implementacja\Wyjatki\KierowcaNieZnalezionyWyjatek.cs" />
@@ -57,9 +60,11 @@
     <Compile Include="Model\Linia.cs" />
     <Compile Include="Model\Pasazer.cs" />
     <Compile Include="Model\Przejazd.cs" />
-    <Compile Include="Model\PrzyplywPasazerow.cs" />
-    <Compile Include="Model\Przystanek.cs" />
-    <Compile Include="Model\RozkladJazdy.cs" />
+    <Compile Include="Model\Przystanek\PrzyplywPasazerow.cs">
+      <DependentUpon>Autobus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Przystanek\Przystanek.cs" />
+    <Compile Include="Model\Przystanek\RozkladJazdy.cs" />
     <Compile Include="Model\RozkladPrzejazdow.cs" />
     <Compile Include="Model\Trasa.cs" />
     <Compile Include="Model\WpisLinii.cs" />

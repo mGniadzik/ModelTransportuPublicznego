@@ -75,7 +75,7 @@ namespace ModelTransportuPublicznego {
             var g1 = new Graf(zt.SiecPrzystankow);
             g1.DodajKrawedzie(zt.ZwrocLinie());
             
-            var pasD1 = new PasazerDijkstry(5, 5, p5, p1, g1);
+//            var pasD1 = new PasazerDijkstry(5, 5, p5, p1, g1);
             
 //            var list = pasD1.ZnajdzNajkrotszaTrase(g1);
 //            g1.ZresetujGraf();

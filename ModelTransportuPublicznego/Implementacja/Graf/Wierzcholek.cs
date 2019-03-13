@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ModelTransportuPublicznego.Implementacja.Pasazerowie;
 using ModelTransportuPublicznego.Model;
 
 namespace ModelTransportuPublicznego.Implementacja.Graf {
@@ -9,6 +10,7 @@ namespace ModelTransportuPublicznego.Implementacja.Graf {
         public bool czyOdwiedzony;
         public TimeSpan waga;
         public Wierzcholek poprzedniWierzcholek;
+        public ElementTrasy elementTrasy;
 
         public Wierzcholek(Przystanek przystanek) {
             this.przystanek = przystanek;

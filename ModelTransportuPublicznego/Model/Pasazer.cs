@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,12 +10,9 @@ namespace ModelTransportuPublicznego.Model {
         protected Przystanek oczekiwanyPrzystanek;
         protected int czasWsiadania;
         protected int czasWysiadania;
-        protected List<Przystanek> trasaPasazera;
 
 
         public virtual Przystanek OczekiwanyPrzystanek => oczekiwanyPrzystanek;
-
-        public virtual Linia OczekiwanaLinia => WybierzLinie();
 
         public virtual Przystanek PrzystanekKoncowy => przystanekKoncowy;
 
@@ -22,26 +20,9 @@ namespace ModelTransportuPublicznego.Model {
 
         public virtual int CzasWysiadania => czasWysiadania;
 
-        public Pasazer() {
-            trasaPasazera = new List<Przystanek>();
-        }
-        
-        public Pasazer(IEnumerable<Przystanek> trasaPasazera) : this() {
-            foreach (var przystanek in trasaPasazera) {
-                this.trasaPasazera.Add(przystanek);
-            }
-
-            przystanekPoczatkowy = this.trasaPasazera[0];
-            przystanekKoncowy = this.trasaPasazera[this.trasaPasazera.Count - 1];
-            obecnyPrzystanek = przystanekPoczatkowy;
-        }
+        protected Pasazer() { }
 
         public Pasazer(int czasWsiadania, int czasWysiadania) {
-            this.czasWsiadania = czasWsiadania;
-            this.czasWysiadania = czasWysiadania;
-        }
-
-        public Pasazer(IEnumerable<Przystanek> trasaPasazera, int czasWsiadania, int czasWysiadania) : this(trasaPasazera) {
             this.czasWsiadania = czasWsiadania;
             this.czasWysiadania = czasWysiadania;
         }
@@ -66,7 +47,7 @@ namespace ModelTransportuPublicznego.Model {
             obecnyWybor.Add(this);
         }
 
-        protected abstract Linia WybierzLinie();
+        public abstract Linia OczekiwanaLinia(TimeSpan obecnyCzas);
         
         public abstract void Wysiadz(Przystanek przystanek);
 

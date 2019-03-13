@@ -37,10 +37,10 @@ namespace ModelTransportuPublicznego.Model {
             }
         }
 
-        public virtual List<Pasazer> StworzListeWsiadajacychPasazerow(Przystanek obecnyPrzystanek, Linia liniaAutobusu) {
+        public virtual List<Pasazer> StworzListeWsiadajacychPasazerow(Przystanek obecnyPrzystanek, Linia liniaAutobusu, TimeSpan obecnyCzas) {
             var listaWsiadajacych = new List<Pasazer>();
 
-            foreach (var pasazer in obecnyPrzystanek.ZwrocPasazerowOczekujacychNaLinie(liniaAutobusu)) {
+            foreach (var pasazer in obecnyPrzystanek.ZwrocPasazerowOczekujacychNaLinie(liniaAutobusu, obecnyCzas)) {
                 if ((obecniPasazerowie.Count + listaWsiadajacych.Count) < maksymalnaPojemnosc) {
                     listaWsiadajacych.Add(pasazer);
                 }

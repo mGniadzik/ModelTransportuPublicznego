@@ -17,7 +17,7 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
 
         public override Przystanek OczekiwanyPrzystanek => oczekiwanyPrzystanek;
         
-        protected override Linia WybierzLinie() {
+        public override Linia OczekiwanaLinia(TimeSpan obecnyCzas) {
             if (wybranaLinia != null) {
                 return wybranaLinia;
             }
@@ -28,7 +28,7 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
         public override void Wysiadz(Przystanek przystanek) {
             wybranaLinia = null;
             obecnyPrzystanek = przystanek;
-            WybierzLinie();
+            OczekiwanaLinia(TimeSpan.Zero);
         }
 
         public override void Wsiadz(Autobus autobus) {

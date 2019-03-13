@@ -59,11 +59,11 @@ namespace ModelTransportuPublicznego.Model {
             trasy.Add(trasa);
         }
 
-        public virtual IEnumerable<Pasazer> ZwrocPasazerowOczekujacychNaLinie(Linia linia) {
+        public virtual IEnumerable<Pasazer> ZwrocPasazerowOczekujacychNaLinie(Linia linia, TimeSpan obecnyCzas) {
             var oczekujacyNaLinie = new List<Pasazer>();
             
             foreach (var pasazer in oczekujacyPasazerowie) {
-                if (pasazer.OczekiwanaLinia == linia) {
+                if (pasazer.OczekiwanaLinia(obecnyCzas) == linia) {
                     oczekujacyNaLinie.Add(pasazer);
                 }
             }
@@ -94,16 +94,18 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         public virtual IEnumerable<WpisRozkladuJazdy> PozostalePrzejazdy() {
-            var rezultat = new List<WpisRozkladuJazdy>();
-
-            foreach (var wpis in rozkladJazdy) {
-                if (!wpis.CzyWykonany) {
-                    rezultat.Add(wpis);
-                }
-            }
-            
-            return rezultat;
+            return rozkladJazdy.Where(w => !w.CzyWykonany).ToList();
         }
+
+        public IEnumerable<WpisRozkladuJazdy> PozostalePrzejazdy(IEnumerable<Linia> wybraneLinie) {
+            return rozkladJazdy.Where(w => !w.CzyWykonany && wybraneLinie.Contains(w.LiniaObslugujaca));
+        }
+
+        public IEnumerable<WpisRozkladuJazdy> PozostalePrzejazdy(IEnumerable<Linia> wybraneLinie, TimeSpan czas) {
+            return rozkladJazdy.Where(w => !w.CzyWykonany && wybraneLinie.Contains(w.LiniaObslugujaca) && w.CzasPrzyjazdu >= czas);
+        }
+        
+        
 
         public virtual IEnumerable<Linia> PozostaleLiniePrzejazdow() {
             var rezultat = new List<Linia>();
@@ -117,6 +119,10 @@ namespace ModelTransportuPublicznego.Model {
             }
 
             return rezultat;
+        }
+
+        public virtual TimeSpan ZwrocPierwszyPrzejazdDanejLinii(Linia linia) {
+            return rozkladJazdy.Where(w => w.LiniaObslugujaca == linia && !w.CzyWykonany).Min().CzasPrzyjazdu;
         }
 
         public virtual Trasa ZwrocTraseDo(Przystanek przystanek) {
@@ -159,17 +165,17 @@ namespace ModelTransportuPublicznego.Model {
 
         public virtual void WykonajPrzyplywy(TimeSpan czas) {
             foreach (var przyplyw in przyplywyPasazerow.Where(p => p.CzyWykonany == false && p.CzasPrzyplywu < czas).ToList()) {
-                WykonajPrzyplyw(przyplyw);   
+                WykonajPrzyplyw(przyplyw, czas);   
             }
         }
 
-        protected virtual void WykonajPrzyplyw(PrzyplywPasazerow przyplyw) {
+        protected virtual void WykonajPrzyplyw(PrzyplywPasazerow przyplyw, TimeSpan czas) {
             for (int i = 0; i < przyplyw.IloscPasazerow; i++) {
-                DodajPasazera(WygenerujPasazeraDijkstry());
+                DodajPasazera(WygenerujPasazeraDijkstry(czas));
             }
         }
 
-        protected virtual PasazerDijkstry WygenerujPasazeraDijkstry() {
+        protected virtual PasazerDijkstry WygenerujPasazeraDijkstry(TimeSpan czas) {
             var rand = new Random();
             
             var graf = new Graf(zt.SiecPrzystankow);
@@ -180,7 +186,7 @@ namespace ModelTransportuPublicznego.Model {
                 pKoncowy = zt.SiecPrzystankow.ToList()[rand.Next(zt.SiecPrzystankow.Count())];
             } while (pKoncowy == this);
             
-            return new PasazerDijkstry(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, graf);
+            return new PasazerDijkstry(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, graf, czas);
         }
     }
 }

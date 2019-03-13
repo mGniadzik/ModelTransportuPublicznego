@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ModelTransportuPublicznego.Misc;
 using ModelTransportuPublicznego.Model;
 
@@ -56,7 +57,7 @@ namespace ModelTransportuPublicznego.Implementacja.Graf {
         }
 
         public Wierzcholek WynikAlgorytmuDijkstry() {
-            return odwiedzoneWierzcholki[odwiedzoneWierzcholki.Count - 1];
+            return !odwiedzoneWierzcholki.Any() ? null : odwiedzoneWierzcholki[odwiedzoneWierzcholki.Count - 1];
         }
 
         public void ZresetujGraf() {

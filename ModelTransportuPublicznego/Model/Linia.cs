@@ -159,6 +159,35 @@ namespace ModelTransportuPublicznego.Model {
             return rezultat;
         }
 
+        public virtual bool CzyPrzystanekPozostalDoOdwiedzenia(Przystanek przystanekObecny,
+            Przystanek przystanekDocelowy) {
+            return ZwrocIndeksPrzystanku(przystanekObecny) < ZnajdzIndexPrzystanku(przystanekDocelowy);
+        }
+
+        public virtual TimeSpan CzasPrzejazduPoMiedzyPrzystankami(Przystanek pStartowy, Przystanek pKoncowy) {
+            if (!CzyPrzystanekkNalezyDoLinii(pStartowy) || !CzyPrzystanekkNalezyDoLinii(pKoncowy)) 
+                throw new ArgumentException($"Przystanek {pStartowy.NazwaPrzystanku} lub " +
+                                            $"{pKoncowy.NazwaPrzystanku} nie należy do linii {idLinii}.");
+            
+            if (ZwrocIndeksPrzystanku(pStartowy) > ZwrocIndeksPrzystanku(pKoncowy)) throw new ArgumentException(
+                $"Przystanek {pKoncowy.NazwaPrzystanku} występuje przed {pStartowy.NazwaPrzystanku}.");
+
+            var rezultat = TimeSpan.Zero;
+            for (var i = ZwrocIndeksPrzystanku(pStartowy); i <= ZwrocIndeksPrzystanku(pKoncowy); i++) {
+                rezultat += trasaLinii[i].czasPrzyjaduDoPrzystanku;
+            }
+
+            return rezultat;
+        }
+
+        protected virtual bool CzyPrzystanekkNalezyDoLinii(Przystanek p) {
+            foreach (var w in trasaLinii) {
+                if (w.przystanek == p) return true;
+            }
+
+            return false;
+        }
+
         private class LiniaEnumerator : IEnumerator {
 
             private List<WpisLinii> trasaLinii;

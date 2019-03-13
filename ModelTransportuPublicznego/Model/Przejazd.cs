@@ -78,7 +78,7 @@ namespace ModelTransportuPublicznego.Model {
         private void WykonajPobieraniaPasazerow() {
             
             obecnyPrzystanek.DodajAutobus(autobus);
-            var pasazerowie = autobus.StworzListeWsiadajacychPasazerow(obecnyPrzystanek, autobus.liniaAutobusu);
+            var pasazerowie = autobus.StworzListeWsiadajacychPasazerow(obecnyPrzystanek, autobus.liniaAutobusu, czasRozpoczeciaPrzejazdu + czasPrzejazdu);
             var czasAkcji = new TimeSpan(0, 0,autobus.PobierzPasazerow(obecnyPrzystanek, autobus.liniaAutobusu, pasazerowie));
             var spodziewanyCzasPrzyjazdu = linia.SpodziewanyCzasPrzejazduDoPrzystanku(obecnyPrzystanek);                    // Spodziewany czas przez jaki autobus jest w trasie
             var czasRozpoczeciaAkcji = CzasRozpoczeciaAkcji(czasPrzejazdu);
@@ -105,7 +105,7 @@ namespace ModelTransportuPublicznego.Model {
                     
             czasPrzejazdu += czasAkcji;
             
-            Logger.ZalogujPrzejechanieTrasy(czasRozpoczeciaAkcji, autobus, trasa, czasPrzejazdu);
+            Logger.ZalogujPrzejechanieTrasy(czasRozpoczeciaAkcji, autobus, trasa, czasRozpoczeciaPrzejazdu + czasPrzejazdu);
             
             nastepnaAkcja = Akcja.WypuszczniePasazerow;
             obecnyPrzystanek = trasa.PrzystanekPrawy;

@@ -16,6 +16,10 @@ namespace ModelTransportuPublicznego.Model {
             CzyWykonany = false;
         }
 
+        public TimeSpan PozostalyCzas(TimeSpan czasObecny) {
+            return czasPrzyjazdu - czasObecny;
+        }
+
         public int CompareTo(WpisRozkladuJazdy other) {
             return czasPrzyjazdu.CompareTo(other.czasPrzyjazdu);
         }
