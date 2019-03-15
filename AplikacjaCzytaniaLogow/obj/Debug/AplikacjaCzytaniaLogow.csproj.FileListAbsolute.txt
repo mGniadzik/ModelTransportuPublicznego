@@ -8,3 +8,13 @@ C:\Users\Maciej\MTP\ModelTransportuPublicznego\AplikacjaCzytaniaLogow\obj\Debug\
 C:\Users\Maciej\MTP\ModelTransportuPublicznego\AplikacjaCzytaniaLogow\obj\Debug\AplikacjaCzytaniaLogow.csproj.CoreCompileInputs.cache
 C:\Users\Maciej\MTP\ModelTransportuPublicznego\AplikacjaCzytaniaLogow\obj\Debug\AplikacjaCzytaniaLogow.exe
 C:\Users\Maciej\MTP\ModelTransportuPublicznego\AplikacjaCzytaniaLogow\obj\Debug\AplikacjaCzytaniaLogow.pdb
+C:\Users\Maciej\Documents\GitHub\ModelTransportuPublicznego\AplikacjaCzytaniaLogow\bin\Debug\AplikacjaCzytaniaLogow.exe.config
+C:\Users\Maciej\Documents\GitHub\ModelTransportuPublicznego\AplikacjaCzytaniaLogow\bin\Debug\AplikacjaCzytaniaLogow.exe
+C:\Users\Maciej\Documents\GitHub\ModelTransportuPublicznego\AplikacjaCzytaniaLogow\bin\Debug\AplikacjaCzytaniaLogow.pdb
+C:\Users\Maciej\Documents\GitHub\ModelTransportuPublicznego\AplikacjaCzytaniaLogow\obj\Debug\AplikacjaCzytaniaLogow.csprojAssemblyReference.cache
+C:\Users\Maciej\Documents\GitHub\ModelTransportuPublicznego\AplikacjaCzytaniaLogow\obj\Debug\AplikacjaCzytaniaLogow.Form1.resources
+C:\Users\Maciej\Documents\GitHub\ModelTransportuPublicznego\AplikacjaCzytaniaLogow\obj\Debug\AplikacjaCzytaniaLogow.Properties.Resources.resources
+C:\Users\Maciej\Documents\GitHub\ModelTransportuPublicznego\AplikacjaCzytaniaLogow\obj\Debug\AplikacjaCzytaniaLogow.csproj.GenerateResource.cache
+C:\Users\Maciej\Documents\GitHub\ModelTransportuPublicznego\AplikacjaCzytaniaLogow\obj\Debug\AplikacjaCzytaniaLogow.csproj.CoreCompileInputs.cache
+C:\Users\Maciej\Documents\GitHub\ModelTransportuPublicznego\AplikacjaCzytaniaLogow\obj\Debug\AplikacjaCzytaniaLogow.exe
+C:\Users\Maciej\Documents\GitHub\ModelTransportuPublicznego\AplikacjaCzytaniaLogow\obj\Debug\AplikacjaCzytaniaLogow.pdb
