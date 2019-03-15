@@ -7,8 +7,8 @@ using ModelTransportuPublicznego.Model;
 namespace ModelTransportuPublicznego.Misc {
     public static class Logger {
         public static string CLogName =
-            $"CLog{DateTime.Now.ToString(CultureInfo.InvariantCulture).Replace('/', '_').Replace(' ', '_')}.log";
-        public static string HLogName = $"HLog{DateTime.Now.ToString(CultureInfo.InvariantCulture).Replace('/', '_').Replace(' ', '_')}.log";
+            $"CLog{NazwaPliku(DateTime.Now)}.log";
+        public static string HLogName = $"HLog{NazwaPliku(DateTime.Now)}.log";
         
         public static void ZalogujBrakDostepnegoAutobusu(Firma firma, Linia linia) {
             Console.WriteLine($"Firma {firma.NazwaFirmy} nie posiadała dostępnego autobusu do obsługi linii {linia.IdLinii}.");
@@ -68,6 +68,11 @@ namespace ModelTransportuPublicznego.Misc {
                 sw.WriteLine(text);
                 
             }
+        }
+
+        private static string NazwaPliku(DateTime dt) {
+            return dt.ToString(CultureInfo.InvariantCulture).Replace('/', '_').
+                Replace(' ', '_').Replace(':', '-');
         }
     }
 }
