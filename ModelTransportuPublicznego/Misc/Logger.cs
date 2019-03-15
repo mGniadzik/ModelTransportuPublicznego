@@ -30,13 +30,13 @@ namespace ModelTransportuPublicznego.Misc {
             LogText(msg);
         }
 
-        public static void ZalogujPrzejechanieTrasy(TimeSpan czasAkcji, Autobus autobus, Trasa trasa, TimeSpan czasZakonczenia) {
+        public static void ZalogujPrzejechanieTrasy(string uid, TimeSpan czasAkcji, Autobus autobus, Trasa trasa, TimeSpan czasZakonczenia) {
             var msg = $"[{czasAkcji}] Autobus: {autobus.IdAutobusu} linii: {autobus.liniaAutobusu.IdLinii} przewiózł " +
                       $"{autobus.IloscPasazerow} pasażerów na trasie {trasa.NazwaTrasy} po między przystankani " +
                       $"{trasa.PrzystanekLewy.NazwaPrzystanku} - {trasa.PrzystanekPrawy.NazwaPrzystanku}. " +
                       $"Czas zakończenia akcji: {czasZakonczenia}.";
             Console.WriteLine(msg);
-            LogText(czasAkcji, autobus, trasa, autobus.liniaAutobusu, czasZakonczenia);
+            LogText(uid, czasAkcji, autobus, trasa, autobus.liniaAutobusu, czasZakonczenia);
             LogText(msg);
         }
 
@@ -55,9 +55,9 @@ namespace ModelTransportuPublicznego.Misc {
             LogText(msg);
         }
 
-        private static void LogText(TimeSpan czasAkcji, Autobus autobus, Trasa trasa, Linia linia, TimeSpan czasZakonczenia) {
+        private static void LogText(string uid, TimeSpan czasAkcji, Autobus autobus, Trasa trasa, Linia linia, TimeSpan czasZakonczenia) {
             using (var sw = File.AppendText(CLogName)) {
-                sw.WriteLine($"{czasAkcji}|{linia.IdLinii}|{trasa.PrzystanekLewy.NazwaPrzystanku}|" +
+                sw.WriteLine($"{uid}|{czasAkcji}|{linia.IdLinii}|{trasa.PrzystanekLewy.NazwaPrzystanku}|" +
                              $"{trasa.PrzystanekPrawy.NazwaPrzystanku}|{autobus.IdAutobusu}|{czasZakonczenia}");
                 
             }

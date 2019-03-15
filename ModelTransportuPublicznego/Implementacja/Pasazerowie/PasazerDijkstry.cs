@@ -83,7 +83,7 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
             
             if (wierzcholek.przystanek != przystanekKoncowy) {
 
-                TimeSpan minWaga;
+                TimeSpan minWaga = TimeSpan.Zero;
                 WpisRozkladuJazdy min;
 
                 foreach (var k in wierzcholek.krawedzie) {

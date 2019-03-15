@@ -14,6 +14,7 @@ namespace ModelTransportuPublicznego.Model {
         private bool trasaZakonczona;
         private Firma firma;
         private Linia linia;
+        private string uid;
 
         public bool TrasaZakonczona => trasaZakonczona;
         
@@ -26,6 +27,7 @@ namespace ModelTransportuPublicznego.Model {
             nastepnaAkcja = Akcja.PobieraniePasazerow;
             czasPrzejazdu = TimeSpan.Zero;
             trasaZakonczona = false;
+            uid = UIDGenerator.WygenerujUID();
         }
         
         public Przejazd(Autobus autobus, Firma firma, TimeSpan czasRozpoczeciaPrzejazdu) : this() {
@@ -36,7 +38,7 @@ namespace ModelTransportuPublicznego.Model {
             this.czasRozpoczeciaPrzejazdu = czasRozpoczeciaPrzejazdu;
         }
 
-        public Przejazd(Firma firma, Linia linia, TimeSpan czasRozpoczeciaPrzejazdu) {
+        public Przejazd(Firma firma, Linia linia, TimeSpan czasRozpoczeciaPrzejazdu) : this() {
             autobus = null;
             this.firma = firma;
             this.czasRozpoczeciaPrzejazdu = czasRozpoczeciaPrzejazdu;
@@ -105,7 +107,7 @@ namespace ModelTransportuPublicznego.Model {
                     
             czasPrzejazdu += czasAkcji;
             
-            Logger.ZalogujPrzejechanieTrasy(czasRozpoczeciaAkcji, autobus, trasa, czasRozpoczeciaPrzejazdu + czasPrzejazdu);
+            Logger.ZalogujPrzejechanieTrasy(uid, czasRozpoczeciaAkcji, autobus, trasa, czasRozpoczeciaPrzejazdu + czasPrzejazdu);
             
             nastepnaAkcja = Akcja.WypuszczniePasazerow;
             obecnyPrzystanek = trasa.PrzystanekPrawy;
