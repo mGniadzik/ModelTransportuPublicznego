@@ -16,8 +16,8 @@ namespace ModelTransportuPublicznego {
             var p2 = new Przystanek("P2", zt);
             var p3 = new Przystanek("P3", zt);
             
-            var t1 = new Trasa("t1", p1, p2, 1000);
-            var t2 = new Trasa("t2", p2, p3, 1000);
+            var t1 = new Trasa("t1", p1, p2, 1000, 50);
+            var t2 = new Trasa("t2", p2, p3, 1000, 50);
             
             p1.DodajTrase(t1);
             p2.DodajTrase(t2);
@@ -27,8 +27,8 @@ namespace ModelTransportuPublicznego {
              var p4 = new Przystanek("P4", zt);
              var p5 = new Przystanek("P5", zt);
 
-             var t3 = new Trasa("t3", p4, p2, 1000);
-             var t4 = new Trasa("t4", p2, p5, 1000);
+             var t3 = new Trasa("t3", p4, p2, 1000, 50);
+             var t4 = new Trasa("t4", p2, p5, 1000, 50);
              
              p4.DodajTrase(t3);
              p2.DodajTrase(t4);

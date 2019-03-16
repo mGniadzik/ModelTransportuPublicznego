@@ -201,13 +201,15 @@ namespace AplikacjaCzytaniaLogow
             var series = wykresP.Series.FindByName(czas);
 
             var czasRozpoczecia = przejazd[0].czas;
+            var suma = 0;
 
             if (przejazd.Any)
                 series.Points.AddXY(przejazd[0].przystanek, (przejazd[0].czas - czasRozpoczecia).Seconds);
 
             for (int i = 1; i < przejazd.Count; i += 2)
             {
-                series.Points.AddXY(przejazd[i].przystanek, (przejazd[i].czas - czasRozpoczecia).Seconds);
+                suma += (przejazd[i].czas - czasRozpoczecia).Seconds;
+                series.Points.AddXY(przejazd[i].przystanek, suma);
             }
         }
 
@@ -223,7 +225,10 @@ namespace AplikacjaCzytaniaLogow
         private void DodajPrzejazd(string czas)
         {
             if (!wykresP.Series.Contains(wykresP.Series.FindByName(czas)))
+            {
                 wykresP.Series.Add(czas);
+                wykresP.Series.FindByName(czas).ChartType = SeriesChartType.Line;
+            }
 
             usunPrzejazdCB.Items.Add(czas);
             if (usunPrzejazdCB.Items.Count == 1) usunPrzejazdCB.SelectedIndex = 0;

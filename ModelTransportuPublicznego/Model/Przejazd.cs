@@ -102,6 +102,13 @@ namespace ModelTransportuPublicznego.Model {
         private void WykonajPrzejazd() {
             var trasa = obecnyPrzystanek.ZnajdzTraseDoNastepnegoPrzystanku(
                 autobus.liniaAutobusu.ZwrocNastepnyPrzystanek(obecnyPrzystanek));
+
+            var czas = autobus.PrzejedzTrase(trasa);
+
+            Console.WriteLine();
+            Console.WriteLine("Przejechano trase w {0}", czas);
+            Console.WriteLine();
+
             var czasAkcji = new TimeSpan(0, 0, autobus.PrzejedzTrase(trasa));
             var czasRozpoczeciaAkcji = CzasRozpoczeciaAkcji(czasPrzejazdu);
                     
