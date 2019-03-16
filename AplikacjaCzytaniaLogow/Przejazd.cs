@@ -10,6 +10,10 @@ namespace AplikacjaCzytaniaLogow
         public readonly string idPrzejazdu;
         private List<WpisPrzejazdu> wpisyPrzejazdu;
 
+        public int Count => wpisyPrzejazdu.Count;
+
+        public bool Any => wpisyPrzejazdu.Any();
+
         private Przejazd()
         {
             wpisyPrzejazdu = new List<WpisPrzejazdu>();
@@ -38,6 +42,14 @@ namespace AplikacjaCzytaniaLogow
             if (wpisyPrzejazdu.Count > 0)
                 return wpisyPrzejazdu.OrderBy(w => w.czas).ToList()[0].czas.ToString();
             return "";
+        }
+
+        public WpisPrzejazdu this[int i]
+        {
+            get
+            {
+                return wpisyPrzejazdu[i];
+            }
         }
 
         public void DodajWpis(WpisPrzejazdu wpis)

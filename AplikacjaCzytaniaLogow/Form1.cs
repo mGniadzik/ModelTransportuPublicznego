@@ -108,6 +108,13 @@ namespace AplikacjaCzytaniaLogow
             return -1;
         }
 
+        private Linia ZwrocLinie(string idLinii)
+        {
+            foreach (var linia in linie)
+                if (linia.idLinii == idLinii) return linia;
+            return null;
+        }
+
         private void ZapelnijLinie()
         {
             if (linie.Count > 0)
@@ -151,15 +158,7 @@ namespace AplikacjaCzytaniaLogow
 
         private void UsunDaneZWykresu(string czas)
         {
-            Series series = ZwrocSeriesOCzasie(czas);
-            if (series != null) wykresP.Series.Remove(series);
-        }
-
-        private Series ZwrocSeriesOCzasie(string czas)
-        {
-            foreach (var s in wykresP.Series)
-                if (s.Name == czas) return s;
-            return null;
+            wykresP.Series.Remove(wykresP.Series.FindByName(czas));
         }
 
         private void UsunWszystkiePrzejazdy()
@@ -172,7 +171,7 @@ namespace AplikacjaCzytaniaLogow
                 return;
             }
 
-            var linia = linie[ZwrocIndexLinii(linie, idLinii)];
+            var linia = ZwrocLinie(idLinii);
             foreach (var p in linia)
                 UsunPrzejazd(p.ZwrocCzasZaczeciaPrzejazdu());
         }
@@ -187,9 +186,29 @@ namespace AplikacjaCzytaniaLogow
                 return;
             }
 
-            var linia = linie[ZwrocIndexLinii(linie, idLinii)];
+            var linia = ZwrocLinie(idLinii);
             foreach (var p in linia)
+            {
                 DodajPrzejazd(p.ZwrocCzasZaczeciaPrzejazdu());
+                // DodajPrzejazdDoWykresu(p.ZwrocCzasZaczeciaPrzejazdu());
+            }
+        }
+
+        private void DodajPrzejazdDoWykresu(string czas)
+        {
+            var wybor = linieCB.SelectedItem.ToString();
+            var przejazd = ZwrocLinie(wybor).ZwrocPrzejazdGodzina(czas);
+            var series = wykresP.Series.FindByName(czas);
+
+            var czasRozpoczecia = przejazd[0].czas;
+
+            if (przejazd.Any)
+                series.Points.AddXY(przejazd[0].przystanek, (przejazd[0].czas - czasRozpoczecia).Seconds);
+
+            for (int i = 1; i < przejazd.Count; i += 2)
+            {
+                series.Points.AddXY(przejazd[i].przystanek, (przejazd[i].czas - czasRozpoczecia).Seconds);
+            }
         }
 
         private void UsunPrzejazd(string czas)
@@ -203,20 +222,26 @@ namespace AplikacjaCzytaniaLogow
 
         private void DodajPrzejazd(string czas)
         {
-            if (!wykresP.Series.Contains(ZwrocSeriesOCzasie(czas)))
+            if (!wykresP.Series.Contains(wykresP.Series.FindByName(czas)))
                 wykresP.Series.Add(czas);
+
             usunPrzejazdCB.Items.Add(czas);
             if (usunPrzejazdCB.Items.Count == 1) usunPrzejazdCB.SelectedIndex = 0;
             dodajPrzejazdCB.Items.Remove(czas);
             if (dodajPrzejazdCB.Items.Count == 1) dodajPrzejazdCB.SelectedIndex = 0;
+
+            DodajPrzejazdDoWykresu(czas);
         }
 
         private void wybierzLinieB_Click(object sender, EventArgs e)
         {
+            if (linieCB.SelectedItem == null) return;
+            wykresP.Series.Clear();
+            usunPrzejazdCB.Items.Clear();
             dodajPrzejazdCB.Items.Clear();
             var wybor = linieCB.SelectedItem.ToString();
             
-            foreach (var przejazd in linie[ZwrocIndexLinii(linie, wybor)])
+            foreach (var przejazd in ZwrocLinie(wybor))
             {
                 dodajPrzejazdCB.Items.Add(przejazd.ZwrocCzasZaczeciaPrzejazdu());
             }
@@ -226,8 +251,9 @@ namespace AplikacjaCzytaniaLogow
 
         private void dodajPrzejazdB_Click(object sender, EventArgs e)
         {
+            if (linieCB.SelectedItem == null) return;
             var idLinii = linieCB.SelectedItem.ToString();
-            var przejazd = linie[ZwrocIndexLinii(linie, idLinii)].ZwrocPrzejazdGodzina(dodajPrzejazdCB.SelectedItem.ToString());
+            var przejazd = ZwrocLinie(idLinii).ZwrocPrzejazdGodzina(dodajPrzejazdCB.SelectedItem.ToString());
             var czas = przejazd.ZwrocCzasZaczeciaPrzejazdu();
 
             DodajPrzejazd(czas);
@@ -235,8 +261,9 @@ namespace AplikacjaCzytaniaLogow
 
         private void usunPrzejazdB_Click(object sender, EventArgs e)
         {
+            if (usunPrzejazdCB.SelectedItem == null) return;
             var idLinii = linieCB.SelectedItem.ToString();
-            var przejazd = linie[ZwrocIndexLinii(linie, idLinii)].ZwrocPrzejazdGodzina(usunPrzejazdCB.SelectedItem.ToString());
+            var przejazd = ZwrocLinie(idLinii).ZwrocPrzejazdGodzina(usunPrzejazdCB.SelectedItem.ToString());
             var czas = przejazd.ZwrocCzasZaczeciaPrzejazdu();
 
             UsunPrzejazd(czas);
