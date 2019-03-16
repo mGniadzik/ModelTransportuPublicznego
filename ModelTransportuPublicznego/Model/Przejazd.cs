@@ -104,11 +104,6 @@ namespace ModelTransportuPublicznego.Model {
                 autobus.liniaAutobusu.ZwrocNastepnyPrzystanek(obecnyPrzystanek));
 
             var czas = autobus.PrzejedzTrase(trasa);
-
-            Console.WriteLine();
-            Console.WriteLine("Przejechano trase w {0}", czas);
-            Console.WriteLine();
-
             var czasAkcji = new TimeSpan(0, 0, autobus.PrzejedzTrase(trasa));
             var czasRozpoczeciaAkcji = CzasRozpoczeciaAkcji(czasPrzejazdu);
                     
@@ -150,7 +145,7 @@ namespace ModelTransportuPublicznego.Model {
             if (autobus == null) {
                 try {
                     var autobus = firma.WybierzAutobusDoObslugiPrzejazdu();
-                    var kierowca = firma.WybierzKierowceDoObslugiPrzejazdu();
+                    var kierowca = firma.WybierzKierowceDoObslugiPrzejazdu(linia);
                     
                     autobus.kierowcaAutobusu = kierowca;                   
                     autobus.liniaAutobusu = linia;

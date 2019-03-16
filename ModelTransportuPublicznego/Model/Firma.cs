@@ -102,7 +102,7 @@ namespace ModelTransportuPublicznego.Model {
 
         public abstract Autobus WybierzAutobusDoObslugiPrzejazdu();
 
-        public abstract Kierowca WybierzKierowceDoObslugiPrzejazdu();
+        public abstract Kierowca WybierzKierowceDoObslugiPrzejazdu(Linia linia);
 
         protected virtual void ZwolnijKierowce(Kierowca kierowca) {
             listaKierwcowZajetych.Remove(kierowca);

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Linq;
 
 namespace ModelTransportuPublicznego.Model {
     public class Linia : IEnumerable {
@@ -59,7 +60,6 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         public IEnumerator GetEnumerator() {
-            // return new LiniaEnumerator(trasaLinii);
             return trasaLinii.GetEnumerator();
         }
 
@@ -188,37 +188,8 @@ namespace ModelTransportuPublicznego.Model {
             return false;
         }
 
-        private class LiniaEnumerator : IEnumerator {
-
-            private List<WpisLinii> trasaLinii;
-            private int pozycja = -1;
-
-            public LiniaEnumerator(List<WpisLinii> trasaLinii) {
-                this.trasaLinii = trasaLinii;
-            }
-            public bool MoveNext() {
-                pozycja++;
-                return (pozycja < trasaLinii.Count);
-            }
-
-            public void Reset() {
-                pozycja = -1;
-            }
-
-            object IEnumerator.Current {
-                get { return Current; }
-            }
-
-            public WpisLinii Current {
-                get {
-                    try {
-                        return trasaLinii[pozycja];
-                    }
-                    catch (ArgumentOutOfRangeException) {
-                        throw new InvalidOperationException();
-                    }
-                }    
-            }
+        public virtual TimeSpan ZwrocSpodziewanyCzasPrzejazduLinii() {
+            return new TimeSpan(trasaLinii.Sum(w => w.czasPrzyjaduDoPrzystanku.Ticks));
         }
     }
 }

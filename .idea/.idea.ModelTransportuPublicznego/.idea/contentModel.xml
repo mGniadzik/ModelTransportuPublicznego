@@ -4,6 +4,28 @@
     <e p="$USER_HOME$/.Rider2018.3/system/extResources" t="IncludeRecursive" />
     <e p="$USER_HOME$/.Rider2018.3/system/resharper-host/local/Transient/ReSharperHost/v183/SolutionCaches/_ModelTransportuPublicznego.-1512206610.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p=".gitignore" t="Include" />
+      <e p="AplikacjaCzytaniaLogow" t="IncludeRecursive">
+        <e p="AplikacjaCzytaniaLogow.csproj" t="IncludeRecursive" />
+        <e p="App.config" t="Include" />
+        <e p="Form1.Designer.cs" t="Include" />
+        <e p="Form1.cs" t="Include" />
+        <e p="Form1.resx" t="Include" />
+        <e p="Linia.cs" t="Include" />
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+          <e p="Resources.Designer.cs" t="Include" />
+          <e p="Resources.resx" t="Include" />
+          <e p="Settings.Designer.cs" t="Include" />
+          <e p="Settings.settings" t="Include" />
+        </e>
+        <e p="Przejazd.cs" t="Include" />
+        <e p="WpisPrzejazdu.cs" t="Include" />
+        <e p="WynikInterpretacji.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+      </e>
       <e p="ModelTransportuPublicznego" t="IncludeRecursive">
         <e p="Implementacja" t="Include">
           <e p="Autobusy" t="Include">
@@ -32,6 +54,7 @@
         <e p="Misc" t="Include">
           <e p="Logger.cs" t="Include" />
           <e p="MinKopiec.cs" t="Include" />
+          <e p="UIDGenerator.cs" t="Include" />
         </e>
         <e p="Model" t="Include">
           <e p="Autobus.cs" t="Include" />
@@ -71,6 +94,7 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive" />
       </e>
+      <e p="Solution Items" t="Include" />
       <e p="packages" t="ExcludeRecursive" />
     </e>
   </component>

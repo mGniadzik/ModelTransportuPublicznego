@@ -49,13 +49,19 @@ namespace ModelTransportuPublicznego.Implementacja {
             return listaDostepnychKierowcow.Count != 0;
         }
 
-        public override Kierowca WybierzKierowceDoObslugiPrzejazdu() {
+        public override Kierowca WybierzKierowceDoObslugiPrzejazdu(Linia linia) {
             if (!IstniejaDostepniKierowcy()) {
                 throw new KierowcaNieZnalezionyWyjatek("Nie istnieja kierowcy, którzy mogliby obsłużyć dany przejazd.");
             }
+
+            Kierowca kierowca = null;
+            int wybor = 0;
+
+            do {
+                wybor = rand.Next(listaDostepnychKierowcow.Count);
+                kierowca = listaDostepnychKierowcow[wybor];
+            } while (!kierowca.CzyMozeWykonacPrzejazd(linia.ZwrocSpodziewanyCzasPrzejazduLinii()));
             
-            var wybor = rand.Next(listaDostepnychKierowcow.Count);
-            var kierowca = listaDostepnychKierowcow[wybor];
             listaDostepnychKierowcow.RemoveAt(wybor);
             listaKierwcowZajetych.Add(kierowca);
             
