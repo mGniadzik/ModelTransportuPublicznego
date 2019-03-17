@@ -42,7 +42,7 @@ namespace ModelTransportuPublicznego.Model {
             return ZwrocPrzystanekIndeks(trasaLinii.Count - 1);
         }
 
-        public virtual IEnumerable<WpisLinii> ZwrocTrasy() {
+        public virtual IEnumerable<WpisLinii> ZwrocWpisy() {
             return trasaLinii;
         }
 
@@ -65,8 +65,6 @@ namespace ModelTransportuPublicznego.Model {
 
         public TimeSpan SpodziewanyCzasPrzejazduDoPrzystanku(Przystanek przystanek) {
             var rezultat = TimeSpan.Zero;
-
-//            if (przystanek == trasaLinii[0].przystanek) return TimeSpan.Zero;
             
             foreach (var wpis in trasaLinii) {
                 rezultat += wpis.czasPrzyjaduDoPrzystanku;

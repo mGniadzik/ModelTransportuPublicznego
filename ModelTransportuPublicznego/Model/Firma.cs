@@ -108,7 +108,7 @@ namespace ModelTransportuPublicznego.Model {
                 }
             }
 
-            return listaPrzejazdow;
+            return listaPrzejazdow;    
         }
 
         public abstract Autobus WybierzAutobusDoObslugiPrzejazdu();

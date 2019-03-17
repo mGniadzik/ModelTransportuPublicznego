@@ -185,7 +185,7 @@ namespace ModelTransportuPublicznego.Model {
             do {
                 pKoncowy = zt.SiecPrzystankow.ToList()[rand.Next(zt.SiecPrzystankow.Count())];
             } while (pKoncowy == this);
-            
+
             return new PasazerDijkstry(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, graf, czas);
         }
     }
