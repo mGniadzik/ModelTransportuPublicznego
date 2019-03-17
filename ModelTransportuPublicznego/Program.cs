@@ -22,7 +22,7 @@ namespace ModelTransportuPublicznego {
             p1.DodajTrase(t1);
             p2.DodajTrase(t2);
 
-             var r1 = new RozkladPrzejazdow(new List<TimeSpan> {new TimeSpan(8, 0, 0), new TimeSpan(10, 0, 0)});
+             var r1 = new RozkladPrzejazdow(new List<TimeSpan> {new TimeSpan(8, 0, 0), new TimeSpan(9, 0, 0), new TimeSpan(9, 30, 0), new TimeSpan(10, 0, 0)});
              
              var p4 = new Przystanek("P4", zt);
              var p5 = new Przystanek("P5", zt);
