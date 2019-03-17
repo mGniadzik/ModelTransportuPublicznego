@@ -39,7 +39,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementacja\Autobusy\AutobusLiniowy.cs" />
-    <Compile Include="Implementacja\FirmaLosowa.cs" />
+    <Compile Include="Implementacja\Firmy\FirmaLosowa.cs" />
+    <Compile Include="Implementacja\Firmy\FirmaPierwszyWybor.cs" />
     <Compile Include="Implementacja\Graf\Graf.cs" />
     <Compile Include="Implementacja\Graf\Krawedz.cs" />
     <Compile Include="Implementacja\Graf\Wierzcholek.cs" />

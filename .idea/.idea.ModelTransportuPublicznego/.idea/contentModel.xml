@@ -31,7 +31,10 @@
           <e p="Autobusy" t="Include">
             <e p="AutobusLiniowy.cs" t="Include" />
           </e>
-          <e p="FirmaLosowa.cs" t="Include" />
+          <e p="Firmy" t="Include">
+            <e p="FirmaLosowa.cs" t="Include" />
+            <e p="FirmaPierwszyWybor.cs" t="Include" />
+          </e>
           <e p="Graf" t="Include">
             <e p="Graf.cs" t="Include" />
             <e p="Krawedz.cs" t="Include" />

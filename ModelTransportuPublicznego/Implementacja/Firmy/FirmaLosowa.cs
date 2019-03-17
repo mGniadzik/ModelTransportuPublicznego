@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using ModelTransportuPublicznego.Implementacja.Wyjatki;
-using ModelTransportuPublicznego.Misc;
 using ModelTransportuPublicznego.Model;
 
-namespace ModelTransportuPublicznego.Implementacja {
+namespace ModelTransportuPublicznego.Implementacja.Firmy {
     public class FirmaLosowa : Firma {
         Random rand;
 
@@ -15,18 +14,6 @@ namespace ModelTransportuPublicznego.Implementacja {
         public FirmaLosowa(string nazwaFirmy, IEnumerable<Autobus> tabor, IEnumerable<Kierowca> listaKierowcow,
             IEnumerable<Linia> linieAutobusowe) : base(nazwaFirmy, tabor, listaKierowcow, linieAutobusowe) {
             rand = new Random();
-        }
-        
-        public override IEnumerable<Przejazd> UtworzListePrzejazdow() {
-            var listaPrzejazdow = new List<Przejazd>();
-
-            foreach (var linia in linieAutobusowe) {
-                foreach (var wpis in linia.RozkladPrzejazdow.CzasyPrzejazdow) {
-                    listaPrzejazdow.Add(new Przejazd(this, linia, wpis));
-                }
-            }
-
-            return listaPrzejazdow;
         }
 
         public override Autobus WybierzAutobusDoObslugiPrzejazdu() {
@@ -39,14 +26,6 @@ namespace ModelTransportuPublicznego.Implementacja {
             listaAutobusowZajetych.Add(autobus);
 
             return autobus;
-        }
-
-        private bool IstniejaDostepneAutobusy() {
-            return dostepnyTabor.Count != 0;
-        }
-
-        private bool IstniejaDostepniKierowcy() {
-            return listaDostepnychKierowcow.Count != 0;
         }
 
         public override Kierowca WybierzKierowceDoObslugiPrzejazdu(Linia linia) {

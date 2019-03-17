@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ModelTransportuPublicznego.Implementacja;
+using ModelTransportuPublicznego.Implementacja.Firmy;
 using ModelTransportuPublicznego.Model;
 using NUnit.Framework;
 

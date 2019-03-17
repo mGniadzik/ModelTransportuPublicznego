@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ModelTransportuPublicznego.Implementacja;
 using ModelTransportuPublicznego.Implementacja.Autobusy;
+using ModelTransportuPublicznego.Implementacja.Firmy;
 using ModelTransportuPublicznego.Implementacja.Graf;
 using ModelTransportuPublicznego.Implementacja.Pasazerowie;
 using ModelTransportuPublicznego.Model;

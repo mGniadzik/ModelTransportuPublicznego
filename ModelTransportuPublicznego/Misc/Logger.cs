@@ -11,9 +11,9 @@ namespace ModelTransportuPublicznego.Misc {
         public static string HLogName = $"HLog{NazwaPliku(DateTime.Now)}.log";
         
         public static void ZalogujBrakDostepnegoAutobusu(Firma firma, Linia linia) {
-            Console.WriteLine($"Firma {firma.NazwaFirmy} nie posiadała dostępnego autobusu do obsługi linii {linia.IdLinii}.");
-            
-            
+            var msg = $"Firma {firma.NazwaFirmy} nie posiadała dostępnego autobusu do obsługi linii {linia.IdLinii}.";
+            Console.WriteLine(msg);
+            LogText(msg);
         }
 
         public static void ZalogujBrakDostepnegoKierowcy(Firma firma, Linia linia) {

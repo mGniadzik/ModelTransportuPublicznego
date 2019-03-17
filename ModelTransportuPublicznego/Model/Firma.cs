@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ModelTransportuPublicznego.Model {
     public abstract class Firma {
@@ -98,11 +99,29 @@ namespace ModelTransportuPublicznego.Model {
             }
         }
 
-        public abstract IEnumerable<Przejazd> UtworzListePrzejazdow();
+        public virtual IEnumerable<Przejazd> UtworzListePrzejazdow() {
+            var listaPrzejazdow = new List<Przejazd>();
+
+            foreach (var linia in linieAutobusowe) {
+                foreach (var wpis in linia.RozkladPrzejazdow.CzasyPrzejazdow) {
+                    listaPrzejazdow.Add(new Przejazd(this, linia, wpis));
+                }
+            }
+
+            return listaPrzejazdow;
+        }
 
         public abstract Autobus WybierzAutobusDoObslugiPrzejazdu();
 
         public abstract Kierowca WybierzKierowceDoObslugiPrzejazdu(Linia linia);
+
+        public virtual bool IstniejaDostepneAutobusy() {
+            return dostepnyTabor.Any();
+        }
+
+        public virtual bool IstniejaDostepniKierowcy() {
+            return listaDostepnychKierowcow.Any();
+        }
 
         protected virtual void ZwolnijKierowce(Kierowca kierowca) {
             listaKierwcowZajetych.Remove(kierowca);
