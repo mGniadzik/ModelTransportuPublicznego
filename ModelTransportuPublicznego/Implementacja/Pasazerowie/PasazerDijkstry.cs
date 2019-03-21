@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ModelTransportuPublicznego.Implementacja.Graf;
-using ModelTransportuPublicznego.Misc;
 using ModelTransportuPublicznego.Model;
 
-namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
+namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
+{
     public class PasazerDijkstry : Pasazer {
         
         private static List<TrasaPasazera> obliczoneTrasy = new List<TrasaPasazera>();

@@ -27,12 +27,21 @@ namespace ModelTransportuPublicznego {
              
              var p4 = new Przystanek("P4", zt);
              var p5 = new Przystanek("P5", zt);
+            var p6 = new Przystanek("P6", zt);
+            var p7 = new Przystanek("P7", zt);
+            var p8 = new Przystanek("P8", zt);
 
              var t3 = new Trasa("t3", p4, p2, 1000, 50);
              var t4 = new Trasa("t4", p2, p5, 1000, 50);
-             
-             p4.DodajTrase(t3);
+            var t5 = new Trasa("t5", p3, p6, 1000, 50);
+            var t6 = new Trasa("t5", p6, p7, 1000, 50);
+            var t7 = new Trasa("t5", p7, p8, 1000, 50);
+
+            p4.DodajTrase(t3);
              p2.DodajTrase(t4);
+            p3.DodajTrase(t5);
+            p6.DodajTrase(t6);
+            p7.DodajTrase(t7);
 
              var prz1 = new List<PrzyplywPasazerow>
                  {new PrzyplywPasazerow(new TimeSpan(7, 50, 0), 20), 
@@ -53,7 +62,7 @@ namespace ModelTransportuPublicznego {
             
             var l1 = new Linia("L1", new List<WpisLinii>{new WpisLinii(p1, TimeSpan.Zero), 
                 new WpisLinii(p2, new TimeSpan(0, 10, 0)), new WpisLinii(p3, 
-                    new TimeSpan(0, 15, 0))}, r1);
+                    new TimeSpan(0, 15, 0)), new WpisLinii(p6, new TimeSpan(0, 20, 0)), new WpisLinii(p7, new TimeSpan(0, 10, 0)), new WpisLinii(p8, new TimeSpan(0, 5, 0))}, r1);
 
             var lk1 = new List<Kierowca> {new Kierowca(), new Kierowca(), new Kierowca(), new Kierowca(), new Kierowca(), new Kierowca(), new Kierowca(), new Kierowca()};
             var ta1 = new List<Autobus> {
@@ -70,7 +79,7 @@ namespace ModelTransportuPublicznego {
             var f1 = new FirmaLosowa("F1", ta1, lk1, new List<Linia> {l1});
             f1.DodajLinie(new List<Linia> {l2});
             zt.DodajFirme(f1);
-            zt.DodajPrzystanki(new List<Przystanek> {p1, p2, p3, p4, p5});
+            zt.DodajPrzystanki(new List<Przystanek> {p1, p2, p3, p4, p5, p6, p7, p8});
             zt.DodajLiniePowrotne();
             
             var g1 = new Graf(zt.SiecPrzystankow);
