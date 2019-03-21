@@ -51,7 +51,7 @@ namespace ModelTransportuPublicznego.Model {
 
             foreach (var pasazer in listaWsiadajacych) {
                 obecnyPrzystanek.UsunPasazera(pasazer);
-                pasazer.Wsiadz(this);
+                pasazer.Wsiadz(this, obecnyCzas);
             }
 
             return listaWsiadajacych;
@@ -61,7 +61,7 @@ namespace ModelTransportuPublicznego.Model {
             var listaWysiadajacych = new List<Pasazer>();
             
             foreach (var pasazer in obecniPasazerowie) {
-                if (pasazer.OczekiwanyPrzystanek == obecnyPrzystanek) {
+                if (pasazer.OczekiwanyPrzystanek == obecnyPrzystanek || pasazer.OczekiwanyPrzystanek == null) {
                     listaWysiadajacych.Add(pasazer);
                     pasazer.Wysiadz(obecnyPrzystanek);
                 }
@@ -88,9 +88,7 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         public virtual int WysadzPasazerow(Przystanek obecnyPrzystanek, IEnumerable<Pasazer> listaWysiadajacych) {
-            var listaKolejkaPasazerow = new List<List<Pasazer>>();
-
-            listaKolejkaPasazerow = StworzListeKolejek();
+            var listaKolejkaPasazerow = StworzListeKolejek();
             PodzielPasazerowNaKolejki(listaWysiadajacych, listaKolejkaPasazerow);
 
             foreach (var lista in listaKolejkaPasazerow) {
@@ -154,7 +152,7 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         protected virtual void UsunPasazera(Pasazer pasazer) {
-            this.obecniPasazerowie.Remove(pasazer);
+            obecniPasazerowie.Remove(pasazer);
         }
 
         public abstract int PrzejedzTrase(Trasa trasa);

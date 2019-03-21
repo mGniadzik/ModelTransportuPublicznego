@@ -176,7 +176,7 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
             UsunPrzebytePrzystanki();
         }
 
-        public override void Wsiadz(Autobus autobus)
+        public override void Wsiadz(Autobus autobus, TimeSpan czas)
         {
             var numerPrzystankuLinii = autobus.liniaAutobusu.ZnajdzIndexPrzystanku(obecnyPrzystanek);
             var iterLimit = Math.Min(autobus.liniaAutobusu.Count - numerPrzystankuLinii, trasaPasazera.Count);

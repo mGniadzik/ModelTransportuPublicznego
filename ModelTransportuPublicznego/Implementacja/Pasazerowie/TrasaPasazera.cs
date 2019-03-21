@@ -16,7 +16,9 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
         public Przystanek PrzystanekStartowy => trasa[0].Przystanek;
 
         public Przystanek PrzystanekKoncowy => trasa[trasa.Count - 1].Przystanek;
-        
+
+        public TimeSpan CzasWaznosci => czasWaznosci;
+
         public TrasaPasazera() {
             trasa = new List<ElementTrasy>();
             czasWaznosci = TimeSpan.Zero;
@@ -24,7 +26,12 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
 
         public TrasaPasazera(IEnumerable<ElementTrasy> trasa, TimeSpan czasWaznosci) : this() {
             foreach (var elem in trasa) {
-                this.trasa.Add(elem);
+                var el = new ElementTrasy(elem);
+                elem.CzyPrzebyty = true;
+                
+                if (el.CzyPrzebyty) Console.WriteLine("Ten sam");
+                
+                this.trasa.Add(el);
             }
 
             this.czasWaznosci = czasWaznosci;

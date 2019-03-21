@@ -24,11 +24,19 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
             this.przystanek = przystanek;
         }
 
-        public ElementTrasy(Linia linia, TimeSpan czasOczekiwania, TimeSpan czasPrzejazdu, Przystanek przystanek) {
+        public ElementTrasy(Linia linia, TimeSpan czasOczekiwania, TimeSpan czasPrzejazdu, Przystanek przystanek) : this() {
             this.linia = linia;
             this.czasOczekiwania = czasOczekiwania;
             this.czasPrzejazdu = czasPrzejazdu;
             this.przystanek = przystanek;
+        }
+
+        public ElementTrasy(ElementTrasy elem) : this()
+        {
+            linia = elem.linia;
+            czasOczekiwania = elem.czasOczekiwania;
+            czasPrzejazdu = elem.czasPrzejazdu;
+            przystanek = elem.przystanek;
         }
     }
 }

@@ -51,6 +51,6 @@ namespace ModelTransportuPublicznego.Model {
         
         public abstract void Wysiadz(Przystanek przystanek);
 
-        public abstract void Wsiadz(Autobus autobus);
+        public abstract void Wsiadz(Autobus autobus, TimeSpan czas);
     }
 }

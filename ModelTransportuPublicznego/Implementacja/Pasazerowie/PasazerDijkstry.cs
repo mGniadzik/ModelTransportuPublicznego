@@ -26,19 +26,30 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
             Przystanek przystanekKoncowy, Graf.Graf graf, TimeSpan czasOstatniegoStworzeniaTrasy)
             : base(czasWsiadania, czasWysiadania, przystanekPoczatkowy, przystanekKoncowy) {
             this.graf = graf;
-            trasaPasazera = ZnajdzTrase(graf, czasOstatniegoStworzeniaTrasy);
-            this.czasOstatniegoStworzeniaTrasy = czasOstatniegoStworzeniaTrasy;
+
+            var temp = CzyTrasaObliczona(przystanekPoczatkowy, przystanekKoncowy);
+
+            //if (temp == null)
+            //{
+                trasaPasazera = ZnajdzTrase(graf, czasOstatniegoStworzeniaTrasy);
+                //obliczoneTrasy.Add(trasaPasazera);
+                this.czasOstatniegoStworzeniaTrasy = czasOstatniegoStworzeniaTrasy; 
+            //}
+            //else
+            //{
+            //    trasaPasazera = new TrasaPasazera(temp, temp.CzasWaznosci);   
+            //}
         }
         
-        private bool CzyTrasaObliczona(Przystanek przystanekStartowy, Przystanek przystanekKoncowy) {
+        private TrasaPasazera CzyTrasaObliczona(Przystanek przystanekStartowy, Przystanek przystanekKoncowy) {
             foreach (var otrasa in obliczoneTrasy) {
                 if (otrasa[0].Przystanek == przystanekStartowy &&
                     otrasa[otrasa.Count - 1].Przystanek == przystanekKoncowy) {
-                    return true;
+                    return otrasa;
                 }
             }
 
-            return false;
+            return null;
         }
 
         public TrasaPasazera ZnajdzTrase(Graf.Graf graf, TimeSpan czasUtworzenia) {
@@ -145,7 +156,10 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
         public override Linia OczekiwanaLinia(TimeSpan obecnyCzas) {
             if (trasaPasazera.Count == 0) return null;
             if (obecnyCzas > trasaPasazera[0].CzasOczekiwania + czasOstatniegoStworzeniaTrasy)
-                trasaPasazera = ZnajdzTrase(graf, obecnyCzas);
+            {
+                przystanekPoczatkowy = obecnyPrzystanek;
+                trasaPasazera = ZnajdzTrase(graf, obecnyCzas);   
+            }
             return ZwrocLinieNastepnegoElementu(ZwrocNastepnyElementTrasy());
         }
 
@@ -153,21 +167,21 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
             UstawElementyTrasyJakoPrzebyte(przystanek);
         }
 
-        public override void Wsiadz(Autobus autobus) {
-            oczekiwanyPrzystanek = ZwrocNastepnyElementTrasy().Przystanek;
+        public override void Wsiadz(Autobus autobus, TimeSpan czas) {
+            // oczekiwanyPrzystanek = ZwrocNastepnyElementTrasy().Przystanek;
             UstawJakoPrzebyty();
-            oczekiwanyPrzystanek = ZnajdzOczekiwanyPrzystanek();
+            oczekiwanyPrzystanek = ZnajdzOczekiwanyPrzystanek(czas);
         }
 
-        protected virtual Przystanek ZnajdzOczekiwanyPrzystanek() {
+        protected virtual Przystanek ZnajdzOczekiwanyPrzystanek(TimeSpan czas) {
             var elementy = trasaPasazera.Where(e => !e.CzyPrzebyty).ToList();
 
             for (int i = 0; i < elementy.Count; i++) {
                 if (i == elementy.Count - 1) return elementy[i].Przystanek;
                 if (elementy[i].Linia != elementy[i + 1].Linia) return elementy[i].Przystanek;
             }
-            
-            throw new Exception("Nie odnaleziono oczekiwanego przystanku.");
+
+            return null;
         }
 
         protected virtual void UstawElementyTrasyJakoPrzebyte(Przystanek przystanek) {

@@ -23,42 +23,42 @@ namespace ModelTransportuPublicznego {
             p1.DodajTrase(t1);
             p2.DodajTrase(t2);
 
-             var r1 = new RozkladPrzejazdow(new List<TimeSpan> {new TimeSpan(8, 0, 0), new TimeSpan(9, 0, 0), new TimeSpan(9, 30, 0), new TimeSpan(10, 0, 0)});
+            var r1 = new RozkladPrzejazdow(new List<TimeSpan> {new TimeSpan(8, 0, 0), new TimeSpan(9, 0, 0), new TimeSpan(9, 30, 0), new TimeSpan(10, 0, 0)});
              
-             var p4 = new Przystanek("P4", zt);
-             var p5 = new Przystanek("P5", zt);
+            var p4 = new Przystanek("P4", zt);
+            var p5 = new Przystanek("P5", zt);
             var p6 = new Przystanek("P6", zt);
             var p7 = new Przystanek("P7", zt);
             var p8 = new Przystanek("P8", zt);
 
-             var t3 = new Trasa("t3", p4, p2, 1000, 50);
-             var t4 = new Trasa("t4", p2, p5, 1000, 50);
+            var t3 = new Trasa("t3", p4, p2, 1000, 50);
+            var t4 = new Trasa("t4", p2, p5, 1000, 50);
             var t5 = new Trasa("t5", p3, p6, 1000, 50);
             var t6 = new Trasa("t5", p6, p7, 1000, 50);
             var t7 = new Trasa("t5", p7, p8, 1000, 50);
 
             p4.DodajTrase(t3);
-             p2.DodajTrase(t4);
+            p2.DodajTrase(t4);
             p3.DodajTrase(t5);
             p6.DodajTrase(t6);
             p7.DodajTrase(t7);
 
-             var prz1 = new List<PrzyplywPasazerow>
-                 {new PrzyplywPasazerow(new TimeSpan(7, 50, 0), 20), 
-                     new PrzyplywPasazerow(new TimeSpan(8, 5, 0), 20),
-                     new PrzyplywPasazerow(new TimeSpan(8, 20, 0), 30)
-                 };
+            var prz1 = new List<PrzyplywPasazerow>
+                {new PrzyplywPasazerow(new TimeSpan(7, 50, 0), 20), 
+                    new PrzyplywPasazerow(new TimeSpan(8, 5, 0), 20),
+                    new PrzyplywPasazerow(new TimeSpan(8, 20, 0), 30)
+                };
              
-             p1.DodajPrzyplywy(prz1);
-             p2.DodajPrzyplywy(prz1);
-             p3.DodajPrzyplywy(prz1);
-             p4.DodajPrzyplywy(prz1);
-             p5.DodajPrzyplywy(prz1);
+            p1.DodajPrzyplywy(prz1);
+            p2.DodajPrzyplywy(prz1);
+            p3.DodajPrzyplywy(prz1);
+            p4.DodajPrzyplywy(prz1);
+            p5.DodajPrzyplywy(prz1);
+//             
+            var r2 = new RozkladPrzejazdow(new List<TimeSpan>{new TimeSpan(9, 0, 0), new TimeSpan(9, 30, 0)});
              
-             var r2 = new RozkladPrzejazdow(new List<TimeSpan>{new TimeSpan(9, 0, 0), new TimeSpan(9, 30, 0)});
-             
-             var l2 = new Linia("L2", new List<WpisLinii>{new WpisLinii(p4, TimeSpan.Zero), 
-                 new WpisLinii(p2, new TimeSpan(0, 5, 0)), new WpisLinii(p5, new TimeSpan(0, 10, 0))}, r2);
+            var l2 = new Linia("L2", new List<WpisLinii>{new WpisLinii(p4, TimeSpan.Zero), 
+                new WpisLinii(p2, new TimeSpan(0, 5, 0)), new WpisLinii(p5, new TimeSpan(0, 10, 0))}, r2);
             
             var l1 = new Linia("L1", new List<WpisLinii>{new WpisLinii(p1, TimeSpan.Zero), 
                 new WpisLinii(p2, new TimeSpan(0, 10, 0)), new WpisLinii(p3, 
@@ -85,8 +85,6 @@ namespace ModelTransportuPublicznego {
             var g1 = new Graf(zt.SiecPrzystankow);
             g1.DodajKrawedzie(zt.ZwrocLinie());
             
-//            var pasD1 = new PasazerDijkstry(5, 5, p5, p1, g1);
-            
 //            var list = pasD1.ZnajdzNajkrotszaTrase(g1);
 //            g1.ZresetujGraf();
 //            var pasL1 = new PasazerLosowy(7, 7, p1, p5);
@@ -95,6 +93,9 @@ namespace ModelTransportuPublicznego {
 //            p5.DodajPasazera(pasL1);
             
             zt.StworzRozkladJazdyNaPrzystankach();
+            
+//            var pasD1 = new PasazerDijkstry(5, 5, p2, p4, g1, new TimeSpan(7, 0, 0));
+//            p1.DodajPasazera(pasD1);
             
             zt.StworzListePrzejazdow();
             zt.WykonajPrzejazdy();

@@ -85,6 +85,14 @@ namespace ModelTransportuPublicznego.Model {
             return null;
         }
 
+        public virtual void UsunPrasazerowBezTrasy()
+        {
+            foreach (var p in oczekujacyPasazerowie)
+            {
+                
+            }
+        }
+
         public virtual void DodajAutobus(Autobus autobus) {
             obecneAutobusy.Add(autobus);
         }

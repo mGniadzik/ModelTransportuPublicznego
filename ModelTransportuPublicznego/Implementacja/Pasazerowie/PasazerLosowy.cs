@@ -31,7 +31,7 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
             OczekiwanaLinia(TimeSpan.Zero);
         }
 
-        public override void Wsiadz(Autobus autobus) {
+        public override void Wsiadz(Autobus autobus, TimeSpan czas) {
             if (autobus.liniaAutobusu.ZwrocPozostalePrzystanki(obecnyPrzystanek).Contains(przystanekKoncowy)) {
                 oczekiwanyPrzystanek = przystanekKoncowy;
                 return;
