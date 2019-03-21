@@ -116,22 +116,30 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         private void WykonajWypuszczaniePasazerow() {
-            var pasazerowie = autobus.StworzListeWysiadajacychPasazerow(obecnyPrzystanek);
-            var czasAkcji = new TimeSpan(0, 0,autobus.WysadzPasazerow(obecnyPrzystanek, pasazerowie));
-            var czasRozpoczeciaAkcji = CzasRozpoczeciaAkcji(czasPrzejazdu);
             
-            czasPrzejazdu += czasAkcji;
-                    
-            Logger.ZalogujWypuszczniePasazerow(czasRozpoczeciaPrzejazdu + czasPrzejazdu, autobus, obecnyPrzystanek, pasazerowie.Count, czasRozpoczeciaPrzejazdu + czasAkcji);
-                    
+            var czasRozpoczeciaAkcji = CzasRozpoczeciaAkcji(czasPrzejazdu);
+            List<Pasazer> pasazerowie;
+            TimeSpan czasAkcji;
+            
             if (obecnyPrzystanek == autobus.liniaAutobusu.ZwrocOstatniPrzystanek()) {
                 trasaZakonczona = true;
                 obecnyPrzystanek.UsunAutobus(autobus);
                 firma.DodajPrzejazdDoHistorii(this);
-                        
+                autobus.WypuscWszystkichPasazerow(obecnyPrzystanek);
+
+                pasazerowie = autobus.ObecniPasazerowie;
+                czasAkcji = new TimeSpan(0, 0, autobus.WysadzPasazerow(obecnyPrzystanek, pasazerowie));
+                Logger.ZalogujWypuszczniePasazerow(czasRozpoczeciaPrzejazdu + czasPrzejazdu, autobus, obecnyPrzystanek, pasazerowie.Count, czasRozpoczeciaPrzejazdu + czasAkcji);
                 Logger.ZalogujZakonczenieTrasy(czasRozpoczeciaAkcji, autobus, obecnyPrzystanek, autobus.liniaAutobusu, czasRozpoczeciaPrzejazdu + czasPrzejazdu);
                 return;
             }
+            
+            pasazerowie = autobus.StworzListeWysiadajacychPasazerow(obecnyPrzystanek);
+            czasAkcji = new TimeSpan(0, 0,autobus.WysadzPasazerow(obecnyPrzystanek, pasazerowie));
+            
+            czasPrzejazdu += czasAkcji;
+                    
+            Logger.ZalogujWypuszczniePasazerow(czasRozpoczeciaPrzejazdu + czasPrzejazdu, autobus, obecnyPrzystanek, pasazerowie.Count, czasRozpoczeciaPrzejazdu + czasAkcji);
 
             nastepnaAkcja = Akcja.PobieraniePasazerow;
             obecnyPrzystanek.UsunAutobus(autobus);

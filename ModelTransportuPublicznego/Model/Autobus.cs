@@ -17,6 +17,8 @@ namespace ModelTransportuPublicznego.Model {
 
         public virtual int IloscPasazerow => obecniPasazerowie.Count;
 
+        public List<Pasazer> ObecniPasazerowie => obecniPasazerowie;
+
         public Autobus(string idAutobusu, int maksymalnaPojemnosc, int iloscDzwi) {
             this.idAutobusu = idAutobusu;
             this.maksymalnaPojemnosc = maksymalnaPojemnosc;
@@ -55,6 +57,11 @@ namespace ModelTransportuPublicznego.Model {
             }
 
             return listaWsiadajacych;
+        }
+
+        public virtual void WypuscWszystkichPasazerow(Przystanek p)
+        {
+            WysadzPasazerow(p, obecniPasazerowie);
         }
 
         public virtual List<Pasazer> StworzListeWysiadajacychPasazerow(Przystanek obecnyPrzystanek) {
