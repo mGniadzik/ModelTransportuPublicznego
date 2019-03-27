@@ -33,18 +33,20 @@ namespace ModelTransportuPublicznego.Model {
             autobusyOczekujace = new Queue<Autobus>();
         }
 
-        public Przystanek(string nazwaPrzystanku, ZarzadTransportu zt) : this() {
+        public Przystanek(string nazwaPrzystanku, ZarzadTransportu zt, double dlugoscZatoki) : this() {
             this.nazwaPrzystanku = nazwaPrzystanku;
             this.zt = zt;
+            this.dlugoscZatoki = dlugoscZatoki;
         }
 
-        protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy, ZarzadTransportu zt) : this(nazwaPrzystanku, zt) {
+        protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy, ZarzadTransportu zt, double dlugoscZatoki) : this(nazwaPrzystanku, zt, dlugoscZatoki) {
             foreach (var trasa in trasy) {
                 this.trasy.Add(trasa);
             }
         }
 
-        protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy, IEnumerable<Pasazer> oczekujacyPasazerowie, ZarzadTransportu zt) : this(nazwaPrzystanku, trasy, zt) {
+        protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy, IEnumerable<Pasazer> oczekujacyPasazerowie, ZarzadTransportu zt, double dlugoscZatoki) 
+            : this(nazwaPrzystanku, trasy, zt, dlugoscZatoki) {
             foreach (var pasazer in oczekujacyPasazerowie) {
                 this.oczekujacyPasazerowie.Add(pasazer);
             }
@@ -111,19 +113,19 @@ namespace ModelTransportuPublicznego.Model {
 
         public virtual void DodajAutobus(Autobus a)
         {
-            if (autobusyOczekujace.Any() || (!autobusyOczekujace.Any() && a.DlugoscAutobusu <= ZwrocDlugoscWolnegoMiejscaZatoki()))
+            if (a.DlugoscAutobusu <= ZwrocDlugoscWolnegoMiejscaZatoki())
             {
-                autobusyOczekujace.Enqueue(a);
+                obecneAutobusy.Add(a);
             }
             else
             {
-                obecneAutobusy.Add(a);
+                autobusyOczekujace.Enqueue(a);
             }
         }
 
         public virtual void UsunPrasazerowBezTrasy()
         {
-            oczekujacyPasazerowie = oczekujacyPasazerowie.Where(p => p.CzyPosiadaTrase).ToList();
+            oczekujacyPasazerowie.RemoveAll(p => !p.CzyPosiadaTrase);
         }
 
         public virtual void UsunAutobus(Autobus autobus) {

@@ -83,6 +83,7 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
                 AlgorytmDijkstry(graf.OdwiedzNajmniejszy(), graf, czasPoczatkowy);
             } catch (TrasaNieZnalezionaWyjatek)
             {
+                czyPosiadaTrase = false;
                 return null;
             }
 
@@ -93,8 +94,16 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
             var rezultat = KonwertujWynikAlgorytmuNaTrase(wKoncowy);
             
             graf.ZresetujGraf();
-            
-            return rezultat.Count == 0 ? null : new TrasaPasazera(rezultat, rezultat[0].CzasOczekiwania + czasPoczatkowy);
+
+            if (rezultat.Count == 0)
+            {
+                czyPosiadaTrase = false;
+                return null;
+            }
+            else
+            {
+                return new TrasaPasazera(rezultat, rezultat[0].CzasOczekiwania + czasPoczatkowy);
+            }
         }
 
         private void AlgorytmDijkstry(Wierzcholek wierzcholek, Graf.Graf graf, TimeSpan czasPoczatkowy) {
@@ -162,11 +171,13 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
                         k.wierzcholekKoncowy.przystanek)).ToList(), czasPoczatkowy).ToList();
         }
         public override Linia OczekiwanaLinia(TimeSpan obecnyCzas) {
-            if (trasaPasazera.Count == 0) return null;
+            if (trasaPasazera == null) return null;
             if (obecnyCzas > trasaPasazera[0].CzasOczekiwania + czasOstatniegoStworzeniaTrasy)
             {
                 przystanekPoczatkowy = obecnyPrzystanek;
-                trasaPasazera = ZnajdzTrase(graf, obecnyCzas);   
+                trasaPasazera = ZnajdzTrase(graf, obecnyCzas);
+
+                if (trasaPasazera == null) return null;
             }
             return ZwrocLinieNastepnegoElementu(ZwrocNastepnyElementTrasy());
         }
