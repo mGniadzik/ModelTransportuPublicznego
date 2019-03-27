@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ModelTransportuPublicznego.Implementacja.Graf;
+using ModelTransportuPublicznego.Implementacja.Wyjatki;
 using ModelTransportuPublicznego.Model;
 
 namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
@@ -77,7 +78,14 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
             var wStartowy = graf.ZnajdzWierzcholekZawierajacyPrzystanek(przystanekPoczatkowy);
             wStartowy.waga = TimeSpan.Zero;
 
-            AlgorytmDijkstry(graf.OdwiedzNajmniejszy(), graf, czasPoczatkowy);
+            try
+            {
+                AlgorytmDijkstry(graf.OdwiedzNajmniejszy(), graf, czasPoczatkowy);
+            } catch (TrasaNieZnalezionaWyjatek)
+            {
+                return null;
+            }
+
             var wKoncowy = graf.WynikAlgorytmuDijkstry();
             
             if (wKoncowy == null) return new TrasaPasazera();
@@ -86,7 +94,7 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
             
             graf.ZresetujGraf();
             
-            return rezultat.Count == 0 ? new TrasaPasazera() : new TrasaPasazera(rezultat, rezultat[0].CzasOczekiwania + czasPoczatkowy);
+            return rezultat.Count == 0 ? null : new TrasaPasazera(rezultat, rezultat[0].CzasOczekiwania + czasPoczatkowy);
         }
 
         private void AlgorytmDijkstry(Wierzcholek wierzcholek, Graf.Graf graf, TimeSpan czasPoczatkowy) {
@@ -103,7 +111,7 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
                     var pozostalePrzejazdy = ZwrocPozostalePrzejazdy(k, czasPoczatkowy);
 
 
-                    if (!pozostalePrzejazdy.Any()) return;
+                    if (!pozostalePrzejazdy.Any()) throw new TrasaNieZnalezionaWyjatek();
                     
                     min = null;
                     minWaga = TimeSpan.MaxValue;

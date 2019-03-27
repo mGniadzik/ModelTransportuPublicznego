@@ -78,7 +78,8 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         private void WykonajPobieraniaPasazerow() {
-            
+
+            obecnyPrzystanek.UsunPrasazerowBezTrasy();
             obecnyPrzystanek.DodajAutobus(autobus);
             var pasazerowie = autobus.StworzListeWsiadajacychPasazerow(obecnyPrzystanek, autobus.liniaAutobusu, czasRozpoczeciaPrzejazdu + czasPrzejazdu);
             var czasAkcji = new TimeSpan(0, 0,autobus.PobierzPasazerow(obecnyPrzystanek, autobus.liniaAutobusu, pasazerowie));

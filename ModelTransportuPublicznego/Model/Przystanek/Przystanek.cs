@@ -13,6 +13,8 @@ namespace ModelTransportuPublicznego.Model {
         protected RozkladJazdy rozkladJazdy;
         protected List<Autobus> obecneAutobusy;
         protected List<PrzyplywPasazerow> przyplywyPasazerow;
+        protected double dlugoscZatoki;
+        protected Queue<Autobus> autobusyOczekujace;
         protected ZarzadTransportu zt;
 
         public string NazwaPrzystanku => nazwaPrzystanku;
@@ -21,13 +23,18 @@ namespace ModelTransportuPublicznego.Model {
 
         public IEnumerable<Autobus> ObecneAutobusy => obecneAutobusy;
 
-        public Przystanek(string nazwaPrzystanku, ZarzadTransportu zt) {
-            this.nazwaPrzystanku = nazwaPrzystanku;
+        public Przystanek()
+        {
             oczekujacyPasazerowie = new List<Pasazer>();
             trasy = new List<Trasa>();
             rozkladJazdy = new RozkladJazdy();
             obecneAutobusy = new List<Autobus>();
             przyplywyPasazerow = new List<PrzyplywPasazerow>();
+            autobusyOczekujace = new Queue<Autobus>();
+        }
+
+        public Przystanek(string nazwaPrzystanku, ZarzadTransportu zt) : this() {
+            this.nazwaPrzystanku = nazwaPrzystanku;
             this.zt = zt;
         }
 
@@ -85,16 +92,38 @@ namespace ModelTransportuPublicznego.Model {
             return null;
         }
 
-        public virtual void UsunPrasazerowBezTrasy()
+        protected virtual double ZwrocDlugoscWolnegoMiejscaZatoki()
         {
-            foreach (var p in oczekujacyPasazerowie)
+            return dlugoscZatoki - obecneAutobusy.Sum((a) => a.DlugoscAutobusu);
+        }
+
+        public virtual void DodajAutobusDoZatoki()
+        {
+            if (autobusyOczekujace.Any())
             {
-                
+                var autobus = autobusyOczekujace.Peek();
+                if (autobus.DlugoscAutobusu <= ZwrocDlugoscWolnegoMiejscaZatoki())
+                {
+                    obecneAutobusy.Add(autobusyOczekujace.Dequeue());
+                }
             }
         }
 
-        public virtual void DodajAutobus(Autobus autobus) {
-            obecneAutobusy.Add(autobus);
+        public virtual void DodajAutobus(Autobus a)
+        {
+            if (autobusyOczekujace.Any() || (!autobusyOczekujace.Any() && a.DlugoscAutobusu <= ZwrocDlugoscWolnegoMiejscaZatoki()))
+            {
+                autobusyOczekujace.Enqueue(a);
+            }
+            else
+            {
+                obecneAutobusy.Add(a);
+            }
+        }
+
+        public virtual void UsunPrasazerowBezTrasy()
+        {
+            oczekujacyPasazerowie = oczekujacyPasazerowie.Where(p => p.CzyPosiadaTrase).ToList();
         }
 
         public virtual void UsunAutobus(Autobus autobus) {

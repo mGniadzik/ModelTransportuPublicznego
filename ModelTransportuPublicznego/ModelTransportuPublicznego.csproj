@@ -52,6 +52,7 @@
     <Compile Include="Implementacja\SynchronicznyZarzadTransportu.cs" />
     <Compile Include="Implementacja\Wyjatki\AutobusNieZnalezionyWyjatek.cs" />
     <Compile Include="Implementacja\Wyjatki\KierowcaNieZnalezionyWyjatek.cs" />
+    <Compile Include="Implementacja\Wyjatki\TrasaNieZnalezionaWyjatek.cs" />
     <Compile Include="Implementacja\Wyjatki\ZasobNieZnalezionyWyjatek.cs" />
     <Compile Include="Misc\Logger.cs" />
     <Compile Include="Misc\MinKopiec.cs" />

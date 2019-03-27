@@ -10,7 +10,7 @@ namespace ModelTransportuPublicznego.Implementacja.Autobusy {
         private double aHamowania;
 
         public AutobusLiniowy(string idAutobusu, int maksymalnaPojemnosc, int iloscDzwi, double przyspieszenie, 
-            double trasaHamowania100, double predkoscMaksymalna) : base(idAutobusu, maksymalnaPojemnosc, iloscDzwi) {
+            double trasaHamowania100, double predkoscMaksymalna, double dlugoscAutobusu) : base(idAutobusu, maksymalnaPojemnosc, iloscDzwi, dlugoscAutobusu) {
 
             this.przyspieszenie = przyspieszenie;
             this.trasaHamowania100 = trasaHamowania100;
@@ -19,8 +19,8 @@ namespace ModelTransportuPublicznego.Implementacja.Autobusy {
         }
 
         public AutobusLiniowy(string idAutobusu, int maksymalnaPojemnosc, int iloscDzwi, double przyspieszenie, 
-            double trasaHamowania100, double predkoscMaksymalna, IEnumerable<Pasazer> obecniPasazerowie) 
-            : this (idAutobusu, maksymalnaPojemnosc, iloscDzwi, przyspieszenie, trasaHamowania100, predkoscMaksymalna) {
+            double trasaHamowania100, double predkoscMaksymalna, double dlugoscAutobusu, IEnumerable<Pasazer> obecniPasazerowie) 
+            : this (idAutobusu, maksymalnaPojemnosc, iloscDzwi, przyspieszenie, trasaHamowania100, predkoscMaksymalna, dlugoscAutobusu) {
 
             foreach (var pasazer in obecniPasazerowie) {
                 this.obecniPasazerowie.Add(pasazer);

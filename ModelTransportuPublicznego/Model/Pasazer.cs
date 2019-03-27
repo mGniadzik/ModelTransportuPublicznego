@@ -8,6 +8,7 @@ namespace ModelTransportuPublicznego.Model {
         protected Przystanek przystanekKoncowy;
         protected Przystanek obecnyPrzystanek;
         protected Przystanek oczekiwanyPrzystanek;
+        protected bool czyPosiadaTrase;
         protected int czasWsiadania;
         protected int czasWysiadania;
 
@@ -20,9 +21,13 @@ namespace ModelTransportuPublicznego.Model {
 
         public virtual int CzasWysiadania => czasWysiadania;
 
-        protected Pasazer() { }
+        public virtual bool CzyPosiadaTrase => czyPosiadaTrase;
 
-        public Pasazer(int czasWsiadania, int czasWysiadania) {
+        protected Pasazer() {
+            czyPosiadaTrase = true;
+        }
+
+        public Pasazer(int czasWsiadania, int czasWysiadania) : this() {
             this.czasWsiadania = czasWsiadania;
             this.czasWysiadania = czasWysiadania;
         }

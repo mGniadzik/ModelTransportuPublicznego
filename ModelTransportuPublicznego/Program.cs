@@ -66,21 +66,21 @@ namespace ModelTransportuPublicznego {
 
             var lk1 = new List<Kierowca> {new Kierowca(), new Kierowca(), new Kierowca(), new Kierowca(), new Kierowca(), new Kierowca(), new Kierowca(), new Kierowca(), new Kierowca(), new Kierowca(), new Kierowca(), new Kierowca()};
             var ta1 = new List<Autobus> {
-                new AutobusLiniowy("A1", 80, 4, 3, 100, 50),
-                new AutobusLiniowy("A2", 80, 4, 3, 100, 50),
-                new AutobusLiniowy("A3", 80, 4, 3, 100, 50),
-                new AutobusLiniowy("A4", 80, 4, 3, 100, 50),
-                new AutobusLiniowy("A5", 80, 4, 3, 100, 50),
-                new AutobusLiniowy("A6", 80, 4, 3, 100, 50),
-                new AutobusLiniowy("A7", 80, 4, 3, 100, 50),
-                new AutobusLiniowy("A8", 80, 4, 3, 100, 50),
-                new AutobusLiniowy("A9", 80, 4, 3, 100, 50),
-                new AutobusLiniowy("A10", 80, 4, 3, 100, 50),
-                new AutobusLiniowy("A11", 80, 4, 3, 100, 50),
-                new AutobusLiniowy("A12", 80, 4, 3, 100, 50),
-                new AutobusLiniowy("A13", 80, 4, 3, 100, 50),
-                new AutobusLiniowy("A14", 80, 4, 3, 100, 50),
-                new AutobusLiniowy("A15", 80, 4, 3, 100, 50)
+                new AutobusLiniowy("A1", 80, 4, 3, 100, 50, 10.0),
+                new AutobusLiniowy("A2", 80, 4, 3, 100, 50, 10.0),
+                new AutobusLiniowy("A3", 80, 4, 3, 100, 50, 10.0),
+                new AutobusLiniowy("A4", 80, 4, 3, 100, 50, 10.0),
+                new AutobusLiniowy("A5", 80, 4, 3, 100, 50, 10.0),
+                new AutobusLiniowy("A6", 80, 4, 3, 100, 50, 10.0),
+                new AutobusLiniowy("A7", 80, 4, 3, 100, 50, 10.0),
+                new AutobusLiniowy("A8", 80, 4, 3, 100, 50, 10.0),
+                new AutobusLiniowy("A9", 80, 4, 3, 100, 50, 10.0),
+                new AutobusLiniowy("A10", 80, 4, 3, 100, 50, 10.0),
+                new AutobusLiniowy("A11", 80, 4, 3, 100, 50, 10.0),
+                new AutobusLiniowy("A12", 80, 4, 3, 100, 50, 10.0),
+                new AutobusLiniowy("A13", 80, 4, 3, 100, 50, 10.0),
+                new AutobusLiniowy("A14", 80, 4, 3, 100, 50, 10.0),
+                new AutobusLiniowy("A15", 80, 4, 3, 100, 50, 10.0)
             };
             
             var f1 = new FirmaLosowa("F1", ta1, lk1, new List<Linia> {l1});

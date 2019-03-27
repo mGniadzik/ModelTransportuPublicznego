@@ -8,6 +8,7 @@ namespace ModelTransportuPublicznego.Model {
         protected int maksymalnaPojemnosc;
         protected List<Pasazer> obecniPasazerowie;
         protected int iloscDzwi;
+        protected double dlugoscAutobusu;
         public Linia liniaAutobusu;
         public Kierowca kierowcaAutobusu;
 
@@ -19,20 +20,22 @@ namespace ModelTransportuPublicznego.Model {
 
         public List<Pasazer> ObecniPasazerowie => obecniPasazerowie;
 
-        public Autobus(string idAutobusu, int maksymalnaPojemnosc, int iloscDzwi) {
+        public double DlugoscAutobusu => dlugoscAutobusu;
+
+        public Autobus(string idAutobusu, int maksymalnaPojemnosc, int iloscDzwi, double dlugosc) {
             this.idAutobusu = idAutobusu;
             this.maksymalnaPojemnosc = maksymalnaPojemnosc;
             this.iloscDzwi = iloscDzwi;
             obecniPasazerowie = new List<Pasazer>();
         }
 
-        public Autobus(Autobus autobus, Linia liniaAutobusu, Kierowca kierowcaAutobusu) : this(autobus.idAutobusu, autobus.maksymalnaPojemnosc, autobus.iloscDzwi) {
+        public Autobus(Autobus autobus, Linia liniaAutobusu, Kierowca kierowcaAutobusu) : this(autobus.idAutobusu, autobus.maksymalnaPojemnosc, autobus.iloscDzwi, autobus.dlugoscAutobusu) {
             this.liniaAutobusu = liniaAutobusu;
             this.kierowcaAutobusu = kierowcaAutobusu;
         }
 
-        protected Autobus(string idAutobusu, int maksymalnaPojemnosc, int iloscDzwi, IEnumerable<Pasazer> obecniPasazerowie) 
-            : this(idAutobusu, maksymalnaPojemnosc, iloscDzwi) {
+        protected Autobus(string idAutobusu, int maksymalnaPojemnosc, int iloscDzwi, double dlugoscAutobusu, IEnumerable<Pasazer> obecniPasazerowie) 
+            : this(idAutobusu, maksymalnaPojemnosc, iloscDzwi, dlugoscAutobusu) {
             
             foreach (var pasazer in obecniPasazerowie) {
                 this.obecniPasazerowie.Add(pasazer);
