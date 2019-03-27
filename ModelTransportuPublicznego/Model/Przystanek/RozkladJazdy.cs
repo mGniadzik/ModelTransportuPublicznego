@@ -29,6 +29,11 @@ namespace ModelTransportuPublicznego.Model {
             return rozkladJazdy.OrderBy(x => x.CzasPrzyjazdu);
         }
 
+        public virtual IEnumerable<Linia> ZwrocLinie()
+        {
+            return rozkladJazdy.Select(wrj => wrj.LiniaObslugujaca).Distinct();
+        }
+
 
         public IEnumerator<WpisRozkladuJazdy> GetEnumerator() {
             return rozkladJazdy.GetEnumerator();

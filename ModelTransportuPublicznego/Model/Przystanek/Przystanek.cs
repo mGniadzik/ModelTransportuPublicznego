@@ -208,6 +208,11 @@ namespace ModelTransportuPublicznego.Model {
             }
         }
 
+        public virtual Linia ZnajdzLinieDoPrzystanku(Przystanek przystanek)
+        {
+            return rozkladJazdy.ZwrocLinie().FirstOrDefault(linia => linia.ZwrocNastepnyPrzystanek(this) == przystanek);
+        }
+
         protected virtual void WykonajPrzyplyw(PrzyplywPasazerow przyplyw, TimeSpan czas) {
             for (int i = 0; i < przyplyw.IloscPasazerow; i++) {
                 DodajPasazera(WygenerujPasazeraDijkstry(czas));

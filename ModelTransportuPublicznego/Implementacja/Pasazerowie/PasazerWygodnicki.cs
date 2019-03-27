@@ -85,43 +85,26 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
         protected void AlgorytmDijkstry(Wierzcholek<byte> wierzcholek, Graf.Graf<byte> graf, byte iloscPrzesiadek, Linia linia)
         {
             var rezultat = new List<ElementTrasy>();
+            Linia liniaWynikowa = null;
             
             if (wierzcholek.przystanek != przystanekKoncowy)
             {
 
-                byte minWaga = byte.MinValue;
-                WpisRozkladuJazdy min = null;
-
                 foreach (var k in wierzcholek.krawedzie) {
                     if (k.wierzcholekKoncowy.czyOdwiedzony) continue;
 
-                    var pozostalePrzejazdy = ZwrocPozostalePrzejazdy(k);
+                    liniaWynikowa =
+                        k.wierzcholekStartowy.przystanek.ZnajdzLinieDoPrzystanku(k.wierzcholekKoncowy.przystanek);
 
-
-                    if (!pozostalePrzejazdy.Any()) throw new TrasaNieZnalezionaWyjatek();
+                    k.wierzcholekKoncowy.waga = liniaWynikowa == linia ? iloscPrzesiadek : ++iloscPrzesiadek;
                     
-                    min = null;
-                    minWaga = byte.MaxValue;
-
-                    foreach (var wrj in pozostalePrzejazdy)
-                    {
-                        var liniaPrzejazdu = wrj.LiniaObslugujaca;
-
-                        k.wierzcholekKoncowy.waga = linia == liniaPrzejazdu ? iloscPrzesiadek : ++iloscPrzesiadek;
-
-                        if (iloscPrzesiadek < minWaga) {
-                            min = wrj;
-                            minWaga = iloscPrzesiadek;
-                        }   
-                    }
-
-                    k.wierzcholekKoncowy.waga = minWaga;
-                    k.wierzcholekKoncowy.elementTrasy = new ElementTrasy(min?.LiniaObslugujaca, TimeSpan.Zero,
+                    k.wierzcholekKoncowy.waga = ++iloscPrzesiadek;
+                    k.wierzcholekKoncowy.elementTrasy = new ElementTrasy(liniaWynikowa, TimeSpan.Zero,
                         TimeSpan.Zero, k.wierzcholekKoncowy.przystanek);
                     k.wierzcholekKoncowy.poprzedniWierzcholek = wierzcholek;
                 }
                 
-                AlgorytmDijkstry(graf.OdwiedzNajmniejszy(), graf, minWaga, min?.LiniaObslugujaca);
+                AlgorytmDijkstry(graf.OdwiedzNajmniejszy(), graf, iloscPrzesiadek, liniaWynikowa);
             }
         }
 
