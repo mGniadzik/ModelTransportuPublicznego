@@ -89,7 +89,7 @@ namespace ModelTransportuPublicznego {
             zt.DodajPrzystanki(new List<Przystanek> {p1, p2, p3, p4, p5, p6, p7, p8});
             zt.DodajLiniePowrotne();
             
-            var g1 = new Graf(zt.SiecPrzystankow);
+            var g1 = new Graf<TimeSpan>(zt.SiecPrzystankow, TimeSpan.MaxValue);
             g1.DodajKrawedzie(zt.ZwrocLinie());
             
 //            var list = pasD1.ZnajdzNajkrotszaTrase(g1);

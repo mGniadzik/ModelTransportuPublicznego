@@ -43,7 +43,10 @@
           <e p="Pasazerowie" t="Include">
             <e p="ElementTrasy.cs" t="Include" />
             <e p="PasazerDijkstry.cs" t="Include" />
+            <e p="PasazerDijkstryBazowy.cs" t="Include" />
+            <e p="PasazerKrotkodystansowy.cs" t="Include" />
             <e p="PasazerLosowy.cs" t="Include" />
+            <e p="PasazerWygodnicki.cs" t="Include" />
             <e p="PrymitywnyPasazerDijkstry.cs" t="Include" />
             <e p="TrasaPasazera.cs" t="Include" />
           </e>
@@ -51,6 +54,7 @@
           <e p="Wyjatki" t="Include">
             <e p="AutobusNieZnalezionyWyjatek.cs" t="Include" />
             <e p="KierowcaNieZnalezionyWyjatek.cs" t="Include" />
+            <e p="TrasaNieZnalezionaWyjatek.cs" t="Include" />
             <e p="ZasobNieZnalezionyWyjatek.cs" t="Include" />
           </e>
         </e>

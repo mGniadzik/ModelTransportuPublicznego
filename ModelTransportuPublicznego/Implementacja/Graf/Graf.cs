@@ -5,19 +5,21 @@ using ModelTransportuPublicznego.Misc;
 using ModelTransportuPublicznego.Model;
 
 namespace ModelTransportuPublicznego.Implementacja.Graf {
-    public class Graf {
-        private MinKopiec<Wierzcholek> wierzcholki;
-        private List<Wierzcholek> odwiedzoneWierzcholki;
+    public class Graf<T> where T : IComparable<T> {
+        private MinKopiec<Wierzcholek<T>> wierzcholki;
+        private List<Wierzcholek<T>> odwiedzoneWierzcholki;
 
         private Graf() {
-            wierzcholki = new MinKopiec<Wierzcholek>();
-            odwiedzoneWierzcholki = new List<Wierzcholek>();
+            wierzcholki = new MinKopiec<Wierzcholek<T>>();
+            odwiedzoneWierzcholki = new List<Wierzcholek<T>>();
         }
         
-        public Graf(IEnumerable<Przystanek> listaPrzystankow) : this() {
+        public Graf(IEnumerable<Przystanek> listaPrzystankow, T val) : this() {
             foreach (var przystanek in listaPrzystankow) {
-                wierzcholki.Dodaj(new Wierzcholek(przystanek));
+                wierzcholki.Dodaj(new Wierzcholek<T>(przystanek));
             }
+            
+            UstawWartosciWierzcholkow(val);
         }
 
         public void DodajKrawedzie(IEnumerable<Linia> linieAutobusowe) {
@@ -27,13 +29,13 @@ namespace ModelTransportuPublicznego.Implementacja.Graf {
                 for (var i = 0; i < linia.Count - 1; i++) {
                     var w1 = ZnajdzWierzcholekZawierajacyPrzystanek(linia[i].przystanek);
                     var w2 = ZnajdzWierzcholekZawierajacyPrzystanek(linia[i + 1].przystanek);
-                    w1.DodajKrawedz(new Krawedz(w1, w2, linia[i + 1].czasPrzyjaduDoPrzystanku));
+                    w1.DodajKrawedz(new Krawedz<T>(w1, w2, linia[i + 1].czasPrzyjaduDoPrzystanku));
                 }
             }
         }
 
-        public Wierzcholek ZnajdzWierzcholekZawierajacyPrzystanek(Przystanek przystanek) {
-            foreach (Wierzcholek wierzcholek in wierzcholki) {
+        public Wierzcholek<T> ZnajdzWierzcholekZawierajacyPrzystanek(Przystanek przystanek) {
+            foreach (Wierzcholek<T> wierzcholek in wierzcholki) {
                 if (wierzcholek.przystanek == przystanek) {
                     return wierzcholek;
                 }
@@ -46,7 +48,7 @@ namespace ModelTransportuPublicznego.Implementacja.Graf {
             wierzcholki.NaprawKopiec();
         }
 
-        public Wierzcholek OdwiedzNajmniejszy() {
+        public Wierzcholek<T> OdwiedzNajmniejszy() {
             NaprawKopiec();
             NaprawKopiec();
             var wierzcholek = wierzcholki.ZdejminNajmniejszy();
@@ -56,16 +58,25 @@ namespace ModelTransportuPublicznego.Implementacja.Graf {
             return wierzcholek;
         }
 
-        public Wierzcholek WynikAlgorytmuDijkstry() {
+        public void UstawWartosciWierzcholkow(T val)
+        {
+            foreach (Wierzcholek<T> w in wierzcholki)
+            {
+                w.waga = val;
+            }
+        }
+
+        public Wierzcholek<T> WynikAlgorytmuDijkstry() {
             return !odwiedzoneWierzcholki.Any() ? null : odwiedzoneWierzcholki[odwiedzoneWierzcholki.Count - 1];
         }
 
-        public void ZresetujGraf() {
+        public void ZresetujGraf(T val) {
             wierzcholki.DodajWiele(odwiedzoneWierzcholki);
-            odwiedzoneWierzcholki = new List<Wierzcholek>();
+            odwiedzoneWierzcholki = new List<Wierzcholek<T>>();
             
-            foreach (Wierzcholek wierzcholek in wierzcholki) {
-                wierzcholek.waga = TimeSpan.MaxValue;
+            foreach (Wierzcholek<T> wierzcholek in wierzcholki)
+            {
+                wierzcholek.waga = val;
                 wierzcholek.czyOdwiedzony = false;
                 wierzcholek.poprzedniWierzcholek = null;
             }

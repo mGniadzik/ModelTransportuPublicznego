@@ -7,27 +7,18 @@ using ModelTransportuPublicznego.Model;
 
 namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
 {
-    public class PasazerDijkstry : Pasazer {
-        
-        private static List<TrasaPasazera> obliczoneTrasy = new List<TrasaPasazera>();
-        private Graf.Graf graf;
-        private TrasaPasazera trasaPasazera;
-        private TimeSpan czasOstatniegoStworzeniaTrasy;
+    public class PasazerDijkstry : PasazerDijkstryBazowy {
+        private static List<TrasaPasazera> obliczoneTrasy = new List<TrasaPasazera>(); 
+        private Graf<TimeSpan> graf;
         
         public PasazerDijkstry(IEnumerable<ElementTrasy> trasaPasazera, TimeSpan czasUtworzenia, int czasWsiadania, int czasWysiadania)
-            : base(czasWsiadania, czasWsiadania) {
-            trasaPasazera = new TrasaPasazera(trasaPasazera, czasUtworzenia);
-
-            przystanekPoczatkowy = this.trasaPasazera.PrzystanekStartowy;
-            przystanekKoncowy = this.trasaPasazera.PrzystanekKoncowy;
-            czasOstatniegoStworzeniaTrasy = TimeSpan.Zero;
-        }
+            : base(trasaPasazera, czasUtworzenia, czasWsiadania, czasWysiadania) { }
 
         public PasazerDijkstry(int czasWsiadania, int czasWysiadania, Przystanek przystanekPoczatkowy,
-            Przystanek przystanekKoncowy, Graf.Graf graf, TimeSpan czasOstatniegoStworzeniaTrasy)
-            : base(czasWsiadania, czasWysiadania, przystanekPoczatkowy, przystanekKoncowy) {
+            Przystanek przystanekKoncowy, Graf.Graf<TimeSpan> graf, TimeSpan czasOstatniegoStworzeniaTrasy)
+            : base(czasWsiadania, czasWysiadania, przystanekPoczatkowy, przystanekKoncowy, czasOstatniegoStworzeniaTrasy) {
+            
             this.graf = graf;
-
             var temp = CzyTrasaObliczona(przystanekPoczatkowy, przystanekKoncowy);
 
             //if (temp == null)
@@ -53,7 +44,7 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
             return null;
         }
 
-        public TrasaPasazera ZnajdzTrase(Graf.Graf graf, TimeSpan czasUtworzenia) {
+        public TrasaPasazera ZnajdzTrase(Graf.Graf<TimeSpan> graf, TimeSpan czasUtworzenia) {
             UsunPrzedawnioneTrasy(czasUtworzenia);
             
             foreach (var trasa in obliczoneTrasy) {
@@ -74,7 +65,7 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
             obliczoneTrasy.Add(trasaPasazera);
         }
 
-        public TrasaPasazera ZnajdzNajkrotszaTrase(Graf.Graf graf, TimeSpan czasPoczatkowy) {
+        public TrasaPasazera ZnajdzNajkrotszaTrase(Graf<TimeSpan> graf, TimeSpan czasPoczatkowy) {
             var wStartowy = graf.ZnajdzWierzcholekZawierajacyPrzystanek(przystanekPoczatkowy);
             wStartowy.waga = TimeSpan.Zero;
 
@@ -88,25 +79,40 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
             }
 
             var wKoncowy = graf.WynikAlgorytmuDijkstry();
-            
-            if (wKoncowy == null) return new TrasaPasazera();
+
+            if (wKoncowy == null) return null;
             
             var rezultat = KonwertujWynikAlgorytmuNaTrase(wKoncowy);
             
-            graf.ZresetujGraf();
+            graf.ZresetujGraf(TimeSpan.MaxValue);
 
             if (rezultat.Count == 0)
             {
                 czyPosiadaTrase = false;
                 return null;
             }
-            else
-            {
-                return new TrasaPasazera(rezultat, rezultat[0].CzasOczekiwania + czasPoczatkowy);
+            
+            return new TrasaPasazera(rezultat, rezultat[0].CzasOczekiwania + czasPoczatkowy);
+        }
+        
+        protected virtual List<ElementTrasy> KonwertujWynikAlgorytmuNaTrase(Wierzcholek<TimeSpan> wKoncowy) {
+            var rezultat = new List<ElementTrasy>();
+            
+            for (var w1 = wKoncowy; w1.poprzedniWierzcholek != null; w1 = w1.poprzedniWierzcholek) {
+                rezultat.Insert(0, w1.elementTrasy);
+
+                if (w1.poprzedniWierzcholek.elementTrasy == null) {
+                    rezultat.Insert(0, new ElementTrasy(w1.elementTrasy.Linia, w1.poprzedniWierzcholek.przystanek,
+                        w1.poprzedniWierzcholek.przystanek.ZwrocPierwszyPrzejazdDanejLinii(w1.elementTrasy.Linia), 
+                        TimeSpan.Zero));
+                    break;
+                }
             }
+
+            return rezultat;
         }
 
-        private void AlgorytmDijkstry(Wierzcholek wierzcholek, Graf.Graf graf, TimeSpan czasPoczatkowy) {
+        protected virtual void AlgorytmDijkstry(Wierzcholek<TimeSpan> wierzcholek, Graf.Graf<TimeSpan> graf, TimeSpan czasPoczatkowy) {
             var rezultat = new List<ElementTrasy>();
             
             if (wierzcholek.przystanek != przystanekKoncowy) {
@@ -147,29 +153,6 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
             }
         }
 
-        protected virtual List<ElementTrasy> KonwertujWynikAlgorytmuNaTrase(Wierzcholek wKoncowy) {
-            var rezultat = new List<ElementTrasy>();
-            
-            for (var w1 = wKoncowy; w1.poprzedniWierzcholek != null; w1 = w1.poprzedniWierzcholek) {
-                rezultat.Insert(0, w1.elementTrasy);
-
-                if (w1.poprzedniWierzcholek.elementTrasy == null) {
-                    rezultat.Insert(0, new ElementTrasy(w1.elementTrasy.Linia, w1.poprzedniWierzcholek.przystanek,
-                        w1.poprzedniWierzcholek.przystanek.ZwrocPierwszyPrzejazdDanejLinii(w1.elementTrasy.Linia), 
-                        TimeSpan.Zero));
-                    break;
-                }
-            }
-
-            return rezultat;
-        }
-
-        protected virtual List<WpisRozkladuJazdy> ZwrocPozostalePrzejazdy(Krawedz k, TimeSpan czasPoczatkowy) {
-            return k.wierzcholekStartowy.przystanek.PozostalePrzejazdy(
-                k.wierzcholekStartowy.przystanek.PozostaleLiniePrzejazdow().Where(l => 
-                    l.CzyPrzystanekPozostalDoOdwiedzenia(k.wierzcholekStartowy.przystanek, 
-                        k.wierzcholekKoncowy.przystanek)).ToList(), czasPoczatkowy).ToList();
-        }
         public override Linia OczekiwanaLinia(TimeSpan obecnyCzas) {
             if (trasaPasazera == null) return null;
             if (obecnyCzas > trasaPasazera[0].CzasOczekiwania + czasOstatniegoStworzeniaTrasy)
@@ -180,56 +163,6 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
                 if (trasaPasazera == null) return null;
             }
             return ZwrocLinieNastepnegoElementu(ZwrocNastepnyElementTrasy());
-        }
-
-        public override void Wysiadz(Przystanek przystanek) {
-            UstawElementyTrasyJakoPrzebyte(przystanek);
-        }
-
-        public override void Wsiadz(Autobus autobus, TimeSpan czas) {
-            // oczekiwanyPrzystanek = ZwrocNastepnyElementTrasy().Przystanek;
-            UstawJakoPrzebyty();
-            oczekiwanyPrzystanek = ZnajdzOczekiwanyPrzystanek(czas);
-        }
-
-        protected virtual Przystanek ZnajdzOczekiwanyPrzystanek(TimeSpan czas) {
-            var elementy = trasaPasazera.Where(e => !e.CzyPrzebyty).ToList();
-
-            for (int i = 0; i < elementy.Count; i++) {
-                if (i == elementy.Count - 1) return elementy[i].Przystanek;
-                if (elementy[i].Linia != elementy[i + 1].Linia) return elementy[i].Przystanek;
-            }
-
-            return null;
-        }
-
-        protected virtual void UstawElementyTrasyJakoPrzebyte(Przystanek przystanek) {
-            foreach (var elem in trasaPasazera) {
-                if (!elem.CzyPrzebyty && elem.Przystanek != przystanek) {
-                    elem.CzyPrzebyty = true;
-                    return;
-                }
-            }
-        }
-
-        protected virtual void UstawJakoPrzebyty() {
-            foreach (var elem in trasaPasazera)
-                if (!elem.CzyPrzebyty) {
-                    elem.CzyPrzebyty = true;
-                    return;
-                }
-        }
-
-        protected virtual ElementTrasy ZwrocNastepnyElementTrasy() {
-            foreach (var elemTrasy in trasaPasazera) {
-                if (!elemTrasy.CzyPrzebyty) return elemTrasy;
-            }
-
-            return null;
-        }
-
-        protected virtual Linia ZwrocLinieNastepnegoElementu(ElementTrasy et) {
-            return et?.Linia;
         }
     }
 }

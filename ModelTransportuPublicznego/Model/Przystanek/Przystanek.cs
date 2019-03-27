@@ -217,7 +217,7 @@ namespace ModelTransportuPublicznego.Model {
         protected virtual PasazerDijkstry WygenerujPasazeraDijkstry(TimeSpan czas) {
             var rand = new Random();
             
-            var graf = new Graf(zt.SiecPrzystankow);
+            var graf = new Graf<TimeSpan>(zt.SiecPrzystankow, TimeSpan.MaxValue);
             graf.DodajKrawedzie(zt.ZwrocLinie());
             Przystanek pKoncowy;
 

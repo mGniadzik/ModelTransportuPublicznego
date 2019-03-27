@@ -4,32 +4,31 @@ using ModelTransportuPublicznego.Implementacja.Pasazerowie;
 using ModelTransportuPublicznego.Model;
 
 namespace ModelTransportuPublicznego.Implementacja.Graf {
-    public class Wierzcholek : IComparable<Wierzcholek> {
+    public class Wierzcholek<T> : IComparable<Wierzcholek<T>> where T : IComparable<T> {
         public Przystanek przystanek;
-        public List<Krawedz> krawedzie;
+        public List<Krawedz<T>> krawedzie;
         public bool czyOdwiedzony;
-        public TimeSpan waga;
-        public Wierzcholek poprzedniWierzcholek;
+        public T waga;
+        public Wierzcholek<T> poprzedniWierzcholek;
         public ElementTrasy elementTrasy;
 
         public Wierzcholek(Przystanek przystanek) {
             this.przystanek = przystanek;
-            krawedzie = new List<Krawedz>();
+            krawedzie = new List<Krawedz<T>>();
             czyOdwiedzony = false;
-            waga = TimeSpan.MaxValue;
         }
 
-        public Wierzcholek(Przystanek przystanek, IEnumerable<Krawedz> krawedzie) : this(przystanek) {
+        public Wierzcholek(Przystanek przystanek, IEnumerable<Krawedz<T>> krawedzie) : this(przystanek) {
             foreach (var krawedz in krawedzie) {
                 this.krawedzie.Add(krawedz);
             }
         }
 
-        public void DodajKrawedz(Krawedz krawedz) {
+        public void DodajKrawedz(Krawedz<T> krawedz) {
             krawedzie.Add(krawedz);
         }
 
-        public int CompareTo(Wierzcholek other) {
+        public int CompareTo(Wierzcholek<T> other) {
             return waga.CompareTo(other.waga);
         }
     }
