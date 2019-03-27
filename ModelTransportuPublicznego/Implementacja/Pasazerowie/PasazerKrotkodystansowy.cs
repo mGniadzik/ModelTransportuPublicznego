@@ -7,38 +7,35 @@ using ModelTransportuPublicznego.Model;
 
 namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
 {
-    public class PasazerWygodnicki : PasazerDijkstryBazowy
+    public class PasazerKrotkodystansowy : PasazerDijkstryBazowy
     {
-        
         private static List<TrasaPasazera> obliczoneTrasy = new List<TrasaPasazera>(); 
-        private Graf<byte> graf; 
+        private Graf<ulong> graf;
             
-        public PasazerWygodnicki(IEnumerable<ElementTrasy> trasaPasazera, TimeSpan czasUtworzenia, int czasWsiadania, int czasWysiadania) 
-            : base(trasaPasazera, czasUtworzenia, czasWsiadania, czasWysiadania)
+        public PasazerKrotkodystansowy(IEnumerable<ElementTrasy> trasaPasazera, TimeSpan czasUtworzenia, int czasWsiadania, int czasWysiadania) : base(trasaPasazera, czasUtworzenia, czasWsiadania, czasWysiadania)
         { }
 
-        public PasazerWygodnicki(int czasWsiadania, int czasWysiadania, Przystanek przystanekPoczatkowy,
-            Przystanek przystanekKoncowy, Graf.Graf<byte> graf, TimeSpan czasOstatniegoStworzeniaTrasy)
-            : base(czasWsiadania, czasWysiadania, przystanekPoczatkowy, przystanekKoncowy,
-                czasOstatniegoStworzeniaTrasy)
+        public PasazerKrotkodystansowy(int czasWsiadania, int czasWysiadania, Przystanek przystanekPoczatkowy,
+            Przystanek przystanekKoncowy, Graf<ulong> graf, TimeSpan czasOstatniegoStworzeniaTrasy) : base(czasWsiadania, czasWysiadania, przystanekPoczatkowy, przystanekKoncowy,
+            czasOstatniegoStworzeniaTrasy)
         {
             this.graf = graf;
             trasaPasazera = ZnajdzTrase(graf);
         }
 
-        public TrasaPasazera ZnajdzTrase(Graf<byte> graf)
+        public TrasaPasazera ZnajdzTrase(Graf<ulong> graf)
         {
             return ZnajdzNajwygodniejszaTrase(graf);
         }
         
-        public TrasaPasazera ZnajdzNajwygodniejszaTrase(Graf<byte> graf)
+        public TrasaPasazera ZnajdzNajwygodniejszaTrase(Graf<ulong> graf)
         {
             var wStartowy = graf.ZnajdzWierzcholekZawierajacyPrzystanek(przystanekPoczatkowy);
-            wStartowy.waga = Byte.MinValue;
+            wStartowy.waga = ulong.MinValue;
 
             try
             {
-                AlgorytmDijkstry(graf.OdwiedzNajmniejszy(), graf, 0, null);
+                AlgorytmDijkstry(graf.OdwiedzNajmniejszy(), graf, 0L);
             }
             catch (TrasaNieZnalezionaWyjatek)
             {
@@ -63,7 +60,7 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
             return new TrasaPasazera(rezultat, TimeSpan.MaxValue);
         }
 
-        public virtual List<ElementTrasy> KonwertujWynikAlgorytmuNaTrase(Wierzcholek<byte> wKoncowy)
+        public virtual List<ElementTrasy> KonwertujWynikAlgorytmuNaTrase(Wierzcholek<ulong> wKoncowy)
         {
             var rezultat = new List<ElementTrasy>();
 
@@ -82,11 +79,10 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
             return rezultat;
         }
 
-        protected void AlgorytmDijkstry(Wierzcholek<byte> wierzcholek, Graf.Graf<byte> graf, byte iloscPrzesiadek, Linia linia)
+        protected void AlgorytmDijkstry(Wierzcholek<ulong> wierzcholek, Graf.Graf<ulong> graf, ulong dystans)
         {
             var rezultat = new List<ElementTrasy>();
-            Linia liniaWynikowa = null;
-            var min = byte.MaxValue;
+            ulong min = 0;
             
             if (wierzcholek.przystanek != przystanekKoncowy)
             {
@@ -94,19 +90,21 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
                 foreach (var k in wierzcholek.krawedzie) {
                     if (k.wierzcholekKoncowy.czyOdwiedzony) continue;
 
-                    liniaWynikowa =
-                        k.wierzcholekStartowy.przystanek.ZnajdzLinieDoPrzystanku(k.wierzcholekKoncowy.przystanek);
-
-                    k.wierzcholekKoncowy.waga = liniaWynikowa == linia ? iloscPrzesiadek : ++iloscPrzesiadek;
-
-                    if (iloscPrzesiadek < min) min = iloscPrzesiadek;
+                    var trasa =
+                        k.wierzcholekStartowy.przystanek.ZnajdzTraseDoNastepnegoPrzystanku(k.wierzcholekKoncowy
+                            .przystanek);
                     
-                    k.wierzcholekKoncowy.elementTrasy = new ElementTrasy(liniaWynikowa, TimeSpan.Zero,
+                    k.wierzcholekKoncowy.waga = dystans + (ulong) trasa.DystansTrasy;
+
+                    if (k.wierzcholekKoncowy.waga < min) min = k.wierzcholekKoncowy.waga;
+                    
+                    k.wierzcholekKoncowy.elementTrasy = new ElementTrasy(k.wierzcholekStartowy.przystanek.
+                            ZnajdzLinieDoPrzystanku(k.wierzcholekKoncowy.przystanek), TimeSpan.Zero,
                         TimeSpan.Zero, k.wierzcholekKoncowy.przystanek);
                     k.wierzcholekKoncowy.poprzedniWierzcholek = wierzcholek;
                 }
                 
-                AlgorytmDijkstry(graf.OdwiedzNajmniejszy(), graf, min, liniaWynikowa);
+                AlgorytmDijkstry(graf.OdwiedzNajmniejszy(), graf, min);
             }
         }
 

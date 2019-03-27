@@ -3,17 +3,17 @@ namespace ModelTransportuPublicznego.Model {
         protected string nazwaTrasy;
         protected Przystanek przystanekLewy;
         protected Przystanek przystanekPrawy;
-        protected double sTrasy;
+        protected int sTrasy;
         protected double vMaxTrasy;
 
         public string NazwaTrasy => nazwaTrasy;
         public Przystanek PrzystanekLewy => przystanekLewy;
         public Przystanek PrzystanekPrawy => przystanekPrawy;
         public double VMaxTrasy => vMaxTrasy;
-        public double DystansTrasy => sTrasy;
+        public int DystansTrasy => sTrasy;
         public virtual Trasa TrasaOdwrotna => OdwrocTrase();
 
-        public Trasa(string nazwaTrasy, Przystanek przystanekLewy, Przystanek przystanekPrawy, double sTrasy, double vMaxTrasy) {
+        public Trasa(string nazwaTrasy, Przystanek przystanekLewy, Przystanek przystanekPrawy, int sTrasy, double vMaxTrasy) {
             this.nazwaTrasy = nazwaTrasy;
             this.przystanekLewy = przystanekLewy;
             this.przystanekPrawy = przystanekPrawy;
