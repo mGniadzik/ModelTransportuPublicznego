@@ -1,13 +1,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace ModelTransportuPublicznego.Model {
+    [DataContract]
     public abstract class Autobus {
+        [DataMember]
         protected string idAutobusu;
+        [DataMember]
         protected int maksymalnaPojemnosc;
         protected List<Pasazer> obecniPasazerowie;
+        [DataMember]
         protected int iloscDzwi;
+        [DataMember]
         protected double dlugoscAutobusu;
         public Linia liniaAutobusu;
         public Kierowca kierowcaAutobusu;
@@ -19,6 +25,8 @@ namespace ModelTransportuPublicznego.Model {
         public virtual int IloscPasazerow => obecniPasazerowie.Count;
 
         public List<Pasazer> ObecniPasazerowie => obecniPasazerowie;
+
+        public double ProcentZapelnieniaAutobusu => (double) obecniPasazerowie.Count / maksymalnaPojemnosc;
 
         public double DlugoscAutobusu => dlugoscAutobusu;
 

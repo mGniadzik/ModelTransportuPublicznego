@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using ModelTransportuPublicznego.Implementacja.Graf;
 using ModelTransportuPublicznego.Implementacja.Pasazerowie;
-using ModelTransportuPublicznego.Misc;
 
-namespace ModelTransportuPublicznego.Model {
+namespace ModelTransportuPublicznego.Model
+{
     public class Przystanek {
+        protected int pozycjaX;
+        protected int pozycjaY;
         protected string nazwaPrzystanku;
         protected List<Pasazer> oczekujacyPasazerowie;
         protected List<Trasa> trasy;
@@ -23,6 +25,12 @@ namespace ModelTransportuPublicznego.Model {
 
         public IEnumerable<Autobus> ObecneAutobusy => obecneAutobusy;
 
+        public IEnumerable<Autobus> AutobusyOczekujace => autobusyOczekujace;
+
+        public int X => pozycjaX;
+
+        public int Y => pozycjaY;
+
         public Przystanek()
         {
             oczekujacyPasazerowie = new List<Pasazer>();
@@ -33,20 +41,21 @@ namespace ModelTransportuPublicznego.Model {
             autobusyOczekujace = new Queue<Autobus>();
         }
 
-        public Przystanek(string nazwaPrzystanku, ZarzadTransportu zt, double dlugoscZatoki) : this() {
+        public Przystanek(string nazwaPrzystanku, ZarzadTransportu zt, double dlugoscZatoki, int pozycjaX = 0, int pozycjaY = 0) : this() {
             this.nazwaPrzystanku = nazwaPrzystanku;
             this.zt = zt;
             this.dlugoscZatoki = dlugoscZatoki;
         }
 
-        protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy, ZarzadTransportu zt, double dlugoscZatoki) : this(nazwaPrzystanku, zt, dlugoscZatoki) {
+        protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy, ZarzadTransportu zt, double dlugoscZatoki, int pozycjaX = 0, int pozycjaY = 0) 
+            : this(nazwaPrzystanku, zt, dlugoscZatoki, pozycjaX, pozycjaY) {
             foreach (var trasa in trasy) {
                 this.trasy.Add(trasa);
             }
         }
 
-        protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy, IEnumerable<Pasazer> oczekujacyPasazerowie, ZarzadTransportu zt, double dlugoscZatoki) 
-            : this(nazwaPrzystanku, trasy, zt, dlugoscZatoki) {
+        protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy, IEnumerable<Pasazer> oczekujacyPasazerowie, ZarzadTransportu zt, double dlugoscZatoki, int pozycjaX = 0, int pozycjaY = 0) 
+            : this(nazwaPrzystanku, trasy, zt, dlugoscZatoki, pozycjaX, pozycjaY) {
             foreach (var pasazer in oczekujacyPasazerowie) {
                 this.oczekujacyPasazerowie.Add(pasazer);
             }
