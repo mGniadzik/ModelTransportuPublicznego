@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ModelTransportuPublicznego.Implementacja.Graf;
 using ModelTransportuPublicznego.Implementacja.Pasazerowie;
+using ModelTransportuPublicznego.Implementacja.Wyjatki;
 
 namespace ModelTransportuPublicznego.Model
 {
@@ -175,8 +176,15 @@ namespace ModelTransportuPublicznego.Model
             return rezultat;
         }
 
-        public virtual TimeSpan ZwrocPierwszyPrzejazdDanejLinii(Linia linia) {
-            return rozkladJazdy.Where(w => w.LiniaObslugujaca == linia && !w.CzyWykonany).Min().CzasPrzyjazdu;
+        public virtual TimeSpan ZwrocPierwszyPrzejazdDanejLinii(Linia linia)
+        {
+            var minPrzejazd = rozkladJazdy.Where(w => w.LiniaObslugujaca == linia && !w.CzyWykonany).Min();
+            if (minPrzejazd != null)
+            {
+                return minPrzejazd.CzasPrzyjazdu;
+            }
+
+            throw new TrasaNieZnalezionaWyjatek();
         }
 
         public virtual Trasa ZwrocTraseDo(Przystanek przystanek) {
@@ -246,21 +254,21 @@ namespace ModelTransportuPublicznego.Model
 
             var rng = rand.Next(100);
 
-            //if (rng < 33)
-            //{
+            if (rng < 33)
+            {
             var grafTS = new Graf<TimeSpan>(zt.SiecPrzystankow, TimeSpan.MaxValue);
             grafTS.DodajKrawedzie(zt.ZwrocLinie());
             return new PasazerDijkstry(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, grafTS, czas);
-            //} else if (rng< 66)
-            //{
-            //    var grafB = new Graf<byte>(zt.SiecPrzystankow, byte.MaxValue);
-            //    grafB.DodajKrawedzie(zt.ZwrocLinie());
-            //    return new PasazerWygodnicki(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, grafB, czas);
-            //}
+            } else if (rng< 66)
+            {
+                var grafB = new Graf<byte>(zt.SiecPrzystankow, byte.MaxValue);
+                grafB.DodajKrawedzie(zt.ZwrocLinie());
+                return new PasazerWygodnicki(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, grafB, czas);
+            }
 
-            //var grafUL = new Graf<ulong>(zt.SiecPrzystankow, ulong.MaxValue);
-            //grafUL.DodajKrawedzie(zt.ZwrocLinie());
-            //return new PasazerKrotkodystansowy(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, grafUL, czas);
+            var grafUL = new Graf<ulong>(zt.SiecPrzystankow, ulong.MaxValue);
+            grafUL.DodajKrawedzie(zt.ZwrocLinie());
+            return new PasazerKrotkodystansowy(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, grafUL, czas);
         }
     }
 }

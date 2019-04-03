@@ -77,8 +77,9 @@ namespace ModelTransportuPublicznego.Model
         public Przystanek ZwrocNastepnyPrzystanek(Przystanek przystanek) {
             var rezultat = ZnajdzIndexPrzystanku(przystanek);
 
-            if (rezultat == -1 || rezultat == trasaLinii.Count - 1) {
-                throw new ArgumentOutOfRangeException();
+            if (rezultat == -1 || rezultat >= trasaLinii.Count - 1)
+            {
+                return null;
             }
 
             return trasaLinii[rezultat + 1].przystanek;

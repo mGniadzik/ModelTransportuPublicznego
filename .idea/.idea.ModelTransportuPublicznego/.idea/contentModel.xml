@@ -26,6 +26,23 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive" />
       </e>
+      <e p="AplikacjaPomocnicza" t="IncludeRecursive">
+        <e p="AplikacjaPomocnicza.csproj" t="IncludeRecursive" />
+        <e p="App.config" t="Include" />
+        <e p="Form1.Designer.cs" t="Include" />
+        <e p="Form1.cs" t="Include" />
+        <e p="Form1.resx" t="Include" />
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+          <e p="Resources.Designer.cs" t="Include" />
+          <e p="Resources.resx" t="Include" />
+          <e p="Settings.Designer.cs" t="Include" />
+          <e p="Settings.settings" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+      </e>
       <e p="ModelTransportuPublicznego" t="IncludeRecursive">
         <e p="Implementacja" t="Include">
           <e p="Autobusy" t="Include">
@@ -62,6 +79,7 @@
           <e p="Logger.cs" t="Include" />
           <e p="MinKopiec.cs" t="Include" />
           <e p="UIDGenerator.cs" t="Include" />
+          <e p="WizualizatorMapy.cs" t="Include" />
         </e>
         <e p="Model" t="Include">
           <e p="Autobus.cs" t="Include" />

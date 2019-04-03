@@ -69,9 +69,16 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
                 rezultat.Insert(0, w1.elementTrasy);
 
                 if (w1.poprzedniWierzcholek.elementTrasy == null) {
-                    rezultat.Insert(0, new ElementTrasy(w1.elementTrasy.Linia, w1.poprzedniWierzcholek.przystanek,
-                        w1.poprzedniWierzcholek.przystanek.ZwrocPierwszyPrzejazdDanejLinii(w1.elementTrasy.Linia), 
-                        TimeSpan.Zero));
+                    try
+                    {
+                        rezultat.Insert(0, new ElementTrasy(w1.elementTrasy.Linia, w1.poprzedniWierzcholek.przystanek,
+                            w1.poprzedniWierzcholek.przystanek.ZwrocPierwszyPrzejazdDanejLinii(w1.elementTrasy.Linia),
+                            TimeSpan.Zero));
+                    }
+                    catch (TrasaNieZnalezionaWyjatek)
+                    {
+                        czyPosiadaTrase = false;
+                    }
                     break;
                 }
             }
