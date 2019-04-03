@@ -230,22 +230,37 @@ namespace ModelTransportuPublicznego.Model
 
         protected virtual void WykonajPrzyplyw(PrzyplywPasazerow przyplyw, TimeSpan czas) {
             for (int i = 0; i < przyplyw.IloscPasazerow; i++) {
-                DodajPasazera(WygenerujPasazeraDijkstry(czas));
+                DodajPasazera(WygenerujPasazera(czas));
             }
         }
 
-        protected virtual PasazerDijkstry WygenerujPasazeraDijkstry(TimeSpan czas) {
+        protected virtual PasazerDijkstryBazowy WygenerujPasazera(TimeSpan czas) {
             var rand = new Random();
             
-            var graf = new Graf<TimeSpan>(zt.SiecPrzystankow, TimeSpan.MaxValue);
-            graf.DodajKrawedzie(zt.ZwrocLinie());
+            
             Przystanek pKoncowy;
 
             do {
                 pKoncowy = zt.SiecPrzystankow.ToList()[rand.Next(zt.SiecPrzystankow.Count())];
             } while (pKoncowy == this);
 
-            return new PasazerDijkstry(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, graf, czas);
+            var rng = rand.Next(100);
+
+            //if (rng < 33)
+            //{
+            var grafTS = new Graf<TimeSpan>(zt.SiecPrzystankow, TimeSpan.MaxValue);
+            grafTS.DodajKrawedzie(zt.ZwrocLinie());
+            return new PasazerDijkstry(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, grafTS, czas);
+            //} else if (rng< 66)
+            //{
+            //    var grafB = new Graf<byte>(zt.SiecPrzystankow, byte.MaxValue);
+            //    grafB.DodajKrawedzie(zt.ZwrocLinie());
+            //    return new PasazerWygodnicki(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, grafB, czas);
+            //}
+
+            //var grafUL = new Graf<ulong>(zt.SiecPrzystankow, ulong.MaxValue);
+            //grafUL.DodajKrawedzie(zt.ZwrocLinie());
+            //return new PasazerKrotkodystansowy(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, grafUL, czas);
         }
     }
 }
