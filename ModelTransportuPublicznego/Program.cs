@@ -100,10 +100,10 @@ namespace ModelTransportuPublicznego {
 //            p5.DodajPasazera(pasL1);
             
             zt.StworzRozkladJazdyNaPrzystankach();
-            
-//            var pasD1 = new PasazerDijkstry(5, 5, p2, p4, g1, new TimeSpan(7, 0, 0));
-//            p1.DodajPasazera(pasD1);
-            
+
+            //            var pasD1 = new PasazerDijkstry(5, 5, p2, p4, g1, new TimeSpan(7, 0, 0));
+            //            p1.DodajPasazera(pasD1);
+
             zt.StworzListePrzejazdow();
             zt.WykonajPrzejazdy();
         }

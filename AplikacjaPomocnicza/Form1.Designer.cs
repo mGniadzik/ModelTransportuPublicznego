@@ -32,11 +32,11 @@
             this.welcomeLabel = new System.Windows.Forms.Label();
             this.bAutobus = new System.Windows.Forms.Button();
             this.pAutobusStale = new System.Windows.Forms.Panel();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.tbVMax = new System.Windows.Forms.TextBox();
             this.tbHamowanie = new System.Windows.Forms.TextBox();
             this.tbPrzyspieszenie = new System.Windows.Forms.TextBox();
             this.tbDlugosc = new System.Windows.Forms.TextBox();
-            this.tbDzwi = new System.Windows.Forms.TextBox();
+            this.tbDrzwi = new System.Windows.Forms.TextBox();
             this.tbPojemnosc = new System.Windows.Forms.TextBox();
             this.tbId = new System.Windows.Forms.TextBox();
             this.lVMax = new System.Windows.Forms.Label();
@@ -50,17 +50,17 @@
             this.bNext = new System.Windows.Forms.Button();
             this.pZmianaPrzyspieszenia = new System.Windows.Forms.Panel();
             this.lFileName = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbNazwaPliku = new System.Windows.Forms.TextBox();
             this.bSave = new System.Windows.Forms.Button();
             this.bBack = new System.Windows.Forms.Button();
             this.dgHamowanie = new System.Windows.Forms.DataGridView();
-            this.lProgHamowanie = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lSpowolnienieHamowanie = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgPrzysp = new System.Windows.Forms.DataGridView();
-            this.lProgPrzysp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lSpowolnieniePrzysp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lPrzyspieszenieTitle = new System.Windows.Forms.Label();
             this.lHamowanieTitle = new System.Windows.Forms.Label();
+            this.cProgPrzysp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cSpowolnieniePrzysp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cProgHamowanie = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cSpowolnienieHamowanie = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pPowitanie.SuspendLayout();
             this.pAutobusStale.SuspendLayout();
             this.pZmianaPrzyspieszenia.SuspendLayout();
@@ -99,11 +99,11 @@
             // 
             // pAutobusStale
             // 
-            this.pAutobusStale.Controls.Add(this.textBox7);
+            this.pAutobusStale.Controls.Add(this.tbVMax);
             this.pAutobusStale.Controls.Add(this.tbHamowanie);
             this.pAutobusStale.Controls.Add(this.tbPrzyspieszenie);
             this.pAutobusStale.Controls.Add(this.tbDlugosc);
-            this.pAutobusStale.Controls.Add(this.tbDzwi);
+            this.pAutobusStale.Controls.Add(this.tbDrzwi);
             this.pAutobusStale.Controls.Add(this.tbPojemnosc);
             this.pAutobusStale.Controls.Add(this.tbId);
             this.pAutobusStale.Controls.Add(this.lVMax);
@@ -122,40 +122,40 @@
             this.pAutobusStale.TabIndex = 3;
             this.pAutobusStale.Visible = false;
             // 
-            // textBox7
+            // tbVMax
             // 
-            this.textBox7.Location = new System.Drawing.Point(174, 181);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(100, 20);
-            this.textBox7.TabIndex = 16;
+            this.tbVMax.Location = new System.Drawing.Point(174, 174);
+            this.tbVMax.Name = "tbVMax";
+            this.tbVMax.Size = new System.Drawing.Size(100, 20);
+            this.tbVMax.TabIndex = 16;
             // 
             // tbHamowanie
             // 
-            this.tbHamowanie.Location = new System.Drawing.Point(174, 155);
+            this.tbHamowanie.Location = new System.Drawing.Point(174, 148);
             this.tbHamowanie.Name = "tbHamowanie";
             this.tbHamowanie.Size = new System.Drawing.Size(100, 20);
             this.tbHamowanie.TabIndex = 15;
             // 
             // tbPrzyspieszenie
             // 
-            this.tbPrzyspieszenie.Location = new System.Drawing.Point(174, 129);
+            this.tbPrzyspieszenie.Location = new System.Drawing.Point(174, 122);
             this.tbPrzyspieszenie.Name = "tbPrzyspieszenie";
             this.tbPrzyspieszenie.Size = new System.Drawing.Size(100, 20);
             this.tbPrzyspieszenie.TabIndex = 14;
             // 
             // tbDlugosc
             // 
-            this.tbDlugosc.Location = new System.Drawing.Point(174, 102);
+            this.tbDlugosc.Location = new System.Drawing.Point(174, 96);
             this.tbDlugosc.Name = "tbDlugosc";
             this.tbDlugosc.Size = new System.Drawing.Size(100, 20);
             this.tbDlugosc.TabIndex = 13;
             // 
-            // tbDzwi
+            // tbDrzwi
             // 
-            this.tbDzwi.Location = new System.Drawing.Point(174, 70);
-            this.tbDzwi.Name = "tbDzwi";
-            this.tbDzwi.Size = new System.Drawing.Size(100, 20);
-            this.tbDzwi.TabIndex = 12;
+            this.tbDrzwi.Location = new System.Drawing.Point(174, 70);
+            this.tbDrzwi.Name = "tbDrzwi";
+            this.tbDrzwi.Size = new System.Drawing.Size(100, 20);
+            this.tbDrzwi.TabIndex = 12;
             // 
             // tbPojemnosc
             // 
@@ -174,7 +174,7 @@
             // lVMax
             // 
             this.lVMax.AutoSize = true;
-            this.lVMax.Location = new System.Drawing.Point(12, 184);
+            this.lVMax.Location = new System.Drawing.Point(12, 177);
             this.lVMax.Name = "lVMax";
             this.lVMax.Size = new System.Drawing.Size(113, 13);
             this.lVMax.TabIndex = 9;
@@ -183,7 +183,7 @@
             // lHamowanie
             // 
             this.lHamowanie.AutoSize = true;
-            this.lHamowanie.Location = new System.Drawing.Point(12, 158);
+            this.lHamowanie.Location = new System.Drawing.Point(12, 151);
             this.lHamowanie.Name = "lHamowanie";
             this.lHamowanie.Size = new System.Drawing.Size(156, 13);
             this.lHamowanie.TabIndex = 8;
@@ -192,7 +192,7 @@
             // lPrzyspieszenie
             // 
             this.lPrzyspieszenie.AutoSize = true;
-            this.lPrzyspieszenie.Location = new System.Drawing.Point(12, 132);
+            this.lPrzyspieszenie.Location = new System.Drawing.Point(12, 125);
             this.lPrzyspieszenie.Name = "lPrzyspieszenie";
             this.lPrzyspieszenie.Size = new System.Drawing.Size(120, 13);
             this.lPrzyspieszenie.TabIndex = 7;
@@ -201,7 +201,7 @@
             // lDlugosc
             // 
             this.lDlugosc.AutoSize = true;
-            this.lDlugosc.Location = new System.Drawing.Point(12, 105);
+            this.lDlugosc.Location = new System.Drawing.Point(12, 99);
             this.lDlugosc.Name = "lDlugosc";
             this.lDlugosc.Size = new System.Drawing.Size(95, 13);
             this.lDlugosc.TabIndex = 6;
@@ -212,9 +212,9 @@
             this.lIloscDrzwi.AutoSize = true;
             this.lIloscDrzwi.Location = new System.Drawing.Point(12, 73);
             this.lIloscDrzwi.Name = "lIloscDrzwi";
-            this.lIloscDrzwi.Size = new System.Drawing.Size(53, 13);
+            this.lIloscDrzwi.Size = new System.Drawing.Size(56, 13);
             this.lIloscDrzwi.TabIndex = 5;
-            this.lIloscDrzwi.Text = "Ilość dzwi";
+            this.lIloscDrzwi.Text = "Ilość drzwi";
             // 
             // lPojemnosc
             // 
@@ -257,7 +257,7 @@
             // pZmianaPrzyspieszenia
             // 
             this.pZmianaPrzyspieszenia.Controls.Add(this.lFileName);
-            this.pZmianaPrzyspieszenia.Controls.Add(this.textBox1);
+            this.pZmianaPrzyspieszenia.Controls.Add(this.tbNazwaPliku);
             this.pZmianaPrzyspieszenia.Controls.Add(this.bSave);
             this.pZmianaPrzyspieszenia.Controls.Add(this.bBack);
             this.pZmianaPrzyspieszenia.Controls.Add(this.dgHamowanie);
@@ -280,12 +280,12 @@
             this.lFileName.TabIndex = 24;
             this.lFileName.Text = "Podaj nazwę pliku:";
             // 
-            // textBox1
+            // tbNazwaPliku
             // 
-            this.textBox1.Location = new System.Drawing.Point(473, 523);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(201, 20);
-            this.textBox1.TabIndex = 23;
+            this.tbNazwaPliku.Location = new System.Drawing.Point(473, 523);
+            this.tbNazwaPliku.Name = "tbNazwaPliku";
+            this.tbNazwaPliku.Size = new System.Drawing.Size(201, 20);
+            this.tbNazwaPliku.TabIndex = 23;
             // 
             // bSave
             // 
@@ -311,47 +311,23 @@
             // 
             this.dgHamowanie.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgHamowanie.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.lProgHamowanie,
-            this.lSpowolnienieHamowanie});
+            this.cProgHamowanie,
+            this.cSpowolnienieHamowanie});
             this.dgHamowanie.Location = new System.Drawing.Point(12, 280);
             this.dgHamowanie.Name = "dgHamowanie";
             this.dgHamowanie.Size = new System.Drawing.Size(760, 214);
             this.dgHamowanie.TabIndex = 20;
             // 
-            // lProgHamowanie
-            // 
-            this.lProgHamowanie.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.lProgHamowanie.HeaderText = "Próg zapełnienia";
-            this.lProgHamowanie.Name = "lProgHamowanie";
-            // 
-            // lSpowolnienieHamowanie
-            // 
-            this.lSpowolnienieHamowanie.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.lSpowolnienieHamowanie.HeaderText = "Procent wydłużenia";
-            this.lSpowolnienieHamowanie.Name = "lSpowolnienieHamowanie";
-            // 
             // dgPrzysp
             // 
             this.dgPrzysp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgPrzysp.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.lProgPrzysp,
-            this.lSpowolnieniePrzysp});
+            this.cProgPrzysp,
+            this.cSpowolnieniePrzysp});
             this.dgPrzysp.Location = new System.Drawing.Point(12, 36);
             this.dgPrzysp.Name = "dgPrzysp";
             this.dgPrzysp.Size = new System.Drawing.Size(760, 214);
             this.dgPrzysp.TabIndex = 19;
-            // 
-            // lProgPrzysp
-            // 
-            this.lProgPrzysp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.lProgPrzysp.HeaderText = "Próg zapełnienia";
-            this.lProgPrzysp.Name = "lProgPrzysp";
-            // 
-            // lSpowolnieniePrzysp
-            // 
-            this.lSpowolnieniePrzysp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.lSpowolnieniePrzysp.HeaderText = "Procent spowolnienia";
-            this.lSpowolnieniePrzysp.Name = "lSpowolnieniePrzysp";
             // 
             // lPrzyspieszenieTitle
             // 
@@ -372,6 +348,30 @@
             this.lHamowanieTitle.Size = new System.Drawing.Size(111, 24);
             this.lHamowanieTitle.TabIndex = 18;
             this.lHamowanieTitle.Text = "Hamowanie";
+            // 
+            // cProgPrzysp
+            // 
+            this.cProgPrzysp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cProgPrzysp.HeaderText = "Próg zapełnienia";
+            this.cProgPrzysp.Name = "cProgPrzysp";
+            // 
+            // cSpowolnieniePrzysp
+            // 
+            this.cSpowolnieniePrzysp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cSpowolnieniePrzysp.HeaderText = "Procent spowolnienia";
+            this.cSpowolnieniePrzysp.Name = "cSpowolnieniePrzysp";
+            // 
+            // cProgHamowanie
+            // 
+            this.cProgHamowanie.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cProgHamowanie.HeaderText = "Próg zapełnienia";
+            this.cProgHamowanie.Name = "cProgHamowanie";
+            // 
+            // cSpowolnienieHamowanie
+            // 
+            this.cSpowolnienieHamowanie.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cSpowolnienieHamowanie.HeaderText = "Procent wydłużenia";
+            this.cSpowolnienieHamowanie.Name = "cSpowolnienieHamowanie";
             // 
             // Form1
             // 
@@ -403,11 +403,11 @@
         private System.Windows.Forms.Panel pAutobusStale;
         private System.Windows.Forms.Button bCancel;
         private System.Windows.Forms.Button bNext;
-        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox tbVMax;
         private System.Windows.Forms.TextBox tbHamowanie;
         private System.Windows.Forms.TextBox tbPrzyspieszenie;
         private System.Windows.Forms.TextBox tbDlugosc;
-        private System.Windows.Forms.TextBox tbDzwi;
+        private System.Windows.Forms.TextBox tbDrzwi;
         private System.Windows.Forms.TextBox tbPojemnosc;
         private System.Windows.Forms.TextBox tbId;
         private System.Windows.Forms.Label lVMax;
@@ -419,17 +419,17 @@
         private System.Windows.Forms.Label lId;
         private System.Windows.Forms.Panel pZmianaPrzyspieszenia;
         private System.Windows.Forms.Label lFileName;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbNazwaPliku;
         private System.Windows.Forms.Button bSave;
         private System.Windows.Forms.Button bBack;
         private System.Windows.Forms.DataGridView dgHamowanie;
         private System.Windows.Forms.DataGridView dgPrzysp;
         private System.Windows.Forms.Label lPrzyspieszenieTitle;
         private System.Windows.Forms.Label lHamowanieTitle;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lProgHamowanie;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lSpowolnienieHamowanie;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lProgPrzysp;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lSpowolnieniePrzysp;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cProgPrzysp;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cSpowolnieniePrzysp;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cProgHamowanie;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cSpowolnienieHamowanie;
     }
 }
 

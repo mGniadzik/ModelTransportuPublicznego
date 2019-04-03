@@ -4,16 +4,11 @@ using System.Linq;
 using System.Runtime.Serialization;
 
 namespace ModelTransportuPublicznego.Model {
-    [DataContract]
     public abstract class Autobus {
-        [DataMember]
         protected string idAutobusu;
-        [DataMember]
         protected int maksymalnaPojemnosc;
         protected List<Pasazer> obecniPasazerowie;
-        [DataMember]
         protected int iloscDzwi;
-        [DataMember]
         protected double dlugoscAutobusu;
         public Linia liniaAutobusu;
         public Kierowca kierowcaAutobusu;
@@ -30,11 +25,15 @@ namespace ModelTransportuPublicznego.Model {
 
         public double DlugoscAutobusu => dlugoscAutobusu;
 
-        public Autobus(string idAutobusu, int maksymalnaPojemnosc, int iloscDzwi, double dlugosc) {
+        public Autobus()
+        {
+            obecniPasazerowie = new List<Pasazer>();
+        }
+
+        public Autobus(string idAutobusu, int maksymalnaPojemnosc, int iloscDzwi, double dlugosc) : this() {
             this.idAutobusu = idAutobusu;
             this.maksymalnaPojemnosc = maksymalnaPojemnosc;
             this.iloscDzwi = iloscDzwi;
-            obecniPasazerowie = new List<Pasazer>();
         }
 
         public Autobus(Autobus autobus, Linia liniaAutobusu, Kierowca kierowcaAutobusu) : this(autobus.idAutobusu, autobus.maksymalnaPojemnosc, autobus.iloscDzwi, autobus.dlugoscAutobusu) {

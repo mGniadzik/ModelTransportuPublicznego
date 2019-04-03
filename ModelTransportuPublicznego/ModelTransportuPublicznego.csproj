@@ -37,6 +37,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementacja\Autobusy\AutobusLiniowy.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Implementacja\Wyjatki\KierowcaNieZnalezionyWyjatek.cs" />
     <Compile Include="Implementacja\Wyjatki\TrasaNieZnalezionaWyjatek.cs" />
     <Compile Include="Implementacja\Wyjatki\ZasobNieZnalezionyWyjatek.cs" />
+    <Compile Include="Misc\AutobusDeserializer.cs" />
     <Compile Include="Misc\Logger.cs" />
     <Compile Include="Misc\MinKopiec.cs" />
     <Compile Include="Misc\UIDGenerator.cs" />
