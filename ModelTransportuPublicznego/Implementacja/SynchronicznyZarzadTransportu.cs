@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ModelTransportuPublicznego.Misc;
 using ModelTransportuPublicznego.Model;
 
 namespace ModelTransportuPublicznego.Implementacja {
@@ -81,6 +82,7 @@ namespace ModelTransportuPublicznego.Implementacja {
                 }
                 
                 przejazd.Firma.DodajPrzejazdDoHistorii(przejazd);
+                WizualizatorMapy.NarysujMape(przejazd?.CzasNastepnejAkcji.ToString().Replace(':', '-'), siecPrzystankow, ZwrocLinie());
             }
         }
     }

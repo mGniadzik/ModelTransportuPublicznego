@@ -9,6 +9,7 @@ namespace ModelTransportuPublicznego.Model
     public class Przystanek {
         protected int pozycjaX;
         protected int pozycjaY;
+        protected int maksymalnaPojemnoscPasazerow;
         protected string nazwaPrzystanku;
         protected List<Pasazer> oczekujacyPasazerowie;
         protected List<Trasa> trasy;
@@ -27,6 +28,8 @@ namespace ModelTransportuPublicznego.Model
 
         public IEnumerable<Autobus> AutobusyOczekujace => autobusyOczekujace;
 
+        public int MaksymalnaPojemnoscPasazerow => maksymalnaPojemnoscPasazerow;
+
         public int X => pozycjaX;
 
         public int Y => pozycjaY;
@@ -41,14 +44,17 @@ namespace ModelTransportuPublicznego.Model
             autobusyOczekujace = new Queue<Autobus>();
         }
 
-        public Przystanek(string nazwaPrzystanku, ZarzadTransportu zt, double dlugoscZatoki, int pozycjaX = 0, int pozycjaY = 0) : this() {
+        public Przystanek(string nazwaPrzystanku, ZarzadTransportu zt, double dlugoscZatoki, int pozycjaX = 0, int pozycjaY = 0, int maksymalnaPojemnoscPasazerow = 200) : this() {
             this.nazwaPrzystanku = nazwaPrzystanku;
             this.zt = zt;
             this.dlugoscZatoki = dlugoscZatoki;
+            this.maksymalnaPojemnoscPasazerow = maksymalnaPojemnoscPasazerow;
+            this.pozycjaX = pozycjaX;
+            this.pozycjaY = pozycjaY;
         }
 
-        protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy, ZarzadTransportu zt, double dlugoscZatoki, int pozycjaX = 0, int pozycjaY = 0) 
-            : this(nazwaPrzystanku, zt, dlugoscZatoki, pozycjaX, pozycjaY) {
+        protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy, ZarzadTransportu zt, double dlugoscZatoki, int pozycjaX = 0, int pozycjaY = 0, int maksymalnaPojemnoscPasazerow = 100) 
+            : this(nazwaPrzystanku, zt, dlugoscZatoki, pozycjaX, pozycjaY, maksymalnaPojemnoscPasazerow) {
             foreach (var trasa in trasy) {
                 this.trasy.Add(trasa);
             }

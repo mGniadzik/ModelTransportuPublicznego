@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Linq;
 
-namespace ModelTransportuPublicznego.Model {
+namespace ModelTransportuPublicznego.Model
+{
     public class Linia : IEnumerable {
         protected string idLinii;
         protected RozkladPrzejazdow rozkladPrzejazdow;

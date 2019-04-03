@@ -4,18 +4,18 @@ using ModelTransportuPublicznego.Implementacja;
 using ModelTransportuPublicznego.Implementacja.Autobusy;
 using ModelTransportuPublicznego.Implementacja.Firmy;
 using ModelTransportuPublicznego.Implementacja.Graf;
-using ModelTransportuPublicznego.Implementacja.Pasazerowie;
 using ModelTransportuPublicznego.Model;
 
-namespace ModelTransportuPublicznego {
+namespace ModelTransportuPublicznego
+{
 
     internal static class Program {
         public static void Main(string[] args) {
             ZarzadTransportu zt = new DomyslnyZarzadTranspotu("ZT1");
 
-            var p1 = new Przystanek("P1", zt, 20);
-            var p2 = new Przystanek("P2", zt, 30);
-            var p3 = new Przystanek("P3", zt, 30);
+            var p1 = new Przystanek("P1", zt, 20, 100, 200);
+            var p2 = new Przystanek("P2", zt, 30, 320, 320);
+            var p3 = new Przystanek("P3", zt, 30, 300, 500);
             
             var t1 = new Trasa("t1", p1, p2, 1000, 50);
             var t2 = new Trasa("t2", p2, p3, 1000, 50);
@@ -25,11 +25,11 @@ namespace ModelTransportuPublicznego {
 
             var r1 = new RozkladPrzejazdow(new List<TimeSpan> {new TimeSpan(8, 0, 0), new TimeSpan(9, 0, 0), new TimeSpan(9, 30, 0), new TimeSpan(10, 0, 0)});
              
-            var p4 = new Przystanek("P4", zt, 30);
-            var p5 = new Przystanek("P5", zt, 30);
-            var p6 = new Przystanek("P6", zt, 30);
-            var p7 = new Przystanek("P7", zt, 30);
-            var p8 = new Przystanek("P8", zt, 30);
+            var p4 = new Przystanek("P4", zt, 30, 400, 250);
+            var p5 = new Przystanek("P5", zt, 30, 500, 300);
+            var p6 = new Przystanek("P6", zt, 30, 150, 150);
+            var p7 = new Przystanek("P7", zt, 30, 250, 400);
+            var p8 = new Przystanek("P8", zt, 30, 350, 350);
 
             var t3 = new Trasa("t3", p4, p2, 1000, 50);
             var t4 = new Trasa("t4", p2, p5, 1000, 50);

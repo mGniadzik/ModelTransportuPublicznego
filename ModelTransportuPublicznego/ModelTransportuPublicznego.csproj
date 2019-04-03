@@ -35,6 +35,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Serialization" />
@@ -59,10 +60,10 @@
     <Compile Include="Implementacja\Wyjatki\KierowcaNieZnalezionyWyjatek.cs" />
     <Compile Include="Implementacja\Wyjatki\TrasaNieZnalezionaWyjatek.cs" />
     <Compile Include="Implementacja\Wyjatki\ZasobNieZnalezionyWyjatek.cs" />
-    <Compile Include="Misc\AutobusDeserializer.cs" />
     <Compile Include="Misc\Logger.cs" />
     <Compile Include="Misc\MinKopiec.cs" />
     <Compile Include="Misc\UIDGenerator.cs" />
+    <Compile Include="Misc\WizualizatorMapy.cs" />
     <Compile Include="Model\Autobus.cs" />
     <Compile Include="Model\Firma.cs" />
     <Compile Include="Model\Kierowca.cs" />

@@ -129,7 +129,7 @@ namespace ModelTransportuPublicznego.Implementacja.Autobusy
                 }
             }
 
-            return zwiekszenieTrasyHamowania;
+            return trasaHamowania100 * (1 + zwiekszenieTrasyHamowania);
         }
 
         private double AktualneSpowolnieniePrzyspieszenia()
