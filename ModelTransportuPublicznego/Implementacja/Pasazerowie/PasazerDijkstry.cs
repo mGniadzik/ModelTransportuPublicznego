@@ -9,40 +9,33 @@ using ModelTransportuPublicznego.Model.Przystanek;
 namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
 {
     public class PasazerDijkstry : PasazerDijkstryBazowy {
-        private static List<TrasaPasazera> obliczoneTrasy = new List<TrasaPasazera>(); 
         private Graf<TimeSpan> graf;
         
         public PasazerDijkstry(IEnumerable<ElementTrasy> trasaPasazera, TimeSpan czasUtworzenia, int czasWsiadania, int czasWysiadania)
             : base(trasaPasazera, czasUtworzenia, czasWsiadania, czasWysiadania) { }
 
         public PasazerDijkstry(int czasWsiadania, int czasWysiadania, Przystanek przystanekPoczatkowy,
-            Przystanek przystanekKoncowy, Graf.Graf<TimeSpan> graf, TimeSpan czasOstatniegoStworzeniaTrasy)
+            Przystanek przystanekKoncowy, Graf<TimeSpan> graf, TimeSpan czasOstatniegoStworzeniaTrasy)
             : base(czasWsiadania, czasWysiadania, przystanekPoczatkowy, przystanekKoncowy, czasOstatniegoStworzeniaTrasy) {
             
             this.graf = graf;
             var temp = CzyTrasaObliczona(przystanekPoczatkowy, przystanekKoncowy);
 
-            //if (temp == null)
-            //{
+            if (temp == null)
+            {
                 trasaPasazera = ZnajdzTrase(graf, czasOstatniegoStworzeniaTrasy);
-                //obliczoneTrasy.Add(trasaPasazera);
-                this.czasOstatniegoStworzeniaTrasy = czasOstatniegoStworzeniaTrasy; 
-            //}
-            //else
-            //{
-            //    trasaPasazera = new TrasaPasazera(temp, temp.CzasWaznosci);   
-            //}
-        }
-        
-        private TrasaPasazera CzyTrasaObliczona(Przystanek przystanekStartowy, Przystanek przystanekKoncowy) {
-            foreach (var otrasa in obliczoneTrasy) {
-                if (otrasa[0].Przystanek == przystanekStartowy &&
-                    otrasa[otrasa.Count - 1].Przystanek == przystanekKoncowy) {
-                    return otrasa;
-                }
-            }
 
-            return null;
+                if (trasaPasazera != null)
+                {
+                    obliczoneTrasy.Add(trasaPasazera);
+                }
+                
+                this.czasOstatniegoStworzeniaTrasy = czasOstatniegoStworzeniaTrasy; 
+            }
+            else
+            {
+                trasaPasazera = new TrasaPasazera(temp, temp.CzasWaznosci);   
+            }
         }
 
         public TrasaPasazera ZnajdzTrase(Graf.Graf<TimeSpan> graf, TimeSpan czasUtworzenia) {

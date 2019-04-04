@@ -27,9 +27,6 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
             foreach (var elem in trasa) {
                 var el = new ElementTrasy(elem);
                 elem.CzyPrzebyty = true;
-                
-                if (el.CzyPrzebyty) Console.WriteLine("Ten sam");
-                
                 this.trasa.Add(el);
             }
 

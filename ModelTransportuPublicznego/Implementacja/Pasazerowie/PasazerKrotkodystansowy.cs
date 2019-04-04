@@ -10,7 +10,6 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
 {
     public class PasazerKrotkodystansowy : PasazerDijkstryBazowy
     {
-        private static List<TrasaPasazera> obliczoneTrasy = new List<TrasaPasazera>(); 
         private Graf<ulong> graf;
             
         public PasazerKrotkodystansowy(IEnumerable<ElementTrasy> trasaPasazera, TimeSpan czasUtworzenia, int czasWsiadania, int czasWysiadania) : base(trasaPasazera, czasUtworzenia, czasWsiadania, czasWysiadania)
@@ -21,7 +20,23 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
             czasOstatniegoStworzeniaTrasy)
         {
             this.graf = graf;
-            trasaPasazera = ZnajdzTrase(graf);
+            var temp = CzyTrasaObliczona(przystanekPoczatkowy, przystanekKoncowy);
+            
+            if (temp == null)
+            {
+                trasaPasazera = ZnajdzTrase(graf);
+
+                if (trasaPasazera != null)
+                {
+                    obliczoneTrasy.Add(trasaPasazera);
+                }
+                
+                this.czasOstatniegoStworzeniaTrasy = czasOstatniegoStworzeniaTrasy; 
+            }
+            else
+            {
+                trasaPasazera = new TrasaPasazera(temp, temp.CzasWaznosci);   
+            }
         }
 
         public TrasaPasazera ZnajdzTrase(Graf<ulong> graf)

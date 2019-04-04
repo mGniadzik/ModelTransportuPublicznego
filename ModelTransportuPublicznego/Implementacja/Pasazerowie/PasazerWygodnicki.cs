@@ -10,8 +10,6 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
 {
     public class PasazerWygodnicki : PasazerDijkstryBazowy
     {
-        
-        private static List<TrasaPasazera> obliczoneTrasy = new List<TrasaPasazera>(); 
         private Graf<byte> graf; 
             
         public PasazerWygodnicki(IEnumerable<ElementTrasy> trasaPasazera, TimeSpan czasUtworzenia, int czasWsiadania, int czasWysiadania) 
@@ -24,7 +22,23 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
                 czasOstatniegoStworzeniaTrasy)
         {
             this.graf = graf;
-            trasaPasazera = ZnajdzTrase(graf);
+            var temp = CzyTrasaObliczona(przystanekPoczatkowy, przystanekKoncowy);
+            
+            if (temp == null)
+            {
+                trasaPasazera = ZnajdzTrase(graf);
+
+                if (trasaPasazera != null)
+                {
+                    obliczoneTrasy.Add(trasaPasazera);
+                }
+                
+                this.czasOstatniegoStworzeniaTrasy = czasOstatniegoStworzeniaTrasy; 
+            }
+            else
+            {
+                trasaPasazera = new TrasaPasazera(temp, temp.CzasWaznosci);   
+            }
         }
 
         private TrasaPasazera ZnajdzTrase(Graf<byte> graf)

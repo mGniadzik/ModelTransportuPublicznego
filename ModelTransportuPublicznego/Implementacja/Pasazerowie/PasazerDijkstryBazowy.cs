@@ -11,6 +11,7 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
     {
         protected TrasaPasazera trasaPasazera;
         protected TimeSpan czasOstatniegoStworzeniaTrasy;
+        protected static List<TrasaPasazera> obliczoneTrasy = new List<TrasaPasazera>(); 
         
         public PasazerDijkstryBazowy(IEnumerable<ElementTrasy> trasaPasazera, TimeSpan czasUtworzenia, int czasWsiadania, int czasWysiadania)
             : base(czasWsiadania, czasWsiadania) {
@@ -31,6 +32,17 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
                 k.wierzcholekStartowy.przystanek.PozostaleLiniePrzejazdow().Where(l => 
                     l.CzyPrzystanekPozostalDoOdwiedzenia(k.wierzcholekStartowy.przystanek, 
                         k.wierzcholekKoncowy.przystanek)).ToList(), czasPoczatkowy).ToList();
+        }
+        
+        protected TrasaPasazera CzyTrasaObliczona(Przystanek przystanekStartowy, Przystanek przystanekKoncowy) {
+            foreach (var otrasa in obliczoneTrasy) {
+                if (otrasa[0].Przystanek == przystanekStartowy &&
+                    otrasa[otrasa.Count - 1].Przystanek == przystanekKoncowy) {
+                    return otrasa;
+                }
+            }
+
+            return null;
         }
 
         protected virtual List<WpisRozkladuJazdy> ZwrocPozostalePrzejazdy<T>(Krawedz<T> k) where T : IComparable<T>
