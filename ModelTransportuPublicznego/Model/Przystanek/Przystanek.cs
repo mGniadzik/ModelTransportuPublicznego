@@ -242,7 +242,7 @@ namespace ModelTransportuPublicznego.Model
             }
         }
 
-        protected virtual PasazerDijkstryBazowy WygenerujPasazera(TimeSpan czas) {
+        protected virtual Pasazer WygenerujPasazera(TimeSpan czas) {
             var rand = new Random();
             
             
@@ -259,7 +259,8 @@ namespace ModelTransportuPublicznego.Model
             var grafTS = new Graf<TimeSpan>(zt.SiecPrzystankow, TimeSpan.MaxValue);
             grafTS.DodajKrawedzie(zt.ZwrocLinie());
             return new PasazerDijkstry(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, grafTS, czas);
-            } else if (rng< 66)
+            }
+            if (rng< 66)
             {
                 var grafB = new Graf<byte>(zt.SiecPrzystankow, byte.MaxValue);
                 grafB.DodajKrawedzie(zt.ZwrocLinie());

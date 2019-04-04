@@ -49,7 +49,7 @@ namespace ModelTransportuPublicznego.Implementacja.Graf {
         }
 
         public Wierzcholek<T> OdwiedzNajmniejszy() {
-            NaprawKopiec();
+            //NaprawKopiec();
             NaprawKopiec();
             var wierzcholek = wierzcholki.ZdejminNajmniejszy();
             wierzcholek.czyOdwiedzony = true;
