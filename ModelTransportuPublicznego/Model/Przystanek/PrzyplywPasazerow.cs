@@ -1,19 +1,19 @@
 using System;
 
-namespace ModelTransportuPublicznego.Model {
+namespace ModelTransportuPublicznego.Model.Przystanek {
     public struct PrzyplywPasazerow : IComparable<PrzyplywPasazerow> {
-        public TimeSpan CzasPrzyplywu;
+        public TimeSpan czasPrzyplywu;
         public int IloscPasazerow;
         public bool CzyWykonany;
 
         public PrzyplywPasazerow(TimeSpan czasPrzyplywu, int iloscPasazerow) {
-            CzasPrzyplywu = czasPrzyplywu;
+            this.czasPrzyplywu = czasPrzyplywu;
             IloscPasazerow = iloscPasazerow;
             CzyWykonany = false;
         }
 
         public int CompareTo(PrzyplywPasazerow other) {
-            return CzasPrzyplywu.CompareTo(other.CzasPrzyplywu);
+            return czasPrzyplywu.CompareTo(other.czasPrzyplywu);
         }
     }
 }

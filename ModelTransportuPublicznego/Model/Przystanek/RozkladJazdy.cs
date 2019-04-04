@@ -3,9 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using ModelTransportuPublicznego.Misc;
 
-namespace ModelTransportuPublicznego.Model {
+namespace ModelTransportuPublicznego.Model.Przystanek {
     public class RozkladJazdy : IEnumerable<WpisRozkladuJazdy> {
         private List<WpisRozkladuJazdy> rozkladJazdy;
 
@@ -40,13 +39,13 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         public IEnumerable<WpisRozkladuJazdy> ZwrocPozostaleWpisy(TimeSpan czas) {
-            return rozkladJazdy.Where((wpis) => !wpis.CzyWykonany && wpis.CzasPrzyjazdu > czas).OrderBy(wpis => wpis.CzasPrzyjazdu);
+            return rozkladJazdy.Where((wpis) => !wpis.czyWykonany && wpis.CzasPrzyjazdu > czas).OrderBy(wpis => wpis.CzasPrzyjazdu);
         }
 
         public void UstawJakoOdwiedzony(Linia linia, TimeSpan czas) {
             foreach (var wpis in rozkladJazdy) {
-                if (wpis.LiniaObslugujaca == linia && wpis.CzasPrzyjazdu == czas && !wpis.CzyWykonany) {
-                    wpis.CzyWykonany = true;
+                if (wpis.LiniaObslugujaca == linia && wpis.CzasPrzyjazdu == czas && !wpis.czyWykonany) {
+                    wpis.czyWykonany = true;
                     return;
                 }
             } 

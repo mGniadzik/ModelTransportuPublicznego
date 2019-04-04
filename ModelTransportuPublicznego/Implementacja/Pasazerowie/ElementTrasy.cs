@@ -1,5 +1,6 @@
 using System;
 using ModelTransportuPublicznego.Model;
+using ModelTransportuPublicznego.Model.Przystanek;
 
 namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
     public class ElementTrasy {

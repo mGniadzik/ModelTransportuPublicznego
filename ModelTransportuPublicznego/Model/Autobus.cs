@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 
 namespace ModelTransportuPublicznego.Model {
     public abstract class Autobus {
@@ -12,6 +11,7 @@ namespace ModelTransportuPublicznego.Model {
         protected double dlugoscAutobusu;
         public Linia liniaAutobusu;
         public Kierowca kierowcaAutobusu;
+        public TimeSpan czasNastepnejAkcji;
 
         public Kierowca KierowcaAutobusu => kierowcaAutobusu;
 
@@ -28,12 +28,14 @@ namespace ModelTransportuPublicznego.Model {
         public Autobus()
         {
             obecniPasazerowie = new List<Pasazer>();
+            czasNastepnejAkcji = TimeSpan.Zero;
         }
 
         public Autobus(string idAutobusu, int maksymalnaPojemnosc, int iloscDzwi, double dlugosc) : this() {
             this.idAutobusu = idAutobusu;
             this.maksymalnaPojemnosc = maksymalnaPojemnosc;
             this.iloscDzwi = iloscDzwi;
+            dlugoscAutobusu = dlugosc;
         }
 
         public Autobus(Autobus autobus, Linia liniaAutobusu, Kierowca kierowcaAutobusu) : this(autobus.idAutobusu, autobus.maksymalnaPojemnosc, autobus.iloscDzwi, autobus.dlugoscAutobusu) {
@@ -49,7 +51,7 @@ namespace ModelTransportuPublicznego.Model {
             }
         }
 
-        public virtual List<Pasazer> StworzListeWsiadajacychPasazerow(Przystanek obecnyPrzystanek, Linia liniaAutobusu, TimeSpan obecnyCzas) {
+        public virtual List<Pasazer> StworzListeWsiadajacychPasazerow(Przystanek.Przystanek obecnyPrzystanek, Linia liniaAutobusu, TimeSpan obecnyCzas) {
             var listaWsiadajacych = new List<Pasazer>();
             var pasazerowie = obecnyPrzystanek.ZwrocPasazerowOczekujacychNaLinie(liniaAutobusu, obecnyCzas).ToList();
             
@@ -70,12 +72,12 @@ namespace ModelTransportuPublicznego.Model {
             return listaWsiadajacych;
         }
 
-        public virtual void WypuscWszystkichPasazerow(Przystanek p)
+        public virtual void WypuscWszystkichPasazerow(Przystanek.Przystanek p)
         {
             WysadzPasazerow(p, obecniPasazerowie);
         }
 
-        public virtual List<Pasazer> StworzListeWysiadajacychPasazerow(Przystanek obecnyPrzystanek) {
+        public virtual List<Pasazer> StworzListeWysiadajacychPasazerow(Przystanek.Przystanek obecnyPrzystanek) {
             var listaWysiadajacych = new List<Pasazer>();
             
             foreach (var pasazer in obecniPasazerowie) {
@@ -92,7 +94,7 @@ namespace ModelTransportuPublicznego.Model {
             return listaWysiadajacych;
         }
 
-        public virtual int PobierzPasazerow(Przystanek obecnyPrzystanek, Linia liniaAutobusu, IEnumerable<Pasazer> listaWsiadajacych) {
+        public virtual int PobierzPasazerow(Przystanek.Przystanek obecnyPrzystanek, Linia liniaAutobusu, IEnumerable<Pasazer> listaWsiadajacych) {
             var listaKolejekPasazerow = StworzListeKolejek();
             PodzielPasazerowNaKolejki(listaWsiadajacych, listaKolejekPasazerow);
 
@@ -105,7 +107,7 @@ namespace ModelTransportuPublicznego.Model {
             return ObliczCzasWsiadaniaPasazerow(listaKolejekPasazerow);
         }
 
-        public virtual int WysadzPasazerow(Przystanek obecnyPrzystanek, IEnumerable<Pasazer> listaWysiadajacych) {
+        public virtual int WysadzPasazerow(Przystanek.Przystanek obecnyPrzystanek, IEnumerable<Pasazer> listaWysiadajacych) {
             var listaKolejkaPasazerow = StworzListeKolejek();
             PodzielPasazerowNaKolejki(listaWysiadajacych, listaKolejkaPasazerow);
 

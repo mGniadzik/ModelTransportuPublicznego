@@ -4,18 +4,18 @@ using System.Linq;
 
 namespace ModelTransportuPublicznego.Model {
     public abstract class Pasazer {
-        protected Przystanek przystanekPoczatkowy;
-        protected Przystanek przystanekKoncowy;
-        protected Przystanek obecnyPrzystanek;
-        protected Przystanek oczekiwanyPrzystanek;
+        protected Przystanek.Przystanek przystanekPoczatkowy;
+        protected Przystanek.Przystanek przystanekKoncowy;
+        protected Przystanek.Przystanek obecnyPrzystanek;
+        protected Przystanek.Przystanek oczekiwanyPrzystanek;
         protected bool czyPosiadaTrase;
         protected int czasWsiadania;
         protected int czasWysiadania;
 
 
-        public virtual Przystanek OczekiwanyPrzystanek => oczekiwanyPrzystanek;
+        public virtual Przystanek.Przystanek OczekiwanyPrzystanek => oczekiwanyPrzystanek;
 
-        public virtual Przystanek PrzystanekKoncowy => przystanekKoncowy;
+        public virtual Przystanek.Przystanek PrzystanekKoncowy => przystanekKoncowy;
 
         public virtual int CzasWsiadania => czasWsiadania;
 
@@ -32,8 +32,8 @@ namespace ModelTransportuPublicznego.Model {
             this.czasWysiadania = czasWysiadania;
         }
 
-        public Pasazer(int czasWsiadania, int czasWysiadania, Przystanek przystanekPoczatkowy,
-            Przystanek przystanekKoncowy)
+        public Pasazer(int czasWsiadania, int czasWysiadania, Przystanek.Przystanek przystanekPoczatkowy,
+            Przystanek.Przystanek przystanekKoncowy)
             : this(czasWsiadania, czasWysiadania) {
             this.przystanekPoczatkowy = przystanekPoczatkowy;
             obecnyPrzystanek = przystanekPoczatkowy;
@@ -54,7 +54,7 @@ namespace ModelTransportuPublicznego.Model {
 
         public abstract Linia OczekiwanaLinia(TimeSpan obecnyCzas);
         
-        public abstract void Wysiadz(Przystanek przystanek);
+        public abstract void Wysiadz(Przystanek.Przystanek przystanek);
 
         public abstract void Wsiadz(Autobus autobus, TimeSpan czas);
     }

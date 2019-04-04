@@ -4,6 +4,7 @@ using System.Linq;
 using ModelTransportuPublicznego.Implementacja.Graf;
 using ModelTransportuPublicznego.Implementacja.Wyjatki;
 using ModelTransportuPublicznego.Model;
+using ModelTransportuPublicznego.Model.Przystanek;
 
 namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
 {
@@ -26,15 +27,15 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
             trasaPasazera = ZnajdzTrase(graf);
         }
 
-        public TrasaPasazera ZnajdzTrase(Graf<byte> graf)
+        private TrasaPasazera ZnajdzTrase(Graf<byte> graf)
         {
             return ZnajdzNajwygodniejszaTrase(graf);
         }
-        
-        public TrasaPasazera ZnajdzNajwygodniejszaTrase(Graf<byte> graf)
+
+        private TrasaPasazera ZnajdzNajwygodniejszaTrase(Graf<byte> graf)
         {
             var wStartowy = graf.ZnajdzWierzcholekZawierajacyPrzystanek(przystanekPoczatkowy);
-            wStartowy.waga = Byte.MinValue;
+            wStartowy.waga = byte.MinValue;
 
             try
             {

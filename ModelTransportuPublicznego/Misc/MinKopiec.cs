@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ModelTransportuPublicznego.Misc {
     internal class MinKopiec<T> : IEnumerable where T : IComparable<T>

@@ -3,6 +3,7 @@ using System.Linq;
 using ModelTransportuPublicznego.Implementacja;
 using ModelTransportuPublicznego.Implementacja.Firmy;
 using ModelTransportuPublicznego.Model;
+using ModelTransportuPublicznego.Model.Przystanek;
 using NUnit.Framework;
 
 namespace ModelTransportuPublicznegoTest.Model {

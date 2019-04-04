@@ -31,11 +31,11 @@ namespace ModelTransportuPublicznego.Model {
         public Firma(string nazwaFirmy, IEnumerable<Autobus> tabor, IEnumerable<Kierowca> listaKierowcow,
             IEnumerable<Linia> linieAutobusowe) : this(nazwaFirmy) {
             foreach (var autobus in tabor) {
-                this.dostepnyTabor.Add(autobus);
+                dostepnyTabor.Add(autobus);
             }
 
             foreach (var kierowca in listaKierowcow) {
-                this.listaDostepnychKierowcow.Add(kierowca);
+                listaDostepnychKierowcow.Add(kierowca);
             }
 
             foreach (var linia in linieAutobusowe) {

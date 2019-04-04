@@ -1,5 +1,4 @@
 using System;
-using ModelTransportuPublicznego.Model;
 
 namespace ModelTransportuPublicznego.Implementacja.Wyjatki {
     public class AutobusNieZnalezionyWyjatek : ZasobNieZnalezionyWyjatek {

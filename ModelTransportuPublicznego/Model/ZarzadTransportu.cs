@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,19 +5,19 @@ namespace ModelTransportuPublicznego.Model {
     public abstract class ZarzadTransportu {
 
         protected string nazwaFirmy;
-        protected List<Przystanek> siecPrzystankow;
+        protected List<Przystanek.Przystanek> siecPrzystankow;
         protected List<Firma> listaFirm;
 
-        public IEnumerable<Przystanek> SiecPrzystankow => siecPrzystankow;
+        public IEnumerable<Przystanek.Przystanek> SiecPrzystankow => siecPrzystankow;
         public IEnumerable<Firma> ListaFirm => listaFirm;
 
         public ZarzadTransportu(string nazwaFirmy) {
             this.nazwaFirmy = nazwaFirmy;
-            siecPrzystankow = new List<Przystanek>();
+            siecPrzystankow = new List<Przystanek.Przystanek>();
             listaFirm = new List<Firma>();
         }
 
-        public ZarzadTransportu(string nazwaFirmy, IEnumerable<Przystanek> siecPrzystankow) : this(nazwaFirmy) {
+        public ZarzadTransportu(string nazwaFirmy, IEnumerable<Przystanek.Przystanek> siecPrzystankow) : this(nazwaFirmy) {
             foreach (var przystanek in siecPrzystankow) {
                 this.siecPrzystankow.Add(przystanek);
             }
@@ -31,10 +30,10 @@ namespace ModelTransportuPublicznego.Model {
                 this.listaFirm.Add(firma);
             }
             
-            siecPrzystankow = new List<Przystanek>();
+            siecPrzystankow = new List<Przystanek.Przystanek>();
         }
 
-        protected ZarzadTransportu(string nazwaFirmy, IEnumerable<Przystanek> siecPrzystankow, IEnumerable<Firma> listaFirm) : this(nazwaFirmy) {
+        protected ZarzadTransportu(string nazwaFirmy, IEnumerable<Przystanek.Przystanek> siecPrzystankow, IEnumerable<Firma> listaFirm) : this(nazwaFirmy) {
             foreach (var przystanek in siecPrzystankow) {
                 this.siecPrzystankow.Add(przystanek);
             }
@@ -44,17 +43,17 @@ namespace ModelTransportuPublicznego.Model {
             }
         }
 
-        public virtual void DodajPrzystanek(Przystanek przystanek) {
+        public virtual void DodajPrzystanek(Przystanek.Przystanek przystanek) {
             siecPrzystankow.Add(przystanek);
         }
 
-        public virtual void DodajPrzystanki(IEnumerable<Przystanek> przystanki) {
+        public virtual void DodajPrzystanki(IEnumerable<Przystanek.Przystanek> przystanki) {
             foreach (var przystanek in przystanki) {
                 siecPrzystankow.Add(przystanek);
             }
         }
 
-        public virtual void UsunPrzystanek(Przystanek przystanek) {
+        public virtual void UsunPrzystanek(Przystanek.Przystanek przystanek) {
             siecPrzystankow.Remove(przystanek);
         }
 

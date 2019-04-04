@@ -5,7 +5,7 @@ using ModelTransportuPublicznego.Implementacja.Graf;
 using ModelTransportuPublicznego.Implementacja.Pasazerowie;
 using ModelTransportuPublicznego.Implementacja.Wyjatki;
 
-namespace ModelTransportuPublicznego.Model
+namespace ModelTransportuPublicznego.Model.Przystanek
 {
     public class Przystanek {
         protected int pozycjaX;
@@ -28,6 +28,8 @@ namespace ModelTransportuPublicznego.Model
         public IEnumerable<Autobus> ObecneAutobusy => obecneAutobusy;
 
         public IEnumerable<Autobus> AutobusyOczekujace => autobusyOczekujace;
+
+        public Queue<Autobus> AutobusyOczekujaceQueue => autobusyOczekujace;
 
         public int MaksymalnaPojemnoscPasazerow => maksymalnaPojemnoscPasazerow;
 
@@ -73,11 +75,11 @@ namespace ModelTransportuPublicznego.Model
         }
 
         public virtual void UsunPasazera(Pasazer pasazer) {
-            this.oczekujacyPasazerowie.Remove(pasazer);
+            oczekujacyPasazerowie.Remove(pasazer);
         }
         
         public virtual void DodajPasazera(Pasazer pasazer) {
-            this.oczekujacyPasazerowie.Add(pasazer);
+            oczekujacyPasazerowie.Add(pasazer);
         }
 
         public virtual void DodajTrase(Trasa trasa) {
@@ -115,7 +117,7 @@ namespace ModelTransportuPublicznego.Model
             return dlugoscZatoki - obecneAutobusy.Sum((a) => a.DlugoscAutobusu);
         }
 
-        public virtual void DodajAutobusDoZatoki()
+        public virtual bool DodajAutobusDoZatoki()
         {
             if (autobusyOczekujace.Any())
             {
@@ -123,8 +125,11 @@ namespace ModelTransportuPublicznego.Model
                 if (autobus.DlugoscAutobusu <= ZwrocDlugoscWolnegoMiejscaZatoki())
                 {
                     obecneAutobusy.Add(autobusyOczekujace.Dequeue());
+                    return true;
                 }
             }
+
+            return false;
         }
 
         public virtual void DodajAutobus(Autobus a)
@@ -149,15 +154,15 @@ namespace ModelTransportuPublicznego.Model
         }
 
         public virtual IEnumerable<WpisRozkladuJazdy> PozostalePrzejazdy() {
-            return rozkladJazdy.Where(w => !w.CzyWykonany).ToList();
+            return rozkladJazdy.Where(w => !w.czyWykonany).ToList();
         }
 
         public IEnumerable<WpisRozkladuJazdy> PozostalePrzejazdy(IEnumerable<Linia> wybraneLinie) {
-            return rozkladJazdy.Where(w => !w.CzyWykonany && wybraneLinie.Contains(w.LiniaObslugujaca));
+            return rozkladJazdy.Where(w => !w.czyWykonany && wybraneLinie.Contains(w.LiniaObslugujaca));
         }
 
         public IEnumerable<WpisRozkladuJazdy> PozostalePrzejazdy(IEnumerable<Linia> wybraneLinie, TimeSpan czas) {
-            return rozkladJazdy.Where(w => !w.CzyWykonany && wybraneLinie.Contains(w.LiniaObslugujaca) && w.CzasPrzyjazdu >= czas);
+            return rozkladJazdy.Where(w => !w.czyWykonany && wybraneLinie.Contains(w.LiniaObslugujaca) && w.CzasPrzyjazdu >= czas);
         }
         
         
@@ -178,7 +183,7 @@ namespace ModelTransportuPublicznego.Model
 
         public virtual TimeSpan ZwrocPierwszyPrzejazdDanejLinii(Linia linia)
         {
-            var minPrzejazd = rozkladJazdy.Where(w => w.LiniaObslugujaca == linia && !w.CzyWykonany).Min();
+            var minPrzejazd = rozkladJazdy.Where(w => w.LiniaObslugujaca == linia && !w.czyWykonany).Min();
             if (minPrzejazd != null)
             {
                 return minPrzejazd.CzasPrzyjazdu;
@@ -196,12 +201,12 @@ namespace ModelTransportuPublicznego.Model
         } 
 
         public virtual void OznaczPrzejazdJakoWykonany(Linia linia) {
-            var lista = rozkladJazdy.ZwrocRozkladJazdy().Where(wpis => wpis.CzyWykonany = false)
+            var lista = rozkladJazdy.ZwrocRozkladJazdy().Where(wpis => wpis.czyWykonany = false)
                 .OrderBy(wpis => wpis.CzasPrzyjazdu).ToList();
 
             foreach (var wpis in lista) {
                 if (wpis.LiniaObslugujaca == linia) {
-                    wpis.CzyWykonany = true;
+                    wpis.czyWykonany = true;
                     return;
                 }
             }
@@ -217,16 +222,16 @@ namespace ModelTransportuPublicznego.Model
             przyplywyPasazerow.Sort();
         }
 
-        public virtual void DodajPrzyplywy(IEnumerable<PrzyplywPasazerow> przyplywyPasazerow) {
-            foreach (var przyplyw in przyplywyPasazerow) {
-                this.przyplywyPasazerow.Add(przyplyw);
+        public virtual void DodajPrzyplywy(IEnumerable<PrzyplywPasazerow> pPasazerow) {
+            foreach (var przyplyw in pPasazerow) {
+                przyplywyPasazerow.Add(przyplyw);
             }
             
-            this.przyplywyPasazerow.Sort();
+            przyplywyPasazerow.Sort();
         }
 
         public virtual void WykonajPrzyplywy(TimeSpan czas) {
-            foreach (var przyplyw in przyplywyPasazerow.Where(p => p.CzyWykonany == false && p.CzasPrzyplywu < czas).ToList()) {
+            foreach (var przyplyw in przyplywyPasazerow.Where(p => p.CzyWykonany == false && p.czasPrzyplywu < czas).ToList()) {
                 WykonajPrzyplyw(przyplyw, czas);   
             }
         }
@@ -256,9 +261,9 @@ namespace ModelTransportuPublicznego.Model
 
             if (rng < 33)
             {
-            var grafTS = new Graf<TimeSpan>(zt.SiecPrzystankow, TimeSpan.MaxValue);
-            grafTS.DodajKrawedzie(zt.ZwrocLinie());
-            return new PasazerDijkstry(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, grafTS, czas);
+            var grafTs = new Graf<TimeSpan>(zt.SiecPrzystankow, TimeSpan.MaxValue);
+            grafTs.DodajKrawedzie(zt.ZwrocLinie());
+            return new PasazerDijkstry(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, grafTs, czas);
             }
             if (rng< 66)
             {
@@ -267,9 +272,9 @@ namespace ModelTransportuPublicznego.Model
                 return new PasazerWygodnicki(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, grafB, czas);
             }
 
-            var grafUL = new Graf<ulong>(zt.SiecPrzystankow, ulong.MaxValue);
-            grafUL.DodajKrawedzie(zt.ZwrocLinie());
-            return new PasazerKrotkodystansowy(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, grafUL, czas);
+            var grafUl = new Graf<ulong>(zt.SiecPrzystankow, ulong.MaxValue);
+            grafUl.DodajKrawedzie(zt.ZwrocLinie());
+            return new PasazerKrotkodystansowy(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, grafUl, czas);
         }
     }
 }

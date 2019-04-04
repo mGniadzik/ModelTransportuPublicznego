@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ModelTransportuPublicznego.Implementacja.Graf;
 using ModelTransportuPublicznego.Model;
+using ModelTransportuPublicznego.Model.Przystanek;
 
 namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
 {
@@ -10,7 +11,7 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
     {
 
         private static List<List<Przystanek>> obliczoneTrasy = new List<List<Przystanek>>();
-        private Graf.Graf<TimeSpan> graf;
+        private Graf<TimeSpan> graf;
         private List<Przystanek> trasaPasazera;
 
         private PrymitywnyPasazerDijkstry()
@@ -51,7 +52,7 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
         }
 
         public PrymitywnyPasazerDijkstry(int czasWsiadania, int czasWysiadania, Przystanek przystanekPoczatkowy,
-            Przystanek przystanekKoncowy, Graf.Graf<TimeSpan> graf, TimeSpan czasStworzenia)
+            Przystanek przystanekKoncowy, Graf<TimeSpan> graf, TimeSpan czasStworzenia)
             : base(czasWsiadania, czasWysiadania, przystanekPoczatkowy, przystanekKoncowy)
         {
             this.graf = graf;

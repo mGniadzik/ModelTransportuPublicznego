@@ -4,6 +4,7 @@ using System.Linq;
 using ModelTransportuPublicznego.Implementacja.Graf;
 using ModelTransportuPublicznego.Implementacja.Wyjatki;
 using ModelTransportuPublicznego.Model;
+using ModelTransportuPublicznego.Model.Przystanek;
 
 namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
 {

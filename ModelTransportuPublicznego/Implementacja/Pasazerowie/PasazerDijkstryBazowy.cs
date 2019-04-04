@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ModelTransportuPublicznego.Implementacja.Graf;
 using ModelTransportuPublicznego.Model;
+using ModelTransportuPublicznego.Model.Przystanek;
 
 namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
 {

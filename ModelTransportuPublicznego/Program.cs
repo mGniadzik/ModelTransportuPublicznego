@@ -5,6 +5,7 @@ using ModelTransportuPublicznego.Implementacja.Autobusy;
 using ModelTransportuPublicznego.Implementacja.Firmy;
 using ModelTransportuPublicznego.Implementacja.Graf;
 using ModelTransportuPublicznego.Model;
+using ModelTransportuPublicznego.Model.Przystanek;
 
 namespace ModelTransportuPublicznego
 {

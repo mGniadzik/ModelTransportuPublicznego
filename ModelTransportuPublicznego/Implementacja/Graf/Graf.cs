@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ModelTransportuPublicznego.Misc;
 using ModelTransportuPublicznego.Model;
+using ModelTransportuPublicznego.Model.Przystanek;
 
 namespace ModelTransportuPublicznego.Implementacja.Graf {
     public class Graf<T> where T : IComparable<T> {

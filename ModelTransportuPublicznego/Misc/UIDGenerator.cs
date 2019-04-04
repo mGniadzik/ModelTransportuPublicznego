@@ -2,20 +2,20 @@ using System;
 using System.Text;
 
 namespace ModelTransportuPublicznego.Misc {
-    public static class UIDGenerator {
+    public static class UidGenerator {
         private static readonly string znaczki = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890-_";
-        private static readonly Random rand = new Random();
+        private static readonly Random Rand = new Random();
 
-        public static string WygenerujUID() {
-            return WygenerujUID(11);
+        public static string WygenerujUid() {
+            return WygenerujUid(11);
         }
 
-        public static string WygenerujUID(int dlugosc) {
+        private static string WygenerujUid(int dlugosc) {
 //            var rand = new Random();
             var sb = new StringBuilder();
 
             for (int i = 0; i < dlugosc; i++) {
-                sb.Append(znaczki[rand.Next(znaczki.Length)]);
+                sb.Append(znaczki[Rand.Next(znaczki.Length)]);
             }
 
             return sb.ToString();

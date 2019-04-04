@@ -1,8 +1,8 @@
 using System;
 using System.Globalization;
 using System.IO;
-using System.Net.Configuration;
 using ModelTransportuPublicznego.Model;
+using ModelTransportuPublicznego.Model.Przystanek;
 
 namespace ModelTransportuPublicznego.Misc {
     public static class Logger {

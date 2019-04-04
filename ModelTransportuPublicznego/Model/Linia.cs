@@ -38,7 +38,7 @@ namespace ModelTransportuPublicznego.Model
             this.rozkladPrzejazdow = rozkladPrzejazdow;
         }
 
-        public virtual Przystanek ZwrocOstatniPrzystanek() {
+        public virtual Przystanek.Przystanek ZwrocOstatniPrzystanek() {
             return ZwrocPrzystanekIndeks(trasaLinii.Count - 1);
         }
 
@@ -46,7 +46,7 @@ namespace ModelTransportuPublicznego.Model
             return trasaLinii;
         }
 
-        public virtual int ZwrocIndeksPrzystanku(Przystanek przystanek) {
+        public virtual int ZwrocIndeksPrzystanku(Przystanek.Przystanek przystanek) {
             for (int i = 0; i < trasaLinii.Count; i++) {
                 if (trasaLinii[i].przystanek == przystanek) {
                     return i;
@@ -55,7 +55,7 @@ namespace ModelTransportuPublicznego.Model
             return -1;
         }
 
-        public virtual Przystanek ZwrocPrzystanekIndeks(int indeks) {
+        public virtual Przystanek.Przystanek ZwrocPrzystanekIndeks(int indeks) {
             return trasaLinii[indeks].przystanek;
         }
 
@@ -63,7 +63,7 @@ namespace ModelTransportuPublicznego.Model
             return trasaLinii.GetEnumerator();
         }
 
-        public TimeSpan SpodziewanyCzasPrzejazduDoPrzystanku(Przystanek przystanek) {
+        public TimeSpan SpodziewanyCzasPrzejazduDoPrzystanku(Przystanek.Przystanek przystanek) {
             var rezultat = TimeSpan.Zero;
             
             foreach (var wpis in trasaLinii) {
@@ -74,7 +74,7 @@ namespace ModelTransportuPublicznego.Model
             throw new ArgumentException($"Przystanek {przystanek.NazwaPrzystanku} nie występuje na trasie linii {idLinii}.");
         }
 
-        public Przystanek ZwrocNastepnyPrzystanek(Przystanek przystanek) {
+        public Przystanek.Przystanek ZwrocNastepnyPrzystanek(Przystanek.Przystanek przystanek) {
             var rezultat = ZnajdzIndexPrzystanku(przystanek);
 
             if (rezultat == -1 || rezultat >= trasaLinii.Count - 1)
@@ -85,7 +85,7 @@ namespace ModelTransportuPublicznego.Model
             return trasaLinii[rezultat + 1].przystanek;
         }
 
-        public virtual int ZnajdzIndexPrzystanku(Przystanek przystanek) {
+        public virtual int ZnajdzIndexPrzystanku(Przystanek.Przystanek przystanek) {
             var rezultat = 0;
 
             foreach (var wpis in trasaLinii) {
@@ -109,12 +109,12 @@ namespace ModelTransportuPublicznego.Model
             }
         }
 
-        public virtual bool JestPrzystankiemKoncowym(Przystanek przystanek) {
+        public virtual bool JestPrzystankiemKoncowym(Przystanek.Przystanek przystanek) {
             return przystanek == trasaLinii[trasaLinii.Count - 1].przystanek;
         }
 
         protected virtual Linia ZwrocLiniePowrotna() {
-            var rozkladPrzejazdow = new RozkladPrzejazdow(this.rozkladPrzejazdow);
+            var rPrzejazdow = new RozkladPrzejazdow(this.rozkladPrzejazdow);
             var wpisyLinii = new List<WpisLinii>();
 
             foreach (var wpis in trasaLinii) {
@@ -124,7 +124,7 @@ namespace ModelTransportuPublicznego.Model
             wpisyLinii.Reverse();
             OdwrocCzasyPrzejazdow(wpisyLinii);
             
-            var rezultat = new Linia(idLinii + "R", wpisyLinii, rozkladPrzejazdow);
+            var rezultat = new Linia(idLinii + "R", wpisyLinii, rPrzejazdow);
             
             rezultat.DodajTrasyPowrotne();
 
@@ -146,8 +146,8 @@ namespace ModelTransportuPublicznego.Model
             }
         }
 
-        public virtual IEnumerable<Przystanek> ZwrocPozostalePrzystanki(Przystanek przystanek) {
-            var rezultat = new List<Przystanek>();
+        public virtual IEnumerable<Przystanek.Przystanek> ZwrocPozostalePrzystanki(Przystanek.Przystanek przystanek) {
+            var rezultat = new List<Przystanek.Przystanek>();
             var czyZnaleziony = false;
             
             foreach (var wpis in trasaLinii) {
@@ -158,12 +158,12 @@ namespace ModelTransportuPublicznego.Model
             return rezultat;
         }
 
-        public virtual bool CzyPrzystanekPozostalDoOdwiedzenia(Przystanek przystanekObecny,
-            Przystanek przystanekDocelowy) {
+        public virtual bool CzyPrzystanekPozostalDoOdwiedzenia(Przystanek.Przystanek przystanekObecny,
+            Przystanek.Przystanek przystanekDocelowy) {
             return ZwrocIndeksPrzystanku(przystanekObecny) < ZnajdzIndexPrzystanku(przystanekDocelowy);
         }
 
-        public virtual TimeSpan CzasPrzejazduPoMiedzyPrzystankami(Przystanek pStartowy, Przystanek pKoncowy) {
+        public virtual TimeSpan CzasPrzejazduPoMiedzyPrzystankami(Przystanek.Przystanek pStartowy, Przystanek.Przystanek pKoncowy) {
             if (!CzyPrzystanekkNalezyDoLinii(pStartowy) || !CzyPrzystanekkNalezyDoLinii(pKoncowy)) 
                 throw new ArgumentException($"Przystanek {pStartowy.NazwaPrzystanku} lub " +
                                             $"{pKoncowy.NazwaPrzystanku} nie należy do linii {idLinii}.");
@@ -179,7 +179,7 @@ namespace ModelTransportuPublicznego.Model
             return rezultat;
         }
 
-        protected virtual bool CzyPrzystanekkNalezyDoLinii(Przystanek p) {
+        protected virtual bool CzyPrzystanekkNalezyDoLinii(Przystanek.Przystanek p) {
             foreach (var w in trasaLinii) {
                 if (w.przystanek == p) return true;
             }
