@@ -98,6 +98,7 @@ namespace ModelTransportuPublicznego.Model {
             Logger.ZalogujPobieraniePasazerow(czasRozpoczeciaAkcji, autobus, obecnyPrzystanek, pasazerowie.Count, czasRozpoczeciaPrzejazdu + czasPrzejazdu);
                     
             nastepnaAkcja = Akcja.Przejazd;
+            obecnyPrzystanek.UsunAutobus(autobus);
         }
 
         private void WykonajPrzejazd() {
@@ -140,10 +141,9 @@ namespace ModelTransportuPublicznego.Model {
             
             czasPrzejazdu += czasAkcji;
                     
-            Logger.ZalogujWypuszczniePasazerow(czasRozpoczeciaPrzejazdu + czasPrzejazdu, autobus, obecnyPrzystanek, pasazerowie.Count, czasRozpoczeciaPrzejazdu + czasAkcji);
+            Logger.ZalogujWypuszczniePasazerow(czasRozpoczeciaAkcji, autobus, obecnyPrzystanek, pasazerowie.Count, czasRozpoczeciaPrzejazdu + czasPrzejazdu);
 
             nastepnaAkcja = Akcja.PobieraniePasazerow;
-            obecnyPrzystanek.UsunAutobus(autobus);
         }
 
         private TimeSpan CzasRozpoczeciaAkcji(TimeSpan czasPrzejazdu) {

@@ -1,6 +1,7 @@
 ﻿using ModelTransportuPublicznego.Model;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 
 namespace ModelTransportuPublicznego.Misc
@@ -13,6 +14,7 @@ namespace ModelTransportuPublicznego.Misc
             int promien = 10;
             using (Graphics grph = Graphics.FromImage(bmp))
             {
+                grph.SmoothingMode = SmoothingMode.AntiAlias;
                 foreach (var p in siecPrzystankow)
                 {
                     double procent = p.IloscPasazerowOczekujacych() / (double) p.MaksymalnaPojemnoscPasazerow;
@@ -26,7 +28,7 @@ namespace ModelTransportuPublicznego.Misc
                 {
                     for (int i = 0; i < l.Count - 1; i++)
                     {
-                        grph.DrawLine(new Pen(Color.Red), l[i].przystanek.X, l[i].przystanek.Y, l[i + 1].przystanek.X, l[i + 1].przystanek.Y);
+                        grph.DrawLine(new Pen(Color.Black), l[i].przystanek.X, l[i].przystanek.Y, l[i + 1].przystanek.X, l[i + 1].przystanek.Y);
                     }
                 }
             }
