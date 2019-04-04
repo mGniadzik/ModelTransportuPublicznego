@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.pPowitanie = new System.Windows.Forms.Panel();
+            this.bKonfiguracja = new System.Windows.Forms.Button();
             this.welcomeLabel = new System.Windows.Forms.Label();
             this.bAutobus = new System.Windows.Forms.Button();
             this.pAutobusStale = new System.Windows.Forms.Panel();
@@ -54,13 +55,13 @@
             this.bSave = new System.Windows.Forms.Button();
             this.bBack = new System.Windows.Forms.Button();
             this.dgHamowanie = new System.Windows.Forms.DataGridView();
-            this.dgPrzysp = new System.Windows.Forms.DataGridView();
-            this.lPrzyspieszenieTitle = new System.Windows.Forms.Label();
-            this.lHamowanieTitle = new System.Windows.Forms.Label();
-            this.cProgPrzysp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cSpowolnieniePrzysp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cProgHamowanie = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cSpowolnienieHamowanie = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgPrzysp = new System.Windows.Forms.DataGridView();
+            this.cProgPrzysp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cSpowolnieniePrzysp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lPrzyspieszenieTitle = new System.Windows.Forms.Label();
+            this.lHamowanieTitle = new System.Windows.Forms.Label();
             this.pPowitanie.SuspendLayout();
             this.pAutobusStale.SuspendLayout();
             this.pZmianaPrzyspieszenia.SuspendLayout();
@@ -70,6 +71,7 @@
             // 
             // pPowitanie
             // 
+            this.pPowitanie.Controls.Add(this.bKonfiguracja);
             this.pPowitanie.Controls.Add(this.welcomeLabel);
             this.pPowitanie.Controls.Add(this.bAutobus);
             this.pPowitanie.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -77,6 +79,16 @@
             this.pPowitanie.Name = "pPowitanie";
             this.pPowitanie.Size = new System.Drawing.Size(784, 561);
             this.pPowitanie.TabIndex = 0;
+            // 
+            // bKonfiguracja
+            // 
+            this.bKonfiguracja.Location = new System.Drawing.Point(230, 151);
+            this.bKonfiguracja.Name = "bKonfiguracja";
+            this.bKonfiguracja.Size = new System.Drawing.Size(336, 50);
+            this.bKonfiguracja.TabIndex = 1;
+            this.bKonfiguracja.Text = "Konfiguracja Autobusu";
+            this.bKonfiguracja.UseVisualStyleBackColor = true;
+            this.bKonfiguracja.Click += new System.EventHandler(this.bKonfiguracja_Click);
             // 
             // welcomeLabel
             // 
@@ -93,7 +105,7 @@
             this.bAutobus.Name = "bAutobus";
             this.bAutobus.Size = new System.Drawing.Size(336, 50);
             this.bAutobus.TabIndex = 0;
-            this.bAutobus.Text = "Konfiguracja Autobusu";
+            this.bAutobus.Text = "Stwórz autobus";
             this.bAutobus.UseVisualStyleBackColor = true;
             this.bAutobus.Click += new System.EventHandler(this.bAutobus_Click);
             // 
@@ -318,6 +330,18 @@
             this.dgHamowanie.Size = new System.Drawing.Size(760, 214);
             this.dgHamowanie.TabIndex = 20;
             // 
+            // cProgHamowanie
+            // 
+            this.cProgHamowanie.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cProgHamowanie.HeaderText = "Próg zapełnienia";
+            this.cProgHamowanie.Name = "cProgHamowanie";
+            // 
+            // cSpowolnienieHamowanie
+            // 
+            this.cSpowolnienieHamowanie.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cSpowolnienieHamowanie.HeaderText = "Procent wydłużenia";
+            this.cSpowolnienieHamowanie.Name = "cSpowolnienieHamowanie";
+            // 
             // dgPrzysp
             // 
             this.dgPrzysp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -328,6 +352,18 @@
             this.dgPrzysp.Name = "dgPrzysp";
             this.dgPrzysp.Size = new System.Drawing.Size(760, 214);
             this.dgPrzysp.TabIndex = 19;
+            // 
+            // cProgPrzysp
+            // 
+            this.cProgPrzysp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cProgPrzysp.HeaderText = "Próg zapełnienia";
+            this.cProgPrzysp.Name = "cProgPrzysp";
+            // 
+            // cSpowolnieniePrzysp
+            // 
+            this.cSpowolnieniePrzysp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cSpowolnieniePrzysp.HeaderText = "Procent spowolnienia";
+            this.cSpowolnieniePrzysp.Name = "cSpowolnieniePrzysp";
             // 
             // lPrzyspieszenieTitle
             // 
@@ -349,38 +385,14 @@
             this.lHamowanieTitle.TabIndex = 18;
             this.lHamowanieTitle.Text = "Hamowanie";
             // 
-            // cProgPrzysp
-            // 
-            this.cProgPrzysp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cProgPrzysp.HeaderText = "Próg zapełnienia";
-            this.cProgPrzysp.Name = "cProgPrzysp";
-            // 
-            // cSpowolnieniePrzysp
-            // 
-            this.cSpowolnieniePrzysp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cSpowolnieniePrzysp.HeaderText = "Procent spowolnienia";
-            this.cSpowolnieniePrzysp.Name = "cSpowolnieniePrzysp";
-            // 
-            // cProgHamowanie
-            // 
-            this.cProgHamowanie.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cProgHamowanie.HeaderText = "Próg zapełnienia";
-            this.cProgHamowanie.Name = "cProgHamowanie";
-            // 
-            // cSpowolnienieHamowanie
-            // 
-            this.cSpowolnienieHamowanie.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cSpowolnienieHamowanie.HeaderText = "Procent wydłużenia";
-            this.cSpowolnienieHamowanie.Name = "cSpowolnienieHamowanie";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.pZmianaPrzyspieszenia);
             this.Controls.Add(this.pAutobusStale);
             this.Controls.Add(this.pPowitanie);
-            this.Controls.Add(this.pZmianaPrzyspieszenia);
             this.Name = "Form1";
             this.Text = "Aplikacja pomocnicza";
             this.pPowitanie.ResumeLayout(false);
@@ -430,6 +442,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cSpowolnieniePrzysp;
         private System.Windows.Forms.DataGridViewTextBoxColumn cProgHamowanie;
         private System.Windows.Forms.DataGridViewTextBoxColumn cSpowolnienieHamowanie;
+        private System.Windows.Forms.Button bKonfiguracja;
     }
 }
 
