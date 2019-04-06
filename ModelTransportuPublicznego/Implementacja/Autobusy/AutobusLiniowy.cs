@@ -7,11 +7,11 @@ using System.Linq;
 namespace ModelTransportuPublicznego.Implementacja.Autobusy
 {
     public class AutobusLiniowy : Autobus {
-        private double przyspieszenie;
-        private double trasaHamowania100;
-        private double predkoscMaksymalna;
-        private SortedDictionary<int, int> spowolnieniaPrzyspieszenia;
-        private SortedDictionary<int, int> wydluzenieHamowania;
+        private readonly double przyspieszenie;
+        private readonly double trasaHamowania100;
+        private readonly double predkoscMaksymalna;
+        private readonly SortedDictionary<int, int> spowolnieniaPrzyspieszenia;
+        private readonly SortedDictionary<int, int> wydluzenieHamowania;
 
         public double Przyspieszenie => przyspieszenie;
 
@@ -63,14 +63,14 @@ namespace ModelTransportuPublicznego.Implementacja.Autobusy
         public override int PrzejedzTrase(Trasa trasa) {
             var tPrzysp = CzasPrzyspieszania(trasa);
             var tHamowania = CzasHamowania(trasa);
-            double tVMax = 0;
+
             var sPrzysp = (AktualnePrzyspieszenie() * Math.Pow(tPrzysp, 2));
             var sHamowania = (AktualneHamowanie() * Math.Pow(tHamowania, 2)) / 2;
             var sPrzejazduVMax = trasa.DystansTrasy - (sPrzysp + sHamowania);
 
             if (sPrzejazduVMax > 0)
             {
-                tVMax = CzasPrzejazduZVMax(trasa);
+                double tVMax = CzasPrzejazduZVMax(trasa);
                 return (int)Math.Ceiling(tPrzysp + tVMax + tHamowania);
             }
             else
@@ -150,35 +150,32 @@ namespace ModelTransportuPublicznego.Implementacja.Autobusy
             return spowolnienie;
         }
 
-        public bool ZapiszDoPliku(string nazwaPliku)
+        public bool Zapisz(StreamWriter sw)
         {
             try
             {
-                using (var sw = File.CreateText(string.Format("../../../{0}.txt", nazwaPliku)))
+                sw.WriteLine(string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}", idAutobusu, maksymalnaPojemnosc, iloscDzwi, przyspieszenie, trasaHamowania100, predkoscMaksymalna, dlugoscAutobusu));
+
+                var last = spowolnieniaPrzyspieszenia.Last();
+                foreach (var kvp in spowolnieniaPrzyspieszenia)
                 {
-                    sw.WriteLine(string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}", idAutobusu, maksymalnaPojemnosc, iloscDzwi, przyspieszenie, trasaHamowania100, predkoscMaksymalna, dlugoscAutobusu));
-
-                    var last = spowolnieniaPrzyspieszenia.Last();
-                    foreach (var kvp in spowolnieniaPrzyspieszenia)
+                    if (kvp.Key == 0 && kvp.Value == 0) continue;
+                    sw.Write("{0}-{1}", kvp.Key, kvp.Value);
+                    if (kvp.Key != last.Key)
                     {
-                        if (kvp.Key == 0 && kvp.Value == 0) continue;
-                        sw.Write("{0}-{1}", kvp.Key, kvp.Value);
-                        if (kvp.Key != last.Key)
-                        {
-                            sw.Write("|");
-                        }
+                        sw.Write("|");
                     }
+                }
 
-                    sw.WriteLine();
-                    last = wydluzenieHamowania.Last();
-                    foreach (var kvp in wydluzenieHamowania)
+                sw.WriteLine();
+                last = wydluzenieHamowania.Last();
+                foreach (var kvp in wydluzenieHamowania)
+                {
+                    if (kvp.Key == 0 && kvp.Value == 0) continue;
+                    sw.Write("{0}-{1}", kvp.Key, kvp.Value);
+                    if (kvp.Key != last.Key)
                     {
-                        if (kvp.Key == 0 && kvp.Value == 0) continue;
-                        sw.Write("{0}-{1}", kvp.Key, kvp.Value);
-                        if (kvp.Key != last.Key)
-                        {
-                            sw.Write("|");
-                        }
+                        sw.Write("|");
                     }
                 }
             } catch (Exception e)
@@ -193,8 +190,6 @@ namespace ModelTransportuPublicznego.Implementacja.Autobusy
         public static AutobusLiniowy OdczytajPlik(string nazwaPliku)
         {
             string[] stale, przyspieszenia, hamowania;
-            var spowolnieniePrzyspieszenia = new SortedDictionary<int, int>();
-            var wydluzenieHamowania = new SortedDictionary<int, int>();
 
             using (var sr = File.OpenText(string.Format("../../../{0}.txt", nazwaPliku)))
             {

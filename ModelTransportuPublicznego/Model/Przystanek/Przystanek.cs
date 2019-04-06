@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Drawing;
 using ModelTransportuPublicznego.Implementacja.Graf;
 using ModelTransportuPublicznego.Implementacja.Pasazerowie;
 using ModelTransportuPublicznego.Implementacja.Wyjatki;
+using System.IO;
 
 namespace ModelTransportuPublicznego.Model.Przystanek
 {
@@ -20,6 +22,8 @@ namespace ModelTransportuPublicznego.Model.Przystanek
         protected double dlugoscZatoki;
         protected Queue<Autobus> autobusyOczekujace;
         protected ZarzadTransportu zt;
+        protected SortedDictionary<int, Color> zapelnieniaPasazerow;
+        protected SortedDictionary<int, Color> zapelnieniaAutobusow;
 
         public string NazwaPrzystanku => nazwaPrzystanku;
 
@@ -29,7 +33,34 @@ namespace ModelTransportuPublicznego.Model.Przystanek
 
         public IEnumerable<Autobus> AutobusyOczekujace => autobusyOczekujace;
 
+        public int PoziomZapelnieniaPasazerow
+        {
+            get
+            {
+                if (oczekujacyPasazerowie.Count >= maksymalnaPojemnoscPasazerow)
+                {
+                    return 100;
+                }
+                else
+                {
+                    return Convert.ToInt32(Math.Ceiling(oczekujacyPasazerowie.Count / (double)maksymalnaPojemnoscPasazerow));
+                }
+            }
+        }
+
+        public int PoziomZapelnieniaAutobusow
+        {
+            get
+            {
+                return Convert.ToInt32(Math.Floor((dlugoscZatoki - ZwrocDlugoscWolnegoMiejscaZatoki()) / dlugoscZatoki));
+            }
+        }
+
         public Queue<Autobus> AutobusyOczekujaceQueue => autobusyOczekujace;
+
+        public Color ZapelnieniePasazerow => ZwrocKolorZapelnienia(zapelnieniaPasazerow, PoziomZapelnieniaPasazerow);
+
+        public Color ZapelnienieAutobusow => ZwrocKolorZapelnienia(zapelnieniaAutobusow, PoziomZapelnieniaAutobusow);
 
         public int MaksymalnaPojemnoscPasazerow => maksymalnaPojemnoscPasazerow;
 
@@ -45,15 +76,35 @@ namespace ModelTransportuPublicznego.Model.Przystanek
             obecneAutobusy = new List<Autobus>();
             przyplywyPasazerow = new List<PrzyplywPasazerow>();
             autobusyOczekujace = new Queue<Autobus>();
+            zapelnieniaPasazerow = new SortedDictionary<int, Color>();
+            zapelnieniaAutobusow = new SortedDictionary<int, Color>();
         }
 
-        public Przystanek(string nazwaPrzystanku, ZarzadTransportu zt, double dlugoscZatoki, int pozycjaX = 0, int pozycjaY = 0, int maksymalnaPojemnoscPasazerow = 200) : this() {
+        public Przystanek(string nazwaPrzystanku, ZarzadTransportu zt, double dlugoscZatoki, int pozycjaX = 0, int pozycjaY = 0, 
+            int maksymalnaPojemnoscPasazerow = 200, IEnumerable<KeyValuePair<int, Color>> zapelnieniePasazerow = null, 
+            IEnumerable<KeyValuePair<int, Color>> zapelnienieAutobusow = null) : this() {
             this.nazwaPrzystanku = nazwaPrzystanku;
             this.zt = zt;
             this.dlugoscZatoki = dlugoscZatoki;
             this.maksymalnaPojemnoscPasazerow = maksymalnaPojemnoscPasazerow;
             this.pozycjaX = pozycjaX;
             this.pozycjaY = pozycjaY;
+            
+            if (zapelnieniePasazerow != null)
+            {
+                foreach (var kvp in zapelnieniePasazerow)
+                {
+                    this.zapelnieniaPasazerow.Add(kvp.Key, kvp.Value);
+                }
+            }
+
+            if (zapelnienieAutobusow != null)
+            {
+                foreach (var kvp in zapelnienieAutobusow)
+                {
+                    this.zapelnieniaAutobusow.Add(kvp.Key, kvp.Value);
+                }
+            }
         }
 
         protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy, ZarzadTransportu zt, double dlugoscZatoki, int pozycjaX = 0, int pozycjaY = 0, int maksymalnaPojemnoscPasazerow = 100) 
@@ -68,6 +119,11 @@ namespace ModelTransportuPublicznego.Model.Przystanek
             foreach (var pasazer in oczekujacyPasazerowie) {
                 this.oczekujacyPasazerowie.Add(pasazer);
             }
+        }
+
+        public void UstawZarzadTransportu(ZarzadTransportu zt)
+        {
+            this.zt = zt;
         }
 
         protected IEnumerable<Trasa> ZwrocTrasyPrzystanku() {
@@ -141,6 +197,24 @@ namespace ModelTransportuPublicznego.Model.Przystanek
             else
             {
                 autobusyOczekujace.Enqueue(a);
+            }
+        }
+
+        public virtual void DodajZapelnieniaPasazerow(IEnumerable<KeyValuePair<int, Color>> dane)
+        {
+            DodajZapelnienia(dane, zapelnieniaPasazerow);
+        }
+
+        public virtual void DodajZapelnieniaAutobusow(IEnumerable<KeyValuePair<int, Color>> dane)
+        {
+            DodajZapelnienia(dane, zapelnieniaAutobusow);
+        }
+
+        protected virtual void DodajZapelnienia(IEnumerable<KeyValuePair<int, Color>> dane, SortedDictionary<int, Color> rezultat)
+        {
+            foreach (var kvp in dane)
+            {
+                rezultat.Add(kvp.Key, kvp.Value);
             }
         }
 
@@ -245,6 +319,97 @@ namespace ModelTransportuPublicznego.Model.Przystanek
             for (int i = 0; i < przyplyw.IloscPasazerow; i++) {
                 DodajPasazera(WygenerujPasazera(czas));
             }
+        }
+
+        protected virtual Color ZwrocKolorZapelnienia(SortedDictionary<int, Color> dict, int val)
+        {
+            foreach (var kvp in dict)
+            {
+                if (val <= kvp.Key)
+                {
+                    return kvp.Value;
+                }
+            }
+
+            return zapelnieniaPasazerow.First().Value;
+        }
+
+        public virtual void DodajProgKolorZapelnieniaPasazerow(int prog, Color kolor)
+        {
+            DodajProgKolor(prog, kolor, zapelnieniaPasazerow);
+        }
+
+        public virtual void DodajProgKolorZapelnieniaAutobusow(int prog, Color kolor)
+        {
+            DodajProgKolor(prog, kolor, zapelnieniaAutobusow);
+        }
+
+        protected virtual void DodajProgKolor(int prog, Color kolor, SortedDictionary<int, Color> cel)
+        {
+            cel.Add(prog, kolor);
+        }
+
+        public virtual bool Zapisz(StreamWriter sw)
+        {
+            try
+            {
+                sw.WriteLine(string.Format("{0}|{1}|{2}|{3}|{4}", pozycjaX, pozycjaY, maksymalnaPojemnoscPasazerow, nazwaPrzystanku, dlugoscZatoki));
+
+                var last = zapelnieniaPasazerow.Last();
+                foreach (var kvp in zapelnieniaPasazerow)
+                {
+                    sw.Write("{0}:{1}", kvp.Key, kvp.Value.ToArgb());
+                    if (kvp.Key != last.Key)
+                    {
+                        sw.Write("|");
+                    }
+                }
+                sw.WriteLine();
+
+                last = zapelnieniaAutobusow.Last();
+                foreach (var kvp in zapelnieniaPasazerow)
+                {
+                    sw.Write("{0}:{1}", kvp.Key, kvp.Value.ToArgb());
+                    if (kvp.Key != last.Key)
+                    {
+                        sw.Write("|");
+                    }
+                }
+            } catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+
+            return true;
+        }
+
+        public static Przystanek OdczytajPlik(string nazwaPliku, ZarzadTransportu zt)
+        {
+            Przystanek rezultat = null;
+            using (var sr = File.OpenText(string.Format("../../../{0}.txt", nazwaPliku)))
+            {
+                var stale = sr.ReadLine().Split('|');
+                var zapelnieniaPasazerow = sr.ReadLine().Split('|');
+                var zapelnieniaAutobusow = sr.ReadLine().Split('|');
+
+                rezultat = new Przystanek(stale[3], zt, Convert.ToDouble(stale[4]), Convert.ToInt32(stale[0]), Convert.ToInt32(stale[1]), Convert.ToInt32(stale[2]));
+                foreach (var val in zapelnieniaPasazerow)
+                {
+                    var elems = val.Split(':');
+                    rezultat.DodajProgKolorZapelnieniaAutobusow(Convert.ToInt32(elems[0]), Color.FromArgb(Convert.ToInt32(elems[1])));
+
+                }
+
+                foreach (var val in zapelnieniaAutobusow)
+                {
+                    var elems = val.Split(':');
+                    rezultat.DodajProgKolorZapelnieniaAutobusow(Convert.ToInt32(elems[0]), Color.FromArgb(Convert.ToInt32(elems[1])));
+
+                }
+            }
+
+            return rezultat;
         }
 
         protected virtual Pasazer WygenerujPasazera(TimeSpan czas) {

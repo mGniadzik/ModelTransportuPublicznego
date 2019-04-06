@@ -29,7 +29,10 @@
         private void InitializeComponent()
         {
             this.pPowitanie = new System.Windows.Forms.Panel();
-            this.bKonfiguracja = new System.Windows.Forms.Button();
+            this.bPrzejazdy = new System.Windows.Forms.Button();
+            this.bKonfiguracjaPrzystanku = new System.Windows.Forms.Button();
+            this.bPrzystanek = new System.Windows.Forms.Button();
+            this.bKonfiguracjaAutobusu = new System.Windows.Forms.Button();
             this.welcomeLabel = new System.Windows.Forms.Label();
             this.bAutobus = new System.Windows.Forms.Button();
             this.pAutobusStale = new System.Windows.Forms.Panel();
@@ -50,8 +53,6 @@
             this.bCancel = new System.Windows.Forms.Button();
             this.bNext = new System.Windows.Forms.Button();
             this.pZmianaPrzyspieszenia = new System.Windows.Forms.Panel();
-            this.lFileName = new System.Windows.Forms.Label();
-            this.tbNazwaPliku = new System.Windows.Forms.TextBox();
             this.bSave = new System.Windows.Forms.Button();
             this.bBack = new System.Windows.Forms.Button();
             this.dgHamowanie = new System.Windows.Forms.DataGridView();
@@ -62,16 +63,48 @@
             this.cSpowolnieniePrzysp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lPrzyspieszenieTitle = new System.Windows.Forms.Label();
             this.lHamowanieTitle = new System.Windows.Forms.Label();
+            this.pPrzystanekStale = new System.Windows.Forms.Panel();
+            this.bMenuPrzystanek = new System.Windows.Forms.Button();
+            this.bNextPrzystanek = new System.Windows.Forms.Button();
+            this.tbPojemnoscPasazerow = new System.Windows.Forms.TextBox();
+            this.tbDlugoscZatoki = new System.Windows.Forms.TextBox();
+            this.tbPosY = new System.Windows.Forms.TextBox();
+            this.tbPosX = new System.Windows.Forms.TextBox();
+            this.tbNazwaPrzystanku = new System.Windows.Forms.TextBox();
+            this.lMaksymalnaIloscPas = new System.Windows.Forms.Label();
+            this.lDlugoscZatoki = new System.Windows.Forms.Label();
+            this.lPosY = new System.Windows.Forms.Label();
+            this.lPosX = new System.Windows.Forms.Label();
+            this.lNazwaPrzystanku = new System.Windows.Forms.Label();
+            this.pPrzystanekProgi = new System.Windows.Forms.Panel();
+            this.bZapiszDoPliku = new System.Windows.Forms.Button();
+            this.bBackMenu = new System.Windows.Forms.Button();
+            this.dgProgiPrzystanekAutobusy = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lPrzystanekProgiAutobusy = new System.Windows.Forms.Label();
+            this.lPrzystanekProgiPasazerowie = new System.Windows.Forms.Label();
+            this.lPrzystanekProgiKolory = new System.Windows.Forms.Label();
+            this.dgProgiPrzystanekPasazerowie = new System.Windows.Forms.DataGridView();
+            this.cProgPrzystanek = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cKolor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pPowitanie.SuspendLayout();
             this.pAutobusStale.SuspendLayout();
             this.pZmianaPrzyspieszenia.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgHamowanie)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgPrzysp)).BeginInit();
+            this.pPrzystanekStale.SuspendLayout();
+            this.pPrzystanekProgi.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgProgiPrzystanekAutobusy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgProgiPrzystanekPasazerowie)).BeginInit();
             this.SuspendLayout();
             // 
             // pPowitanie
             // 
-            this.pPowitanie.Controls.Add(this.bKonfiguracja);
+            this.pPowitanie.Controls.Add(this.bPrzejazdy);
+            this.pPowitanie.Controls.Add(this.bKonfiguracjaPrzystanku);
+            this.pPowitanie.Controls.Add(this.bPrzystanek);
+            this.pPowitanie.Controls.Add(this.bKonfiguracjaAutobusu);
             this.pPowitanie.Controls.Add(this.welcomeLabel);
             this.pPowitanie.Controls.Add(this.bAutobus);
             this.pPowitanie.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -80,15 +113,44 @@
             this.pPowitanie.Size = new System.Drawing.Size(784, 561);
             this.pPowitanie.TabIndex = 0;
             // 
-            // bKonfiguracja
+            // bPrzejazdy
             // 
-            this.bKonfiguracja.Location = new System.Drawing.Point(230, 151);
-            this.bKonfiguracja.Name = "bKonfiguracja";
-            this.bKonfiguracja.Size = new System.Drawing.Size(336, 50);
-            this.bKonfiguracja.TabIndex = 1;
-            this.bKonfiguracja.Text = "Konfiguracja Autobusu";
-            this.bKonfiguracja.UseVisualStyleBackColor = true;
-            this.bKonfiguracja.Click += new System.EventHandler(this.bKonfiguracja_Click);
+            this.bPrzejazdy.Location = new System.Drawing.Point(230, 319);
+            this.bPrzejazdy.Name = "bPrzejazdy";
+            this.bPrzejazdy.Size = new System.Drawing.Size(336, 50);
+            this.bPrzejazdy.TabIndex = 4;
+            this.bPrzejazdy.Text = "Konfiguracja przejazdów";
+            this.bPrzejazdy.UseVisualStyleBackColor = true;
+            // 
+            // bKonfiguracjaPrzystanku
+            // 
+            this.bKonfiguracjaPrzystanku.Location = new System.Drawing.Point(230, 263);
+            this.bKonfiguracjaPrzystanku.Name = "bKonfiguracjaPrzystanku";
+            this.bKonfiguracjaPrzystanku.Size = new System.Drawing.Size(336, 50);
+            this.bKonfiguracjaPrzystanku.TabIndex = 3;
+            this.bKonfiguracjaPrzystanku.Text = "Konfiguracja przystanku";
+            this.bKonfiguracjaPrzystanku.UseVisualStyleBackColor = true;
+            this.bKonfiguracjaPrzystanku.Click += new System.EventHandler(this.BKonfiguracjaPrzystanku_Click);
+            // 
+            // bPrzystanek
+            // 
+            this.bPrzystanek.Location = new System.Drawing.Point(230, 207);
+            this.bPrzystanek.Name = "bPrzystanek";
+            this.bPrzystanek.Size = new System.Drawing.Size(336, 50);
+            this.bPrzystanek.TabIndex = 2;
+            this.bPrzystanek.Text = "Stwórz przystanek";
+            this.bPrzystanek.UseVisualStyleBackColor = true;
+            this.bPrzystanek.Click += new System.EventHandler(this.BPrzystanek_Click);
+            // 
+            // bKonfiguracjaAutobusu
+            // 
+            this.bKonfiguracjaAutobusu.Location = new System.Drawing.Point(230, 151);
+            this.bKonfiguracjaAutobusu.Name = "bKonfiguracjaAutobusu";
+            this.bKonfiguracjaAutobusu.Size = new System.Drawing.Size(336, 50);
+            this.bKonfiguracjaAutobusu.TabIndex = 1;
+            this.bKonfiguracjaAutobusu.Text = "Konfiguracja Autobusu";
+            this.bKonfiguracjaAutobusu.UseVisualStyleBackColor = true;
+            this.bKonfiguracjaAutobusu.Click += new System.EventHandler(this.BKonfiguracja_Click);
             // 
             // welcomeLabel
             // 
@@ -107,7 +169,7 @@
             this.bAutobus.TabIndex = 0;
             this.bAutobus.Text = "Stwórz autobus";
             this.bAutobus.UseVisualStyleBackColor = true;
-            this.bAutobus.Click += new System.EventHandler(this.bAutobus_Click);
+            this.bAutobus.Click += new System.EventHandler(this.BAutobus_Click);
             // 
             // pAutobusStale
             // 
@@ -254,7 +316,7 @@
             this.bCancel.TabIndex = 3;
             this.bCancel.Text = "Wróć do menu";
             this.bCancel.UseVisualStyleBackColor = true;
-            this.bCancel.Click += new System.EventHandler(this.bCancel_Click);
+            this.bCancel.Click += new System.EventHandler(this.BCancel_Click);
             // 
             // bNext
             // 
@@ -264,12 +326,10 @@
             this.bNext.TabIndex = 3;
             this.bNext.Text = "Dalej...";
             this.bNext.UseVisualStyleBackColor = true;
-            this.bNext.Click += new System.EventHandler(this.bNext_Click);
+            this.bNext.Click += new System.EventHandler(this.BNext_Click);
             // 
             // pZmianaPrzyspieszenia
             // 
-            this.pZmianaPrzyspieszenia.Controls.Add(this.lFileName);
-            this.pZmianaPrzyspieszenia.Controls.Add(this.tbNazwaPliku);
             this.pZmianaPrzyspieszenia.Controls.Add(this.bSave);
             this.pZmianaPrzyspieszenia.Controls.Add(this.bBack);
             this.pZmianaPrzyspieszenia.Controls.Add(this.dgHamowanie);
@@ -283,22 +343,6 @@
             this.pZmianaPrzyspieszenia.TabIndex = 17;
             this.pZmianaPrzyspieszenia.Visible = false;
             // 
-            // lFileName
-            // 
-            this.lFileName.AutoSize = true;
-            this.lFileName.Location = new System.Drawing.Point(470, 507);
-            this.lFileName.Name = "lFileName";
-            this.lFileName.Size = new System.Drawing.Size(96, 13);
-            this.lFileName.TabIndex = 24;
-            this.lFileName.Text = "Podaj nazwę pliku:";
-            // 
-            // tbNazwaPliku
-            // 
-            this.tbNazwaPliku.Location = new System.Drawing.Point(473, 523);
-            this.tbNazwaPliku.Name = "tbNazwaPliku";
-            this.tbNazwaPliku.Size = new System.Drawing.Size(201, 20);
-            this.tbNazwaPliku.TabIndex = 23;
-            // 
             // bSave
             // 
             this.bSave.Location = new System.Drawing.Point(680, 500);
@@ -307,7 +351,7 @@
             this.bSave.TabIndex = 22;
             this.bSave.Text = "Zapisz plik...";
             this.bSave.UseVisualStyleBackColor = true;
-            this.bSave.Click += new System.EventHandler(this.bSave_Click);
+            this.bSave.Click += new System.EventHandler(this.BSave_Click);
             // 
             // bBack
             // 
@@ -317,7 +361,7 @@
             this.bBack.TabIndex = 21;
             this.bBack.Text = "Wróć do menu";
             this.bBack.UseVisualStyleBackColor = true;
-            this.bBack.Click += new System.EventHandler(this.bBack_Click);
+            this.bBack.Click += new System.EventHandler(this.BBack_Click);
             // 
             // dgHamowanie
             // 
@@ -385,14 +429,255 @@
             this.lHamowanieTitle.TabIndex = 18;
             this.lHamowanieTitle.Text = "Hamowanie";
             // 
+            // pPrzystanekStale
+            // 
+            this.pPrzystanekStale.Controls.Add(this.bMenuPrzystanek);
+            this.pPrzystanekStale.Controls.Add(this.bNextPrzystanek);
+            this.pPrzystanekStale.Controls.Add(this.tbPojemnoscPasazerow);
+            this.pPrzystanekStale.Controls.Add(this.tbDlugoscZatoki);
+            this.pPrzystanekStale.Controls.Add(this.tbPosY);
+            this.pPrzystanekStale.Controls.Add(this.tbPosX);
+            this.pPrzystanekStale.Controls.Add(this.tbNazwaPrzystanku);
+            this.pPrzystanekStale.Controls.Add(this.lMaksymalnaIloscPas);
+            this.pPrzystanekStale.Controls.Add(this.lDlugoscZatoki);
+            this.pPrzystanekStale.Controls.Add(this.lPosY);
+            this.pPrzystanekStale.Controls.Add(this.lPosX);
+            this.pPrzystanekStale.Controls.Add(this.lNazwaPrzystanku);
+            this.pPrzystanekStale.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pPrzystanekStale.Location = new System.Drawing.Point(0, 0);
+            this.pPrzystanekStale.Name = "pPrzystanekStale";
+            this.pPrzystanekStale.Size = new System.Drawing.Size(784, 561);
+            this.pPrzystanekStale.TabIndex = 18;
+            this.pPrzystanekStale.Visible = false;
+            // 
+            // bMenuPrzystanek
+            // 
+            this.bMenuPrzystanek.Location = new System.Drawing.Point(12, 512);
+            this.bMenuPrzystanek.Name = "bMenuPrzystanek";
+            this.bMenuPrzystanek.Size = new System.Drawing.Size(75, 37);
+            this.bMenuPrzystanek.TabIndex = 11;
+            this.bMenuPrzystanek.Text = "Wróć do menu";
+            this.bMenuPrzystanek.UseVisualStyleBackColor = true;
+            this.bMenuPrzystanek.Click += new System.EventHandler(this.BMenuPrzystanek_Click);
+            // 
+            // bNextPrzystanek
+            // 
+            this.bNextPrzystanek.Location = new System.Drawing.Point(697, 513);
+            this.bNextPrzystanek.Name = "bNextPrzystanek";
+            this.bNextPrzystanek.Size = new System.Drawing.Size(75, 36);
+            this.bNextPrzystanek.TabIndex = 10;
+            this.bNextPrzystanek.Text = "Dalej...";
+            this.bNextPrzystanek.UseVisualStyleBackColor = true;
+            this.bNextPrzystanek.Click += new System.EventHandler(this.BNextPrzystanek_Click);
+            // 
+            // tbPojemnoscPasazerow
+            // 
+            this.tbPojemnoscPasazerow.Location = new System.Drawing.Point(215, 125);
+            this.tbPojemnoscPasazerow.Name = "tbPojemnoscPasazerow";
+            this.tbPojemnoscPasazerow.Size = new System.Drawing.Size(100, 20);
+            this.tbPojemnoscPasazerow.TabIndex = 9;
+            // 
+            // tbDlugoscZatoki
+            // 
+            this.tbDlugoscZatoki.Location = new System.Drawing.Point(215, 96);
+            this.tbDlugoscZatoki.Name = "tbDlugoscZatoki";
+            this.tbDlugoscZatoki.Size = new System.Drawing.Size(100, 20);
+            this.tbDlugoscZatoki.TabIndex = 8;
+            // 
+            // tbPosY
+            // 
+            this.tbPosY.Location = new System.Drawing.Point(215, 67);
+            this.tbPosY.Name = "tbPosY";
+            this.tbPosY.Size = new System.Drawing.Size(100, 20);
+            this.tbPosY.TabIndex = 7;
+            // 
+            // tbPosX
+            // 
+            this.tbPosX.Location = new System.Drawing.Point(215, 36);
+            this.tbPosX.Name = "tbPosX";
+            this.tbPosX.Size = new System.Drawing.Size(100, 20);
+            this.tbPosX.TabIndex = 6;
+            // 
+            // tbNazwaPrzystanku
+            // 
+            this.tbNazwaPrzystanku.Location = new System.Drawing.Point(215, 10);
+            this.tbNazwaPrzystanku.Name = "tbNazwaPrzystanku";
+            this.tbNazwaPrzystanku.Size = new System.Drawing.Size(100, 20);
+            this.tbNazwaPrzystanku.TabIndex = 5;
+            // 
+            // lMaksymalnaIloscPas
+            // 
+            this.lMaksymalnaIloscPas.AutoSize = true;
+            this.lMaksymalnaIloscPas.Location = new System.Drawing.Point(12, 125);
+            this.lMaksymalnaIloscPas.Name = "lMaksymalnaIloscPas";
+            this.lMaksymalnaIloscPas.Size = new System.Drawing.Size(174, 13);
+            this.lMaksymalnaIloscPas.TabIndex = 4;
+            this.lMaksymalnaIloscPas.Text = "Maksymalna pojemność pasażerów";
+            // 
+            // lDlugoscZatoki
+            // 
+            this.lDlugoscZatoki.AutoSize = true;
+            this.lDlugoscZatoki.Location = new System.Drawing.Point(12, 99);
+            this.lDlugoscZatoki.Name = "lDlugoscZatoki";
+            this.lDlugoscZatoki.Size = new System.Drawing.Size(79, 13);
+            this.lDlugoscZatoki.TabIndex = 3;
+            this.lDlugoscZatoki.Text = "Długość zatoki";
+            // 
+            // lPosY
+            // 
+            this.lPosY.AutoSize = true;
+            this.lPosY.Location = new System.Drawing.Point(12, 73);
+            this.lPosY.Name = "lPosY";
+            this.lPosY.Size = new System.Drawing.Size(108, 13);
+            this.lPosY.TabIndex = 2;
+            this.lPosY.Text = "Pozycja przystanku Y";
+            // 
+            // lPosX
+            // 
+            this.lPosX.AutoSize = true;
+            this.lPosX.Location = new System.Drawing.Point(12, 47);
+            this.lPosX.Name = "lPosX";
+            this.lPosX.Size = new System.Drawing.Size(108, 13);
+            this.lPosX.TabIndex = 1;
+            this.lPosX.Text = "Pozycja przystanku X";
+            // 
+            // lNazwaPrzystanku
+            // 
+            this.lNazwaPrzystanku.AutoSize = true;
+            this.lNazwaPrzystanku.Location = new System.Drawing.Point(12, 17);
+            this.lNazwaPrzystanku.Name = "lNazwaPrzystanku";
+            this.lNazwaPrzystanku.Size = new System.Drawing.Size(94, 13);
+            this.lNazwaPrzystanku.TabIndex = 0;
+            this.lNazwaPrzystanku.Text = "Nazwa przystanku";
+            // 
+            // pPrzystanekProgi
+            // 
+            this.pPrzystanekProgi.Controls.Add(this.bZapiszDoPliku);
+            this.pPrzystanekProgi.Controls.Add(this.bBackMenu);
+            this.pPrzystanekProgi.Controls.Add(this.dgProgiPrzystanekAutobusy);
+            this.pPrzystanekProgi.Controls.Add(this.lPrzystanekProgiAutobusy);
+            this.pPrzystanekProgi.Controls.Add(this.lPrzystanekProgiPasazerowie);
+            this.pPrzystanekProgi.Controls.Add(this.lPrzystanekProgiKolory);
+            this.pPrzystanekProgi.Controls.Add(this.dgProgiPrzystanekPasazerowie);
+            this.pPrzystanekProgi.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pPrzystanekProgi.Location = new System.Drawing.Point(0, 0);
+            this.pPrzystanekProgi.Name = "pPrzystanekProgi";
+            this.pPrzystanekProgi.Size = new System.Drawing.Size(784, 561);
+            this.pPrzystanekProgi.TabIndex = 19;
+            this.pPrzystanekProgi.Visible = false;
+            // 
+            // bZapiszDoPliku
+            // 
+            this.bZapiszDoPliku.Location = new System.Drawing.Point(697, 514);
+            this.bZapiszDoPliku.Name = "bZapiszDoPliku";
+            this.bZapiszDoPliku.Size = new System.Drawing.Size(75, 37);
+            this.bZapiszDoPliku.TabIndex = 26;
+            this.bZapiszDoPliku.Text = "Zapisz...";
+            this.bZapiszDoPliku.UseVisualStyleBackColor = true;
+            this.bZapiszDoPliku.Click += new System.EventHandler(this.BZapiszDoPliku_Click);
+            // 
+            // bBackMenu
+            // 
+            this.bBackMenu.Location = new System.Drawing.Point(12, 512);
+            this.bBackMenu.Name = "bBackMenu";
+            this.bBackMenu.Size = new System.Drawing.Size(75, 37);
+            this.bBackMenu.TabIndex = 25;
+            this.bBackMenu.Text = "Wróć do menu";
+            this.bBackMenu.UseVisualStyleBackColor = true;
+            this.bBackMenu.Click += new System.EventHandler(this.BBackMenu_Click);
+            // 
+            // dgProgiPrzystanekAutobusy
+            // 
+            this.dgProgiPrzystanekAutobusy.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgProgiPrzystanekAutobusy.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2});
+            this.dgProgiPrzystanekAutobusy.Location = new System.Drawing.Point(12, 290);
+            this.dgProgiPrzystanekAutobusy.Name = "dgProgiPrzystanekAutobusy";
+            this.dgProgiPrzystanekAutobusy.Size = new System.Drawing.Size(760, 187);
+            this.dgProgiPrzystanekAutobusy.TabIndex = 24;
+            this.dgProgiPrzystanekAutobusy.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellDoubleClick);
+            this.dgProgiPrzystanekAutobusy.KeyUp += new System.Windows.Forms.KeyEventHandler(this.DgProgiPrzystanekAutobusy_KeyUp);
+            this.dgProgiPrzystanekAutobusy.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DgProgiPrzystanekAutobusy_MouseClick);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Próg zapełnienia";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Kolor";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // lPrzystanekProgiAutobusy
+            // 
+            this.lPrzystanekProgiAutobusy.AutoSize = true;
+            this.lPrzystanekProgiAutobusy.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lPrzystanekProgiAutobusy.Location = new System.Drawing.Point(12, 263);
+            this.lPrzystanekProgiAutobusy.Name = "lPrzystanekProgiAutobusy";
+            this.lPrzystanekProgiAutobusy.Size = new System.Drawing.Size(89, 24);
+            this.lPrzystanekProgiAutobusy.TabIndex = 23;
+            this.lPrzystanekProgiAutobusy.Text = "Autobusy";
+            // 
+            // lPrzystanekProgiPasazerowie
+            // 
+            this.lPrzystanekProgiPasazerowie.AutoSize = true;
+            this.lPrzystanekProgiPasazerowie.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lPrzystanekProgiPasazerowie.Location = new System.Drawing.Point(12, 36);
+            this.lPrzystanekProgiPasazerowie.Name = "lPrzystanekProgiPasazerowie";
+            this.lPrzystanekProgiPasazerowie.Size = new System.Drawing.Size(117, 24);
+            this.lPrzystanekProgiPasazerowie.TabIndex = 22;
+            this.lPrzystanekProgiPasazerowie.Text = "Pasażerowie";
+            // 
+            // lPrzystanekProgiKolory
+            // 
+            this.lPrzystanekProgiKolory.AutoSize = true;
+            this.lPrzystanekProgiKolory.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lPrzystanekProgiKolory.Location = new System.Drawing.Point(12, 9);
+            this.lPrzystanekProgiKolory.Name = "lPrzystanekProgiKolory";
+            this.lPrzystanekProgiKolory.Size = new System.Drawing.Size(504, 24);
+            this.lPrzystanekProgiKolory.TabIndex = 21;
+            this.lPrzystanekProgiKolory.Text = "Progi oraz kolory występujące przy zapełnieniu przystanku:";
+            // 
+            // dgProgiPrzystanekPasazerowie
+            // 
+            this.dgProgiPrzystanekPasazerowie.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgProgiPrzystanekPasazerowie.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.cProgPrzystanek,
+            this.cKolor});
+            this.dgProgiPrzystanekPasazerowie.Location = new System.Drawing.Point(12, 63);
+            this.dgProgiPrzystanekPasazerowie.Name = "dgProgiPrzystanekPasazerowie";
+            this.dgProgiPrzystanekPasazerowie.Size = new System.Drawing.Size(760, 187);
+            this.dgProgiPrzystanekPasazerowie.TabIndex = 20;
+            this.dgProgiPrzystanekPasazerowie.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgProgiPrzystanek_CellDoubleClick);
+            this.dgProgiPrzystanekPasazerowie.KeyUp += new System.Windows.Forms.KeyEventHandler(this.DgProgiPrzystanekPasazerowie_KeyUp);
+            this.dgProgiPrzystanekPasazerowie.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DgProgiPrzystanekPasazerowie_MouseClick);
+            // 
+            // cProgPrzystanek
+            // 
+            this.cProgPrzystanek.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cProgPrzystanek.HeaderText = "Próg zapełnienia";
+            this.cProgPrzystanek.Name = "cProgPrzystanek";
+            // 
+            // cKolor
+            // 
+            this.cKolor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cKolor.HeaderText = "Kolor";
+            this.cKolor.Name = "cKolor";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.pPrzystanekStale);
+            this.Controls.Add(this.pPowitanie);
             this.Controls.Add(this.pZmianaPrzyspieszenia);
             this.Controls.Add(this.pAutobusStale);
-            this.Controls.Add(this.pPowitanie);
+            this.Controls.Add(this.pPrzystanekProgi);
             this.Name = "Form1";
             this.Text = "Aplikacja pomocnicza";
             this.pPowitanie.ResumeLayout(false);
@@ -403,6 +688,12 @@
             this.pZmianaPrzyspieszenia.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgHamowanie)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgPrzysp)).EndInit();
+            this.pPrzystanekStale.ResumeLayout(false);
+            this.pPrzystanekStale.PerformLayout();
+            this.pPrzystanekProgi.ResumeLayout(false);
+            this.pPrzystanekProgi.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgProgiPrzystanekAutobusy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgProgiPrzystanekPasazerowie)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -430,8 +721,6 @@
         private System.Windows.Forms.Label lPojemnosc;
         private System.Windows.Forms.Label lId;
         private System.Windows.Forms.Panel pZmianaPrzyspieszenia;
-        private System.Windows.Forms.Label lFileName;
-        private System.Windows.Forms.TextBox tbNazwaPliku;
         private System.Windows.Forms.Button bSave;
         private System.Windows.Forms.Button bBack;
         private System.Windows.Forms.DataGridView dgHamowanie;
@@ -442,7 +731,35 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cSpowolnieniePrzysp;
         private System.Windows.Forms.DataGridViewTextBoxColumn cProgHamowanie;
         private System.Windows.Forms.DataGridViewTextBoxColumn cSpowolnienieHamowanie;
-        private System.Windows.Forms.Button bKonfiguracja;
+        private System.Windows.Forms.Button bKonfiguracjaAutobusu;
+        private System.Windows.Forms.Button bPrzejazdy;
+        private System.Windows.Forms.Button bKonfiguracjaPrzystanku;
+        private System.Windows.Forms.Button bPrzystanek;
+        private System.Windows.Forms.Panel pPrzystanekStale;
+        private System.Windows.Forms.Button bMenuPrzystanek;
+        private System.Windows.Forms.Button bNextPrzystanek;
+        private System.Windows.Forms.TextBox tbPojemnoscPasazerow;
+        private System.Windows.Forms.TextBox tbDlugoscZatoki;
+        private System.Windows.Forms.TextBox tbPosY;
+        private System.Windows.Forms.TextBox tbPosX;
+        private System.Windows.Forms.TextBox tbNazwaPrzystanku;
+        private System.Windows.Forms.Label lMaksymalnaIloscPas;
+        private System.Windows.Forms.Label lDlugoscZatoki;
+        private System.Windows.Forms.Label lPosY;
+        private System.Windows.Forms.Label lPosX;
+        private System.Windows.Forms.Label lNazwaPrzystanku;
+        private System.Windows.Forms.Panel pPrzystanekProgi;
+        private System.Windows.Forms.DataGridView dgProgiPrzystanekPasazerowie;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cProgPrzystanek;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cKolor;
+        private System.Windows.Forms.Label lPrzystanekProgiKolory;
+        private System.Windows.Forms.Button bZapiszDoPliku;
+        private System.Windows.Forms.Button bBackMenu;
+        private System.Windows.Forms.DataGridView dgProgiPrzystanekAutobusy;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.Label lPrzystanekProgiAutobusy;
+        private System.Windows.Forms.Label lPrzystanekProgiPasazerowie;
     }
 }
 
