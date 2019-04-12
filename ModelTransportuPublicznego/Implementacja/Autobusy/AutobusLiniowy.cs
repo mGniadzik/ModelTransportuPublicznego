@@ -104,17 +104,17 @@ namespace ModelTransportuPublicznego.Implementacja.Autobusy
             return predkosc / AktualneHamowanie();
         }
 
-        private double AktualnePrzyspieszenie()
+        protected virtual double AktualnePrzyspieszenie()
         {
             return przyspieszenie * (1 + AktualneSpowolnieniePrzyspieszenia());
         }
 
-        private double AktualneHamowanie()
+        protected virtual double AktualneHamowanie()
         {
             return (Math.Pow(100, 2) / 3.6) / (2 * AktualnaTrasaHamowania());
         }
 
-        private double AktualnaTrasaHamowania()
+        protected virtual double AktualnaTrasaHamowania()
         {
             var procentZapelnienia = ProcentZapelnieniaAutobusu;
             double zwiekszenieTrasyHamowania = 0;
@@ -132,7 +132,7 @@ namespace ModelTransportuPublicznego.Implementacja.Autobusy
             return trasaHamowania100 * (1 + zwiekszenieTrasyHamowania);
         }
 
-        private double AktualneSpowolnieniePrzyspieszenia()
+        protected virtual double AktualneSpowolnieniePrzyspieszenia()
         {
             var procentZapelnienia = ProcentZapelnieniaAutobusu;
             double spowolnienie = 0;
@@ -150,7 +150,7 @@ namespace ModelTransportuPublicznego.Implementacja.Autobusy
             return spowolnienie;
         }
 
-        public bool Zapisz(StreamWriter sw)
+        public virtual bool Zapisz(StreamWriter sw)
         {
             try
             {
@@ -216,12 +216,12 @@ namespace ModelTransportuPublicznego.Implementacja.Autobusy
             return rezultat;
         }
 
-        public void DodajProgWartoscSpowolnieniaPrzyspieszania(int prog, int wartosc)
+        public virtual void DodajProgWartoscSpowolnieniaPrzyspieszania(int prog, int wartosc)
         {
             spowolnieniaPrzyspieszenia.Add(prog, wartosc);
         }
 
-        public void DodajProgWartoscSpowolnieniaPrzyspieszania(IEnumerable<KeyValuePair<int, int>> wartosci)
+        public virtual void DodajProgWartoscSpowolnieniaPrzyspieszania(IEnumerable<KeyValuePair<int, int>> wartosci)
         {
             foreach (var kvp in wartosci)
             {
@@ -229,17 +229,23 @@ namespace ModelTransportuPublicznego.Implementacja.Autobusy
             }
         }
 
-        public void DodajProgWartoscWydluzeniaHamowania(int prog, int wartosc)
+        public virtual void DodajProgWartoscWydluzeniaHamowania(int prog, int wartosc)
         {
             wydluzenieHamowania.Add(prog, wartosc);
         }
 
-        public void DodajProgWartoscWydluzeniaHamowania(IEnumerable<KeyValuePair<int, int>> wartosci)
+        public virtual void DodajProgWartoscWydluzeniaHamowania(IEnumerable<KeyValuePair<int, int>> wartosci)
         {
             foreach (var kvp in wartosci)
             {
                 DodajProgWartoscWydluzeniaHamowania(kvp.Key, kvp.Value);
             }
+        }
+
+        public virtual void WyczyscProgiSpowolnienia()
+        {
+            spowolnieniaPrzyspieszenia.Clear();
+            wydluzenieHamowania.Clear();
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace ModelTransportuPublicznego.Model
@@ -189,6 +190,44 @@ namespace ModelTransportuPublicznego.Model
 
         public virtual TimeSpan ZwrocSpodziewanyCzasPrzejazduLinii() {
             return new TimeSpan(trasaLinii.Sum(w => w.czasPrzyjaduDoPrzystanku.Ticks));
+        }
+
+        public virtual bool Zapisz(StreamWriter sw)
+        {
+            try
+            {
+                sw.WriteLine(idLinii);
+
+                foreach (var wl in trasaLinii)
+                {
+                    wl.Zapisz(sw);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+
+            return true;
+        }
+
+        public virtual Linia OdczytajPlik(string sciezkaPliku, ZarzadTransportu zt)
+        {
+            string id;
+            var wpisy = new List<WpisLinii>();
+
+            using (var sr = File.OpenText(sciezkaPliku))
+            {
+                id = sr.ReadLine();
+
+                do
+                {
+                    wpisy.Add(WpisLinii.Odczytaj(sr, zt));
+                } while (!sr.EndOfStream);
+            }
+
+            return new Linia(id, wpisy);
         }
     }
 }

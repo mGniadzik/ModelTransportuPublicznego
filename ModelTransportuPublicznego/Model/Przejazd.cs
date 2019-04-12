@@ -12,9 +12,9 @@ namespace ModelTransportuPublicznego.Model {
         private TimeSpan czasPrzejazdu;
         private TimeSpan czasRozpoczeciaPrzejazdu;
         private bool trasaZakonczona;
-        private Firma firma;
-        private Linia linia;
-        private string uid;
+        private readonly Firma firma;
+        private readonly Linia linia;
+        private readonly string uid;
 
         public bool TrasaZakonczona => trasaZakonczona;
 

@@ -101,5 +101,18 @@ namespace ModelTransportuPublicznego.Model {
                 firma.DodajLinie(linie);
             }
         }
+
+        public virtual Przystanek.Przystanek ZwrocPrzystanekPodanejSpecyfikacji(string sciezkaPlikuKonfiguracjiPrzystanku)
+        {
+            foreach (var p in siecPrzystankow)
+            {
+                if (p.SciezkaPlikuKonfiguracyjnego == sciezkaPlikuKonfiguracjiPrzystanku)
+                {
+                    return p;
+                }
+            }
+
+            return null;
+        }
     }
 }

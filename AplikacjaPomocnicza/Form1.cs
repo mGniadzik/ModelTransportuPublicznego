@@ -6,33 +6,37 @@ using System.Windows.Forms;
 using System.Drawing;
 using ModelTransportuPublicznego.Model.Przystanek;
 using System.Linq;
+using ModelTransportuPublicznego.Model;
 
 namespace AplikacjaPomocnicza
 {
-    public partial class Form1 : Form
+    public partial class AplikacjaPomocnicza : Form
     {
         private readonly List<Panel> panele;
         private AutobusLiniowy autobus;
         private Przystanek przystanek;
+        private Firma firma;
+        private Linia linia;
         private string nazwaPliku;
 
-        public Form1()
+        public AplikacjaPomocnicza()
         {
             InitializeComponent();
-            panele = new List<Panel>() { pPowitanie, pZmianaPrzyspieszenia, pAutobusStale, pPrzystanekStale, pPrzystanekProgi };
+            panele = new List<Panel>() { pPowitanie, pZmianaPrzyspieszenia, pAutobusStale, pPrzystanekStale, pPrzystanekProgi, pPrzejazdy,
+                pPrzejazdyDane, pPrzejazdyUstawianie, pAutobus, pPrzystanek, pFirma, pFirmaStaleLinie, pFirmaTabor, pLinia, pLiniaDane };
             nazwaPliku = null;
         }
 
         private void BAutobus_Click(object sender, EventArgs e)
         {
-            UstawPanelJakoWidoczny(pAutobusStale);
+            UstawPaneleJakoWidoczne(pAutobus, pAutobusStale);
         }
 
-        private void UstawPanelJakoWidoczny(Panel panel)
+        private void UstawPaneleJakoWidoczne(params Panel[] tmp)
         {
             foreach (var p in panele)
             {
-                if (p == panel)
+                if (tmp.Contains(p))
                 {
                     p.Visible = true;
                     continue;
@@ -44,7 +48,8 @@ namespace AplikacjaPomocnicza
 
         private void BCancel_Click(object sender, EventArgs e)
         {
-            UstawPanelJakoWidoczny(pPowitanie);
+            WyczyscDaneAutobusu();
+            UstawPaneleJakoWidoczne(pPowitanie);
         }
 
         private void BNext_Click(object sender, EventArgs e)
@@ -52,11 +57,11 @@ namespace AplikacjaPomocnicza
             if (nazwaPliku == null)
             {
                 autobus = StworzAutobusZTB();
-                UstawPanelJakoWidoczny(pZmianaPrzyspieszenia);
+                UstawPaneleJakoWidoczne(pAutobus, pZmianaPrzyspieszenia);
+                var tmp = (ToolStripMenuItem)msAutobus.Items[0];
+                tmp.DropDownItems[1].Enabled = true;
                 return;
             }
-
-            
 
             using (var sr = new StreamReader(nazwaPliku))
             {
@@ -65,25 +70,24 @@ namespace AplikacjaPomocnicza
                 DodajDaneDoDataGridView(dgHamowanie, sr.ReadLine(), '|', '-');
             }
 
-            UstawPanelJakoWidoczny(pZmianaPrzyspieszenia);
+            UstawPaneleJakoWidoczne(pAutobus, pZmianaPrzyspieszenia);
         }
 
         private void BBack_Click(object sender, EventArgs e)
         {
-            UstawPanelJakoWidoczny(pPowitanie);
+            WyczyscDaneAutobusu();
+            UstawPaneleJakoWidoczne(pPowitanie);
         }
 
         private void BSave_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in dgPrzysp.Rows)
-            {
-                autobus.DodajProgWartoscSpowolnieniaPrzyspieszania(Convert.ToInt32(row.Cells["cProgPrzysp"].Value), Convert.ToInt32(row.Cells["cSpowolnieniePrzysp"].Value));
-            }
+            DodajProgiDoAutobusu(autobus);
+            ZapiszAutobusDoPlikuOpenFileDialog();
+        }
 
-            foreach (DataGridViewRow row in dgHamowanie.Rows)
-            {
-                autobus.DodajProgWartoscWydluzeniaHamowania(Convert.ToInt32(row.Cells["cProgHamowanie"].Value), Convert.ToInt32(row.Cells["cSpowolnienieHamowanie"].Value));
-            }
+        private void ZapiszAutobusDoPlikuOpenFileDialog()
+        {
+            DodajProgiDoAutobusu(autobus);
 
             Stream stream;
             var dialog = new SaveFileDialog
@@ -104,8 +108,48 @@ namespace AplikacjaPomocnicza
                 }
             }
 
-            UstawPanelJakoWidoczny(pPowitanie);
+            UstawPaneleJakoWidoczne(pPowitanie);
             WyczyscDaneAutobusu();
+        }
+
+        private void ZapiszPrzystanekDoPlikuOpenDialog()
+        {
+            UstawKolory(dgProgiPrzystanekPasazerowie);
+            UstawKolory(dgProgiPrzystanekAutobusy);
+            ZamienDGVRowsNaDane(dgProgiPrzystanekPasazerowie.Rows, dgProgiPrzystanekAutobusy.Rows, przystanek);
+
+            var dialog = new SaveFileDialog();
+            Stream stream;
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                if ((stream = dialog.OpenFile()) != null)
+                {
+                    using (var sw = new StreamWriter(stream))
+                    {
+                        przystanek.Zapisz(sw);
+                    }
+                    stream.Close();
+                }
+            }
+
+            UstawPaneleJakoWidoczne(pPowitanie);
+            UstawAtrybutyEnabledMenuStripItem(msPrzystanek.Items[0], false);
+        }
+
+        private void DodajProgiDoAutobusu(AutobusLiniowy autobus)
+        {
+            autobus.WyczyscProgiSpowolnienia();
+
+            foreach (DataGridViewRow row in dgPrzysp.Rows)
+            {
+                autobus.DodajProgWartoscSpowolnieniaPrzyspieszania(Convert.ToInt32(row.Cells["cProgPrzysp"].Value), Convert.ToInt32(row.Cells["cSpowolnieniePrzysp"].Value));
+            }
+
+            foreach (DataGridViewRow row in dgHamowanie.Rows)
+            {
+                autobus.DodajProgWartoscWydluzeniaHamowania(Convert.ToInt32(row.Cells["cProgHamowanie"].Value), Convert.ToInt32(row.Cells["cSpowolnienieHamowanie"].Value));
+            }
         }
 
         private void BKonfiguracja_Click(object sender, EventArgs e)
@@ -121,7 +165,7 @@ namespace AplikacjaPomocnicza
                     if (stale.Length < 7)
                     {
                         MessageBox.Show("Niewłaściwy format pliku");
-                        UstawPanelJakoWidoczny(pPowitanie);
+                        UstawPaneleJakoWidoczne(pPowitanie);
                         return;
                     }
 
@@ -134,7 +178,7 @@ namespace AplikacjaPomocnicza
                     tbVMax.Text = stale[5];
 
                     autobus = StworzAutobusZTB();
-                    UstawPanelJakoWidoczny(pAutobusStale);
+                    UstawPaneleJakoWidoczne(pAutobusStale);
                 }
             }
         }
@@ -146,6 +190,14 @@ namespace AplikacjaPomocnicza
             foreach (var element in elementy)
             {
                 var wartosci = element.Split(split2);
+
+                if (wartosci.Length != 2)
+                {
+                    MessageBox.Show("Podany plik posiada dane w złym formacie.");
+                    UstawPaneleJakoWidoczne(pPowitanie);
+                    WyczyscDaneAutobusu();
+                }
+
                 var dgr = (DataGridViewRow)dgv.Rows[0].Clone();
                 dgr.Cells[0].Value = wartosci[0];
                 if (func == null)
@@ -203,20 +255,20 @@ namespace AplikacjaPomocnicza
 
         private void BPrzystanek_Click(object sender, EventArgs e)
         {
-            UstawPanelJakoWidoczny(pPrzystanekStale);
+            UstawPaneleJakoWidoczne(pPrzystanek, pPrzystanekStale);
         }
 
         private void BMenuPrzystanek_Click(object sender, EventArgs e)
         {
             WyczyscDanePrzystanku();
-            UstawPanelJakoWidoczny(pPowitanie);
+            UstawPaneleJakoWidoczne(pPowitanie);
         }
 
         private void BNextPrzystanek_Click(object sender, EventArgs e)
         {
             przystanek = new Przystanek(tbNazwaPrzystanku.Text, null, Convert.ToDouble(tbDlugoscZatoki.Text), 
                 Convert.ToInt32(tbPosX.Text), Convert.ToInt32(tbPosY.Text), Convert.ToInt32(tbPojemnoscPasazerow.Text));
-            UstawPanelJakoWidoczny(pPrzystanekProgi);
+            UstawPaneleJakoWidoczne(pPrzystanek, pPrzystanekProgi);
         }
 
         private void DgProgiPrzystanek_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -247,28 +299,7 @@ namespace AplikacjaPomocnicza
         {
             UstawKolory(dgProgiPrzystanekPasazerowie);
             UstawKolory(dgProgiPrzystanekAutobusy);
-
-            foreach (DataGridViewRow row in dgProgiPrzystanekPasazerowie.Rows)
-            {
-                if (row.Cells[1].Value == null)
-                {
-                    continue;
-                }
-
-                var kolor = row.Cells[1].Value.ToString().Split(',').Select(s => Convert.ToInt32(s)).ToArray();
-                przystanek.DodajProgKolorZapelnieniaPasazerow(Convert.ToInt32(row.Cells[0].Value), Color.FromArgb(kolor[0], kolor[1], kolor[2]));
-            }
-
-            foreach (DataGridViewRow row in dgProgiPrzystanekAutobusy.Rows)
-            {
-                if (row.Cells[1].Value == null)
-                {
-                    continue;
-                }
-
-                var kolor = row.Cells[1].Value.ToString().Split(',').Select(s => Convert.ToInt32(s)).ToArray();
-                przystanek.DodajProgKolorZapelnieniaAutobusow(Convert.ToInt32(row.Cells[0].Value), Color.FromArgb(kolor[0], kolor[1], kolor[2]));
-            }
+            ZamienDGVRowsNaDane(dgProgiPrzystanekPasazerowie.Rows, dgProgiPrzystanekAutobusy.Rows, przystanek);
 
             var dialog = new SaveFileDialog();
             Stream stream;
@@ -285,7 +316,34 @@ namespace AplikacjaPomocnicza
                 }
             }
 
-            UstawPanelJakoWidoczny(pPowitanie);
+            UstawPaneleJakoWidoczne(pPowitanie);
+        }
+
+        private void ZamienDGVRowsNaDane(DataGridViewRowCollection pasazerRows, DataGridViewRowCollection autobusRows, Przystanek przystanek)
+        {
+            przystanek.ZresetujProgi();
+
+            foreach (DataGridViewRow row in pasazerRows)
+            {
+                if (row.Cells[1].Value == null)
+                {
+                    continue;
+                }
+
+                var kolor = row.Cells[1].Value.ToString().Split(',').Select(s => Convert.ToInt32(s)).ToArray();
+                przystanek.DodajProgKolorZapelnieniaPasazerow(Convert.ToInt32(row.Cells[0].Value), Color.FromArgb(kolor[0], kolor[1], kolor[2]));
+            }
+
+            foreach (DataGridViewRow row in autobusRows)
+            {
+                if (row.Cells[1].Value == null)
+                {
+                    continue;
+                }
+
+                var kolor = row.Cells[1].Value.ToString().Split(',').Select(s => Convert.ToInt32(s)).ToArray();
+                przystanek.DodajProgKolorZapelnieniaAutobusow(Convert.ToInt32(row.Cells[0].Value), Color.FromArgb(kolor[0], kolor[1], kolor[2]));
+            }
         }
 
         private void BKonfiguracjaPrzystanku_Click(object sender, EventArgs e)
@@ -316,7 +374,7 @@ namespace AplikacjaPomocnicza
                 DodajDaneDoDataGridView(dgProgiPrzystanekAutobusy, progiAutobusow, '|', ':', ZamienArgbNaRGB);
                 UstawKolory(dgProgiPrzystanekPasazerowie);
                 UstawKolory(dgProgiPrzystanekAutobusy);
-                UstawPanelJakoWidoczny(pPrzystanekStale);
+                UstawPaneleJakoWidoczne(pPrzystanekStale);
             }
         }
 
@@ -414,7 +472,155 @@ namespace AplikacjaPomocnicza
         private void BBackMenu_Click(object sender, EventArgs e)
         {
             WyczyscDanePrzystanku();
-            UstawPanelJakoWidoczny(pPowitanie);
+            UstawPaneleJakoWidoczne(pPowitanie);
+        }
+
+        private void BPrzejazdy_Click(object sender, EventArgs e)
+        {
+            UstawPaneleJakoWidoczne(pPrzejazdy, pPrzejazdyDane);
+        }
+
+        private void MsAutobusWczytaj_Click(object sender, EventArgs e)
+        {
+            var fd = new OpenFileDialog();
+            if (fd.ShowDialog() == DialogResult.OK)
+            {
+                nazwaPliku = fd.FileName;
+                using (var sr = new StreamReader(nazwaPliku))
+                {
+                    var stale = sr.ReadLine().Split('|');
+
+                    if (stale.Length < 7)
+                    {
+                        MessageBox.Show("Niewłaściwy format pliku");
+                        return;
+                    }
+
+                    tbId.Text = stale[0];
+                    tbPojemnosc.Text = stale[1];
+                    tbDrzwi.Text = stale[2];
+                    tbDlugosc.Text = stale[6];
+                    tbPrzyspieszenie.Text = stale[3];
+                    tbHamowanie.Text = stale[4];
+                    tbVMax.Text = stale[5];
+
+                    autobus = StworzAutobusZTB();
+                }
+
+                UstawAtrybutyEnabledMenuStripItem(msAutobus.Items[0], true);
+            }
+        }
+
+        private void UstawAtrybutyEnabledMenuStripItem(ToolStripItem item, bool wartosc)
+        {
+            var smth = (ToolStripMenuItem) item;
+            smth.DropDownItems[0].Enabled = wartosc;
+            smth.DropDownItems[1].Enabled = wartosc;
+        }
+
+        private void MsAutobusZapisz_Click(object sender, EventArgs e)
+        {
+            autobus = StworzAutobusZTB();
+            DodajProgiDoAutobusu(autobus);
+
+            using (var sw = File.CreateText(nazwaPliku))
+            {
+                autobus.Zapisz(sw);
+            }
+
+            UstawAtrybutyEnabledMenuStripItem(msAutobus.Items[0], false);
+            WyczyscDaneAutobusu();
+            UstawPaneleJakoWidoczne(pPowitanie);
+        }
+
+        private void MsAutobusZapiszJako_Click(object sender, EventArgs e)
+        {
+            autobus = StworzAutobusZTB();
+            DodajProgiDoAutobusu(autobus);
+            ZapiszAutobusDoPlikuOpenFileDialog();
+            UstawAtrybutyEnabledMenuStripItem(msAutobus.Items[0], false);
+            WyczyscDaneAutobusu();
+        }
+
+        private void WczytajToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                nazwaPliku = dialog.FileName;
+                var stream = dialog.OpenFile();
+                string[] stale;
+                string progiPasazerow, progiAutobusow;
+
+                using (var sr = new StreamReader(stream))
+                {
+                    stale = sr.ReadLine().Split('|');
+                    progiPasazerow = sr.ReadLine();
+                    progiAutobusow = sr.ReadLine();
+                }
+
+                tbNazwaPrzystanku.Text = stale[3];
+                tbPosX.Text = stale[0];
+                tbPosY.Text = stale[1];
+                tbDlugoscZatoki.Text = stale[4];
+                tbPojemnoscPasazerow.Text = stale[2];
+
+                DodajDaneDoDataGridView(dgProgiPrzystanekPasazerowie, progiPasazerow, '|', ':', ZamienArgbNaRGB);
+                DodajDaneDoDataGridView(dgProgiPrzystanekAutobusy, progiAutobusow, '|', ':', ZamienArgbNaRGB);
+                UstawKolory(dgProgiPrzystanekPasazerowie);
+                UstawKolory(dgProgiPrzystanekAutobusy);
+                StworzPrzystanekZTB();
+                ZamienDGVRowsNaDane(dgProgiPrzystanekPasazerowie.Rows, dgProgiPrzystanekAutobusy.Rows, przystanek);
+                UstawAtrybutyEnabledMenuStripItem(msPrzystanek.Items[0], true);
+            }
+        }
+
+        private void MsPrzystanekZapiszJako_Click(object sender, EventArgs e)
+        {
+            ZapiszPrzystanekDoPlikuOpenDialog();
+            WyczyscDanePrzystanku();
+        }
+
+        private void StworzPrzystanekZTB()
+        {
+            przystanek = new Przystanek(tbNazwaPrzystanku.Text, null, Convert.ToDouble(tbDlugoscZatoki.Text),
+                Convert.ToInt32(tbPosX.Text), Convert.ToInt32(tbPosY.Text), Convert.ToInt32(tbPojemnoscPasazerow.Text));
+        }
+
+        private void MsPrzystanekZapisz_Click(object sender, EventArgs e)
+        {
+            StworzPrzystanekZTB();
+            ZamienDGVRowsNaDane(dgProgiPrzystanekPasazerowie.Rows, dgProgiPrzystanekAutobusy.Rows, przystanek);
+
+            using (var sw = File.CreateText(nazwaPliku))
+            {
+                przystanek.Zapisz(sw);
+            }
+
+            UstawAtrybutyEnabledMenuStripItem(msPrzystanek.Items[0], false);
+            WyczyscDanePrzystanku();
+            UstawPaneleJakoWidoczne(pPowitanie);
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            UstawPaneleJakoWidoczne(pFirma, pFirmaTabor);
+        }
+
+        private void BFirma_Click(object sender, EventArgs e)
+        {
+            UstawPaneleJakoWidoczne(pFirma, pFirmaStaleLinie);
+        }
+
+        private void BLinia_Click(object sender, EventArgs e)
+        {
+            UstawPaneleJakoWidoczne(pLinia, pLiniaDane);
+        }
+
+        private void BPrzejazdDalej_Click(object sender, EventArgs e)
+        {
+            UstawPaneleJakoWidoczne(pPrzejazdy, pPrzejazdyUstawianie);
         }
     }
 }

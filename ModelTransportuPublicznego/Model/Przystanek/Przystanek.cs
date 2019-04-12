@@ -14,6 +14,7 @@ namespace ModelTransportuPublicznego.Model.Przystanek
         protected int pozycjaY;
         protected int maksymalnaPojemnoscPasazerow;
         protected string nazwaPrzystanku;
+        protected string sciezkaPlikuKonfiguracyjnego;
         protected List<Pasazer> oczekujacyPasazerowie;
         protected List<Trasa> trasy;
         protected RozkladJazdy rozkladJazdy;
@@ -56,6 +57,8 @@ namespace ModelTransportuPublicznego.Model.Przystanek
             }
         }
 
+        public string SciezkaPlikuKonfiguracyjnego => sciezkaPlikuKonfiguracyjnego;
+
         public Queue<Autobus> AutobusyOczekujaceQueue => autobusyOczekujace;
 
         public Color ZapelnieniePasazerow => ZwrocKolorZapelnienia(zapelnieniaPasazerow, PoziomZapelnieniaPasazerow);
@@ -81,7 +84,7 @@ namespace ModelTransportuPublicznego.Model.Przystanek
         }
 
         public Przystanek(string nazwaPrzystanku, ZarzadTransportu zt, double dlugoscZatoki, int pozycjaX = 0, int pozycjaY = 0, 
-            int maksymalnaPojemnoscPasazerow = 200, IEnumerable<KeyValuePair<int, Color>> zapelnieniePasazerow = null, 
+            int maksymalnaPojemnoscPasazerow = 200, string sciezkaPlikuKonfiguracyjnego = null, IEnumerable<KeyValuePair<int, Color>> zapelnieniePasazerow = null, 
             IEnumerable<KeyValuePair<int, Color>> zapelnienieAutobusow = null) : this() {
             this.nazwaPrzystanku = nazwaPrzystanku;
             this.zt = zt;
@@ -89,6 +92,7 @@ namespace ModelTransportuPublicznego.Model.Przystanek
             this.maksymalnaPojemnoscPasazerow = maksymalnaPojemnoscPasazerow;
             this.pozycjaX = pozycjaX;
             this.pozycjaY = pozycjaY;
+            this.sciezkaPlikuKonfiguracyjnego = sciezkaPlikuKonfiguracyjnego;
             
             if (zapelnieniePasazerow != null)
             {
@@ -353,7 +357,8 @@ namespace ModelTransportuPublicznego.Model.Przystanek
         {
             try
             {
-                sw.WriteLine(string.Format("{0}|{1}|{2}|{3}|{4}", pozycjaX, pozycjaY, maksymalnaPojemnoscPasazerow, nazwaPrzystanku, dlugoscZatoki));
+                sw.WriteLine(string.Format("{0}|{1}|{2}|{3}|{4}|{5}", pozycjaX, pozycjaY, maksymalnaPojemnoscPasazerow, nazwaPrzystanku, dlugoscZatoki, 
+                    sciezkaPlikuKonfiguracyjnego));
 
                 var last = zapelnieniaPasazerow.Last();
                 foreach (var kvp in zapelnieniaPasazerow)
@@ -367,7 +372,7 @@ namespace ModelTransportuPublicznego.Model.Przystanek
                 sw.WriteLine();
 
                 last = zapelnieniaAutobusow.Last();
-                foreach (var kvp in zapelnieniaPasazerow)
+                foreach (var kvp in zapelnieniaAutobusow)
                 {
                     sw.Write("{0}:{1}", kvp.Key, kvp.Value.ToArgb());
                     if (kvp.Key != last.Key)
@@ -393,7 +398,7 @@ namespace ModelTransportuPublicznego.Model.Przystanek
                 var zapelnieniaPasazerow = sr.ReadLine().Split('|');
                 var zapelnieniaAutobusow = sr.ReadLine().Split('|');
 
-                rezultat = new Przystanek(stale[3], zt, Convert.ToDouble(stale[4]), Convert.ToInt32(stale[0]), Convert.ToInt32(stale[1]), Convert.ToInt32(stale[2]));
+                rezultat = new Przystanek(stale[3], zt, Convert.ToDouble(stale[4]), Convert.ToInt32(stale[0]), Convert.ToInt32(stale[1]), Convert.ToInt32(stale[2]), stale[5]);
                 foreach (var val in zapelnieniaPasazerow)
                 {
                     var elems = val.Split(':');
@@ -410,6 +415,12 @@ namespace ModelTransportuPublicznego.Model.Przystanek
             }
 
             return rezultat;
+        }
+
+        public virtual void ZresetujProgi()
+        {
+            zapelnieniaPasazerow = new SortedDictionary<int, Color>();
+            zapelnieniaAutobusow = new SortedDictionary<int, Color>();
         }
 
         protected virtual Pasazer WygenerujPasazera(TimeSpan czas) {
