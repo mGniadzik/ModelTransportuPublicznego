@@ -83,7 +83,11 @@
         </e>
         <e p="Model" t="Include">
           <e p="Autobus.cs" t="Include" />
-          <e p="Firma.cs" t="Include" />
+          <e p="Firma" t="Include">
+            <e p="ElementRozkladuPrzejazdow.cs" t="Include" />
+            <e p="Firma.cs" t="Include" />
+            <e p="RozkladPrzejazdow.cs" t="Include" />
+          </e>
           <e p="Kierowca.cs" t="Include" />
           <e p="Linia.cs" t="Include" />
           <e p="Pasazer.cs" t="Include" />
@@ -93,7 +97,6 @@
             <e p="Przystanek.cs" t="Include" />
             <e p="RozkladJazdy.cs" t="Include" />
           </e>
-          <e p="RozkladPrzejazdow.cs" t="Include" />
           <e p="Trasa.cs" t="Include" />
           <e p="WpisLinii.cs" t="Include" />
           <e p="WpisRozkladuJazdu.cs" t="Include" />

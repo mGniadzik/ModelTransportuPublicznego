@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using ModelTransportuPublicznego.Implementacja.Wyjatki;
 using ModelTransportuPublicznego.Model;
+using ModelTransportuPublicznego.Model.Firma;
 
 namespace ModelTransportuPublicznego.Implementacja.Firmy {
     public class FirmaLosowa : Firma {

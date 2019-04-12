@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ModelTransportuPublicznego.Model {
+namespace ModelTransportuPublicznego.Model.Firma {
     public abstract class Firma {
 
         protected string nazwaFirmy;
@@ -12,6 +12,7 @@ namespace ModelTransportuPublicznego.Model {
         protected List<Autobus> listaAutobusowZajetych;
         protected List<Kierowca> listaKierwcowZajetych;
         protected List<Przejazd> historiaPrzejazdow;
+        protected RozkladPrzejazdow przejazdy;
         protected int liczbaOtrzymanychKar;
 
         public IEnumerable<Linia> LinieAutobusowe => linieAutobusowe;
@@ -94,21 +95,44 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         public virtual void UstawLinieNaPrzystankach() {
-            foreach (var linia in linieAutobusowe) {
-                linia.DodajWpisDoRozkladuPrzystankowLinii();
-            }
+            DodajWpisyDoRozkladowPrzystankowLinii();
         }
 
-        public virtual IEnumerable<Przejazd> UtworzListePrzejazdow() {
+//        public virtual IEnumerable<Przejazd> UtworzListePrzejazdow() {
+//            var listaPrzejazdow = new List<Przejazd>();
+//
+//            foreach (var linia in linieAutobusowe) {
+//                foreach (var wpis in linia.RozkladPrzejazdow.CzasyPrzejazdow) {
+//                    listaPrzejazdow.Add(new Przejazd(this, linia, wpis));
+//                }
+//            }
+//
+//            return listaPrzejazdow;    
+//        }
+
+        public virtual IEnumerable<Przejazd> UtworzListePrzejazdow()
+        {
             var listaPrzejazdow = new List<Przejazd>();
 
-            foreach (var linia in linieAutobusowe) {
-                foreach (var wpis in linia.RozkladPrzejazdow.CzasyPrzejazdow) {
-                    listaPrzejazdow.Add(new Przejazd(this, linia, wpis));
-                }
+            foreach (var przejazd in przejazdy)
+            {
+                listaPrzejazdow.Add(new Przejazd(this, przejazd.Linia, przejazd.CzasPrzejazdu));
             }
 
-            return listaPrzejazdow;    
+            return listaPrzejazdow;
+        }
+
+        public virtual void DodajWpisyDoRozkladowPrzystankowLinii()
+        {
+            foreach (var elem in przejazdy)
+            {
+                var suma = TimeSpan.Zero;
+                foreach (WpisLinii wpis in elem.Linia)
+                {
+                    suma += wpis.czasPrzyjaduDoPrzystanku;
+                    wpis.przystanek.RozkladJazdy.DodajWpisDoRozkladu(new WpisRozkladuJazdy(elem.Linia, elem.CzasPrzejazdu + suma));
+                }
+            }
         }
 
         public abstract Autobus WybierzAutobusDoObslugiPrzejazdu();

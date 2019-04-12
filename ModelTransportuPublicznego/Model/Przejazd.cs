@@ -12,7 +12,7 @@ namespace ModelTransportuPublicznego.Model {
         private TimeSpan czasPrzejazdu;
         private TimeSpan czasRozpoczeciaPrzejazdu;
         private bool trasaZakonczona;
-        private readonly Firma firma;
+        private readonly Firma.Firma firma;
         private readonly Linia linia;
         private readonly string uid;
 
@@ -31,7 +31,7 @@ namespace ModelTransportuPublicznego.Model {
             }
         }
 
-        public Firma Firma => firma;
+        public Firma.Firma Firma => firma;
 
         private Przejazd()
         {
@@ -42,7 +42,7 @@ namespace ModelTransportuPublicznego.Model {
             uid = UidGenerator.WygenerujUid();
         }
 
-        public Przejazd(Autobus autobus, Firma firma, TimeSpan czasRozpoczeciaPrzejazdu) : this()
+        public Przejazd(Autobus autobus, Firma.Firma firma, TimeSpan czasRozpoczeciaPrzejazdu) : this()
         {
             this.autobus = autobus;
             this.firma = firma;
@@ -51,7 +51,7 @@ namespace ModelTransportuPublicznego.Model {
             this.czasRozpoczeciaPrzejazdu = czasRozpoczeciaPrzejazdu;
         }
 
-        public Przejazd(Firma firma, Linia linia, TimeSpan czasRozpoczeciaPrzejazdu) : this()
+        public Przejazd(Firma.Firma firma, Linia linia, TimeSpan czasRozpoczeciaPrzejazdu) : this()
         {
             autobus = null;
             this.firma = firma;

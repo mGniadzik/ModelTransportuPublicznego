@@ -6,12 +6,9 @@ using System.Linq;
 
 namespace ModelTransportuPublicznego.Model
 {
-    public class Linia : IEnumerable {
+    public class Linia : IEnumerable<WpisLinii> {
         protected string idLinii;
-        protected RozkladPrzejazdow rozkladPrzejazdow;
         protected List<WpisLinii> trasaLinii;
-
-        public RozkladPrzejazdow RozkladPrzejazdow => rozkladPrzejazdow;
 
         public string IdLinii => idLinii;
 
@@ -33,12 +30,6 @@ namespace ModelTransportuPublicznego.Model
             }
         }
 
-        public Linia(string idLinii, IEnumerable<WpisLinii> trasaLinii, RozkladPrzejazdow rozkladPrzejazdow) 
-            : this(idLinii, trasaLinii) {
-            
-            this.rozkladPrzejazdow = rozkladPrzejazdow;
-        }
-
         public virtual Przystanek.Przystanek ZwrocOstatniPrzystanek() {
             return ZwrocPrzystanekIndeks(trasaLinii.Count - 1);
         }
@@ -58,6 +49,11 @@ namespace ModelTransportuPublicznego.Model
 
         public virtual Przystanek.Przystanek ZwrocPrzystanekIndeks(int indeks) {
             return trasaLinii[indeks].przystanek;
+        }
+
+        IEnumerator<WpisLinii> IEnumerable<WpisLinii>.GetEnumerator()
+        {
+            return trasaLinii.GetEnumerator();
         }
 
         public IEnumerator GetEnumerator() {
@@ -86,11 +82,14 @@ namespace ModelTransportuPublicznego.Model
             return trasaLinii[rezultat + 1].przystanek;
         }
 
-        public virtual int ZnajdzIndexPrzystanku(Przystanek.Przystanek przystanek) {
+        public virtual int ZnajdzIndexPrzystanku(Przystanek.Przystanek przystanek)
+        {
             var rezultat = 0;
 
-            foreach (var wpis in trasaLinii) {
-                if (przystanek == wpis.przystanek) {
+            foreach (var wpis in trasaLinii)
+            {
+                if (przystanek == wpis.przystanek)
+                {
                     return rezultat;
                 }
 
@@ -100,22 +99,11 @@ namespace ModelTransportuPublicznego.Model
             return -1;
         }
 
-        public virtual void DodajWpisDoRozkladuPrzystankowLinii() {
-            foreach (var czas in rozkladPrzejazdow) {
-                var suma = TimeSpan.Zero;
-                foreach (var wpis in trasaLinii) {
-                    suma += wpis.czasPrzyjaduDoPrzystanku;
-                    wpis.przystanek.RozkladJazdy.DodajWpisDoRozkladu(new WpisRozkladuJazdy(this, czas + suma));
-                }
-            }
-        }
-
         public virtual bool JestPrzystankiemKoncowym(Przystanek.Przystanek przystanek) {
             return przystanek == trasaLinii[trasaLinii.Count - 1].przystanek;
         }
 
         protected virtual Linia ZwrocLiniePowrotna() {
-            var rPrzejazdow = new RozkladPrzejazdow(this.rozkladPrzejazdow);
             var wpisyLinii = new List<WpisLinii>();
 
             foreach (var wpis in trasaLinii) {
@@ -125,7 +113,7 @@ namespace ModelTransportuPublicznego.Model
             wpisyLinii.Reverse();
             OdwrocCzasyPrzejazdow(wpisyLinii);
             
-            var rezultat = new Linia(idLinii + "R", wpisyLinii, rPrzejazdow);
+            var rezultat = new Linia(idLinii + "R", wpisyLinii);
             
             rezultat.DodajTrasyPowrotne();
 

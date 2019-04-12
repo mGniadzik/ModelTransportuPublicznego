@@ -7,6 +7,7 @@ using System.Drawing;
 using ModelTransportuPublicznego.Model.Przystanek;
 using System.Linq;
 using ModelTransportuPublicznego.Model;
+using ModelTransportuPublicznego.Model.Firma;
 
 namespace AplikacjaPomocnicza
 {

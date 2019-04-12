@@ -65,7 +65,9 @@
     <Compile Include="Misc\UIDGenerator.cs" />
     <Compile Include="Misc\WizualizatorMapy.cs" />
     <Compile Include="Model\Autobus.cs" />
-    <Compile Include="Model\Firma.cs" />
+    <Compile Include="Model\Firma\ElementRozkladuPrzejazdow.cs" />
+    <Compile Include="Model\Firma\Firma.cs" />
+    <Compile Include="Model\Firma\RozkladPrzejazdow.cs" />
     <Compile Include="Model\Kierowca.cs" />
     <Compile Include="Model\Linia.cs" />
     <Compile Include="Model\Pasazer.cs" />
@@ -75,7 +77,6 @@
     </Compile>
     <Compile Include="Model\Przystanek\Przystanek.cs" />
     <Compile Include="Model\Przystanek\RozkladJazdy.cs" />
-    <Compile Include="Model\RozkladPrzejazdow.cs" />
     <Compile Include="Model\Trasa.cs" />
     <Compile Include="Model\WpisLinii.cs" />
     <Compile Include="Model\WpisRozkladuJazdu.cs" />

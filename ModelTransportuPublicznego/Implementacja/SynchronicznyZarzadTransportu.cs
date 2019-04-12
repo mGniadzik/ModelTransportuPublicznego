@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using ModelTransportuPublicznego.Misc;
 using ModelTransportuPublicznego.Model;
+using ModelTransportuPublicznego.Model.Firma;
 using ModelTransportuPublicznego.Model.Przystanek;
 
 namespace ModelTransportuPublicznego.Implementacja {

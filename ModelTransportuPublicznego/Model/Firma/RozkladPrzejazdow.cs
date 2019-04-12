@@ -2,23 +2,28 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace ModelTransportuPublicznego.Model {
-    public class RozkladPrzejazdow : IEnumerable<TimeSpan> {
-        private List<TimeSpan> czasyPrzejazdow;
+namespace ModelTransportuPublicznego.Model.Firma {
+    public class RozkladPrzejazdow : IEnumerable<ElementRozkladuPrzejazdow>
+    {
+        protected List<ElementRozkladuPrzejazdow> przejazdy;
 
-        public RozkladPrzejazdow(IEnumerable<TimeSpan> listaPrzejazdow) {
-            czasyPrzejazdow = new List<TimeSpan>();
-            
-            foreach (var ts in listaPrzejazdow) {
-                czasyPrzejazdow.Add(ts);
+        protected RozkladPrzejazdow()
+        {
+            przejazdy = new List<ElementRozkladuPrzejazdow>();
+        }
+
+        protected RozkladPrzejazdow(IEnumerable<ElementRozkladuPrzejazdow> przejazdy) : this()
+        {
+            foreach (var p in przejazdy)
+            {
+                this.przejazdy.Add(p);
             }
         }
-        
-        public IEnumerable<TimeSpan> CzasyPrzejazdow => czasyPrzejazdow;
 
 
-        public IEnumerator<TimeSpan> GetEnumerator() {
-            return czasyPrzejazdow.GetEnumerator();
+        public IEnumerator<ElementRozkladuPrzejazdow> GetEnumerator()
+        {
+            return przejazdy.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator() {

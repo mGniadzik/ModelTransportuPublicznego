@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using ModelTransportuPublicznego.Model;
+using ModelTransportuPublicznego.Model.Firma;
 using ModelTransportuPublicznego.Model.Przystanek;
 
 namespace ModelTransportuPublicznego.Misc {

@@ -1,5 +1,6 @@
 using ModelTransportuPublicznego.Implementacja.Wyjatki;
 using ModelTransportuPublicznego.Model;
+using ModelTransportuPublicznego.Model.Firma;
 
 namespace ModelTransportuPublicznego.Implementacja.Firmy {
     public class FirmaPierwszyWybor : Firma {

@@ -6,15 +6,15 @@ namespace ModelTransportuPublicznego.Model {
 
         protected string nazwaFirmy;
         protected List<Przystanek.Przystanek> siecPrzystankow;
-        protected List<Firma> listaFirm;
+        protected List<Firma.Firma> listaFirm;
 
         public IEnumerable<Przystanek.Przystanek> SiecPrzystankow => siecPrzystankow;
-        public IEnumerable<Firma> ListaFirm => listaFirm;
+        public IEnumerable<Firma.Firma> ListaFirm => listaFirm;
 
         public ZarzadTransportu(string nazwaFirmy) {
             this.nazwaFirmy = nazwaFirmy;
             siecPrzystankow = new List<Przystanek.Przystanek>();
-            listaFirm = new List<Firma>();
+            listaFirm = new List<Firma.Firma>();
         }
 
         public ZarzadTransportu(string nazwaFirmy, IEnumerable<Przystanek.Przystanek> siecPrzystankow) : this(nazwaFirmy) {
@@ -22,10 +22,10 @@ namespace ModelTransportuPublicznego.Model {
                 this.siecPrzystankow.Add(przystanek);
             }
             
-            listaFirm = new List<Firma>();
+            listaFirm = new List<Firma.Firma>();
         }
 
-        public ZarzadTransportu(string nazwaFirmy, IEnumerable<Firma> listaFirm) : this(nazwaFirmy) {
+        public ZarzadTransportu(string nazwaFirmy, IEnumerable<Firma.Firma> listaFirm) : this(nazwaFirmy) {
             foreach (var firma in listaFirm) {
                 this.listaFirm.Add(firma);
             }
@@ -33,7 +33,7 @@ namespace ModelTransportuPublicznego.Model {
             siecPrzystankow = new List<Przystanek.Przystanek>();
         }
 
-        protected ZarzadTransportu(string nazwaFirmy, IEnumerable<Przystanek.Przystanek> siecPrzystankow, IEnumerable<Firma> listaFirm) : this(nazwaFirmy) {
+        protected ZarzadTransportu(string nazwaFirmy, IEnumerable<Przystanek.Przystanek> siecPrzystankow, IEnumerable<Firma.Firma> listaFirm) : this(nazwaFirmy) {
             foreach (var przystanek in siecPrzystankow) {
                 this.siecPrzystankow.Add(przystanek);
             }
@@ -57,17 +57,17 @@ namespace ModelTransportuPublicznego.Model {
             siecPrzystankow.Remove(przystanek);
         }
 
-        public virtual void DodajFirme(Firma firma) {
+        public virtual void DodajFirme(Firma.Firma firma) {
             listaFirm.Add(firma);
         }
 
-        public virtual void DodajFirmy(IEnumerable<Firma> firmy) {
+        public virtual void DodajFirmy(IEnumerable<Firma.Firma> firmy) {
             foreach (var firma in firmy) {
                 listaFirm.Add(firma);
             }
         }
 
-        public virtual void UsunFirme(Firma firma) {
+        public virtual void UsunFirme(Firma.Firma firma) {
             listaFirm.Remove(firma);
         }
 
