@@ -6,11 +6,7 @@ namespace ModelTransportuPublicznego.Misc {
         private static readonly string znaczki = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890-_";
         private static readonly Random Rand = new Random();
 
-        public static string WygenerujUid() {
-            return WygenerujUid(11);
-        }
-
-        private static string WygenerujUid(int dlugosc) {
+        public static string WygenerujUid(int dlugosc = 11) {
 //            var rand = new Random();
             var sb = new StringBuilder();
 

@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ModelTransportuPublicznego.Misc;
 
 namespace ModelTransportuPublicznego.Model {
     public abstract class Autobus {
+        protected string modelAutobusu;
         protected string idAutobusu;
         protected int maksymalnaPojemnosc;
         protected List<Pasazer> obecniPasazerowie;
         protected int iloscDzwi;
         protected double dlugoscAutobusu;
+        protected string sciezkaPlikuKonfiguracyjnego;
         public Linia liniaAutobusu;
         public Kierowca kierowcaAutobusu;
         public TimeSpan czasNastepnejAkcji;
@@ -16,6 +19,8 @@ namespace ModelTransportuPublicznego.Model {
         public Kierowca KierowcaAutobusu => kierowcaAutobusu;
 
         public string IdAutobusu => idAutobusu;
+
+        public string ModelAutobusu => modelAutobusu;
 
         public virtual int IloscPasazerow => obecniPasazerowie.Count;
 
@@ -25,26 +30,31 @@ namespace ModelTransportuPublicznego.Model {
 
         public double DlugoscAutobusu => dlugoscAutobusu;
 
+        public string SciezkaPlikuKonfiguracyjnego => sciezkaPlikuKonfiguracyjnego;
+
         public Autobus()
         {
             obecniPasazerowie = new List<Pasazer>();
             czasNastepnejAkcji = TimeSpan.Zero;
         }
 
-        public Autobus(string idAutobusu, int maksymalnaPojemnosc, int iloscDzwi, double dlugosc) : this() {
-            this.idAutobusu = idAutobusu;
+        public Autobus(string modelAutobusu, int maksymalnaPojemnosc, int iloscDzwi, double dlugoscAutobusu, string sciezkaPlikuKonfiguracyjnego) : this() {
+            idAutobusu = UidGenerator.WygenerujUid(5);
+            this.modelAutobusu = modelAutobusu;
             this.maksymalnaPojemnosc = maksymalnaPojemnosc;
             this.iloscDzwi = iloscDzwi;
-            dlugoscAutobusu = dlugosc;
+            this.sciezkaPlikuKonfiguracyjnego = sciezkaPlikuKonfiguracyjnego;
+            this.dlugoscAutobusu = dlugoscAutobusu;
         }
 
-        public Autobus(Autobus autobus, Linia liniaAutobusu, Kierowca kierowcaAutobusu) : this(autobus.idAutobusu, autobus.maksymalnaPojemnosc, autobus.iloscDzwi, autobus.dlugoscAutobusu) {
+        public Autobus(Autobus autobus, Linia liniaAutobusu, Kierowca kierowcaAutobusu) : this(autobus.idAutobusu, autobus.maksymalnaPojemnosc, 
+            autobus.iloscDzwi, autobus.dlugoscAutobusu, autobus.sciezkaPlikuKonfiguracyjnego) {
             this.liniaAutobusu = liniaAutobusu;
             this.kierowcaAutobusu = kierowcaAutobusu;
         }
 
-        protected Autobus(string idAutobusu, int maksymalnaPojemnosc, int iloscDzwi, double dlugoscAutobusu, IEnumerable<Pasazer> obecniPasazerowie) 
-            : this(idAutobusu, maksymalnaPojemnosc, iloscDzwi, dlugoscAutobusu) {
+        protected Autobus(string modelAutobusu, int maksymalnaPojemnosc, int iloscDzwi, double dlugoscAutobusu, string sciezkaPlikuKonfiguracyjnego, 
+            IEnumerable<Pasazer> obecniPasazerowie) : this(modelAutobusu, maksymalnaPojemnosc, iloscDzwi, dlugoscAutobusu, sciezkaPlikuKonfiguracyjnego) {
             
             foreach (var pasazer in obecniPasazerowie) {
                 this.obecniPasazerowie.Add(pasazer);

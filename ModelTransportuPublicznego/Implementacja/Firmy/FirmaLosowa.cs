@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using ModelTransportuPublicznego.Implementacja.Autobusy;
 using ModelTransportuPublicznego.Implementacja.Wyjatki;
 using ModelTransportuPublicznego.Model;
 using ModelTransportuPublicznego.Model.Firma;
@@ -8,12 +10,13 @@ namespace ModelTransportuPublicznego.Implementacja.Firmy {
     public class FirmaLosowa : Firma {
         Random rand;
 
-        public FirmaLosowa(string nazwaFirmy) : base(nazwaFirmy) {
+        public FirmaLosowa(string nazwaFirmy, string sciezkaPlikuKonfiguracyjnego) : base(nazwaFirmy, sciezkaPlikuKonfiguracyjnego) {
             rand = new Random();
         }
 
-        public FirmaLosowa(string nazwaFirmy, IEnumerable<Autobus> tabor, IEnumerable<Kierowca> listaKierowcow,
-            IEnumerable<Linia> linieAutobusowe) : base(nazwaFirmy, tabor, listaKierowcow, linieAutobusowe) {
+        public FirmaLosowa(string nazwaFirmy, IEnumerable<KeyValuePair<Autobus, int>> tabor, string sciezkaPlikuKonfiguracyjnego, 
+            IEnumerable<Kierowca> listaKierowcow, IEnumerable<Linia> linieAutobusowe) : base(nazwaFirmy, tabor, sciezkaPlikuKonfiguracyjnego, 
+                listaKierowcow, linieAutobusowe) {
             rand = new Random();
         }
 
@@ -21,12 +24,18 @@ namespace ModelTransportuPublicznego.Implementacja.Firmy {
             if (!IstniejaDostepneAutobusy()) {
                 throw new AutobusNieZnalezionyWyjatek("Nie instnieja autobusy, które moglyby obsłużyć dany przejazd.");
             }
-            var wybor = rand.Next(dostepnyTabor.Count);
-            var autobus = dostepnyTabor[wybor];
-            dostepnyTabor.RemoveAt(wybor);
-            listaAutobusowZajetych.Add(autobus);
 
-            return autobus;
+            List<Autobus> klucze = new List<Autobus>(dostepnyTabor.Keys);
+            Autobus rezultat;
+
+            do
+            {
+                rezultat = klucze[rand.Next(klucze.Count)];
+            } while (dostepnyTabor[rezultat] > 0);
+
+            ZajmijAutobus(rezultat);
+
+            return rezultat;
         }
 
         public override Kierowca WybierzKierowceDoObslugiPrzejazdu(Linia linia) {
@@ -34,18 +43,43 @@ namespace ModelTransportuPublicznego.Implementacja.Firmy {
                 throw new KierowcaNieZnalezionyWyjatek("Nie istnieja kierowcy, którzy mogliby obsłużyć dany przejazd.");
             }
 
-            Kierowca kierowca = null;
-            int wybor = 0;
-
-            do {
+            Kierowca kierowca;
+            int wybor;
+            do
+            {
                 wybor = rand.Next(listaDostepnychKierowcow.Count);
                 kierowca = listaDostepnychKierowcow[wybor];
             } while (!kierowca.CzyMozeWykonacPrzejazd(linia.ZwrocSpodziewanyCzasPrzejazduLinii()));
-            
+
             listaDostepnychKierowcow.RemoveAt(wybor);
             listaKierwcowZajetych.Add(kierowca);
             
             return kierowca;
+        }
+
+        public static FirmaLosowa OdczytajPlik(string sciezkaPliku, ZarzadTransportu zt)
+        {
+            FirmaLosowa rezultat;
+
+            using (var sr = File.OpenText(sciezkaPliku))
+            {
+                rezultat = new FirmaLosowa(sr.ReadLine(), sciezkaPliku);
+                var linie = sr.ReadLine().Split('|');
+                var tabor = sr.ReadLine().Split('|');
+
+                foreach (var sciezkaPlikuLinii in linie)
+                {
+                    rezultat.DodajLinie(Linia.OdczytajPlik(sciezkaPlikuLinii, zt));
+                }
+
+                foreach (var dane in tabor)
+                {
+                    var daneAutobusu = dane.Split(':');
+                    rezultat.DodajAutobus(AutobusLiniowy.OdczytajPlik(daneAutobusu[0]), Convert.ToInt32(daneAutobusu[1]));
+                }
+            }
+
+            return rezultat;
         }
     }
 }

@@ -1,12 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using ModelTransportuPublicznego.Implementacja.Firmy;
 using ModelTransportuPublicznego.Implementacja.Wyjatki;
 using ModelTransportuPublicznego.Misc;
 
-namespace ModelTransportuPublicznego.Model {
+namespace ModelTransportuPublicznego.Model
+{
     public class Przejazd : IComparable<Przejazd>
     {
         private Autobus autobus;
+        private string modelAutobusu;
         private Akcja nastepnaAkcja;
         private Przystanek.Przystanek obecnyPrzystanek;
         private TimeSpan czasPrzejazdu;
@@ -58,6 +62,19 @@ namespace ModelTransportuPublicznego.Model {
             this.czasRozpoczeciaPrzejazdu = czasRozpoczeciaPrzejazdu;
             this.linia = linia;
             obecnyPrzystanek = linia.ZwrocPrzystanekIndeks(0);
+        }
+
+        public Przejazd(Firma.Firma firma, Linia linia, TimeSpan czasRozpoczeciaPrzejazdu, string modelAutobusu) : this()
+        {
+            this.firma = firma;
+            this.linia = linia;
+            this.czasRozpoczeciaPrzejazdu = czasRozpoczeciaPrzejazdu;
+            this.modelAutobusu = modelAutobusu;
+        }
+
+        public Przejazd(Firma.Firma firma, Linia linia, TimeSpan czasRozpoczeciaPrzejazdu, Autobus autobus) : this(firma, linia, czasRozpoczeciaPrzejazdu)
+        {
+            this.autobus = autobus;
         }
 
         protected enum Akcja
@@ -198,29 +215,10 @@ namespace ModelTransportuPublicznego.Model {
 
         private void SprawdzCzyPrzejazdPosiadaAutobus()
         {
-            if (autobus == null)
-            {
-                try
-                {
-                    var tmpAutobus = firma.WybierzAutobusDoObslugiPrzejazdu();
-                    var kierowca = firma.WybierzKierowceDoObslugiPrzejazdu(linia);
+            if (autobus != null) return;
 
-                    tmpAutobus.kierowcaAutobusu = kierowca;
-                    tmpAutobus.liniaAutobusu = linia;
-                    tmpAutobus.czasNastepnejAkcji = czasRozpoczeciaPrzejazdu;
-                    autobus = tmpAutobus;
-                }
-                catch (AutobusNieZnalezionyWyjatek)
-                {
-                    Logger.ZalogujBrakDostepnegoAutobusu(firma, linia);
-                    trasaZakonczona = true;
-                }
-                catch (KierowcaNieZnalezionyWyjatek)
-                {
-                    Logger.ZalogujBrakDostepnegoKierowcy(firma, linia);
-                    trasaZakonczona = true;
-                }
-            }
+            UstawAutobus();
+            UstawKierowce();
         }
 
         private void UstawCzasyAkcjiPojazdowOczekujacych(TimeSpan czas)
@@ -229,6 +227,81 @@ namespace ModelTransportuPublicznego.Model {
             {
                 a.czasNastepnejAkcji = czas + new TimeSpan(0, 0, 30);
             }
+        }
+
+        private void UstawAutobus()
+        {
+            try
+            {
+                Autobus tmpAutobus;
+                if (modelAutobusu != null)
+                {
+                    tmpAutobus = firma.ZwrocAutobusPoModelu(modelAutobusu);
+
+                    if (tmpAutobus != null)
+                    {
+                        firma.ZajmijAutobus(tmpAutobus);
+                    } else
+                    {
+                        throw new AutobusNieZnalezionyWyjatek();
+                    }
+                } else
+                {
+                    tmpAutobus = firma.WybierzAutobusDoObslugiPrzejazdu();
+                }
+
+                autobus = tmpAutobus;
+            } catch (AutobusNieZnalezionyWyjatek)
+            {
+                Logger.ZalogujBrakDostepnegoAutobusu(firma, linia);
+                trasaZakonczona = true;
+            }
+        }
+
+        private void UstawKierowce()
+        {
+            try
+            {
+                autobus.kierowcaAutobusu = firma.WybierzKierowceDoObslugiPrzejazdu(linia);
+            } catch (KierowcaNieZnalezionyWyjatek)
+            {
+                Logger.ZalogujBrakDostepnegoKierowcy(firma, linia);
+                trasaZakonczona = true;
+            }
+        }
+
+        public virtual bool Zapisz(StreamWriter sw)
+        {
+            try
+            {
+                sw.WriteLine(firma.SciezkaPlikuKonfiguracyjnego);
+                sw.WriteLine(linia.IdLinii);
+                sw.WriteLine(czasRozpoczeciaPrzejazdu);
+                sw.WriteLine(autobus.ModelAutobusu);
+            } catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+
+            return true;
+        }
+
+        public static Przejazd OdczytajPlik(string sciezkaPliku, ZarzadTransportu zt)
+        {
+            Przejazd rezultat;
+
+            using (var sr = File.OpenText(sciezkaPliku))
+            {
+                var firma = FirmaLosowa.OdczytajPlik(sciezkaPliku, zt);
+                var linia = firma.ZwrocLiniePoID(sr.ReadLine());
+                var czasR = sr.ReadLine().Split(':');
+                var modelAutobusu = firma.ZwrocAutobusPoModelu(sr.ReadLine());
+
+                rezultat = new Przejazd(firma, linia, new TimeSpan(Convert.ToInt32(czasR[0]), Convert.ToInt32(czasR[1]), Convert.ToInt32(czasR[2])), modelAutobusu);
+            }
+
+            return rezultat;
         }
     }
 }

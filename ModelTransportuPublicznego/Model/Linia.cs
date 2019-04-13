@@ -8,6 +8,7 @@ namespace ModelTransportuPublicznego.Model
 {
     public class Linia : IEnumerable<WpisLinii> {
         protected string idLinii;
+        protected string sciezkaPlikuKonfiguracyjnego;
         protected List<WpisLinii> trasaLinii;
 
         public string IdLinii => idLinii;
@@ -18,12 +19,14 @@ namespace ModelTransportuPublicznego.Model
 
         public int Count => trasaLinii.Count;
 
-        public Linia(string idLinii) {
+        public string SciezkaPlikuKonfiguracyjnego => sciezkaPlikuKonfiguracyjnego;
+
+        public Linia(string idLinii, string sciezkaPlikuKonfiguracyjnego) {
             this.idLinii = idLinii;
             trasaLinii = new List<WpisLinii>();
         }
 
-        public Linia(string idLinii, IEnumerable<WpisLinii> trasaLinii) : this(idLinii) {
+        public Linia(string idLinii, string sciezkaPlikuKonfiguracyjnego, IEnumerable<WpisLinii> trasaLinii) : this(idLinii, sciezkaPlikuKonfiguracyjnego) {
 
             foreach (var przystanek in trasaLinii) {
                 this.trasaLinii.Add(przystanek);
@@ -113,7 +116,7 @@ namespace ModelTransportuPublicznego.Model
             wpisyLinii.Reverse();
             OdwrocCzasyPrzejazdow(wpisyLinii);
             
-            var rezultat = new Linia(idLinii + "R", wpisyLinii);
+            var rezultat = new Linia(idLinii + "R", sciezkaPlikuKonfiguracyjnego, wpisyLinii);
             
             rezultat.DodajTrasyPowrotne();
 
@@ -200,7 +203,7 @@ namespace ModelTransportuPublicznego.Model
             return true;
         }
 
-        public virtual Linia OdczytajPlik(string sciezkaPliku, ZarzadTransportu zt)
+        public static Linia OdczytajPlik(string sciezkaPliku, ZarzadTransportu zt)
         {
             string id;
             var wpisy = new List<WpisLinii>();
@@ -215,7 +218,7 @@ namespace ModelTransportuPublicznego.Model
                 } while (!sr.EndOfStream);
             }
 
-            return new Linia(id, wpisy);
+            return new Linia(id, sciezkaPliku, wpisy);
         }
     }
 }

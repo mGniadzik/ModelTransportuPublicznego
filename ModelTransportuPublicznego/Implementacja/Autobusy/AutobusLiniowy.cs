@@ -22,8 +22,8 @@ namespace ModelTransportuPublicznego.Implementacja.Autobusy
         }
 
         public AutobusLiniowy(string idAutobusu, int maksymalnaPojemnosc, int iloscDzwi, double przyspieszenie, 
-            double trasaHamowania100, double predkoscMaksymalna, double dlugoscAutobusu, IEnumerable<KeyValuePair<int, int>> spowolnieniaPrzyspieszenia = null, 
-            IEnumerable<KeyValuePair<int, int>> wydluzenieHamowania = null) : base(idAutobusu, maksymalnaPojemnosc, iloscDzwi, dlugoscAutobusu) {
+            double trasaHamowania100, double predkoscMaksymalna, double dlugoscAutobusu, string sciezkaPlikuKonfiguracyjnego = null, IEnumerable<KeyValuePair<int, int>> spowolnieniaPrzyspieszenia = null, 
+            IEnumerable<KeyValuePair<int, int>> wydluzenieHamowania = null) : base(idAutobusu, maksymalnaPojemnosc, iloscDzwi, dlugoscAutobusu, sciezkaPlikuKonfiguracyjnego) {
 
             this.przyspieszenie = przyspieszenie;
             this.trasaHamowania100 = trasaHamowania100;
@@ -31,6 +31,7 @@ namespace ModelTransportuPublicznego.Implementacja.Autobusy
             this.dlugoscAutobusu = dlugoscAutobusu;
             this.spowolnieniaPrzyspieszenia = new SortedDictionary<int, int>();
             this.wydluzenieHamowania = new SortedDictionary<int, int>();
+            this.sciezkaPlikuKonfiguracyjnego = sciezkaPlikuKonfiguracyjnego;
 
             if (spowolnieniaPrzyspieszenia != null)
             {
@@ -154,7 +155,7 @@ namespace ModelTransportuPublicznego.Implementacja.Autobusy
         {
             try
             {
-                sw.WriteLine(string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}", idAutobusu, maksymalnaPojemnosc, iloscDzwi, przyspieszenie, trasaHamowania100, predkoscMaksymalna, dlugoscAutobusu));
+                sw.WriteLine(string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}", modelAutobusu, maksymalnaPojemnosc, iloscDzwi, przyspieszenie, trasaHamowania100, predkoscMaksymalna, dlugoscAutobusu));
 
                 var last = spowolnieniaPrzyspieszenia.Last();
                 foreach (var kvp in spowolnieniaPrzyspieszenia)
@@ -191,7 +192,7 @@ namespace ModelTransportuPublicznego.Implementacja.Autobusy
         {
             string[] stale, przyspieszenia, hamowania;
 
-            using (var sr = File.OpenText(string.Format("../../../{0}.txt", nazwaPliku)))
+            using (var sr = File.OpenText(nazwaPliku))
             {
                 stale = sr.ReadLine().Split('|');
                 przyspieszenia = sr.ReadLine().Split('|');

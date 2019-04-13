@@ -1,16 +1,19 @@
 using ModelTransportuPublicznego.Implementacja.Wyjatki;
 using ModelTransportuPublicznego.Model;
 using ModelTransportuPublicznego.Model.Firma;
+using System.Collections.Generic;
 
 namespace ModelTransportuPublicznego.Implementacja.Firmy {
     public class FirmaPierwszyWybor : Firma {
         
-        public FirmaPierwszyWybor(string nazwaFirmy) : base(nazwaFirmy) { }
+        public FirmaPierwszyWybor(string nazwaFirmy, string sciezkaPlikuKonfiguracyjnego) : base(nazwaFirmy, sciezkaPlikuKonfiguracyjnego) { }
+
         public override Autobus WybierzAutobusDoObslugiPrzejazdu() {
             if (IstniejaDostepneAutobusy()) {
-                var autobus = dostepnyTabor[0];
-                listaAutobusowZajetych.Add(autobus);
-                dostepnyTabor.Remove(autobus);
+                var autobus = new List<Autobus>(dostepnyTabor.Keys)[0];
+
+                ZajmijAutobus(autobus);
+
                 return autobus;
             }
             

@@ -392,7 +392,7 @@ namespace ModelTransportuPublicznego.Model.Przystanek
         public static Przystanek OdczytajPlik(string nazwaPliku, ZarzadTransportu zt)
         {
             Przystanek rezultat = null;
-            using (var sr = File.OpenText(string.Format("../../../{0}.txt", nazwaPliku)))
+            using (var sr = File.OpenText(nazwaPliku))
             {
                 var stale = sr.ReadLine().Split('|');
                 var zapelnieniaPasazerow = sr.ReadLine().Split('|');
