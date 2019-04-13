@@ -17,6 +17,8 @@ namespace ModelTransportuPublicznego.Model
 
         public WpisLinii this[int indeks] => trasaLinii[indeks];
 
+        public virtual IEnumerable<WpisLinii> Wpisy => trasaLinii;
+
         public int Count => trasaLinii.Count;
 
         public string SciezkaPlikuKonfiguracyjnego => sciezkaPlikuKonfiguracyjnego;
@@ -35,10 +37,6 @@ namespace ModelTransportuPublicznego.Model
 
         public virtual Przystanek.Przystanek ZwrocOstatniPrzystanek() {
             return ZwrocPrzystanekIndeks(trasaLinii.Count - 1);
-        }
-
-        public virtual IEnumerable<WpisLinii> ZwrocWpisy() {
-            return trasaLinii;
         }
 
         public virtual int ZwrocIndeksPrzystanku(Przystanek.Przystanek przystanek) {
@@ -203,7 +201,7 @@ namespace ModelTransportuPublicznego.Model
             return true;
         }
 
-        public static Linia OdczytajPlik(string sciezkaPliku, ZarzadTransportu zt)
+        public static Linia OdczytajPlik(string sciezkaPliku, SynchronicznyZarzadTransportu zt)
         {
             string id;
             var wpisy = new List<WpisLinii>();

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace ModelTransportuPublicznego.Model {
-    public abstract class ZarzadTransportu {
+    public abstract class SynchronicznyZarzadTransportu {
 
         protected string nazwaFirmy;
         protected List<Przystanek.Przystanek> siecPrzystankow;
@@ -11,13 +11,13 @@ namespace ModelTransportuPublicznego.Model {
         public IEnumerable<Przystanek.Przystanek> SiecPrzystankow => siecPrzystankow;
         public IEnumerable<Firma.Firma> ListaFirm => listaFirm;
 
-        public ZarzadTransportu(string nazwaFirmy) {
+        public SynchronicznyZarzadTransportu(string nazwaFirmy) {
             this.nazwaFirmy = nazwaFirmy;
             siecPrzystankow = new List<Przystanek.Przystanek>();
             listaFirm = new List<Firma.Firma>();
         }
 
-        public ZarzadTransportu(string nazwaFirmy, IEnumerable<Przystanek.Przystanek> siecPrzystankow) : this(nazwaFirmy) {
+        public SynchronicznyZarzadTransportu(string nazwaFirmy, IEnumerable<Przystanek.Przystanek> siecPrzystankow) : this(nazwaFirmy) {
             foreach (var przystanek in siecPrzystankow) {
                 this.siecPrzystankow.Add(przystanek);
             }
@@ -25,7 +25,7 @@ namespace ModelTransportuPublicznego.Model {
             listaFirm = new List<Firma.Firma>();
         }
 
-        public ZarzadTransportu(string nazwaFirmy, IEnumerable<Firma.Firma> listaFirm) : this(nazwaFirmy) {
+        public SynchronicznyZarzadTransportu(string nazwaFirmy, IEnumerable<Firma.Firma> listaFirm) : this(nazwaFirmy) {
             foreach (var firma in listaFirm) {
                 this.listaFirm.Add(firma);
             }
@@ -33,7 +33,7 @@ namespace ModelTransportuPublicznego.Model {
             siecPrzystankow = new List<Przystanek.Przystanek>();
         }
 
-        protected ZarzadTransportu(string nazwaFirmy, IEnumerable<Przystanek.Przystanek> siecPrzystankow, IEnumerable<Firma.Firma> listaFirm) : this(nazwaFirmy) {
+        protected SynchronicznyZarzadTransportu(string nazwaFirmy, IEnumerable<Przystanek.Przystanek> siecPrzystankow, IEnumerable<Firma.Firma> listaFirm) : this(nazwaFirmy) {
             foreach (var przystanek in siecPrzystankow) {
                 this.siecPrzystankow.Add(przystanek);
             }

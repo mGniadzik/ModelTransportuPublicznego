@@ -155,12 +155,12 @@
             this.bLiniaZapisz = new System.Windows.Forms.Button();
             this.bLiniaMenu = new System.Windows.Forms.Button();
             this.dgLiniaDane = new System.Windows.Forms.DataGridView();
-            this.cNazwaPrzystanku = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cLiniaPrzystanek = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cCzasDojazdu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbLiniaId = new System.Windows.Forms.TextBox();
             this.bLiniaId = new System.Windows.Forms.Label();
             this.bLiniaTytul = new System.Windows.Forms.Label();
+            this.cNazwaPrzystanku = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cLiniaPrzystanek = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cCzasDojazdu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pPowitanie.SuspendLayout();
             this.pAutobusStale.SuspendLayout();
             this.msAutobus.SuspendLayout();
@@ -1298,20 +1298,23 @@
             // msLiniaPlikZapisz
             // 
             this.msLiniaPlikZapisz.Name = "msLiniaPlikZapisz";
-            this.msLiniaPlikZapisz.Size = new System.Drawing.Size(132, 22);
+            this.msLiniaPlikZapisz.Size = new System.Drawing.Size(180, 22);
             this.msLiniaPlikZapisz.Text = "Zapisz";
+            this.msLiniaPlikZapisz.Click += new System.EventHandler(this.MsLiniaPlikZapisz_Click);
             // 
             // msLiniaPlikZapiszJako
             // 
             this.msLiniaPlikZapiszJako.Name = "msLiniaPlikZapiszJako";
-            this.msLiniaPlikZapiszJako.Size = new System.Drawing.Size(132, 22);
+            this.msLiniaPlikZapiszJako.Size = new System.Drawing.Size(180, 22);
             this.msLiniaPlikZapiszJako.Text = "Zapisz jako";
+            this.msLiniaPlikZapiszJako.Click += new System.EventHandler(this.MsLiniaPlikZapiszJako_Click);
             // 
             // msLiniaPlikWczytaj
             // 
             this.msLiniaPlikWczytaj.Name = "msLiniaPlikWczytaj";
-            this.msLiniaPlikWczytaj.Size = new System.Drawing.Size(132, 22);
+            this.msLiniaPlikWczytaj.Size = new System.Drawing.Size(180, 22);
             this.msLiniaPlikWczytaj.Text = "Wczytaj";
+            this.msLiniaPlikWczytaj.Click += new System.EventHandler(this.MsLiniaPlikWczytaj_Click);
             // 
             // pLiniaDane
             // 
@@ -1356,24 +1359,8 @@
             this.dgLiniaDane.Name = "dgLiniaDane";
             this.dgLiniaDane.Size = new System.Drawing.Size(763, 397);
             this.dgLiniaDane.TabIndex = 3;
-            // 
-            // cNazwaPrzystanku
-            // 
-            this.cNazwaPrzystanku.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cNazwaPrzystanku.HeaderText = "Nazwa przystanku";
-            this.cNazwaPrzystanku.Name = "cNazwaPrzystanku";
-            // 
-            // cLiniaPrzystanek
-            // 
-            this.cLiniaPrzystanek.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cLiniaPrzystanek.HeaderText = "Przystanek";
-            this.cLiniaPrzystanek.Name = "cLiniaPrzystanek";
-            // 
-            // cCzasDojazdu
-            // 
-            this.cCzasDojazdu.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cCzasDojazdu.HeaderText = "Czas dojazdu";
-            this.cCzasDojazdu.Name = "cCzasDojazdu";
+            this.dgLiniaDane.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgLiniaDane_CellDoubleClick);
+            this.dgLiniaDane.KeyUp += new System.Windows.Forms.KeyEventHandler(this.DgLiniaDane_KeyUp);
             // 
             // tbLiniaId
             // 
@@ -1400,6 +1387,24 @@
             this.bLiniaTytul.Size = new System.Drawing.Size(87, 24);
             this.bLiniaTytul.TabIndex = 0;
             this.bLiniaTytul.Text = "Dane linii";
+            // 
+            // cNazwaPrzystanku
+            // 
+            this.cNazwaPrzystanku.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cNazwaPrzystanku.HeaderText = "Nazwa przystanku";
+            this.cNazwaPrzystanku.Name = "cNazwaPrzystanku";
+            // 
+            // cLiniaPrzystanek
+            // 
+            this.cLiniaPrzystanek.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cLiniaPrzystanek.HeaderText = "Sciezka pliku przystanku";
+            this.cLiniaPrzystanek.Name = "cLiniaPrzystanek";
+            // 
+            // cCzasDojazdu
+            // 
+            this.cCzasDojazdu.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cCzasDojazdu.HeaderText = "Czas dojazdu";
+            this.cCzasDojazdu.Name = "cCzasDojazdu";
             // 
             // AplikacjaPomocnicza
             // 

@@ -30,11 +30,19 @@ namespace ModelTransportuPublicznego.Model {
             return true;
         }
 
-        public static WpisLinii Odczytaj(StreamReader sr, ZarzadTransportu zt)
+        public static WpisLinii Odczytaj(StreamReader sr, SynchronicznyZarzadTransportu zt)
         {
             var dane = sr.ReadLine().Split(':');
 
-            return new WpisLinii(zt.ZwrocPrzystanekPodanejSpecyfikacji(dane[0]), new TimeSpan(Convert.ToInt32(dane[1]), Convert.ToInt32(dane[2]), Convert.ToInt32(dane[3])));
+            if (zt == null)
+            {
+                return new WpisLinii(Przystanek.Przystanek.OdczytajPlik(dane[0], null), new TimeSpan(Convert.ToInt32(dane[1]), 
+                    Convert.ToInt32(dane[2]), Convert.ToInt32(dane[3])));
+            } else
+            {
+                return new WpisLinii(zt.ZwrocPrzystanekPodanejSpecyfikacji(dane[0]), new TimeSpan(Convert.ToInt32(dane[1]), 
+                    Convert.ToInt32(dane[2]), Convert.ToInt32(dane[3])));
+            }
         }
     }
 }

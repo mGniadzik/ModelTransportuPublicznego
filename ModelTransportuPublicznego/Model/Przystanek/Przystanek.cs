@@ -22,7 +22,7 @@ namespace ModelTransportuPublicznego.Model.Przystanek
         protected List<PrzyplywPasazerow> przyplywyPasazerow;
         protected double dlugoscZatoki;
         protected Queue<Autobus> autobusyOczekujace;
-        protected ZarzadTransportu zt;
+        protected SynchronicznyZarzadTransportu zt;
         protected SortedDictionary<int, Color> zapelnieniaPasazerow;
         protected SortedDictionary<int, Color> zapelnieniaAutobusow;
 
@@ -83,7 +83,7 @@ namespace ModelTransportuPublicznego.Model.Przystanek
             zapelnieniaAutobusow = new SortedDictionary<int, Color>();
         }
 
-        public Przystanek(string nazwaPrzystanku, ZarzadTransportu zt, double dlugoscZatoki, int pozycjaX = 0, int pozycjaY = 0, 
+        public Przystanek(string nazwaPrzystanku, SynchronicznyZarzadTransportu zt, double dlugoscZatoki, int pozycjaX = 0, int pozycjaY = 0, 
             int maksymalnaPojemnoscPasazerow = 200, string sciezkaPlikuKonfiguracyjnego = null, IEnumerable<KeyValuePair<int, Color>> zapelnieniePasazerow = null, 
             IEnumerable<KeyValuePair<int, Color>> zapelnienieAutobusow = null) : this() {
             this.nazwaPrzystanku = nazwaPrzystanku;
@@ -111,21 +111,21 @@ namespace ModelTransportuPublicznego.Model.Przystanek
             }
         }
 
-        protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy, ZarzadTransportu zt, double dlugoscZatoki, int pozycjaX = 0, int pozycjaY = 0, int maksymalnaPojemnoscPasazerow = 100) 
+        protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy, SynchronicznyZarzadTransportu zt, double dlugoscZatoki, int pozycjaX = 0, int pozycjaY = 0, int maksymalnaPojemnoscPasazerow = 100) 
             : this(nazwaPrzystanku, zt, dlugoscZatoki, pozycjaX, pozycjaY, maksymalnaPojemnoscPasazerow) {
             foreach (var trasa in trasy) {
                 this.trasy.Add(trasa);
             }
         }
 
-        protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy, IEnumerable<Pasazer> oczekujacyPasazerowie, ZarzadTransportu zt, double dlugoscZatoki, int pozycjaX = 0, int pozycjaY = 0) 
+        protected Przystanek(string nazwaPrzystanku, IEnumerable<Trasa> trasy, IEnumerable<Pasazer> oczekujacyPasazerowie, SynchronicznyZarzadTransportu zt, double dlugoscZatoki, int pozycjaX = 0, int pozycjaY = 0) 
             : this(nazwaPrzystanku, trasy, zt, dlugoscZatoki, pozycjaX, pozycjaY) {
             foreach (var pasazer in oczekujacyPasazerowie) {
                 this.oczekujacyPasazerowie.Add(pasazer);
             }
         }
 
-        public void UstawZarzadTransportu(ZarzadTransportu zt)
+        public void UstawZarzadTransportu(SynchronicznyZarzadTransportu zt)
         {
             this.zt = zt;
         }
@@ -389,7 +389,7 @@ namespace ModelTransportuPublicznego.Model.Przystanek
             return true;
         }
 
-        public static Przystanek OdczytajPlik(string nazwaPliku, ZarzadTransportu zt)
+        public static Przystanek OdczytajPlik(string nazwaPliku, SynchronicznyZarzadTransportu zt)
         {
             Przystanek rezultat = null;
             using (var sr = File.OpenText(nazwaPliku))

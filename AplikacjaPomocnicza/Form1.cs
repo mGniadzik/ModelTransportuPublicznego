@@ -623,5 +623,136 @@ namespace AplikacjaPomocnicza
         {
             UstawPaneleJakoWidoczne(pPrzejazdy, pPrzejazdyUstawianie);
         }
+
+        private void DgLiniaDane_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 1)
+            {
+                var dialog = new OpenFileDialog();
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    nazwaPliku = dialog.FileName;
+                    dgLiniaDane.Rows[e.RowIndex].Cells[1].Value = dialog.FileName;
+                    using (var sr = File.OpenText(dialog.FileName))
+                    {
+                        dgLiniaDane.Rows[e.RowIndex].Cells[0].Value = sr.ReadLine();
+                    }
+                }
+            }
+        }
+
+        private IEnumerable<DataGridViewRow> RzedyBezNazwy(DataGridView dgv)
+        {
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                if (row.Cells[0].Value == null && row.Cells[1].Value != null)
+                {
+                    yield return row;
+                }
+            }
+        }
+
+        private void DgLiniaDane_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                try
+                {
+                    foreach (var row in RzedyBezNazwy(dgLiniaDane))
+                    {
+                        using (var sr = File.OpenText(row.Cells[1].Value.ToString()))
+                        {
+                            row.Cells[0].Value = sr.ReadLine();
+                        }
+                    }
+                }
+                catch (Exception exc)
+                {
+                    Console.WriteLine(exc);
+                    var rzedyDoUsuniecia = new List<DataGridViewRow>();
+
+                    foreach (var row in RzedyBezNazwy(dgLiniaDane))
+                    {
+                        rzedyDoUsuniecia.Add(row);
+                    }
+
+                    foreach (var row in rzedyDoUsuniecia)
+                    {
+                        dgLiniaDane.Rows.Remove(row);
+                    }
+                }
+            }
+        }
+
+        private Linia StworzLinieZInputow()
+        {
+            var wpisyLinii = new List<WpisLinii>();
+
+            foreach (DataGridViewRow row in dgLiniaDane.Rows)
+            {
+                var czas = row.Cells[2].Value.ToString().Split(':');
+                wpisyLinii.Add(new WpisLinii(Przystanek.OdczytajPlik(row.Cells[1].Value.ToString(), null), new TimeSpan(Convert.ToInt32(czas[0]), Convert.ToInt32(czas[1]), Convert.ToInt32(czas[2]))));
+            }
+
+            return new Linia(tbLiniaId.Text, nazwaPliku, wpisyLinii);
+        }
+
+        private void MsLiniaPlikZapisz_Click(object sender, EventArgs e)
+        {
+            using (var sw = File.CreateText(nazwaPliku))
+            {
+                StworzLinieZInputow().Zapisz(sw);
+            }
+        }
+
+        private void MsLiniaPlikZapiszJako_Click(object sender, EventArgs e)
+        {
+            Stream stream;
+            var dialog = new SaveFileDialog
+            {
+                Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*",
+                DefaultExt = "txt"
+            };
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                if ((stream = dialog.OpenFile()) != null)
+                {
+                    using (var sw = new StreamWriter(stream))
+                    {
+                        StworzLinieZInputow().Zapisz(sw);
+                    }
+                    stream.Close();
+                }
+            }
+        }
+
+        private void MsLiniaPlikWczytaj_Click(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                nazwaPliku = dialog.FileName;
+                var linia = Linia.OdczytajPlik(dialog.FileName, null);
+
+                tbLiniaId.Text = linia.IdLinii;
+
+                foreach (var wpis in linia.Wpisy)
+                {
+                    var row = (DataGridViewRow)dgLiniaDane.Rows[0].Clone();
+                    row.Cells[1].Value = wpis.przystanek.SciezkaPlikuKonfiguracyjnego;
+                    row.Cells[2].Value = wpis.czasPrzyjaduDoPrzystanku;
+
+                    using (var sr = File.OpenText(wpis.przystanek.SciezkaPlikuKonfiguracyjnego))
+                    {
+                        row.Cells[0].Value = sr.ReadLine();
+                    }
+
+                    dgLiniaDane.Rows.Add(row);
+                }
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@ using ModelTransportuPublicznego.Model.Przystanek;
 
 namespace ModelTransportuPublicznego.Implementacja {
     
-    public sealed class DomyslnyZarzadTranspotu : ZarzadTransportu {
+    public sealed class DomyslnyZarzadTranspotu : SynchronicznyZarzadTransportu {
 
         private List<Przejazd> listaPrzejazdow;
 
