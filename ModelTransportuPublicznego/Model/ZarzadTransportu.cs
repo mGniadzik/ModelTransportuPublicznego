@@ -7,9 +7,12 @@ namespace ModelTransportuPublicznego.Model {
         protected string nazwaFirmy;
         protected List<Przystanek.Przystanek> siecPrzystankow;
         protected List<Firma.Firma> listaFirm;
+        protected List<Linia> listaLinii;
 
         public IEnumerable<Przystanek.Przystanek> SiecPrzystankow => siecPrzystankow;
         public IEnumerable<Firma.Firma> ListaFirm => listaFirm;
+
+        public IEnumerable<Linia> ListaLinii => listaLinii;
 
         public SynchronicznyZarzadTransportu(string nazwaFirmy) {
             this.nazwaFirmy = nazwaFirmy;
