@@ -1894,20 +1894,23 @@
             // msKonfiguracjaPlikZapisz
             // 
             this.msKonfiguracjaPlikZapisz.Name = "msKonfiguracjaPlikZapisz";
-            this.msKonfiguracjaPlikZapisz.Size = new System.Drawing.Size(132, 22);
+            this.msKonfiguracjaPlikZapisz.Size = new System.Drawing.Size(180, 22);
             this.msKonfiguracjaPlikZapisz.Text = "Zapisz";
+            this.msKonfiguracjaPlikZapisz.Click += new System.EventHandler(this.MsKonfiguracjaPlikZapisz_Click);
             // 
             // msKonfiguracjaPlikZapiszJako
             // 
             this.msKonfiguracjaPlikZapiszJako.Name = "msKonfiguracjaPlikZapiszJako";
-            this.msKonfiguracjaPlikZapiszJako.Size = new System.Drawing.Size(132, 22);
+            this.msKonfiguracjaPlikZapiszJako.Size = new System.Drawing.Size(180, 22);
             this.msKonfiguracjaPlikZapiszJako.Text = "Zapisz jako";
+            this.msKonfiguracjaPlikZapiszJako.Click += new System.EventHandler(this.MsKonfiguracjaPlikZapiszJako_Click);
             // 
             // msKonfiguracjaPlikWczytaj
             // 
             this.msKonfiguracjaPlikWczytaj.Name = "msKonfiguracjaPlikWczytaj";
-            this.msKonfiguracjaPlikWczytaj.Size = new System.Drawing.Size(132, 22);
+            this.msKonfiguracjaPlikWczytaj.Size = new System.Drawing.Size(180, 22);
             this.msKonfiguracjaPlikWczytaj.Text = "Wczytaj";
+            this.msKonfiguracjaPlikWczytaj.Click += new System.EventHandler(this.MsKonfiguracjaPlikWczytaj_Click);
             // 
             // pTrasa
             // 
@@ -2094,9 +2097,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.pKonfiguracja);
+            this.Controls.Add(this.pPrzyplywyPasazerow);
             this.Controls.Add(this.pPrzejazdy);
             this.Controls.Add(this.pZarzadTransportu);
-            this.Controls.Add(this.pPrzyplywyPasazerow);
             this.Controls.Add(this.pFirma);
             this.Controls.Add(this.pTrasa);
             this.Controls.Add(this.pPowitanie);

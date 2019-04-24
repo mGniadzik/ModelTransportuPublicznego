@@ -1068,7 +1068,7 @@ namespace AplikacjaPomocnicza
             {
                 nazwaPliku = dialog.FileName;
                 var zt = SynchronicznyZarzadTransportu.OdczytajPlik(dialog.FileName);
-                tbZarzadNazwa.Text = zt.NazwaFirmy;
+                tbZarzadNazwa.Text = zt.NazwaZarzadu;
 
                 foreach (var p in zt.SiecPrzystankow)
                 {
@@ -1142,6 +1142,64 @@ namespace AplikacjaPomocnicza
                     }
                     stream.Close();
                 }
+            });
+        }
+
+        private void ZapiszKonfiguracjeZInputow(StreamWriter sw)
+        {
+            sw.WriteLine($"{0}|{1}|{2}", tbKonfiguracjaZdjecie.Text, tbKonfiguracjaPrzejazdy.Text, cbKonfiguracjaGeneracjaLinii.Checked ? 1 : 0);
+
+            foreach (DataGridViewRow row in dgKonfiguracjaZarzady.Rows)
+            {
+                sw.WriteLine(row.Cells[1]);
+            }
+        }
+
+        private void OdczytajZarzadZPliku(string sciezkaPliku)
+        {
+            using (var sr = File.OpenText(sciezkaPliku))
+            {
+                var dane = sr.ReadLine().Split('|');
+
+                tbKonfiguracjaZdjecie.Text = dane[0];
+                tbKonfiguracjaPrzejazdy.Text = dane[1];
+                cbKonfiguracjaGeneracjaLinii.Checked = (dane[2] == "1") ? true : false;
+
+                do
+                {
+                    var row = (DataGridViewRow)dgKonfiguracjaZarzady.Rows[0].Clone();
+                    var zt = SynchronicznyZarzadTransportu.OdczytajPlik(sr.ReadLine());
+                    row.Cells[0].Value = zt.NazwaZarzadu;
+                    row.Cells[1].Value = zt.SciezkaPlikuKonfiguracyjnego;
+
+                } while (!sr.EndOfStream);
+            }
+        }
+
+        private void MsKonfiguracjaPlikZapiszJako_Click(object sender, EventArgs e)
+        {
+            OtworzPlikDoZapisu((dialog) => 
+            {
+                using (var sw = File.CreateText(dialog.FileName))
+                {
+                    ZapiszKonfiguracjeZInputow(sw);
+                }
+            });
+        }
+
+        private void MsKonfiguracjaPlikZapisz_Click(object sender, EventArgs e)
+        {
+            using (var sw = File.CreateText(nazwaPliku))
+            {
+                ZapiszKonfiguracjeZInputow(sw);
+            }
+        }
+
+        private void MsKonfiguracjaPlikWczytaj_Click(object sender, EventArgs e)
+        {
+            OtworzPlikDoOdczytu((dialog) => 
+            {
+                OdczytajZarzadZPliku(dialog.FileName);
             });
         }
     }

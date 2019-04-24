@@ -5,22 +5,30 @@ using System.Linq;
 namespace ModelTransportuPublicznego.Model {
     public abstract class ZarzadTransportu {
 
-        protected string nazwaFirmy;
+        protected string nazwaZarzadu;
         protected List<Przystanek.Przystanek> siecPrzystankow;
         protected List<Firma.Firma> listaFirm;
         protected List<Linia> listaLinii;
+        protected string sciezkaPliku;
 
-        public string NazwaFirmy => nazwaFirmy;
+        public string NazwaZarzadu => nazwaZarzadu;
 
         public IEnumerable<Przystanek.Przystanek> SiecPrzystankow => siecPrzystankow;
         public IEnumerable<Firma.Firma> ListaFirm => listaFirm;
 
         public IEnumerable<Linia> ListaLinii => listaLinii;
 
+        public string SciezkaPlikuKonfiguracyjnego => sciezkaPliku;
+
         public ZarzadTransportu(string nazwaFirmy) {
-            this.nazwaFirmy = nazwaFirmy;
+            this.nazwaZarzadu = nazwaFirmy;
             siecPrzystankow = new List<Przystanek.Przystanek>();
             listaFirm = new List<Firma.Firma>();
+        }
+
+        public ZarzadTransportu(string nazwaFirmy, string sciezkaPliku) : this(nazwaFirmy)
+        {
+            this.sciezkaPliku = sciezkaPliku;
         }
 
         public ZarzadTransportu(string nazwaFirmy, IEnumerable<Przystanek.Przystanek> siecPrzystankow) : this(nazwaFirmy) {
@@ -141,7 +149,7 @@ namespace ModelTransportuPublicznego.Model {
 
         public virtual void Zapisz(StreamWriter sw)
         {
-            sw.WriteLine(nazwaFirmy);
+            sw.WriteLine(nazwaZarzadu);
 
             {
                 var last = siecPrzystankow.Last();
