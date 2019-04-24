@@ -30,7 +30,7 @@ namespace ModelTransportuPublicznego.Model {
             return true;
         }
 
-        public static WpisLinii Odczytaj(StreamReader sr, SynchronicznyZarzadTransportu zt)
+        public static WpisLinii Odczytaj(StreamReader sr, ZarzadTransportu zt)
         {
             var dane = sr.ReadLine().Split(':');
 

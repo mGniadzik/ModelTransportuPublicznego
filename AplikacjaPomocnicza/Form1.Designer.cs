@@ -107,10 +107,10 @@
             this.lPrzejazdTytul = new System.Windows.Forms.Label();
             this.BMenu = new System.Windows.Forms.Button();
             this.msPrzejazdy = new System.Windows.Forms.MenuStrip();
-            this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zapiszToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zapiszJakoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.wczytajToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.msPrzejazdyPlik = new System.Windows.Forms.ToolStripMenuItem();
+            this.msPrzejazdyPlikZapisz = new System.Windows.Forms.ToolStripMenuItem();
+            this.msPrzejazdyPlikZapiszJako = new System.Windows.Forms.ToolStripMenuItem();
+            this.msPrzejazdyPlikWczytaj = new System.Windows.Forms.ToolStripMenuItem();
             this.pAutobus = new System.Windows.Forms.Panel();
             this.pPrzystanek = new System.Windows.Forms.Panel();
             this.msPrzystanek = new System.Windows.Forms.MenuStrip();
@@ -152,10 +152,24 @@
             this.bLiniaZapisz = new System.Windows.Forms.Button();
             this.bLiniaMenu = new System.Windows.Forms.Button();
             this.dgLiniaDane = new System.Windows.Forms.DataGridView();
+            this.cNazwaPrzystanku = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cLiniaPrzystanek = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cCzasDojazdu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cTrasa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbLiniaId = new System.Windows.Forms.TextBox();
             this.bLiniaId = new System.Windows.Forms.Label();
             this.bLiniaTytul = new System.Windows.Forms.Label();
             this.pZarzadTransportu = new System.Windows.Forms.Panel();
+            this.pZarzadDanePrzystanki = new System.Windows.Forms.Panel();
+            this.bZarzadDaneDalej = new System.Windows.Forms.Button();
+            this.bZarzadDaneMenu = new System.Windows.Forms.Button();
+            this.dgZarzadPrzystanki = new System.Windows.Forms.DataGridView();
+            this.cZarzadPrzystankiNazwa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cZarzadPrzystankiPlik = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tbZarzadNazwa = new System.Windows.Forms.TextBox();
+            this.lZarzadPrzystanki = new System.Windows.Forms.Label();
+            this.lZarzadTransportuNazwa = new System.Windows.Forms.Label();
+            this.lZarzadFirmy = new System.Windows.Forms.Label();
             this.pZarzadLinieFirmy = new System.Windows.Forms.Panel();
             this.dgZarzadFirmy = new System.Windows.Forms.DataGridView();
             this.cZarzadFirmaNazwa = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -167,16 +181,6 @@
             this.bZarzadFirmy = new System.Windows.Forms.Label();
             this.bZarzadZapisz = new System.Windows.Forms.Button();
             this.bZarzadLinieFirmyMenu = new System.Windows.Forms.Button();
-            this.pZarzadDanePrzystanki = new System.Windows.Forms.Panel();
-            this.bZarzadDaneDalej = new System.Windows.Forms.Button();
-            this.bZarzadDaneMenu = new System.Windows.Forms.Button();
-            this.dgZarzadPrzystanki = new System.Windows.Forms.DataGridView();
-            this.cZarzadPrzystankiNazwa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cZarzadPrzystankiPlik = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tbZarzadNazwa = new System.Windows.Forms.TextBox();
-            this.lZarzadPrzystanki = new System.Windows.Forms.Label();
-            this.lZarzadTransportuNazwa = new System.Windows.Forms.Label();
-            this.lZarzadFirmy = new System.Windows.Forms.Label();
             this.msZarzad = new System.Windows.Forms.MenuStrip();
             this.msZarzadPlik = new System.Windows.Forms.ToolStripMenuItem();
             this.msZarzadPlikZapisz = new System.Windows.Forms.ToolStripMenuItem();
@@ -186,13 +190,16 @@
             this.pPryzplywyPrzystanki = new System.Windows.Forms.Panel();
             this.pKonfiguracja = new System.Windows.Forms.Panel();
             this.pKonfiguracjaDaneZarzady = new System.Windows.Forms.Panel();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.cbKonfiguracjaGeneracjaLinii = new System.Windows.Forms.CheckBox();
+            this.tbKonfiguracjaPrzejazdy = new System.Windows.Forms.TextBox();
+            this.tbKonfiguracjaZdjecie = new System.Windows.Forms.TextBox();
             this.lKonfiguracjaPrzjeazdy = new System.Windows.Forms.Label();
             this.lKonfiguracjaTapeta = new System.Windows.Forms.Label();
             this.bKonfiguracjaZapisz = new System.Windows.Forms.Button();
             this.bKonfiguracjaMenu = new System.Windows.Forms.Button();
             this.dgKonfiguracjaZarzady = new System.Windows.Forms.DataGridView();
+            this.cKonfiguracjaZarzadyNazwa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cKonfiguracjaZarzadySciezkaPliku = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lKonfiguracjaZarzady = new System.Windows.Forms.Label();
             this.lKonfiguracja = new System.Windows.Forms.Label();
             this.msKonfiguracja = new System.Windows.Forms.MenuStrip();
@@ -201,29 +208,25 @@
             this.msKonfiguracjaPlikZapiszJako = new System.Windows.Forms.ToolStripMenuItem();
             this.msKonfiguracjaPlikWczytaj = new System.Windows.Forms.ToolStripMenuItem();
             this.pTrasa = new System.Windows.Forms.Panel();
+            this.pTrasaDane = new System.Windows.Forms.Panel();
+            this.tbTrasaNazwa = new System.Windows.Forms.TextBox();
+            this.lTrasaNazwa = new System.Windows.Forms.Label();
+            this.tbTrasaPredkosc = new System.Windows.Forms.TextBox();
+            this.tbTrasaDlugosc = new System.Windows.Forms.TextBox();
+            this.lTrasaVMax = new System.Windows.Forms.Label();
+            this.lTrasaDlugosc = new System.Windows.Forms.Label();
+            this.lTrasaTytul = new System.Windows.Forms.Label();
+            this.bTrasaZapisz = new System.Windows.Forms.Button();
+            this.bTrasaMenu = new System.Windows.Forms.Button();
+            this.dgTrasaPunkty = new System.Windows.Forms.DataGridView();
+            this.dgTrasaX = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgTrasaY = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lTrasaPunkty = new System.Windows.Forms.Label();
             this.msTrasa = new System.Windows.Forms.MenuStrip();
             this.msTrasaPlik = new System.Windows.Forms.ToolStripMenuItem();
             this.msTrasaPlikZapisz = new System.Windows.Forms.ToolStripMenuItem();
             this.msTrasaPlikZapiszJako = new System.Windows.Forms.ToolStripMenuItem();
             this.msTrasaPlikWczytaj = new System.Windows.Forms.ToolStripMenuItem();
-            this.pTrasaDane = new System.Windows.Forms.Panel();
-            this.lTrasaPunkty = new System.Windows.Forms.Label();
-            this.dgTrasaPunkty = new System.Windows.Forms.DataGridView();
-            this.bTrasaMenu = new System.Windows.Forms.Button();
-            this.bTrasaZapisz = new System.Windows.Forms.Button();
-            this.dgTrasaX = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgTrasaY = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cNazwaPrzystanku = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cLiniaPrzystanek = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cCzasDojazdu = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cTrasa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lTrasaTytul = new System.Windows.Forms.Label();
-            this.lTrasaDlugosc = new System.Windows.Forms.Label();
-            this.lTrasaVMax = new System.Windows.Forms.Label();
-            this.tbTrasaDlugosc = new System.Windows.Forms.TextBox();
-            this.tbTrasaPredkosc = new System.Windows.Forms.TextBox();
-            this.lTrasaNazwa = new System.Windows.Forms.Label();
-            this.tbTrasaNazwa = new System.Windows.Forms.TextBox();
             this.pPowitanie.SuspendLayout();
             this.pAutobusStale.SuspendLayout();
             this.msAutobus.SuspendLayout();
@@ -252,11 +255,11 @@
             this.pLiniaDane.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgLiniaDane)).BeginInit();
             this.pZarzadTransportu.SuspendLayout();
+            this.pZarzadDanePrzystanki.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgZarzadPrzystanki)).BeginInit();
             this.pZarzadLinieFirmy.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgZarzadFirmy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgZarzadLinie)).BeginInit();
-            this.pZarzadDanePrzystanki.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgZarzadPrzystanki)).BeginInit();
             this.msZarzad.SuspendLayout();
             this.pPrzyplywyPasazerow.SuspendLayout();
             this.pKonfiguracja.SuspendLayout();
@@ -264,9 +267,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgKonfiguracjaZarzady)).BeginInit();
             this.msKonfiguracja.SuspendLayout();
             this.pTrasa.SuspendLayout();
-            this.msTrasa.SuspendLayout();
             this.pTrasaDane.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgTrasaPunkty)).BeginInit();
+            this.msTrasa.SuspendLayout();
             this.SuspendLayout();
             // 
             // pPowitanie
@@ -1005,40 +1008,43 @@
             // msPrzejazdy
             // 
             this.msPrzejazdy.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.plikToolStripMenuItem});
+            this.msPrzejazdyPlik});
             this.msPrzejazdy.Location = new System.Drawing.Point(0, 0);
             this.msPrzejazdy.Name = "msPrzejazdy";
             this.msPrzejazdy.Size = new System.Drawing.Size(784, 24);
             this.msPrzejazdy.TabIndex = 4;
             this.msPrzejazdy.Text = "menuStrip1";
             // 
-            // plikToolStripMenuItem
+            // msPrzejazdyPlik
             // 
-            this.plikToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.zapiszToolStripMenuItem,
-            this.zapiszJakoToolStripMenuItem,
-            this.wczytajToolStripMenuItem});
-            this.plikToolStripMenuItem.Name = "plikToolStripMenuItem";
-            this.plikToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
-            this.plikToolStripMenuItem.Text = "Plik";
+            this.msPrzejazdyPlik.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.msPrzejazdyPlikZapisz,
+            this.msPrzejazdyPlikZapiszJako,
+            this.msPrzejazdyPlikWczytaj});
+            this.msPrzejazdyPlik.Name = "msPrzejazdyPlik";
+            this.msPrzejazdyPlik.Size = new System.Drawing.Size(38, 20);
+            this.msPrzejazdyPlik.Text = "Plik";
             // 
-            // zapiszToolStripMenuItem
+            // msPrzejazdyPlikZapisz
             // 
-            this.zapiszToolStripMenuItem.Name = "zapiszToolStripMenuItem";
-            this.zapiszToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.zapiszToolStripMenuItem.Text = "Zapisz";
+            this.msPrzejazdyPlikZapisz.Name = "msPrzejazdyPlikZapisz";
+            this.msPrzejazdyPlikZapisz.Size = new System.Drawing.Size(180, 22);
+            this.msPrzejazdyPlikZapisz.Text = "Zapisz";
+            this.msPrzejazdyPlikZapisz.Click += new System.EventHandler(this.MsPrzejazdyPlikZapisz_Click);
             // 
-            // zapiszJakoToolStripMenuItem
+            // msPrzejazdyPlikZapiszJako
             // 
-            this.zapiszJakoToolStripMenuItem.Name = "zapiszJakoToolStripMenuItem";
-            this.zapiszJakoToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.zapiszJakoToolStripMenuItem.Text = "Zapisz jako";
+            this.msPrzejazdyPlikZapiszJako.Name = "msPrzejazdyPlikZapiszJako";
+            this.msPrzejazdyPlikZapiszJako.Size = new System.Drawing.Size(180, 22);
+            this.msPrzejazdyPlikZapiszJako.Text = "Zapisz jako";
+            this.msPrzejazdyPlikZapiszJako.Click += new System.EventHandler(this.MsPrzejazdyPlikZapiszJako_Click);
             // 
-            // wczytajToolStripMenuItem
+            // msPrzejazdyPlikWczytaj
             // 
-            this.wczytajToolStripMenuItem.Name = "wczytajToolStripMenuItem";
-            this.wczytajToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.wczytajToolStripMenuItem.Text = "Wczytaj";
+            this.msPrzejazdyPlikWczytaj.Name = "msPrzejazdyPlikWczytaj";
+            this.msPrzejazdyPlikWczytaj.Size = new System.Drawing.Size(180, 22);
+            this.msPrzejazdyPlikWczytaj.Text = "Wczytaj";
+            this.msPrzejazdyPlikWczytaj.Click += new System.EventHandler(this.MsPrzejazdyPlikWczytaj_Click);
             // 
             // pAutobus
             // 
@@ -1141,21 +1147,21 @@
             // msFirmaPlikZapisz
             // 
             this.msFirmaPlikZapisz.Name = "msFirmaPlikZapisz";
-            this.msFirmaPlikZapisz.Size = new System.Drawing.Size(132, 22);
+            this.msFirmaPlikZapisz.Size = new System.Drawing.Size(180, 22);
             this.msFirmaPlikZapisz.Text = "Zapisz";
             this.msFirmaPlikZapisz.Click += new System.EventHandler(this.MsFirmaPlikZapisz_Click);
             // 
             // msFirmaPlikZapiszJako
             // 
             this.msFirmaPlikZapiszJako.Name = "msFirmaPlikZapiszJako";
-            this.msFirmaPlikZapiszJako.Size = new System.Drawing.Size(132, 22);
+            this.msFirmaPlikZapiszJako.Size = new System.Drawing.Size(180, 22);
             this.msFirmaPlikZapiszJako.Text = "Zapisz jako";
             this.msFirmaPlikZapiszJako.Click += new System.EventHandler(this.MsFirmaPlikZapiszJako_Click);
             // 
             // msFirmaPlikWczytaj
             // 
             this.msFirmaPlikWczytaj.Name = "msFirmaPlikWczytaj";
-            this.msFirmaPlikWczytaj.Size = new System.Drawing.Size(132, 22);
+            this.msFirmaPlikWczytaj.Size = new System.Drawing.Size(180, 22);
             this.msFirmaPlikWczytaj.Text = "Wczytaj";
             this.msFirmaPlikWczytaj.Click += new System.EventHandler(this.MsFirmaPlikWczytaj_Click);
             // 
@@ -1422,6 +1428,30 @@
             this.dgLiniaDane.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgLiniaDane_CellDoubleClick);
             this.dgLiniaDane.KeyUp += new System.Windows.Forms.KeyEventHandler(this.DgLiniaDane_KeyUp);
             // 
+            // cNazwaPrzystanku
+            // 
+            this.cNazwaPrzystanku.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cNazwaPrzystanku.HeaderText = "Nazwa przystanku";
+            this.cNazwaPrzystanku.Name = "cNazwaPrzystanku";
+            // 
+            // cLiniaPrzystanek
+            // 
+            this.cLiniaPrzystanek.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cLiniaPrzystanek.HeaderText = "Sciezka pliku przystanku";
+            this.cLiniaPrzystanek.Name = "cLiniaPrzystanek";
+            // 
+            // cCzasDojazdu
+            // 
+            this.cCzasDojazdu.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cCzasDojazdu.HeaderText = "Czas dojazdu";
+            this.cCzasDojazdu.Name = "cCzasDojazdu";
+            // 
+            // cTrasa
+            // 
+            this.cTrasa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cTrasa.HeaderText = "Trasa";
+            this.cTrasa.Name = "cTrasa";
+            // 
             // tbLiniaId
             // 
             this.tbLiniaId.Location = new System.Drawing.Point(51, 70);
@@ -1450,14 +1480,107 @@
             // 
             // pZarzadTransportu
             // 
-            this.pZarzadTransportu.Controls.Add(this.pZarzadLinieFirmy);
             this.pZarzadTransportu.Controls.Add(this.pZarzadDanePrzystanki);
+            this.pZarzadTransportu.Controls.Add(this.pZarzadLinieFirmy);
             this.pZarzadTransportu.Controls.Add(this.msZarzad);
             this.pZarzadTransportu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pZarzadTransportu.Location = new System.Drawing.Point(0, 0);
             this.pZarzadTransportu.Name = "pZarzadTransportu";
             this.pZarzadTransportu.Size = new System.Drawing.Size(784, 561);
             this.pZarzadTransportu.TabIndex = 24;
+            // 
+            // pZarzadDanePrzystanki
+            // 
+            this.pZarzadDanePrzystanki.Controls.Add(this.bZarzadDaneDalej);
+            this.pZarzadDanePrzystanki.Controls.Add(this.bZarzadDaneMenu);
+            this.pZarzadDanePrzystanki.Controls.Add(this.dgZarzadPrzystanki);
+            this.pZarzadDanePrzystanki.Controls.Add(this.tbZarzadNazwa);
+            this.pZarzadDanePrzystanki.Controls.Add(this.lZarzadPrzystanki);
+            this.pZarzadDanePrzystanki.Controls.Add(this.lZarzadTransportuNazwa);
+            this.pZarzadDanePrzystanki.Controls.Add(this.lZarzadFirmy);
+            this.pZarzadDanePrzystanki.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pZarzadDanePrzystanki.Location = new System.Drawing.Point(0, 24);
+            this.pZarzadDanePrzystanki.Name = "pZarzadDanePrzystanki";
+            this.pZarzadDanePrzystanki.Size = new System.Drawing.Size(784, 537);
+            this.pZarzadDanePrzystanki.TabIndex = 1;
+            // 
+            // bZarzadDaneDalej
+            // 
+            this.bZarzadDaneDalej.Location = new System.Drawing.Point(697, 489);
+            this.bZarzadDaneDalej.Name = "bZarzadDaneDalej";
+            this.bZarzadDaneDalej.Size = new System.Drawing.Size(75, 39);
+            this.bZarzadDaneDalej.TabIndex = 29;
+            this.bZarzadDaneDalej.Text = "Dalej...";
+            this.bZarzadDaneDalej.UseVisualStyleBackColor = true;
+            // 
+            // bZarzadDaneMenu
+            // 
+            this.bZarzadDaneMenu.Location = new System.Drawing.Point(12, 483);
+            this.bZarzadDaneMenu.Name = "bZarzadDaneMenu";
+            this.bZarzadDaneMenu.Size = new System.Drawing.Size(75, 39);
+            this.bZarzadDaneMenu.TabIndex = 28;
+            this.bZarzadDaneMenu.Text = "Wróć do menu";
+            this.bZarzadDaneMenu.UseVisualStyleBackColor = true;
+            // 
+            // dgZarzadPrzystanki
+            // 
+            this.dgZarzadPrzystanki.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgZarzadPrzystanki.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.cZarzadPrzystankiNazwa,
+            this.cZarzadPrzystankiPlik});
+            this.dgZarzadPrzystanki.Location = new System.Drawing.Point(9, 115);
+            this.dgZarzadPrzystanki.Name = "dgZarzadPrzystanki";
+            this.dgZarzadPrzystanki.Size = new System.Drawing.Size(763, 362);
+            this.dgZarzadPrzystanki.TabIndex = 27;
+            this.dgZarzadPrzystanki.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgZarzadPrzystanki_CellDoubleClick);
+            // 
+            // cZarzadPrzystankiNazwa
+            // 
+            this.cZarzadPrzystankiNazwa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cZarzadPrzystankiNazwa.HeaderText = "Nazwa przystanku";
+            this.cZarzadPrzystankiNazwa.Name = "cZarzadPrzystankiNazwa";
+            // 
+            // cZarzadPrzystankiPlik
+            // 
+            this.cZarzadPrzystankiPlik.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cZarzadPrzystankiPlik.HeaderText = "Scieżka pliku";
+            this.cZarzadPrzystankiPlik.Name = "cZarzadPrzystankiPlik";
+            // 
+            // tbZarzadNazwa
+            // 
+            this.tbZarzadNazwa.Location = new System.Drawing.Point(99, 50);
+            this.tbZarzadNazwa.Name = "tbZarzadNazwa";
+            this.tbZarzadNazwa.Size = new System.Drawing.Size(100, 20);
+            this.tbZarzadNazwa.TabIndex = 26;
+            // 
+            // lZarzadPrzystanki
+            // 
+            this.lZarzadPrzystanki.AutoSize = true;
+            this.lZarzadPrzystanki.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lZarzadPrzystanki.Location = new System.Drawing.Point(12, 90);
+            this.lZarzadPrzystanki.Name = "lZarzadPrzystanki";
+            this.lZarzadPrzystanki.Size = new System.Drawing.Size(132, 20);
+            this.lZarzadPrzystanki.TabIndex = 2;
+            this.lZarzadPrzystanki.Text = "Sieć przystanków";
+            // 
+            // lZarzadTransportuNazwa
+            // 
+            this.lZarzadTransportuNazwa.AutoSize = true;
+            this.lZarzadTransportuNazwa.Location = new System.Drawing.Point(13, 53);
+            this.lZarzadTransportuNazwa.Name = "lZarzadTransportuNazwa";
+            this.lZarzadTransportuNazwa.Size = new System.Drawing.Size(80, 13);
+            this.lZarzadTransportuNazwa.TabIndex = 1;
+            this.lZarzadTransportuNazwa.Text = "Nazwa zarządu";
+            // 
+            // lZarzadFirmy
+            // 
+            this.lZarzadFirmy.AutoSize = true;
+            this.lZarzadFirmy.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lZarzadFirmy.Location = new System.Drawing.Point(10, 9);
+            this.lZarzadFirmy.Name = "lZarzadFirmy";
+            this.lZarzadFirmy.Size = new System.Drawing.Size(112, 24);
+            this.lZarzadFirmy.TabIndex = 0;
+            this.lZarzadFirmy.Text = "Zarząd firmy";
             // 
             // pZarzadLinieFirmy
             // 
@@ -1559,99 +1682,6 @@
             this.bZarzadLinieFirmyMenu.Text = "Wróć do menu";
             this.bZarzadLinieFirmyMenu.UseVisualStyleBackColor = true;
             // 
-            // pZarzadDanePrzystanki
-            // 
-            this.pZarzadDanePrzystanki.Controls.Add(this.bZarzadDaneDalej);
-            this.pZarzadDanePrzystanki.Controls.Add(this.bZarzadDaneMenu);
-            this.pZarzadDanePrzystanki.Controls.Add(this.dgZarzadPrzystanki);
-            this.pZarzadDanePrzystanki.Controls.Add(this.tbZarzadNazwa);
-            this.pZarzadDanePrzystanki.Controls.Add(this.lZarzadPrzystanki);
-            this.pZarzadDanePrzystanki.Controls.Add(this.lZarzadTransportuNazwa);
-            this.pZarzadDanePrzystanki.Controls.Add(this.lZarzadFirmy);
-            this.pZarzadDanePrzystanki.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pZarzadDanePrzystanki.Location = new System.Drawing.Point(0, 24);
-            this.pZarzadDanePrzystanki.Name = "pZarzadDanePrzystanki";
-            this.pZarzadDanePrzystanki.Size = new System.Drawing.Size(784, 537);
-            this.pZarzadDanePrzystanki.TabIndex = 1;
-            // 
-            // bZarzadDaneDalej
-            // 
-            this.bZarzadDaneDalej.Location = new System.Drawing.Point(697, 489);
-            this.bZarzadDaneDalej.Name = "bZarzadDaneDalej";
-            this.bZarzadDaneDalej.Size = new System.Drawing.Size(75, 39);
-            this.bZarzadDaneDalej.TabIndex = 29;
-            this.bZarzadDaneDalej.Text = "Dalej...";
-            this.bZarzadDaneDalej.UseVisualStyleBackColor = true;
-            // 
-            // bZarzadDaneMenu
-            // 
-            this.bZarzadDaneMenu.Location = new System.Drawing.Point(12, 483);
-            this.bZarzadDaneMenu.Name = "bZarzadDaneMenu";
-            this.bZarzadDaneMenu.Size = new System.Drawing.Size(75, 39);
-            this.bZarzadDaneMenu.TabIndex = 28;
-            this.bZarzadDaneMenu.Text = "Wróć do menu";
-            this.bZarzadDaneMenu.UseVisualStyleBackColor = true;
-            // 
-            // dgZarzadPrzystanki
-            // 
-            this.dgZarzadPrzystanki.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgZarzadPrzystanki.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.cZarzadPrzystankiNazwa,
-            this.cZarzadPrzystankiPlik});
-            this.dgZarzadPrzystanki.Location = new System.Drawing.Point(9, 115);
-            this.dgZarzadPrzystanki.Name = "dgZarzadPrzystanki";
-            this.dgZarzadPrzystanki.Size = new System.Drawing.Size(763, 362);
-            this.dgZarzadPrzystanki.TabIndex = 27;
-            this.dgZarzadPrzystanki.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgZarzadPrzystanki_CellDoubleClick);
-            // 
-            // cZarzadPrzystankiNazwa
-            // 
-            this.cZarzadPrzystankiNazwa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cZarzadPrzystankiNazwa.HeaderText = "Nazwa przystanku";
-            this.cZarzadPrzystankiNazwa.Name = "cZarzadPrzystankiNazwa";
-            // 
-            // cZarzadPrzystankiPlik
-            // 
-            this.cZarzadPrzystankiPlik.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cZarzadPrzystankiPlik.HeaderText = "Scieżka pliku";
-            this.cZarzadPrzystankiPlik.Name = "cZarzadPrzystankiPlik";
-            // 
-            // tbZarzadNazwa
-            // 
-            this.tbZarzadNazwa.Location = new System.Drawing.Point(99, 50);
-            this.tbZarzadNazwa.Name = "tbZarzadNazwa";
-            this.tbZarzadNazwa.Size = new System.Drawing.Size(100, 20);
-            this.tbZarzadNazwa.TabIndex = 26;
-            // 
-            // lZarzadPrzystanki
-            // 
-            this.lZarzadPrzystanki.AutoSize = true;
-            this.lZarzadPrzystanki.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lZarzadPrzystanki.Location = new System.Drawing.Point(12, 90);
-            this.lZarzadPrzystanki.Name = "lZarzadPrzystanki";
-            this.lZarzadPrzystanki.Size = new System.Drawing.Size(132, 20);
-            this.lZarzadPrzystanki.TabIndex = 2;
-            this.lZarzadPrzystanki.Text = "Sieć przystanków";
-            // 
-            // lZarzadTransportuNazwa
-            // 
-            this.lZarzadTransportuNazwa.AutoSize = true;
-            this.lZarzadTransportuNazwa.Location = new System.Drawing.Point(13, 53);
-            this.lZarzadTransportuNazwa.Name = "lZarzadTransportuNazwa";
-            this.lZarzadTransportuNazwa.Size = new System.Drawing.Size(80, 13);
-            this.lZarzadTransportuNazwa.TabIndex = 1;
-            this.lZarzadTransportuNazwa.Text = "Nazwa zarządu";
-            // 
-            // lZarzadFirmy
-            // 
-            this.lZarzadFirmy.AutoSize = true;
-            this.lZarzadFirmy.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lZarzadFirmy.Location = new System.Drawing.Point(10, 9);
-            this.lZarzadFirmy.Name = "lZarzadFirmy";
-            this.lZarzadFirmy.Size = new System.Drawing.Size(112, 24);
-            this.lZarzadFirmy.TabIndex = 0;
-            this.lZarzadFirmy.Text = "Zarząd firmy";
-            // 
             // msZarzad
             // 
             this.msZarzad.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1675,20 +1705,23 @@
             // msZarzadPlikZapisz
             // 
             this.msZarzadPlikZapisz.Name = "msZarzadPlikZapisz";
-            this.msZarzadPlikZapisz.Size = new System.Drawing.Size(132, 22);
+            this.msZarzadPlikZapisz.Size = new System.Drawing.Size(180, 22);
             this.msZarzadPlikZapisz.Text = "Zapisz";
+            this.msZarzadPlikZapisz.Click += new System.EventHandler(this.MsZarzadPlikZapisz_Click);
             // 
             // msZarzadPlikZapiszJako
             // 
             this.msZarzadPlikZapiszJako.Name = "msZarzadPlikZapiszJako";
-            this.msZarzadPlikZapiszJako.Size = new System.Drawing.Size(132, 22);
+            this.msZarzadPlikZapiszJako.Size = new System.Drawing.Size(180, 22);
             this.msZarzadPlikZapiszJako.Text = "Zapisz jako";
+            this.msZarzadPlikZapiszJako.Click += new System.EventHandler(this.MsZarzadPlikZapiszJako_Click);
             // 
             // msZarzadPlikWczytaj
             // 
             this.msZarzadPlikWczytaj.Name = "msZarzadPlikWczytaj";
-            this.msZarzadPlikWczytaj.Size = new System.Drawing.Size(132, 22);
+            this.msZarzadPlikWczytaj.Size = new System.Drawing.Size(180, 22);
             this.msZarzadPlikWczytaj.Text = "Wczytaj";
+            this.msZarzadPlikWczytaj.Click += new System.EventHandler(this.MsZarzadPlikWczytaj_Click);
             // 
             // pPrzyplywyPasazerow
             // 
@@ -1719,8 +1752,9 @@
             // 
             // pKonfiguracjaDaneZarzady
             // 
-            this.pKonfiguracjaDaneZarzady.Controls.Add(this.textBox2);
-            this.pKonfiguracjaDaneZarzady.Controls.Add(this.textBox1);
+            this.pKonfiguracjaDaneZarzady.Controls.Add(this.cbKonfiguracjaGeneracjaLinii);
+            this.pKonfiguracjaDaneZarzady.Controls.Add(this.tbKonfiguracjaPrzejazdy);
+            this.pKonfiguracjaDaneZarzady.Controls.Add(this.tbKonfiguracjaZdjecie);
             this.pKonfiguracjaDaneZarzady.Controls.Add(this.lKonfiguracjaPrzjeazdy);
             this.pKonfiguracjaDaneZarzady.Controls.Add(this.lKonfiguracjaTapeta);
             this.pKonfiguracjaDaneZarzady.Controls.Add(this.bKonfiguracjaZapisz);
@@ -1734,19 +1768,29 @@
             this.pKonfiguracjaDaneZarzady.Size = new System.Drawing.Size(784, 537);
             this.pKonfiguracjaDaneZarzady.TabIndex = 0;
             // 
-            // textBox2
+            // cbKonfiguracjaGeneracjaLinii
             // 
-            this.textBox2.Location = new System.Drawing.Point(99, 70);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 8;
+            this.cbKonfiguracjaGeneracjaLinii.AutoSize = true;
+            this.cbKonfiguracjaGeneracjaLinii.Location = new System.Drawing.Point(16, 94);
+            this.cbKonfiguracjaGeneracjaLinii.Name = "cbKonfiguracjaGeneracjaLinii";
+            this.cbKonfiguracjaGeneracjaLinii.Size = new System.Drawing.Size(164, 17);
+            this.cbKonfiguracjaGeneracjaLinii.TabIndex = 9;
+            this.cbKonfiguracjaGeneracjaLinii.Text = "Generowanie linii odwrotnych";
+            this.cbKonfiguracjaGeneracjaLinii.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // tbKonfiguracjaPrzejazdy
             // 
-            this.textBox1.Location = new System.Drawing.Point(99, 44);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 7;
+            this.tbKonfiguracjaPrzejazdy.Location = new System.Drawing.Point(99, 70);
+            this.tbKonfiguracjaPrzejazdy.Name = "tbKonfiguracjaPrzejazdy";
+            this.tbKonfiguracjaPrzejazdy.Size = new System.Drawing.Size(100, 20);
+            this.tbKonfiguracjaPrzejazdy.TabIndex = 8;
+            // 
+            // tbKonfiguracjaZdjecie
+            // 
+            this.tbKonfiguracjaZdjecie.Location = new System.Drawing.Point(99, 44);
+            this.tbKonfiguracjaZdjecie.Name = "tbKonfiguracjaZdjecie";
+            this.tbKonfiguracjaZdjecie.Size = new System.Drawing.Size(100, 20);
+            this.tbKonfiguracjaZdjecie.TabIndex = 7;
             // 
             // lKonfiguracjaPrzjeazdy
             // 
@@ -1787,10 +1831,25 @@
             // dgKonfiguracjaZarzady
             // 
             this.dgKonfiguracjaZarzady.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgKonfiguracjaZarzady.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.cKonfiguracjaZarzadyNazwa,
+            this.cKonfiguracjaZarzadySciezkaPliku});
             this.dgKonfiguracjaZarzady.Location = new System.Drawing.Point(12, 137);
             this.dgKonfiguracjaZarzady.Name = "dgKonfiguracjaZarzady";
             this.dgKonfiguracjaZarzady.Size = new System.Drawing.Size(760, 338);
             this.dgKonfiguracjaZarzady.TabIndex = 2;
+            // 
+            // cKonfiguracjaZarzadyNazwa
+            // 
+            this.cKonfiguracjaZarzadyNazwa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cKonfiguracjaZarzadyNazwa.HeaderText = "Nazwa zarządu";
+            this.cKonfiguracjaZarzadyNazwa.Name = "cKonfiguracjaZarzadyNazwa";
+            // 
+            // cKonfiguracjaZarzadySciezkaPliku
+            // 
+            this.cKonfiguracjaZarzadySciezkaPliku.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cKonfiguracjaZarzadySciezkaPliku.HeaderText = "Scieżka pliku";
+            this.cKonfiguracjaZarzadySciezkaPliku.Name = "cKonfiguracjaZarzadySciezkaPliku";
             // 
             // lKonfiguracjaZarzady
             // 
@@ -1860,6 +1919,134 @@
             this.pTrasa.Size = new System.Drawing.Size(784, 561);
             this.pTrasa.TabIndex = 26;
             // 
+            // pTrasaDane
+            // 
+            this.pTrasaDane.Controls.Add(this.tbTrasaNazwa);
+            this.pTrasaDane.Controls.Add(this.lTrasaNazwa);
+            this.pTrasaDane.Controls.Add(this.tbTrasaPredkosc);
+            this.pTrasaDane.Controls.Add(this.tbTrasaDlugosc);
+            this.pTrasaDane.Controls.Add(this.lTrasaVMax);
+            this.pTrasaDane.Controls.Add(this.lTrasaDlugosc);
+            this.pTrasaDane.Controls.Add(this.lTrasaTytul);
+            this.pTrasaDane.Controls.Add(this.bTrasaZapisz);
+            this.pTrasaDane.Controls.Add(this.bTrasaMenu);
+            this.pTrasaDane.Controls.Add(this.dgTrasaPunkty);
+            this.pTrasaDane.Controls.Add(this.lTrasaPunkty);
+            this.pTrasaDane.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pTrasaDane.Location = new System.Drawing.Point(0, 24);
+            this.pTrasaDane.Name = "pTrasaDane";
+            this.pTrasaDane.Size = new System.Drawing.Size(784, 537);
+            this.pTrasaDane.TabIndex = 1;
+            // 
+            // tbTrasaNazwa
+            // 
+            this.tbTrasaNazwa.Location = new System.Drawing.Point(131, 36);
+            this.tbTrasaNazwa.Name = "tbTrasaNazwa";
+            this.tbTrasaNazwa.Size = new System.Drawing.Size(100, 20);
+            this.tbTrasaNazwa.TabIndex = 10;
+            // 
+            // lTrasaNazwa
+            // 
+            this.lTrasaNazwa.AutoSize = true;
+            this.lTrasaNazwa.Location = new System.Drawing.Point(14, 39);
+            this.lTrasaNazwa.Name = "lTrasaNazwa";
+            this.lTrasaNazwa.Size = new System.Drawing.Size(65, 13);
+            this.lTrasaNazwa.TabIndex = 9;
+            this.lTrasaNazwa.Text = "Nazwa trasy";
+            // 
+            // tbTrasaPredkosc
+            // 
+            this.tbTrasaPredkosc.Location = new System.Drawing.Point(131, 85);
+            this.tbTrasaPredkosc.Name = "tbTrasaPredkosc";
+            this.tbTrasaPredkosc.Size = new System.Drawing.Size(100, 20);
+            this.tbTrasaPredkosc.TabIndex = 8;
+            // 
+            // tbTrasaDlugosc
+            // 
+            this.tbTrasaDlugosc.Location = new System.Drawing.Point(131, 60);
+            this.tbTrasaDlugosc.Name = "tbTrasaDlugosc";
+            this.tbTrasaDlugosc.Size = new System.Drawing.Size(100, 20);
+            this.tbTrasaDlugosc.TabIndex = 7;
+            // 
+            // lTrasaVMax
+            // 
+            this.lTrasaVMax.AutoSize = true;
+            this.lTrasaVMax.Location = new System.Drawing.Point(12, 90);
+            this.lTrasaVMax.Name = "lTrasaVMax";
+            this.lTrasaVMax.Size = new System.Drawing.Size(113, 13);
+            this.lTrasaVMax.TabIndex = 6;
+            this.lTrasaVMax.Text = "Prędkość maksymalna";
+            // 
+            // lTrasaDlugosc
+            // 
+            this.lTrasaDlugosc.AutoSize = true;
+            this.lTrasaDlugosc.Location = new System.Drawing.Point(14, 63);
+            this.lTrasaDlugosc.Name = "lTrasaDlugosc";
+            this.lTrasaDlugosc.Size = new System.Drawing.Size(73, 13);
+            this.lTrasaDlugosc.TabIndex = 5;
+            this.lTrasaDlugosc.Text = "Długość trasy";
+            // 
+            // lTrasaTytul
+            // 
+            this.lTrasaTytul.AutoSize = true;
+            this.lTrasaTytul.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lTrasaTytul.Location = new System.Drawing.Point(11, 12);
+            this.lTrasaTytul.Name = "lTrasaTytul";
+            this.lTrasaTytul.Size = new System.Drawing.Size(57, 24);
+            this.lTrasaTytul.TabIndex = 4;
+            this.lTrasaTytul.Text = "Trasa";
+            // 
+            // bTrasaZapisz
+            // 
+            this.bTrasaZapisz.Location = new System.Drawing.Point(697, 492);
+            this.bTrasaZapisz.Name = "bTrasaZapisz";
+            this.bTrasaZapisz.Size = new System.Drawing.Size(75, 35);
+            this.bTrasaZapisz.TabIndex = 3;
+            this.bTrasaZapisz.Text = "Zapisz do pliku";
+            this.bTrasaZapisz.UseVisualStyleBackColor = true;
+            // 
+            // bTrasaMenu
+            // 
+            this.bTrasaMenu.Location = new System.Drawing.Point(12, 490);
+            this.bTrasaMenu.Name = "bTrasaMenu";
+            this.bTrasaMenu.Size = new System.Drawing.Size(75, 35);
+            this.bTrasaMenu.TabIndex = 2;
+            this.bTrasaMenu.Text = "Wróć do menu";
+            this.bTrasaMenu.UseVisualStyleBackColor = true;
+            // 
+            // dgTrasaPunkty
+            // 
+            this.dgTrasaPunkty.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgTrasaPunkty.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgTrasaX,
+            this.dgTrasaY});
+            this.dgTrasaPunkty.Location = new System.Drawing.Point(12, 227);
+            this.dgTrasaPunkty.Name = "dgTrasaPunkty";
+            this.dgTrasaPunkty.Size = new System.Drawing.Size(760, 259);
+            this.dgTrasaPunkty.TabIndex = 1;
+            // 
+            // dgTrasaX
+            // 
+            this.dgTrasaX.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dgTrasaX.HeaderText = "X";
+            this.dgTrasaX.Name = "dgTrasaX";
+            // 
+            // dgTrasaY
+            // 
+            this.dgTrasaY.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dgTrasaY.HeaderText = "Y";
+            this.dgTrasaY.Name = "dgTrasaY";
+            // 
+            // lTrasaPunkty
+            // 
+            this.lTrasaPunkty.AutoSize = true;
+            this.lTrasaPunkty.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lTrasaPunkty.Location = new System.Drawing.Point(10, 198);
+            this.lTrasaPunkty.Name = "lTrasaPunkty";
+            this.lTrasaPunkty.Size = new System.Drawing.Size(95, 20);
+            this.lTrasaPunkty.TabIndex = 0;
+            this.lTrasaPunkty.Text = "Punkty trasy";
+            // 
             // msTrasa
             // 
             this.msTrasa.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1885,186 +2072,37 @@
             this.msTrasaPlikZapisz.Name = "msTrasaPlikZapisz";
             this.msTrasaPlikZapisz.Size = new System.Drawing.Size(180, 22);
             this.msTrasaPlikZapisz.Text = "Zapisz";
+            this.msTrasaPlikZapisz.Click += new System.EventHandler(this.MsTrasaPlikZapisz_Click);
             // 
             // msTrasaPlikZapiszJako
             // 
             this.msTrasaPlikZapiszJako.Name = "msTrasaPlikZapiszJako";
             this.msTrasaPlikZapiszJako.Size = new System.Drawing.Size(180, 22);
             this.msTrasaPlikZapiszJako.Text = "Zapisz jako";
+            this.msTrasaPlikZapiszJako.Click += new System.EventHandler(this.MsTrasaPlikZapiszJako_Click);
             // 
             // msTrasaPlikWczytaj
             // 
             this.msTrasaPlikWczytaj.Name = "msTrasaPlikWczytaj";
             this.msTrasaPlikWczytaj.Size = new System.Drawing.Size(180, 22);
             this.msTrasaPlikWczytaj.Text = "Wczytaj";
-            // 
-            // pTrasaDane
-            // 
-            this.pTrasaDane.Controls.Add(this.tbTrasaNazwa);
-            this.pTrasaDane.Controls.Add(this.lTrasaNazwa);
-            this.pTrasaDane.Controls.Add(this.tbTrasaPredkosc);
-            this.pTrasaDane.Controls.Add(this.tbTrasaDlugosc);
-            this.pTrasaDane.Controls.Add(this.lTrasaVMax);
-            this.pTrasaDane.Controls.Add(this.lTrasaDlugosc);
-            this.pTrasaDane.Controls.Add(this.lTrasaTytul);
-            this.pTrasaDane.Controls.Add(this.bTrasaZapisz);
-            this.pTrasaDane.Controls.Add(this.bTrasaMenu);
-            this.pTrasaDane.Controls.Add(this.dgTrasaPunkty);
-            this.pTrasaDane.Controls.Add(this.lTrasaPunkty);
-            this.pTrasaDane.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pTrasaDane.Location = new System.Drawing.Point(0, 24);
-            this.pTrasaDane.Name = "pTrasaDane";
-            this.pTrasaDane.Size = new System.Drawing.Size(784, 537);
-            this.pTrasaDane.TabIndex = 1;
-            // 
-            // lTrasaPunkty
-            // 
-            this.lTrasaPunkty.AutoSize = true;
-            this.lTrasaPunkty.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lTrasaPunkty.Location = new System.Drawing.Point(10, 198);
-            this.lTrasaPunkty.Name = "lTrasaPunkty";
-            this.lTrasaPunkty.Size = new System.Drawing.Size(95, 20);
-            this.lTrasaPunkty.TabIndex = 0;
-            this.lTrasaPunkty.Text = "Punkty trasy";
-            // 
-            // dgTrasaPunkty
-            // 
-            this.dgTrasaPunkty.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgTrasaPunkty.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dgTrasaX,
-            this.dgTrasaY});
-            this.dgTrasaPunkty.Location = new System.Drawing.Point(12, 227);
-            this.dgTrasaPunkty.Name = "dgTrasaPunkty";
-            this.dgTrasaPunkty.Size = new System.Drawing.Size(760, 259);
-            this.dgTrasaPunkty.TabIndex = 1;
-            // 
-            // bTrasaMenu
-            // 
-            this.bTrasaMenu.Location = new System.Drawing.Point(12, 490);
-            this.bTrasaMenu.Name = "bTrasaMenu";
-            this.bTrasaMenu.Size = new System.Drawing.Size(75, 35);
-            this.bTrasaMenu.TabIndex = 2;
-            this.bTrasaMenu.Text = "Wróć do menu";
-            this.bTrasaMenu.UseVisualStyleBackColor = true;
-            // 
-            // bTrasaZapisz
-            // 
-            this.bTrasaZapisz.Location = new System.Drawing.Point(697, 492);
-            this.bTrasaZapisz.Name = "bTrasaZapisz";
-            this.bTrasaZapisz.Size = new System.Drawing.Size(75, 35);
-            this.bTrasaZapisz.TabIndex = 3;
-            this.bTrasaZapisz.Text = "Zapisz do pliku";
-            this.bTrasaZapisz.UseVisualStyleBackColor = true;
-            // 
-            // dgTrasaX
-            // 
-            this.dgTrasaX.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dgTrasaX.HeaderText = "X";
-            this.dgTrasaX.Name = "dgTrasaX";
-            // 
-            // dgTrasaY
-            // 
-            this.dgTrasaY.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dgTrasaY.HeaderText = "Y";
-            this.dgTrasaY.Name = "dgTrasaY";
-            // 
-            // cNazwaPrzystanku
-            // 
-            this.cNazwaPrzystanku.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cNazwaPrzystanku.HeaderText = "Nazwa przystanku";
-            this.cNazwaPrzystanku.Name = "cNazwaPrzystanku";
-            // 
-            // cLiniaPrzystanek
-            // 
-            this.cLiniaPrzystanek.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cLiniaPrzystanek.HeaderText = "Sciezka pliku przystanku";
-            this.cLiniaPrzystanek.Name = "cLiniaPrzystanek";
-            // 
-            // cCzasDojazdu
-            // 
-            this.cCzasDojazdu.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cCzasDojazdu.HeaderText = "Czas dojazdu";
-            this.cCzasDojazdu.Name = "cCzasDojazdu";
-            // 
-            // cTrasa
-            // 
-            this.cTrasa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cTrasa.HeaderText = "Trasa";
-            this.cTrasa.Name = "cTrasa";
-            // 
-            // lTrasaTytul
-            // 
-            this.lTrasaTytul.AutoSize = true;
-            this.lTrasaTytul.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lTrasaTytul.Location = new System.Drawing.Point(11, 12);
-            this.lTrasaTytul.Name = "lTrasaTytul";
-            this.lTrasaTytul.Size = new System.Drawing.Size(57, 24);
-            this.lTrasaTytul.TabIndex = 4;
-            this.lTrasaTytul.Text = "Trasa";
-            // 
-            // lTrasaDlugosc
-            // 
-            this.lTrasaDlugosc.AutoSize = true;
-            this.lTrasaDlugosc.Location = new System.Drawing.Point(14, 63);
-            this.lTrasaDlugosc.Name = "lTrasaDlugosc";
-            this.lTrasaDlugosc.Size = new System.Drawing.Size(73, 13);
-            this.lTrasaDlugosc.TabIndex = 5;
-            this.lTrasaDlugosc.Text = "Długość trasy";
-            // 
-            // lTrasaVMax
-            // 
-            this.lTrasaVMax.AutoSize = true;
-            this.lTrasaVMax.Location = new System.Drawing.Point(12, 90);
-            this.lTrasaVMax.Name = "lTrasaVMax";
-            this.lTrasaVMax.Size = new System.Drawing.Size(113, 13);
-            this.lTrasaVMax.TabIndex = 6;
-            this.lTrasaVMax.Text = "Prędkość maksymalna";
-            // 
-            // tbTrasaDlugosc
-            // 
-            this.tbTrasaDlugosc.Location = new System.Drawing.Point(131, 60);
-            this.tbTrasaDlugosc.Name = "tbTrasaDlugosc";
-            this.tbTrasaDlugosc.Size = new System.Drawing.Size(100, 20);
-            this.tbTrasaDlugosc.TabIndex = 7;
-            // 
-            // tbTrasaPredkosc
-            // 
-            this.tbTrasaPredkosc.Location = new System.Drawing.Point(131, 85);
-            this.tbTrasaPredkosc.Name = "tbTrasaPredkosc";
-            this.tbTrasaPredkosc.Size = new System.Drawing.Size(100, 20);
-            this.tbTrasaPredkosc.TabIndex = 8;
-            // 
-            // lTrasaNazwa
-            // 
-            this.lTrasaNazwa.AutoSize = true;
-            this.lTrasaNazwa.Location = new System.Drawing.Point(14, 39);
-            this.lTrasaNazwa.Name = "lTrasaNazwa";
-            this.lTrasaNazwa.Size = new System.Drawing.Size(65, 13);
-            this.lTrasaNazwa.TabIndex = 9;
-            this.lTrasaNazwa.Text = "Nazwa trasy";
-            // 
-            // tbTrasaNazwa
-            // 
-            this.tbTrasaNazwa.Location = new System.Drawing.Point(131, 36);
-            this.tbTrasaNazwa.Name = "tbTrasaNazwa";
-            this.tbTrasaNazwa.Size = new System.Drawing.Size(100, 20);
-            this.tbTrasaNazwa.TabIndex = 10;
+            this.msTrasaPlikWczytaj.Click += new System.EventHandler(this.MsTrasaPlikWczytaj_Click);
             // 
             // AplikacjaPomocnicza
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.pKonfiguracja);
+            this.Controls.Add(this.pPrzejazdy);
+            this.Controls.Add(this.pZarzadTransportu);
+            this.Controls.Add(this.pPrzyplywyPasazerow);
+            this.Controls.Add(this.pFirma);
             this.Controls.Add(this.pTrasa);
             this.Controls.Add(this.pPowitanie);
             this.Controls.Add(this.pLinia);
-            this.Controls.Add(this.pKonfiguracja);
-            this.Controls.Add(this.pZarzadTransportu);
-            this.Controls.Add(this.pPrzejazdy);
-            this.Controls.Add(this.pFirma);
             this.Controls.Add(this.pPrzystanek);
             this.Controls.Add(this.pAutobus);
-            this.Controls.Add(this.pPrzyplywyPasazerow);
             this.MainMenuStrip = this.msPrzejazdy;
             this.Name = "AplikacjaPomocnicza";
             this.Text = "Aplikacja pomocnicza";
@@ -2116,13 +2154,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgLiniaDane)).EndInit();
             this.pZarzadTransportu.ResumeLayout(false);
             this.pZarzadTransportu.PerformLayout();
+            this.pZarzadDanePrzystanki.ResumeLayout(false);
+            this.pZarzadDanePrzystanki.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgZarzadPrzystanki)).EndInit();
             this.pZarzadLinieFirmy.ResumeLayout(false);
             this.pZarzadLinieFirmy.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgZarzadFirmy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgZarzadLinie)).EndInit();
-            this.pZarzadDanePrzystanki.ResumeLayout(false);
-            this.pZarzadDanePrzystanki.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgZarzadPrzystanki)).EndInit();
             this.msZarzad.ResumeLayout(false);
             this.msZarzad.PerformLayout();
             this.pPrzyplywyPasazerow.ResumeLayout(false);
@@ -2135,11 +2173,11 @@
             this.msKonfiguracja.PerformLayout();
             this.pTrasa.ResumeLayout(false);
             this.pTrasa.PerformLayout();
-            this.msTrasa.ResumeLayout(false);
-            this.msTrasa.PerformLayout();
             this.pTrasaDane.ResumeLayout(false);
             this.pTrasaDane.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgTrasaPunkty)).EndInit();
+            this.msTrasa.ResumeLayout(false);
+            this.msTrasa.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2213,10 +2251,10 @@
         private System.Windows.Forms.Label lPrzejazdTytul;
         private System.Windows.Forms.Button BMenu;
         private System.Windows.Forms.MenuStrip msPrzejazdy;
-        private System.Windows.Forms.ToolStripMenuItem plikToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem zapiszToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem zapiszJakoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem wczytajToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem msPrzejazdyPlik;
+        private System.Windows.Forms.ToolStripMenuItem msPrzejazdyPlikZapisz;
+        private System.Windows.Forms.ToolStripMenuItem msPrzejazdyPlikZapiszJako;
+        private System.Windows.Forms.ToolStripMenuItem msPrzejazdyPlikWczytaj;
         private System.Windows.Forms.MenuStrip msAutobus;
         private System.Windows.Forms.ToolStripMenuItem msAutobusPlik;
         private System.Windows.Forms.ToolStripMenuItem msAutobusZapisz;
@@ -2313,8 +2351,8 @@
         private System.Windows.Forms.Button bKonfiguracjaZapisz;
         private System.Windows.Forms.Button bKonfiguracjaMenu;
         private System.Windows.Forms.DataGridView dgKonfiguracjaZarzady;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbKonfiguracjaPrzejazdy;
+        private System.Windows.Forms.TextBox tbKonfiguracjaZdjecie;
         private System.Windows.Forms.Label lKonfiguracjaPrzjeazdy;
         private System.Windows.Forms.Label lKonfiguracjaTapeta;
         private System.Windows.Forms.Button bTrasa;
@@ -2342,6 +2380,9 @@
         private System.Windows.Forms.Label lTrasaDlugosc;
         private System.Windows.Forms.TextBox tbTrasaNazwa;
         private System.Windows.Forms.Label lTrasaNazwa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cKonfiguracjaZarzadyNazwa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cKonfiguracjaZarzadySciezkaPliku;
+        private System.Windows.Forms.CheckBox cbKonfiguracjaGeneracjaLinii;
     }
 }
 

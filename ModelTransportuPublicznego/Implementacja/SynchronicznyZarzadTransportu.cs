@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using ModelTransportuPublicznego.Implementacja.Firmy;
 using ModelTransportuPublicznego.Misc;
 using ModelTransportuPublicznego.Model;
 using ModelTransportuPublicznego.Model.Firma;
@@ -6,26 +9,26 @@ using ModelTransportuPublicznego.Model.Przystanek;
 
 namespace ModelTransportuPublicznego.Implementacja {
     
-    public sealed class DomyslnyZarzadTranspotu : SynchronicznyZarzadTransportu {
+    public class SynchronicznyZarzadTransportu : ZarzadTransportu {
 
         private List<Przejazd> listaPrzejazdow;
 
-        public DomyslnyZarzadTranspotu(string nazwaFirmy) : base(nazwaFirmy) {
+        public SynchronicznyZarzadTransportu(string nazwaFirmy) : base(nazwaFirmy) {
             listaPrzejazdow = new List<Przejazd>();
         }
 
-        public DomyslnyZarzadTranspotu(string nazwaFirmy, IEnumerable<Przystanek> listaPrzystankow) : base(nazwaFirmy, listaPrzystankow) { }
+        public SynchronicznyZarzadTransportu(string nazwaFirmy, IEnumerable<Przystanek> listaPrzystankow) : base(nazwaFirmy, listaPrzystankow) { }
         
-        public DomyslnyZarzadTranspotu(string nazwaFirmy, IEnumerable<Firma> listaFirm) : base(nazwaFirmy, listaFirm) { }
+        public SynchronicznyZarzadTransportu(string nazwaFirmy, IEnumerable<Firma> listaFirm) : base(nazwaFirmy, listaFirm) { }
         
-        public DomyslnyZarzadTranspotu(string nazwaFirmy, IEnumerable<Przystanek> siecPrzystankow, IEnumerable<Firma> listaFirm) 
+        public SynchronicznyZarzadTransportu(string nazwaFirmy, IEnumerable<Przystanek> siecPrzystankow, IEnumerable<Firma> listaFirm) 
             : base(nazwaFirmy, siecPrzystankow, listaFirm) { }
         
         public override void DodajPrzystanek(Przystanek przystanek) {
             siecPrzystankow.Add(przystanek);
         }
 
-        public override void DodajPrzystanki(IEnumerable<Przystanek> przystanki) {
+        public override void DodajPrzystanek(IEnumerable<Przystanek> przystanki) {
             foreach (var przystanek in przystanki) {
                 siecPrzystankow.Add(przystanek);
             }
@@ -39,7 +42,7 @@ namespace ModelTransportuPublicznego.Implementacja {
             listaFirm.Add(firma);
         }
 
-        public override void DodajFirmy(IEnumerable<Firma> firmy) {
+        public override void DodajFirme(IEnumerable<Firma> firmy) {
             foreach (var firma in firmy) {
                 listaFirm.Add(firma);
             }
@@ -86,6 +89,20 @@ namespace ModelTransportuPublicznego.Implementacja {
                 przejazd.Firma.DodajPrzejazdDoHistorii(przejazd);
                 WizualizatorMapy.NarysujMape(przejazd.CzasNastepnejAkcji.ToString().Replace(':', '-'), siecPrzystankow, ZwrocLinie());
             }
+        }
+
+        public static SynchronicznyZarzadTransportu OdczytajPlik(string sciezkaPliku)
+        {
+            SynchronicznyZarzadTransportu zt;
+            using (var sr = File.OpenText(sciezkaPliku))
+            {
+                zt = new SynchronicznyZarzadTransportu(sr.ReadLine());
+                zt.DodajPrzystanek(sr.ReadLine().Split('|').Select(s => Przystanek.OdczytajPlik(s, zt)));
+                zt.DodajFirme(sr.ReadLine().Split('|').Select(f => FirmaLosowa.OdczytajPlik(f, zt)));
+                zt.DodajLinie(sr.ReadLine().Split('|').Select(l => Linia.OdczytajPlik(l, zt)));
+            }
+
+            return zt;
         }
     }
 }

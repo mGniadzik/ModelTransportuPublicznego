@@ -201,7 +201,7 @@ namespace ModelTransportuPublicznego.Model
             return true;
         }
 
-        public static Linia OdczytajPlik(string sciezkaPliku, SynchronicznyZarzadTransportu zt)
+        public static Linia OdczytajPlik(string sciezkaPliku, ZarzadTransportu zt)
         {
             string id;
             var wpisy = new List<WpisLinii>();

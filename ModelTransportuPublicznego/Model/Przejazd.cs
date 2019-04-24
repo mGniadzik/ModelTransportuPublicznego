@@ -287,7 +287,7 @@ namespace ModelTransportuPublicznego.Model
             return true;
         }
 
-        public static Przejazd OdczytajPlik(string sciezkaPliku, SynchronicznyZarzadTransportu zt)
+        public static Przejazd OdczytajPlik(string sciezkaPliku, ZarzadTransportu zt = null)
         {
             Przejazd rezultat;
 

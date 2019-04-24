@@ -9,6 +9,7 @@ using System.Linq;
 using ModelTransportuPublicznego.Model;
 using ModelTransportuPublicznego.Model.Firma;
 using ModelTransportuPublicznego.Implementacja.Firmy;
+using ModelTransportuPublicznego.Implementacja;
 
 namespace AplikacjaPomocnicza
 {
@@ -886,6 +887,16 @@ namespace AplikacjaPomocnicza
             }
         }
 
+        private void OtworzPlikDoZapisu(Action<SaveFileDialog> action)
+        {
+            var dialog = new SaveFileDialog();
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                action(dialog);
+            }
+        }
+
         private void BZarzad_Click(object sender, EventArgs e)
         {
             UstawPaneleJakoWidoczne(pZarzadTransportu, pZarzadDanePrzystanki);
@@ -937,6 +948,201 @@ namespace AplikacjaPomocnicza
                     }
                 });
             }
+        }
+
+        private void MsTrasaPlikZapisz_Click(object sender, EventArgs e)
+        {
+            using (var sw = File.CreateText(nazwaPliku))
+            {
+                StworzTraseZInputow().Zapisz(sw);
+            }
+        }
+
+        private Trasa StworzTraseZInputow()
+        {
+            var punktyTrasy = new List<Point>();
+
+            foreach (DataGridViewRow row in dgTrasaPunkty.Rows)
+            {
+                if (row.Cells[0] == null && row.Cells[1] == null) continue;
+                punktyTrasy.Add(new Point(Convert.ToInt32(row.Cells[0].Value), Convert.ToInt32(row.Cells[1].Value)));
+            }
+
+            return new Trasa(tbTrasaNazwa.Text, Convert.ToInt32(tbTrasaDlugosc.Text), Convert.ToDouble(tbTrasaPredkosc.Text), punktyTrasy);
+        }
+
+        private void MsTrasaPlikZapiszJako_Click(object sender, EventArgs e)
+        {
+            OtworzPlikDoZapisu((dialog) =>
+            {
+                Stream stream;
+                if ((stream = dialog.OpenFile()) != null)
+                {
+                    using (var sw = new StreamWriter(stream))
+                    {
+                        StworzTraseZInputow().Zapisz(sw);
+                    }
+                    stream.Close();
+                }
+            });
+        }
+
+        private void MsTrasaPlikWczytaj_Click(object sender, EventArgs e)
+        {
+            OtworzPlikDoOdczytu((dialog) => 
+            {
+                nazwaPliku = dialog.FileName;
+                var trasa = Trasa.OdczytajPlik(dialog.FileName);
+                tbTrasaNazwa.Text = trasa.NazwaTrasy;
+                tbTrasaDlugosc.Text = trasa.DystansTrasy.ToString();
+                tbTrasaPredkosc.Text = trasa.VMaxTrasy.ToString();
+
+                foreach (var punkt in trasa.PunktyTrasy)
+                {
+                    var row = (DataGridViewRow)dgTrasaPunkty.Rows[0].Clone();
+                    row.Cells[0].Value = punkt.X;
+                    row.Cells[1].Value = punkt.Y;
+                    dgTrasaPunkty.Rows.Add(row);
+                }
+            });
+        }
+
+        private void ZapiszPrzejazdyZInputow(StreamWriter sw)
+        {
+            foreach (DataGridViewRow row in dgPrzejazdy.Rows)
+            {
+                sw.WriteLine($"{0}|{1}|{2}|{3}", row.Cells[0], row.Cells[1], row.Cells[2], row.Cells[3]);
+            }
+        }
+
+        private void MsPrzejazdyPlikZapisz_Click(object sender, EventArgs e)
+        {
+            using (var sw = File.CreateText(nazwaPliku))
+            {
+                ZapiszPrzejazdyZInputow(sw);
+            }
+        }
+
+        private void MsPrzejazdyPlikZapiszJako_Click(object sender, EventArgs e)
+        {
+            OtworzPlikDoZapisu((dialog) => 
+            {
+                Stream stream;
+                if ((stream = dialog.OpenFile()) != null)
+                {
+                    using (var sw = new StreamWriter(stream))
+                    {
+                        ZapiszPrzejazdyZInputow(sw);
+                    }
+                    stream.Close();
+                }
+            });
+        }
+
+        private void MsPrzejazdyPlikWczytaj_Click(object sender, EventArgs e)
+        {
+            OtworzPlikDoOdczytu((dialog) => 
+            {
+                nazwaPliku = dialog.FileName;
+                using (var sr = File.OpenText(dialog.FileName))
+                {
+                    do
+                    {
+                        var dane = sr.ReadLine().Split('|');
+                        var row = (DataGridViewRow)dgPrzejazdy.Rows[0].Clone();
+
+                        row.Cells[0].Value = dane[0];
+                        row.Cells[1].Value = dane[1];
+                        row.Cells[2].Value = dane[2];
+                        row.Cells[3].Value = (dane.Length == 4) ? dane[3] : null;
+
+                        dgPrzejazdy.Rows.Add(row);
+                    } while (!sr.EndOfStream);
+                }
+            });
+        }
+
+        private void MsZarzadPlikWczytaj_Click(object sender, EventArgs e)
+        {
+            OtworzPlikDoOdczytu((dialog) => 
+            {
+                nazwaPliku = dialog.FileName;
+                var zt = SynchronicznyZarzadTransportu.OdczytajPlik(dialog.FileName);
+                tbZarzadNazwa.Text = zt.NazwaFirmy;
+
+                foreach (var p in zt.SiecPrzystankow)
+                {
+                    var row = (DataGridViewRow)dgZarzadPrzystanki.Rows[0].Clone();
+                    row.Cells[0].Value = p.NazwaPrzystanku;
+                    row.Cells[1].Value = p.SciezkaPlikuKonfiguracyjnego;
+                    dgZarzadPrzystanki.Rows.Add(row);
+                }
+
+                foreach (var f in zt.ListaFirm)
+                {
+                    var row = (DataGridViewRow)dgZarzadFirmy.Rows[0].Clone();
+                    row.Cells[0].Value = f.NazwaFirmy;
+                    row.Cells[1].Value = f.SciezkaPlikuKonfiguracyjnego;
+                    dgZarzadFirmy.Rows.Add(row);
+                }
+
+                foreach (var l in zt.ListaLinii)
+                {
+                    var row = (DataGridViewRow)dgZarzadLinie.Rows[0].Clone();
+                    row.Cells[0].Value = l.IdLinii;
+                    row.Cells[1].Value = l.SciezkaPlikuKonfiguracyjnego;
+                    dgZarzadLinie.Rows.Add(row);
+                }
+            });
+        }
+
+        private void MsZarzadPlikZapisz_Click(object sender, EventArgs e)
+        {
+            using (var sw = File.CreateText(nazwaPliku))
+            {
+                StworzZarzadZInputow().Zapisz(sw);
+            }
+        }
+
+        private ZarzadTransportu StworzZarzadZInputow()
+        {
+            var zt = new SynchronicznyZarzadTransportu(tbZarzadNazwa.Text);
+
+            foreach (DataGridViewRow row in dgZarzadPrzystanki.Rows)
+            {
+                if (row.Cells[0].Value == null || row.Cells[1].Value == null) continue;
+                zt.DodajPrzystanek(Przystanek.OdczytajPlik(row.Cells[1].Value.ToString(), zt));
+            }
+
+            foreach (DataGridViewRow row in dgZarzadFirmy.Rows)
+            {
+                if (row.Cells[0].Value == null || row.Cells[1].Value == null) continue;
+                zt.DodajFirme(FirmaLosowa.OdczytajPlik(row.Cells[1].Value.ToString(), zt));
+            }
+
+            foreach (DataGridViewRow row in dgZarzadLinie.Rows)
+            {
+                if (row.Cells[0].Value == null || row.Cells[1].Value == null) continue;
+                zt.DodajLinie(Linia.OdczytajPlik(row.Cells[1].Value.ToString(), zt));
+            }
+
+            return zt;
+        }
+
+        private void MsZarzadPlikZapiszJako_Click(object sender, EventArgs e)
+        {
+            OtworzPlikDoZapisu((dialog) =>
+            {
+                Stream stream;
+                if ((stream = dialog.OpenFile()) != null)
+                {
+                    using (var sw = new StreamWriter(stream))
+                    {
+                        StworzZarzadZInputow().Zapisz(sw);
+                    }
+                    stream.Close();
+                }
+            });
         }
     }
 }
