@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -74,6 +75,13 @@ namespace ModelTransportuPublicznego.Implementacja {
             }
         }
 
+        public override void DodajPrzejazdDoListy(string czas, string nazwaFirmy, string idLinii, string modelAutobusu = null)
+        {
+            var daneCzasu = czas.Split('|');
+            listaPrzejazdow.Add(new Przejazd(ZwrocFirmePoNazwie(nazwaFirmy), ZwrocLiniePoID(idLinii), 
+                new TimeSpan(Convert.ToInt32(daneCzasu[0]), Convert.ToInt32(daneCzasu[1]), Convert.ToInt32(daneCzasu[2])), modelAutobusu));
+        }
+
         public override void WykonajPrzejazdy() {
             Przejazd przejazd;
             
@@ -98,8 +106,8 @@ namespace ModelTransportuPublicznego.Implementacja {
             {
                 zt = new SynchronicznyZarzadTransportu(sr.ReadLine());
                 zt.DodajPrzystanek(sr.ReadLine().Split('|').Select(s => Przystanek.OdczytajPlik(s, zt)));
-                zt.DodajFirme(sr.ReadLine().Split('|').Select(f => FirmaLosowa.OdczytajPlik(f, zt)));
                 zt.DodajLinie(sr.ReadLine().Split('|').Select(l => Linia.OdczytajPlik(l, zt)));
+                zt.DodajFirme(sr.ReadLine().Split('|').Select(f => FirmaLosowa.OdczytajPlik(f, zt)));
             }
 
             return zt;

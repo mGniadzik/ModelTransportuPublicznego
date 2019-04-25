@@ -85,6 +85,16 @@ namespace ModelTransportuPublicznego.Model {
             listaFirm.Remove(firma);
         }
 
+        public virtual Firma.Firma ZwrocFirmePoNazwie(string nazwaFirmy)
+        {
+            foreach (var f in listaFirm)
+            {
+                if (f.NazwaFirmy == nazwaFirmy) return f;
+            }
+
+            return null;
+        }
+
         public virtual void DodajLinie(Linia linia)
         {
             listaLinii.Add(linia);
@@ -113,9 +123,21 @@ namespace ModelTransportuPublicznego.Model {
             return linie;
         }
 
+        public virtual Linia ZwrocLiniePoID(string id)
+        {
+            foreach (var l in listaLinii)
+            {
+                if (l.IdLinii == id) return l;
+            }
+
+            return null;
+        }
+
         public abstract void StworzListePrzejazdow();
 
         public abstract void DodajPrzejazdDoListy(Przejazd przejazd);
+
+        public abstract void DodajPrzejazdDoListy(string czas, string nazwaFirmy, string idLinii, string modelAutobusu = null);
 
         public abstract void WykonajPrzejazdy();
 

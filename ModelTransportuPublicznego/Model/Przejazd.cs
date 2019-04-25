@@ -274,10 +274,7 @@ namespace ModelTransportuPublicznego.Model
         {
             try
             {
-                sw.WriteLine(firma.SciezkaPlikuKonfiguracyjnego);
-                sw.WriteLine(linia.IdLinii);
-                sw.WriteLine(czasRozpoczeciaPrzejazdu);
-                sw.WriteLine(autobus.ModelAutobusu);
+                sw.WriteLine($"{0}|{1}|{2}|{3}", czasRozpoczeciaPrzejazdu, firma.SciezkaPlikuKonfiguracyjnego, linia.IdLinii, autobus?.ModelAutobusu);
             } catch (Exception e)
             {
                 Console.WriteLine(e);

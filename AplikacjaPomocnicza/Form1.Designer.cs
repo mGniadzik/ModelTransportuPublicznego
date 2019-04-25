@@ -227,6 +227,10 @@
             this.msTrasaPlikZapisz = new System.Windows.Forms.ToolStripMenuItem();
             this.msTrasaPlikZapiszJako = new System.Windows.Forms.ToolStripMenuItem();
             this.msTrasaPlikWczytaj = new System.Windows.Forms.ToolStripMenuItem();
+            this.lKonfSzerokosc = new System.Windows.Forms.Label();
+            this.lKonfWysokosc = new System.Windows.Forms.Label();
+            this.tbKonfSzerokosc = new System.Windows.Forms.TextBox();
+            this.tbKonfWysokosc = new System.Windows.Forms.TextBox();
             this.pPowitanie.SuspendLayout();
             this.pAutobusStale.SuspendLayout();
             this.msAutobus.SuspendLayout();
@@ -1028,21 +1032,21 @@
             // msPrzejazdyPlikZapisz
             // 
             this.msPrzejazdyPlikZapisz.Name = "msPrzejazdyPlikZapisz";
-            this.msPrzejazdyPlikZapisz.Size = new System.Drawing.Size(180, 22);
+            this.msPrzejazdyPlikZapisz.Size = new System.Drawing.Size(132, 22);
             this.msPrzejazdyPlikZapisz.Text = "Zapisz";
             this.msPrzejazdyPlikZapisz.Click += new System.EventHandler(this.MsPrzejazdyPlikZapisz_Click);
             // 
             // msPrzejazdyPlikZapiszJako
             // 
             this.msPrzejazdyPlikZapiszJako.Name = "msPrzejazdyPlikZapiszJako";
-            this.msPrzejazdyPlikZapiszJako.Size = new System.Drawing.Size(180, 22);
+            this.msPrzejazdyPlikZapiszJako.Size = new System.Drawing.Size(132, 22);
             this.msPrzejazdyPlikZapiszJako.Text = "Zapisz jako";
             this.msPrzejazdyPlikZapiszJako.Click += new System.EventHandler(this.MsPrzejazdyPlikZapiszJako_Click);
             // 
             // msPrzejazdyPlikWczytaj
             // 
             this.msPrzejazdyPlikWczytaj.Name = "msPrzejazdyPlikWczytaj";
-            this.msPrzejazdyPlikWczytaj.Size = new System.Drawing.Size(180, 22);
+            this.msPrzejazdyPlikWczytaj.Size = new System.Drawing.Size(132, 22);
             this.msPrzejazdyPlikWczytaj.Text = "Wczytaj";
             this.msPrzejazdyPlikWczytaj.Click += new System.EventHandler(this.MsPrzejazdyPlikWczytaj_Click);
             // 
@@ -1147,21 +1151,21 @@
             // msFirmaPlikZapisz
             // 
             this.msFirmaPlikZapisz.Name = "msFirmaPlikZapisz";
-            this.msFirmaPlikZapisz.Size = new System.Drawing.Size(180, 22);
+            this.msFirmaPlikZapisz.Size = new System.Drawing.Size(132, 22);
             this.msFirmaPlikZapisz.Text = "Zapisz";
             this.msFirmaPlikZapisz.Click += new System.EventHandler(this.MsFirmaPlikZapisz_Click);
             // 
             // msFirmaPlikZapiszJako
             // 
             this.msFirmaPlikZapiszJako.Name = "msFirmaPlikZapiszJako";
-            this.msFirmaPlikZapiszJako.Size = new System.Drawing.Size(180, 22);
+            this.msFirmaPlikZapiszJako.Size = new System.Drawing.Size(132, 22);
             this.msFirmaPlikZapiszJako.Text = "Zapisz jako";
             this.msFirmaPlikZapiszJako.Click += new System.EventHandler(this.MsFirmaPlikZapiszJako_Click);
             // 
             // msFirmaPlikWczytaj
             // 
             this.msFirmaPlikWczytaj.Name = "msFirmaPlikWczytaj";
-            this.msFirmaPlikWczytaj.Size = new System.Drawing.Size(180, 22);
+            this.msFirmaPlikWczytaj.Size = new System.Drawing.Size(132, 22);
             this.msFirmaPlikWczytaj.Text = "Wczytaj";
             this.msFirmaPlikWczytaj.Click += new System.EventHandler(this.MsFirmaPlikWczytaj_Click);
             // 
@@ -1705,21 +1709,21 @@
             // msZarzadPlikZapisz
             // 
             this.msZarzadPlikZapisz.Name = "msZarzadPlikZapisz";
-            this.msZarzadPlikZapisz.Size = new System.Drawing.Size(180, 22);
+            this.msZarzadPlikZapisz.Size = new System.Drawing.Size(132, 22);
             this.msZarzadPlikZapisz.Text = "Zapisz";
             this.msZarzadPlikZapisz.Click += new System.EventHandler(this.MsZarzadPlikZapisz_Click);
             // 
             // msZarzadPlikZapiszJako
             // 
             this.msZarzadPlikZapiszJako.Name = "msZarzadPlikZapiszJako";
-            this.msZarzadPlikZapiszJako.Size = new System.Drawing.Size(180, 22);
+            this.msZarzadPlikZapiszJako.Size = new System.Drawing.Size(132, 22);
             this.msZarzadPlikZapiszJako.Text = "Zapisz jako";
             this.msZarzadPlikZapiszJako.Click += new System.EventHandler(this.MsZarzadPlikZapiszJako_Click);
             // 
             // msZarzadPlikWczytaj
             // 
             this.msZarzadPlikWczytaj.Name = "msZarzadPlikWczytaj";
-            this.msZarzadPlikWczytaj.Size = new System.Drawing.Size(180, 22);
+            this.msZarzadPlikWczytaj.Size = new System.Drawing.Size(132, 22);
             this.msZarzadPlikWczytaj.Text = "Wczytaj";
             this.msZarzadPlikWczytaj.Click += new System.EventHandler(this.MsZarzadPlikWczytaj_Click);
             // 
@@ -1752,6 +1756,10 @@
             // 
             // pKonfiguracjaDaneZarzady
             // 
+            this.pKonfiguracjaDaneZarzady.Controls.Add(this.tbKonfWysokosc);
+            this.pKonfiguracjaDaneZarzady.Controls.Add(this.tbKonfSzerokosc);
+            this.pKonfiguracjaDaneZarzady.Controls.Add(this.lKonfWysokosc);
+            this.pKonfiguracjaDaneZarzady.Controls.Add(this.lKonfSzerokosc);
             this.pKonfiguracjaDaneZarzady.Controls.Add(this.cbKonfiguracjaGeneracjaLinii);
             this.pKonfiguracjaDaneZarzady.Controls.Add(this.tbKonfiguracjaPrzejazdy);
             this.pKonfiguracjaDaneZarzady.Controls.Add(this.tbKonfiguracjaZdjecie);
@@ -1894,21 +1902,21 @@
             // msKonfiguracjaPlikZapisz
             // 
             this.msKonfiguracjaPlikZapisz.Name = "msKonfiguracjaPlikZapisz";
-            this.msKonfiguracjaPlikZapisz.Size = new System.Drawing.Size(180, 22);
+            this.msKonfiguracjaPlikZapisz.Size = new System.Drawing.Size(132, 22);
             this.msKonfiguracjaPlikZapisz.Text = "Zapisz";
             this.msKonfiguracjaPlikZapisz.Click += new System.EventHandler(this.MsKonfiguracjaPlikZapisz_Click);
             // 
             // msKonfiguracjaPlikZapiszJako
             // 
             this.msKonfiguracjaPlikZapiszJako.Name = "msKonfiguracjaPlikZapiszJako";
-            this.msKonfiguracjaPlikZapiszJako.Size = new System.Drawing.Size(180, 22);
+            this.msKonfiguracjaPlikZapiszJako.Size = new System.Drawing.Size(132, 22);
             this.msKonfiguracjaPlikZapiszJako.Text = "Zapisz jako";
             this.msKonfiguracjaPlikZapiszJako.Click += new System.EventHandler(this.MsKonfiguracjaPlikZapiszJako_Click);
             // 
             // msKonfiguracjaPlikWczytaj
             // 
             this.msKonfiguracjaPlikWczytaj.Name = "msKonfiguracjaPlikWczytaj";
-            this.msKonfiguracjaPlikWczytaj.Size = new System.Drawing.Size(180, 22);
+            this.msKonfiguracjaPlikWczytaj.Size = new System.Drawing.Size(132, 22);
             this.msKonfiguracjaPlikWczytaj.Text = "Wczytaj";
             this.msKonfiguracjaPlikWczytaj.Click += new System.EventHandler(this.MsKonfiguracjaPlikWczytaj_Click);
             // 
@@ -2073,32 +2081,64 @@
             // msTrasaPlikZapisz
             // 
             this.msTrasaPlikZapisz.Name = "msTrasaPlikZapisz";
-            this.msTrasaPlikZapisz.Size = new System.Drawing.Size(180, 22);
+            this.msTrasaPlikZapisz.Size = new System.Drawing.Size(132, 22);
             this.msTrasaPlikZapisz.Text = "Zapisz";
             this.msTrasaPlikZapisz.Click += new System.EventHandler(this.MsTrasaPlikZapisz_Click);
             // 
             // msTrasaPlikZapiszJako
             // 
             this.msTrasaPlikZapiszJako.Name = "msTrasaPlikZapiszJako";
-            this.msTrasaPlikZapiszJako.Size = new System.Drawing.Size(180, 22);
+            this.msTrasaPlikZapiszJako.Size = new System.Drawing.Size(132, 22);
             this.msTrasaPlikZapiszJako.Text = "Zapisz jako";
             this.msTrasaPlikZapiszJako.Click += new System.EventHandler(this.MsTrasaPlikZapiszJako_Click);
             // 
             // msTrasaPlikWczytaj
             // 
             this.msTrasaPlikWczytaj.Name = "msTrasaPlikWczytaj";
-            this.msTrasaPlikWczytaj.Size = new System.Drawing.Size(180, 22);
+            this.msTrasaPlikWczytaj.Size = new System.Drawing.Size(132, 22);
             this.msTrasaPlikWczytaj.Text = "Wczytaj";
             this.msTrasaPlikWczytaj.Click += new System.EventHandler(this.MsTrasaPlikWczytaj_Click);
+            // 
+            // lKonfSzerokosc
+            // 
+            this.lKonfSzerokosc.AutoSize = true;
+            this.lKonfSzerokosc.Location = new System.Drawing.Point(212, 49);
+            this.lKonfSzerokosc.Name = "lKonfSzerokosc";
+            this.lKonfSzerokosc.Size = new System.Drawing.Size(153, 13);
+            this.lKonfSzerokosc.TabIndex = 10;
+            this.lKonfSzerokosc.Text = "Szerokość generowanych map";
+            // 
+            // lKonfWysokosc
+            // 
+            this.lKonfWysokosc.AutoSize = true;
+            this.lKonfWysokosc.Location = new System.Drawing.Point(212, 73);
+            this.lKonfWysokosc.Name = "lKonfWysokosc";
+            this.lKonfWysokosc.Size = new System.Drawing.Size(153, 13);
+            this.lKonfWysokosc.TabIndex = 11;
+            this.lKonfWysokosc.Text = "Wysokość generowanych map";
+            // 
+            // tbKonfSzerokosc
+            // 
+            this.tbKonfSzerokosc.Location = new System.Drawing.Point(371, 46);
+            this.tbKonfSzerokosc.Name = "tbKonfSzerokosc";
+            this.tbKonfSzerokosc.Size = new System.Drawing.Size(100, 20);
+            this.tbKonfSzerokosc.TabIndex = 12;
+            // 
+            // tbKonfWysokosc
+            // 
+            this.tbKonfWysokosc.Location = new System.Drawing.Point(371, 71);
+            this.tbKonfWysokosc.Name = "tbKonfWysokosc";
+            this.tbKonfWysokosc.Size = new System.Drawing.Size(100, 20);
+            this.tbKonfWysokosc.TabIndex = 13;
             // 
             // AplikacjaPomocnicza
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.pPrzejazdy);
             this.Controls.Add(this.pKonfiguracja);
             this.Controls.Add(this.pPrzyplywyPasazerow);
-            this.Controls.Add(this.pPrzejazdy);
             this.Controls.Add(this.pZarzadTransportu);
             this.Controls.Add(this.pFirma);
             this.Controls.Add(this.pTrasa);
@@ -2386,6 +2426,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cKonfiguracjaZarzadyNazwa;
         private System.Windows.Forms.DataGridViewTextBoxColumn cKonfiguracjaZarzadySciezkaPliku;
         private System.Windows.Forms.CheckBox cbKonfiguracjaGeneracjaLinii;
+        private System.Windows.Forms.TextBox tbKonfWysokosc;
+        private System.Windows.Forms.TextBox tbKonfSzerokosc;
+        private System.Windows.Forms.Label lKonfWysokosc;
+        private System.Windows.Forms.Label lKonfSzerokosc;
     }
 }
 

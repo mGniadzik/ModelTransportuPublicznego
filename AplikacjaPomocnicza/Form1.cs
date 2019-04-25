@@ -870,14 +870,11 @@ namespace AplikacjaPomocnicza
         {
             if (e.ColumnIndex == 1 || e.ColumnIndex == 2 || e.ColumnIndex == 3)
             {
-                OtworzPlikDoOdczytu((dialog) =>
-                {
-                    dgPrzejazdy.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dialog.FileName;
-                });
+                OtworzPlikDoOczytu(sr => dgPrzejazdy.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = sr.ReadLine());
             }
         }
 
-        private void OtworzPlikDoOdczytu(Action<OpenFileDialog> action)
+        private void OtworzFileDialogDoOdczytu(Action<OpenFileDialog> action)
         {
             var dialog = new OpenFileDialog();
 
@@ -887,7 +884,22 @@ namespace AplikacjaPomocnicza
             }
         }
 
-        private void OtworzPlikDoZapisu(Action<SaveFileDialog> action)
+        private void OtworzPlikDoOczytu(Action<StreamReader> action)
+        {
+            OtworzFileDialogDoOdczytu((dialog) => 
+            {
+                Stream stream;
+                if ((stream = dialog.OpenFile()) != null)
+                {
+                    using (var sr = new StreamReader(stream))
+                    {
+                        action(sr);
+                    }
+                }
+            });
+        }
+
+        private void OtworzFileDialogDoZapisu(Action<SaveFileDialog> action)
         {
             var dialog = new SaveFileDialog();
 
@@ -906,7 +918,7 @@ namespace AplikacjaPomocnicza
         {
             if (e.ColumnIndex == 1)
             {
-                OtworzPlikDoOdczytu((dialog) =>
+                OtworzFileDialogDoOdczytu((dialog) =>
                 {
                     dgZarzadPrzystanki.Rows[e.RowIndex].Cells[1].Value = dialog.FileName;
 
@@ -922,7 +934,7 @@ namespace AplikacjaPomocnicza
         {
             if (e.ColumnIndex == 1)
             {
-                OtworzPlikDoOdczytu((dialog) =>
+                OtworzFileDialogDoOdczytu((dialog) =>
                 {
                     dgZarzadLinie.Rows[e.RowIndex].Cells[1].Value = dialog.FileName;
 
@@ -938,7 +950,7 @@ namespace AplikacjaPomocnicza
         {
             if (e.ColumnIndex == 1)
             {
-                OtworzPlikDoOdczytu((dialog) => 
+                OtworzFileDialogDoOdczytu((dialog) => 
                 {
                     dgZarzadFirmy.Rows[e.RowIndex].Cells[1].Value = dialog.FileName;
 
@@ -973,7 +985,7 @@ namespace AplikacjaPomocnicza
 
         private void MsTrasaPlikZapiszJako_Click(object sender, EventArgs e)
         {
-            OtworzPlikDoZapisu((dialog) =>
+            OtworzFileDialogDoZapisu((dialog) =>
             {
                 Stream stream;
                 if ((stream = dialog.OpenFile()) != null)
@@ -989,7 +1001,7 @@ namespace AplikacjaPomocnicza
 
         private void MsTrasaPlikWczytaj_Click(object sender, EventArgs e)
         {
-            OtworzPlikDoOdczytu((dialog) => 
+            OtworzFileDialogDoOdczytu((dialog) => 
             {
                 nazwaPliku = dialog.FileName;
                 var trasa = Trasa.OdczytajPlik(dialog.FileName);
@@ -1025,7 +1037,7 @@ namespace AplikacjaPomocnicza
 
         private void MsPrzejazdyPlikZapiszJako_Click(object sender, EventArgs e)
         {
-            OtworzPlikDoZapisu((dialog) => 
+            OtworzFileDialogDoZapisu((dialog) => 
             {
                 Stream stream;
                 if ((stream = dialog.OpenFile()) != null)
@@ -1041,7 +1053,7 @@ namespace AplikacjaPomocnicza
 
         private void MsPrzejazdyPlikWczytaj_Click(object sender, EventArgs e)
         {
-            OtworzPlikDoOdczytu((dialog) => 
+            OtworzFileDialogDoOdczytu((dialog) => 
             {
                 nazwaPliku = dialog.FileName;
                 using (var sr = File.OpenText(dialog.FileName))
@@ -1064,7 +1076,7 @@ namespace AplikacjaPomocnicza
 
         private void MsZarzadPlikWczytaj_Click(object sender, EventArgs e)
         {
-            OtworzPlikDoOdczytu((dialog) => 
+            OtworzFileDialogDoOdczytu((dialog) => 
             {
                 nazwaPliku = dialog.FileName;
                 var zt = SynchronicznyZarzadTransportu.OdczytajPlik(dialog.FileName);
@@ -1131,7 +1143,7 @@ namespace AplikacjaPomocnicza
 
         private void MsZarzadPlikZapiszJako_Click(object sender, EventArgs e)
         {
-            OtworzPlikDoZapisu((dialog) =>
+            OtworzFileDialogDoZapisu((dialog) =>
             {
                 Stream stream;
                 if ((stream = dialog.OpenFile()) != null)
@@ -1147,7 +1159,7 @@ namespace AplikacjaPomocnicza
 
         private void ZapiszKonfiguracjeZInputow(StreamWriter sw)
         {
-            sw.WriteLine($"{0}|{1}|{2}", tbKonfiguracjaZdjecie.Text, tbKonfiguracjaPrzejazdy.Text, cbKonfiguracjaGeneracjaLinii.Checked ? 1 : 0);
+            sw.WriteLine($"{0}|{1}|{2}|{3}|{4}", tbKonfiguracjaZdjecie.Text, tbKonfiguracjaPrzejazdy.Text, tbKonfSzerokosc, tbKonfWysokosc, cbKonfiguracjaGeneracjaLinii.Checked ? 1 : 0);
 
             foreach (DataGridViewRow row in dgKonfiguracjaZarzady.Rows)
             {
@@ -1163,7 +1175,9 @@ namespace AplikacjaPomocnicza
 
                 tbKonfiguracjaZdjecie.Text = dane[0];
                 tbKonfiguracjaPrzejazdy.Text = dane[1];
-                cbKonfiguracjaGeneracjaLinii.Checked = (dane[2] == "1") ? true : false;
+                tbKonfSzerokosc.Text = dane[2];
+                tbKonfWysokosc.Text = dane[3];
+                cbKonfiguracjaGeneracjaLinii.Checked = (dane[4] == "1") ? true : false;
 
                 do
                 {
@@ -1178,7 +1192,7 @@ namespace AplikacjaPomocnicza
 
         private void MsKonfiguracjaPlikZapiszJako_Click(object sender, EventArgs e)
         {
-            OtworzPlikDoZapisu((dialog) => 
+            OtworzFileDialogDoZapisu((dialog) => 
             {
                 using (var sw = File.CreateText(dialog.FileName))
                 {
@@ -1197,7 +1211,7 @@ namespace AplikacjaPomocnicza
 
         private void MsKonfiguracjaPlikWczytaj_Click(object sender, EventArgs e)
         {
-            OtworzPlikDoOdczytu((dialog) => 
+            OtworzFileDialogDoOdczytu((dialog) => 
             {
                 OdczytajZarzadZPliku(dialog.FileName);
             });
