@@ -310,7 +310,7 @@ namespace ModelTransportuPublicznego.Model.Firma {
 
             foreach (var l in linieAutobusowe)
             {
-                sw.Write(l.SciezkaPlikuKonfiguracyjnego);
+                sw.Write(l.IdLinii);
                 if (l != linieAutobusowe.Last())
                 {
                     sw.Write("|");

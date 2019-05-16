@@ -169,6 +169,16 @@ namespace ModelTransportuPublicznego.Model {
             return null;
         }
 
+        public virtual Przystanek.Przystanek ZwrocPrzystanekPodanejNazwy(string nazwa)
+        {
+            foreach (var p in siecPrzystankow)
+            {
+                if (p.NazwaPrzystanku == nazwa) return p;
+            }
+
+            return null;
+        }
+
         public virtual void Zapisz(StreamWriter sw)
         {
             sw.WriteLine(nazwaZarzadu);
@@ -185,22 +195,22 @@ namespace ModelTransportuPublicznego.Model {
             }
 
             {
-                var last = listaFirm.Last();
-                foreach (var f in listaFirm)
+                var last = listaLinii.Last();
+                foreach (var l in listaLinii)
                 {
-                    sw.Write(f.SciezkaPlikuKonfiguracyjnego);
-                    if (f != last) sw.Write('|');
+                    sw.Write(l.SciezkaPlikuKonfiguracyjnego);
+                    if (l != last) sw.Write('|');
                 }
 
                 sw.WriteLine();
             }
 
             {
-                var last = listaLinii.Last();
-                foreach (var l in listaLinii)
+                var last = listaFirm.Last();
+                foreach (var f in listaFirm)
                 {
-                    sw.Write(l.SciezkaPlikuKonfiguracyjnego);
-                    if (l != last) sw.Write('|');
+                    sw.Write(f.SciezkaPlikuKonfiguracyjnego);
+                    if (f != last) sw.Write('|');
                 }
 
                 sw.WriteLine();

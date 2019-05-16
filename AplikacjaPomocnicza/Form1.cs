@@ -25,7 +25,7 @@ namespace AplikacjaPomocnicza
             InitializeComponent();
             panele = new List<Panel>() { pPowitanie, pZmianaPrzyspieszenia, pAutobusStale, pPrzystanekStale, pPrzystanekProgi, pPrzejazdy,
                 pPrzejazdyUstawianie, pAutobus, pPrzystanek, pFirma, pFirmaStaleLinie, pFirmaTabor, pLinia, pLiniaDane, pZarzadTransportu,
-                pZarzadDanePrzystanki, pZarzadLinieFirmy };
+                pZarzadDanePrzystanki, pZarzadLinieFirmy, pKonfiguracja, pKonfiguracjaDaneZarzady, pPrzyplywyPasazerow, pTrasa, pTrasaDane };
             nazwaPliku = null;
         }
 
@@ -629,17 +629,20 @@ namespace AplikacjaPomocnicza
         {
             if (e.ColumnIndex == 1)
             {
-                var dialog = new OpenFileDialog();
-
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
+                OtworzFileDialogDoOdczytu(dialog => {
                     nazwaPliku = dialog.FileName;
                     dgLiniaDane.Rows[e.RowIndex].Cells[1].Value = dialog.FileName;
+
                     using (var sr = File.OpenText(dialog.FileName))
                     {
                         dgLiniaDane.Rows[e.RowIndex].Cells[0].Value = sr.ReadLine();
                     }
-                }
+                });
+            } else if (e.ColumnIndex == 3)
+            {
+                OtworzPlikDoOczytu(sr => {
+                    dgLiniaDane.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = sr.ReadLine();
+                });
             }
         }
 
@@ -780,7 +783,10 @@ namespace AplikacjaPomocnicza
 
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    dgFirmaTabor.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dialog.FileName;
+                    using (var sr = File.OpenText(dialog.FileName))
+                    {
+                        dgFirmaTabor.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = sr.ReadLine();
+                    }
                 }
             }
         }
@@ -884,6 +890,20 @@ namespace AplikacjaPomocnicza
             }
         }
 
+        private void OtworzPlikDoZapisu(Action<StreamWriter> action)
+        {
+            OtworzFileDialogDoZapisu(dialog => {
+                Stream stream;
+                if ((stream = dialog.OpenFile()) != null)
+                {
+                    using (var sw = new StreamWriter(stream))
+                    {
+                        action(sw);
+                    }
+                }
+            });
+        }
+
         private void OtworzPlikDoOczytu(Action<StreamReader> action)
         {
             OtworzFileDialogDoOdczytu((dialog) => 
@@ -927,6 +947,8 @@ namespace AplikacjaPomocnicza
                         dgZarzadPrzystanki.Rows[e.RowIndex].Cells[0].Value = sr.ReadLine();
                     }
                 });
+
+                //dgZarzadPrzystanki.Rows.Add((DataGridViewRow)dgZarzadPrzystanki.Rows[0].Clone());
             }
         }
 
@@ -1214,6 +1236,226 @@ namespace AplikacjaPomocnicza
             OtworzFileDialogDoOdczytu((dialog) => 
             {
                 OdczytajZarzadZPliku(dialog.FileName);
+            });
+        }
+
+        private void BTrasa_Click(object sender, EventArgs e)
+        {
+            UstawPaneleJakoWidoczne(pTrasa, pTrasaDane);
+        }
+
+        private void BZarzadDaneDalej_Click(object sender, EventArgs e)
+        {
+            UstawPaneleJakoWidoczne(pZarzadTransportu, pZarzadLinieFirmy);
+        }
+
+        private void BKonfiguracja_Click_1(object sender, EventArgs e)
+        {
+            UstawPaneleJakoWidoczne(pKonfiguracja, pKonfiguracjaDaneZarzady);
+        }
+
+        private void DgKonfiguracjaZarzady_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 1)
+            {
+                OtworzFileDialogDoOdczytu(dialog =>
+                {
+                    dgKonfiguracjaZarzady.Rows[e.RowIndex].Cells[1].Value = dialog.FileName;
+
+                    using (var sr = new StreamReader(dialog.FileName))
+                    {
+                        dgKonfiguracjaZarzady.Rows[e.RowIndex].Cells[0].Value = sr.ReadLine();
+                    }
+                });
+            }
+        }
+
+        private void BTrasaMenu_Click(object sender, EventArgs e)
+        {
+            ZresetujDaneTrasy();
+            UstawPaneleJakoWidoczne(pPowitanie);
+        }
+
+        private void ZresetujDaneTrasy()
+        {
+            tbTrasaNazwa.Text = null;
+            tbTrasaDlugosc.Text = null;
+            tbTrasaPredkosc.Text = null;
+
+            dgTrasaPunkty.Rows.Clear();
+        }
+
+        private void ZresetujDaneListy()
+        {
+            tbLiniaId.Text = null;
+            dgLiniaDane.Rows.Clear();
+        }
+
+        private void BTrasaZapisz_Click(object sender, EventArgs e)
+        {
+            List<Point> punktyTrasy = new List<Point>();
+
+            foreach (DataGridViewRow row in dgTrasaPunkty.Rows)
+            {
+                if (row.Cells[0].Value != null && row.Cells[1].Value != null)
+                {
+                    punktyTrasy.Add(new Point(Convert.ToInt32(row.Cells[0].Value), Convert.ToInt32(row.Cells[1].Value)));
+                }
+            }
+
+            OtworzPlikDoZapisu(sw =>
+            {
+                new Trasa(tbTrasaNazwa.Text, Convert.ToInt32(tbTrasaDlugosc.Text), Convert.ToDouble(tbTrasaPredkosc.Text), punktyTrasy).Zapisz(sw);
+            });
+        }
+
+        private void BLiniaMenu_Click(object sender, EventArgs e)
+        {
+            ZresetujDaneListy();
+            UstawPaneleJakoWidoczne(pPowitanie);
+        }
+
+        private void BLiniaZapisz_Click(object sender, EventArgs e)
+        {
+            OtworzPlikDoZapisu(sw => {
+                sw.WriteLine(tbLiniaId.Text);
+
+                DataGridViewRow last = dgLiniaDane.Rows[dgLiniaDane.Rows.Count - 1];
+                foreach (DataGridViewRow row in dgLiniaDane.Rows)
+                {
+                    sw.Write(row.Cells[0]);
+                    if (row != last)
+                    {
+                       sw.Write('|');
+                    }
+                }
+            });
+        }
+
+        private void ZresetujDaneFirmy()
+        {
+            tbFirmaNazwa.Text = null;
+            tbFirmaKierowcy.Text = null;
+            dgFirmaTabor.Rows.Clear();
+            dgFirmaLinia.Rows.Clear();
+        }
+
+        private void ZresetujDaneZarzadu()
+        {
+            tbZarzadNazwa.Text = null;
+            dgZarzadPrzystanki.Rows.Clear();
+            dgZarzadLinie.Rows.Clear();
+            dgZarzadFirmy.Rows.Clear();
+        }
+
+        private void ZresetujKonfiguracje()
+        {
+            tbKonfiguracjaZdjecie.Text = null;
+            tbKonfiguracjaPrzejazdy.Text = null;
+            tbKonfSzerokosc.Text = null;
+            tbKonfWysokosc.Text = null;
+            cbKonfiguracjaGeneracjaLinii.Checked = false;
+            dgKonfiguracjaZarzady.Rows.Clear();
+
+        }
+
+        private void ZresetujDanePrzejazdow()
+        {
+            dgPrzejazdy.Rows.Clear();
+        }
+
+        private void BFirmaTaborMenu_Click(object sender, EventArgs e)
+        {
+            ZresetujDaneFirmy();
+            UstawPaneleJakoWidoczne(pPowitanie);
+        }
+
+        private void BMenu_Click(object sender, EventArgs e)
+        {
+            ZresetujDanePrzejazdow();
+            UstawPaneleJakoWidoczne(pPowitanie);
+        }
+
+        private void BZarzadDaneMenu_Click(object sender, EventArgs e)
+        {
+            ZresetujDaneZarzadu();
+            UstawPaneleJakoWidoczne(pPowitanie);
+        }
+
+        private void BZarzadLinieFirmyMenu_Click(object sender, EventArgs e)
+        {
+            ZresetujDaneZarzadu();
+            UstawPaneleJakoWidoczne(pPowitanie);
+        }
+
+        private void BZarzadZapisz_Click(object sender, EventArgs e)
+        {
+            OtworzPlikDoZapisu(sw =>
+            {
+                sw.WriteLine(tbZarzadNazwa.Text);
+
+                DataGridViewRow last = dgZarzadPrzystanki.Rows[dgZarzadPrzystanki.Rows.Count - 1];
+
+                foreach (DataGridViewRow row in dgZarzadPrzystanki.Rows)
+                {
+                    sw.Write(row.Cells[0].Value);
+                    
+                    if (row != last)
+                    {
+                        sw.Write('|');
+                    }
+                }
+
+                sw.WriteLine();
+                last = dgZarzadLinie.Rows[dgZarzadLinie.Rows.Count - 1];
+
+                foreach (DataGridViewRow row in dgZarzadLinie.Rows)
+                {
+                    sw.Write(row.Cells[0].Value);
+
+                    if (row != last)
+                    {
+                        sw.Write('|');
+                    }
+                }
+
+                sw.WriteLine();
+                last = dgZarzadFirmy.Rows[dgZarzadFirmy.Rows.Count - 1];
+
+                foreach (DataGridViewRow row in dgZarzadFirmy.Rows)
+                {
+                    sw.Write(row.Cells[0].Value);
+
+                    if (row != last)
+                    {
+                        sw.Write('|');
+                    }
+                }
+            });
+        }
+
+        private void BKonfiguracjaMenu_Click(object sender, EventArgs e)
+        {
+            ZresetujKonfiguracje();
+            UstawPaneleJakoWidoczne(pPowitanie);
+        }
+
+        private void BKonfiguracjaZapisz_Click(object sender, EventArgs e)
+        {
+            OtworzPlikDoZapisu(sw =>
+            {
+                sw.WriteLine(string.Format("{0}|{1}|{2}|{3}|{4}", tbKonfiguracjaZdjecie.Text, tbKonfiguracjaPrzejazdy.Text, tbKonfSzerokosc.Text, tbKonfWysokosc.Text, cbKonfiguracjaGeneracjaLinii.Checked));
+
+                DataGridViewRow last = dgKonfiguracjaZarzady.Rows[dgKonfiguracjaZarzady.Rows.Count - 1];
+                foreach (DataGridViewRow row in dgKonfiguracjaZarzady.Rows)
+                {
+                    sw.Write(row.Cells[1]);
+
+                    if (last != row)
+                    {
+                        sw.Write('|');
+                    }
+                }
             });
         }
     }

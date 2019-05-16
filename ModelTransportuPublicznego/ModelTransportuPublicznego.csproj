@@ -62,6 +62,7 @@
     <Compile Include="Implementacja\Wyjatki\ZasobNieZnalezionyWyjatek.cs" />
     <Compile Include="Misc\Logger.cs" />
     <Compile Include="Misc\MinKopiec.cs" />
+    <Compile Include="Misc\Symulacja.cs" />
     <Compile Include="Misc\UIDGenerator.cs" />
     <Compile Include="Misc\WizualizatorMapy.cs" />
     <Compile Include="Model\Autobus.cs" />

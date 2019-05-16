@@ -190,6 +190,10 @@
             this.pPryzplywyPrzystanki = new System.Windows.Forms.Panel();
             this.pKonfiguracja = new System.Windows.Forms.Panel();
             this.pKonfiguracjaDaneZarzady = new System.Windows.Forms.Panel();
+            this.tbKonfWysokosc = new System.Windows.Forms.TextBox();
+            this.tbKonfSzerokosc = new System.Windows.Forms.TextBox();
+            this.lKonfWysokosc = new System.Windows.Forms.Label();
+            this.lKonfSzerokosc = new System.Windows.Forms.Label();
             this.cbKonfiguracjaGeneracjaLinii = new System.Windows.Forms.CheckBox();
             this.tbKonfiguracjaPrzejazdy = new System.Windows.Forms.TextBox();
             this.tbKonfiguracjaZdjecie = new System.Windows.Forms.TextBox();
@@ -227,10 +231,6 @@
             this.msTrasaPlikZapisz = new System.Windows.Forms.ToolStripMenuItem();
             this.msTrasaPlikZapiszJako = new System.Windows.Forms.ToolStripMenuItem();
             this.msTrasaPlikWczytaj = new System.Windows.Forms.ToolStripMenuItem();
-            this.lKonfSzerokosc = new System.Windows.Forms.Label();
-            this.lKonfWysokosc = new System.Windows.Forms.Label();
-            this.tbKonfSzerokosc = new System.Windows.Forms.TextBox();
-            this.tbKonfWysokosc = new System.Windows.Forms.TextBox();
             this.pPowitanie.SuspendLayout();
             this.pAutobusStale.SuspendLayout();
             this.msAutobus.SuspendLayout();
@@ -302,6 +302,7 @@
             this.bTrasa.TabIndex = 10;
             this.bTrasa.Text = "Stwórz trasę";
             this.bTrasa.UseVisualStyleBackColor = true;
+            this.bTrasa.Click += new System.EventHandler(this.BTrasa_Click);
             // 
             // bKonfiguracja
             // 
@@ -311,6 +312,7 @@
             this.bKonfiguracja.TabIndex = 9;
             this.bKonfiguracja.Text = "Stworz plik konfiguracyjny";
             this.bKonfiguracja.UseVisualStyleBackColor = true;
+            this.bKonfiguracja.Click += new System.EventHandler(this.BKonfiguracja_Click_1);
             // 
             // bPrzyplywyPasazerow
             // 
@@ -1008,6 +1010,7 @@
             this.BMenu.TabIndex = 2;
             this.BMenu.Text = "Wróć do menu";
             this.BMenu.UseVisualStyleBackColor = true;
+            this.BMenu.Click += new System.EventHandler(this.BMenu_Click);
             // 
             // msPrzejazdy
             // 
@@ -1198,6 +1201,7 @@
             this.bFirmaTaborMenu.TabIndex = 2;
             this.bFirmaTaborMenu.Text = "Wróć do menu";
             this.bFirmaTaborMenu.UseVisualStyleBackColor = true;
+            this.bFirmaTaborMenu.Click += new System.EventHandler(this.BFirmaTaborMenu_Click);
             // 
             // dgFirmaTabor
             // 
@@ -1407,6 +1411,7 @@
             this.bLiniaZapisz.TabIndex = 5;
             this.bLiniaZapisz.Text = "Zapisz do pliku";
             this.bLiniaZapisz.UseVisualStyleBackColor = true;
+            this.bLiniaZapisz.Click += new System.EventHandler(this.BLiniaZapisz_Click);
             // 
             // bLiniaMenu
             // 
@@ -1416,6 +1421,7 @@
             this.bLiniaMenu.TabIndex = 4;
             this.bLiniaMenu.Text = "Wróć do menu";
             this.bLiniaMenu.UseVisualStyleBackColor = true;
+            this.bLiniaMenu.Click += new System.EventHandler(this.BLiniaMenu_Click);
             // 
             // dgLiniaDane
             // 
@@ -1516,6 +1522,7 @@
             this.bZarzadDaneDalej.TabIndex = 29;
             this.bZarzadDaneDalej.Text = "Dalej...";
             this.bZarzadDaneDalej.UseVisualStyleBackColor = true;
+            this.bZarzadDaneDalej.Click += new System.EventHandler(this.BZarzadDaneDalej_Click);
             // 
             // bZarzadDaneMenu
             // 
@@ -1525,6 +1532,7 @@
             this.bZarzadDaneMenu.TabIndex = 28;
             this.bZarzadDaneMenu.Text = "Wróć do menu";
             this.bZarzadDaneMenu.UseVisualStyleBackColor = true;
+            this.bZarzadDaneMenu.Click += new System.EventHandler(this.BZarzadDaneMenu_Click);
             // 
             // dgZarzadPrzystanki
             // 
@@ -1676,6 +1684,7 @@
             this.bZarzadZapisz.TabIndex = 1;
             this.bZarzadZapisz.Text = "Zapisz do pliku";
             this.bZarzadZapisz.UseVisualStyleBackColor = true;
+            this.bZarzadZapisz.Click += new System.EventHandler(this.BZarzadZapisz_Click);
             // 
             // bZarzadLinieFirmyMenu
             // 
@@ -1685,6 +1694,7 @@
             this.bZarzadLinieFirmyMenu.TabIndex = 0;
             this.bZarzadLinieFirmyMenu.Text = "Wróć do menu";
             this.bZarzadLinieFirmyMenu.UseVisualStyleBackColor = true;
+            this.bZarzadLinieFirmyMenu.Click += new System.EventHandler(this.BZarzadLinieFirmyMenu_Click);
             // 
             // msZarzad
             // 
@@ -1753,6 +1763,7 @@
             this.pKonfiguracja.Name = "pKonfiguracja";
             this.pKonfiguracja.Size = new System.Drawing.Size(784, 561);
             this.pKonfiguracja.TabIndex = 25;
+            this.pKonfiguracja.Visible = false;
             // 
             // pKonfiguracjaDaneZarzady
             // 
@@ -1775,6 +1786,38 @@
             this.pKonfiguracjaDaneZarzady.Name = "pKonfiguracjaDaneZarzady";
             this.pKonfiguracjaDaneZarzady.Size = new System.Drawing.Size(784, 537);
             this.pKonfiguracjaDaneZarzady.TabIndex = 0;
+            // 
+            // tbKonfWysokosc
+            // 
+            this.tbKonfWysokosc.Location = new System.Drawing.Point(371, 71);
+            this.tbKonfWysokosc.Name = "tbKonfWysokosc";
+            this.tbKonfWysokosc.Size = new System.Drawing.Size(100, 20);
+            this.tbKonfWysokosc.TabIndex = 13;
+            // 
+            // tbKonfSzerokosc
+            // 
+            this.tbKonfSzerokosc.Location = new System.Drawing.Point(371, 46);
+            this.tbKonfSzerokosc.Name = "tbKonfSzerokosc";
+            this.tbKonfSzerokosc.Size = new System.Drawing.Size(100, 20);
+            this.tbKonfSzerokosc.TabIndex = 12;
+            // 
+            // lKonfWysokosc
+            // 
+            this.lKonfWysokosc.AutoSize = true;
+            this.lKonfWysokosc.Location = new System.Drawing.Point(212, 73);
+            this.lKonfWysokosc.Name = "lKonfWysokosc";
+            this.lKonfWysokosc.Size = new System.Drawing.Size(153, 13);
+            this.lKonfWysokosc.TabIndex = 11;
+            this.lKonfWysokosc.Text = "Wysokość generowanych map";
+            // 
+            // lKonfSzerokosc
+            // 
+            this.lKonfSzerokosc.AutoSize = true;
+            this.lKonfSzerokosc.Location = new System.Drawing.Point(212, 49);
+            this.lKonfSzerokosc.Name = "lKonfSzerokosc";
+            this.lKonfSzerokosc.Size = new System.Drawing.Size(153, 13);
+            this.lKonfSzerokosc.TabIndex = 10;
+            this.lKonfSzerokosc.Text = "Szerokość generowanych map";
             // 
             // cbKonfiguracjaGeneracjaLinii
             // 
@@ -1826,6 +1869,7 @@
             this.bKonfiguracjaZapisz.TabIndex = 4;
             this.bKonfiguracjaZapisz.Text = "Zapisz do pliku";
             this.bKonfiguracjaZapisz.UseVisualStyleBackColor = true;
+            this.bKonfiguracjaZapisz.Click += new System.EventHandler(this.BKonfiguracjaZapisz_Click);
             // 
             // bKonfiguracjaMenu
             // 
@@ -1835,6 +1879,7 @@
             this.bKonfiguracjaMenu.TabIndex = 3;
             this.bKonfiguracjaMenu.Text = "Wróć do menu";
             this.bKonfiguracjaMenu.UseVisualStyleBackColor = true;
+            this.bKonfiguracjaMenu.Click += new System.EventHandler(this.BKonfiguracjaMenu_Click);
             // 
             // dgKonfiguracjaZarzady
             // 
@@ -1846,6 +1891,7 @@
             this.dgKonfiguracjaZarzady.Name = "dgKonfiguracjaZarzady";
             this.dgKonfiguracjaZarzady.Size = new System.Drawing.Size(760, 338);
             this.dgKonfiguracjaZarzady.TabIndex = 2;
+            this.dgKonfiguracjaZarzady.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgKonfiguracjaZarzady_CellDoubleClick);
             // 
             // cKonfiguracjaZarzadyNazwa
             // 
@@ -2015,6 +2061,7 @@
             this.bTrasaZapisz.TabIndex = 3;
             this.bTrasaZapisz.Text = "Zapisz do pliku";
             this.bTrasaZapisz.UseVisualStyleBackColor = true;
+            this.bTrasaZapisz.Click += new System.EventHandler(this.BTrasaZapisz_Click);
             // 
             // bTrasaMenu
             // 
@@ -2024,6 +2071,7 @@
             this.bTrasaMenu.TabIndex = 2;
             this.bTrasaMenu.Text = "Wróć do menu";
             this.bTrasaMenu.UseVisualStyleBackColor = true;
+            this.bTrasaMenu.Click += new System.EventHandler(this.BTrasaMenu_Click);
             // 
             // dgTrasaPunkty
             // 
@@ -2099,51 +2147,19 @@
             this.msTrasaPlikWczytaj.Text = "Wczytaj";
             this.msTrasaPlikWczytaj.Click += new System.EventHandler(this.MsTrasaPlikWczytaj_Click);
             // 
-            // lKonfSzerokosc
-            // 
-            this.lKonfSzerokosc.AutoSize = true;
-            this.lKonfSzerokosc.Location = new System.Drawing.Point(212, 49);
-            this.lKonfSzerokosc.Name = "lKonfSzerokosc";
-            this.lKonfSzerokosc.Size = new System.Drawing.Size(153, 13);
-            this.lKonfSzerokosc.TabIndex = 10;
-            this.lKonfSzerokosc.Text = "Szerokość generowanych map";
-            // 
-            // lKonfWysokosc
-            // 
-            this.lKonfWysokosc.AutoSize = true;
-            this.lKonfWysokosc.Location = new System.Drawing.Point(212, 73);
-            this.lKonfWysokosc.Name = "lKonfWysokosc";
-            this.lKonfWysokosc.Size = new System.Drawing.Size(153, 13);
-            this.lKonfWysokosc.TabIndex = 11;
-            this.lKonfWysokosc.Text = "Wysokość generowanych map";
-            // 
-            // tbKonfSzerokosc
-            // 
-            this.tbKonfSzerokosc.Location = new System.Drawing.Point(371, 46);
-            this.tbKonfSzerokosc.Name = "tbKonfSzerokosc";
-            this.tbKonfSzerokosc.Size = new System.Drawing.Size(100, 20);
-            this.tbKonfSzerokosc.TabIndex = 12;
-            // 
-            // tbKonfWysokosc
-            // 
-            this.tbKonfWysokosc.Location = new System.Drawing.Point(371, 71);
-            this.tbKonfWysokosc.Name = "tbKonfWysokosc";
-            this.tbKonfWysokosc.Size = new System.Drawing.Size(100, 20);
-            this.tbKonfWysokosc.TabIndex = 13;
-            // 
             // AplikacjaPomocnicza
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.pPrzejazdy);
             this.Controls.Add(this.pKonfiguracja);
-            this.Controls.Add(this.pPrzyplywyPasazerow);
-            this.Controls.Add(this.pZarzadTransportu);
-            this.Controls.Add(this.pFirma);
-            this.Controls.Add(this.pTrasa);
             this.Controls.Add(this.pPowitanie);
+            this.Controls.Add(this.pZarzadTransportu);
+            this.Controls.Add(this.pPrzejazdy);
+            this.Controls.Add(this.pFirma);
             this.Controls.Add(this.pLinia);
+            this.Controls.Add(this.pTrasa);
+            this.Controls.Add(this.pPrzyplywyPasazerow);
             this.Controls.Add(this.pPrzystanek);
             this.Controls.Add(this.pAutobus);
             this.MainMenuStrip = this.msPrzejazdy;

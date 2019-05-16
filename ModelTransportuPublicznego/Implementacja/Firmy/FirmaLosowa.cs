@@ -67,9 +67,9 @@ namespace ModelTransportuPublicznego.Implementacja.Firmy {
                 var linie = sr.ReadLine().Split('|');
                 var tabor = sr.ReadLine().Split('|');
 
-                foreach (var sciezkaPlikuLinii in linie)
+                foreach (var idLinii in linie)
                 {
-                    rezultat.DodajLinie(Linia.OdczytajPlik(sciezkaPlikuLinii, zt));
+                    rezultat.DodajLinie(zt.ZwrocLiniePoID(idLinii));
                 }
 
                 foreach (var dane in tabor)

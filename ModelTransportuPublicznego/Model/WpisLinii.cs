@@ -20,7 +20,7 @@ namespace ModelTransportuPublicznego.Model {
         {
             try
             {
-                sw.WriteLine($"{0}:{1}", przystanek.SciezkaPlikuKonfiguracyjnego, czasPrzyjaduDoPrzystanku);
+                sw.WriteLine($"{0}:{1}", przystanek.NazwaPrzystanku, czasPrzyjaduDoPrzystanku);
             } catch (Exception e)
             {
                 Console.WriteLine(e);
@@ -40,7 +40,7 @@ namespace ModelTransportuPublicznego.Model {
                     Convert.ToInt32(dane[2]), Convert.ToInt32(dane[3])));
             } else
             {
-                return new WpisLinii(zt.ZwrocPrzystanekPodanejSpecyfikacji(dane[0]), new TimeSpan(Convert.ToInt32(dane[1]), 
+                return new WpisLinii(zt.ZwrocPrzystanekPodanejNazwy(dane[0]), new TimeSpan(Convert.ToInt32(dane[1]), 
                     Convert.ToInt32(dane[2]), Convert.ToInt32(dane[3])));
             }
         }
