@@ -24,7 +24,7 @@ namespace AplikacjaPomocnicza
         {
             InitializeComponent();
             panele = new List<Panel>() { pPowitanie, pZmianaPrzyspieszenia, pAutobusStale, pPrzystanekStale, pPrzystanekProgi, pPrzejazdy,
-                pPrzejazdyUstawianie, pAutobus, pPrzystanek, pFirma, pFirmaStaleLinie, pFirmaTabor, pLinia, pLiniaDane, pZarzadTransportu,
+                pPrzejazdyUstawianie, pAutobus, pPrzystanek, pFirma, pFirmaTabor, pLinia, pLiniaDane, pZarzadTransportu,
                 pZarzadDanePrzystanki, pZarzadLinieFirmy, pKonfiguracja, pKonfiguracjaDaneZarzady, pPrzyplywyPasazerow, pTrasa, pTrasaDane };
             nazwaPliku = null;
         }
@@ -612,7 +612,7 @@ namespace AplikacjaPomocnicza
 
         private void BFirma_Click(object sender, EventArgs e)
         {
-            UstawPaneleJakoWidoczne(pFirma, pFirmaStaleLinie);
+            UstawPaneleJakoWidoczne(pFirma, pFirmaTabor);
         }
 
         private void BLinia_Click(object sender, EventArgs e)
@@ -640,8 +640,9 @@ namespace AplikacjaPomocnicza
                 });
             } else if (e.ColumnIndex == 3)
             {
-                OtworzPlikDoOczytu(sr => {
-                    dgLiniaDane.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = sr.ReadLine();
+                OtworzFileDialogDoOdczytu(dialog =>
+                {
+                    dgLiniaDane.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dialog.FileName;
                 });
             }
         }
@@ -696,7 +697,7 @@ namespace AplikacjaPomocnicza
             foreach (DataGridViewRow row in dgLiniaDane.Rows)
             {
                 var czas = row.Cells[2].Value.ToString().Split(':');
-                wpisyLinii.Add(new WpisLinii(Przystanek.OdczytajPlik(row.Cells[1].Value.ToString(), null), new TimeSpan(Convert.ToInt32(czas[0]), Convert.ToInt32(czas[1]), Convert.ToInt32(czas[2]))));
+                wpisyLinii.Add(new WpisLinii(Przystanek.OdczytajPlik(row.Cells[1].Value.ToString(), null), new TimeSpan(Convert.ToInt32(czas[0]), Convert.ToInt32(czas[1]), Convert.ToInt32(czas[2])), row.Cells[3].Value.ToString()));
             }
 
             return new Linia(tbLiniaId.Text, nazwaPliku, wpisyLinii);
@@ -759,22 +760,6 @@ namespace AplikacjaPomocnicza
             }
         }
 
-        private void DgFirmaLinia_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 1)
-            {
-                var dialog = new OpenFileDialog();
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    using (var sr = File.OpenText(dialog.FileName))
-                    {
-                        dgFirmaLinia.Rows[e.RowIndex].Cells[0].Value = sr.ReadLine();
-                    }
-                    dgFirmaLinia.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dialog.FileName;
-                }
-            }
-        }
-
         private void DgFirmaTabor_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 0)
@@ -800,11 +785,6 @@ namespace AplikacjaPomocnicza
             foreach (DataGridViewRow row in dgFirmaTabor.Rows)
             {
                 tabor.Add(AutobusLiniowy.OdczytajPlik(row.Cells[0].Value.ToString()), Convert.ToInt32(row.Cells[1].Value));
-            }
-
-            foreach (DataGridViewRow row in dgFirmaLinia.Rows)
-            {
-                linie.Add(Linia.OdczytajPlik(row.Cells[1].Value.ToString(), null));
             }
 
             for (int i = 0; i < Convert.ToInt32(tbFirmaKierowcy.Text); i++)
@@ -852,15 +832,6 @@ namespace AplikacjaPomocnicza
                     var firma = FirmaLosowa.OdczytajPlik(dialog.FileName, null);
                     tbFirmaNazwa.Text = firma.NazwaFirmy;
                     tbFirmaKierowcy.Text = firma.ZwrocKierowcow().Count().ToString();
-
-                    foreach (var linia in firma.LinieAutobusowe)
-                    {
-                        var row = (DataGridViewRow)dgFirmaLinia.Rows[0].Clone();
-                        row.Cells[0].Value = linia.IdLinii;
-                        row.Cells[1].Value = linia.SciezkaPlikuKonfiguracyjnego;
-
-                        dgFirmaLinia.Rows.Add(row);
-                    }
 
                     foreach (var kvp in firma.Tabor)
                     {
@@ -1303,9 +1274,20 @@ namespace AplikacjaPomocnicza
                 }
             }
 
+            var last = punktyTrasy.Last();
             OtworzPlikDoZapisu(sw =>
             {
-                new Trasa(tbTrasaNazwa.Text, Convert.ToInt32(tbTrasaDlugosc.Text), Convert.ToDouble(tbTrasaPredkosc.Text), punktyTrasy).Zapisz(sw);
+                sw.WriteLine(tbTrasaNazwa.Text);
+                sw.WriteLine(string.Format("{0}|{1}", tbTrasaDlugosc.Text, tbTrasaPredkosc.Text));
+
+                foreach (var punkt in punktyTrasy)
+                {
+                    sw.Write(string.Format("{0}:{1}", punkt.X, punkt.Y));
+                    if (punkt != last)
+                    {
+                        sw.Write('|');
+                    }
+                }
             });
         }
 
@@ -1337,7 +1319,6 @@ namespace AplikacjaPomocnicza
             tbFirmaNazwa.Text = null;
             tbFirmaKierowcy.Text = null;
             dgFirmaTabor.Rows.Clear();
-            dgFirmaLinia.Rows.Clear();
         }
 
         private void ZresetujDaneZarzadu()
@@ -1457,6 +1438,11 @@ namespace AplikacjaPomocnicza
                     }
                 }
             });
+        }
+
+        private void BFirmaZapisz_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

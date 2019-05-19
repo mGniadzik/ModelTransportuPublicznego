@@ -95,7 +95,7 @@ namespace ModelTransportuPublicznego.Implementacja {
                 }
                 
                 przejazd.Firma.DodajPrzejazdDoHistorii(przejazd);
-                WizualizatorMapy.NarysujMape(przejazd.CzasNastepnejAkcji.ToString().Replace(':', '-'), siecPrzystankow, ZwrocLinie());
+                WizualizatorMapy.Instancja().NarysujMape(nazwaZarzadu + "_" + przejazd.CzasNastepnejAkcji.ToString().Replace(':', '-'), siecPrzystankow, ZwrocLinie());
             }
         }
 

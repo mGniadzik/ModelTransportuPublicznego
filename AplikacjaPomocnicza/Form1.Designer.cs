@@ -131,17 +131,6 @@
             this.cFirmaTaborSciezkaPliku = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cFirmaTaborLiczba = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lFirmaTaborTytul = new System.Windows.Forms.Label();
-            this.pFirmaStaleLinie = new System.Windows.Forms.Panel();
-            this.dgFirmaLinia = new System.Windows.Forms.DataGridView();
-            this.cIDLinii = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cSciezkaPliku = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
-            this.tbFirmaKierowcy = new System.Windows.Forms.TextBox();
-            this.bFirmaStaleMenu = new System.Windows.Forms.Button();
-            this.tbFirmaNazwa = new System.Windows.Forms.TextBox();
-            this.lFirmaKierowcy = new System.Windows.Forms.Label();
-            this.lFirmaNazwa = new System.Windows.Forms.Label();
-            this.lFirmaStaleTytul = new System.Windows.Forms.Label();
             this.pLinia = new System.Windows.Forms.Panel();
             this.msLinia = new System.Windows.Forms.MenuStrip();
             this.msLiniaPlik = new System.Windows.Forms.ToolStripMenuItem();
@@ -231,6 +220,10 @@
             this.msTrasaPlikZapisz = new System.Windows.Forms.ToolStripMenuItem();
             this.msTrasaPlikZapiszJako = new System.Windows.Forms.ToolStripMenuItem();
             this.msTrasaPlikWczytaj = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbFirmaNazwa = new System.Windows.Forms.TextBox();
+            this.tbFirmaKierowcy = new System.Windows.Forms.TextBox();
+            this.lNazwaFirmy = new System.Windows.Forms.Label();
+            this.lFirmaKierowcy = new System.Windows.Forms.Label();
             this.pPowitanie.SuspendLayout();
             this.pAutobusStale.SuspendLayout();
             this.msAutobus.SuspendLayout();
@@ -252,8 +245,6 @@
             this.msFirma.SuspendLayout();
             this.pFirmaTabor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgFirmaTabor)).BeginInit();
-            this.pFirmaStaleLinie.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgFirmaLinia)).BeginInit();
             this.pLinia.SuspendLayout();
             this.msLinia.SuspendLayout();
             this.pLiniaDane.SuspendLayout();
@@ -1124,7 +1115,6 @@
             // 
             this.pFirma.Controls.Add(this.msFirma);
             this.pFirma.Controls.Add(this.pFirmaTabor);
-            this.pFirma.Controls.Add(this.pFirmaStaleLinie);
             this.pFirma.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pFirma.Location = new System.Drawing.Point(0, 0);
             this.pFirma.Name = "pFirma";
@@ -1174,6 +1164,10 @@
             // 
             // pFirmaTabor
             // 
+            this.pFirmaTabor.Controls.Add(this.lFirmaKierowcy);
+            this.pFirmaTabor.Controls.Add(this.lNazwaFirmy);
+            this.pFirmaTabor.Controls.Add(this.tbFirmaKierowcy);
+            this.pFirmaTabor.Controls.Add(this.tbFirmaNazwa);
             this.pFirmaTabor.Controls.Add(this.bFirmaZapisz);
             this.pFirmaTabor.Controls.Add(this.bFirmaTaborMenu);
             this.pFirmaTabor.Controls.Add(this.dgFirmaTabor);
@@ -1192,6 +1186,7 @@
             this.bFirmaZapisz.TabIndex = 3;
             this.bFirmaZapisz.Text = "Zapisz do pliku";
             this.bFirmaZapisz.UseVisualStyleBackColor = true;
+            this.bFirmaZapisz.Click += new System.EventHandler(this.BFirmaZapisz_Click);
             // 
             // bFirmaTaborMenu
             // 
@@ -1209,9 +1204,9 @@
             this.dgFirmaTabor.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cFirmaTaborSciezkaPliku,
             this.cFirmaTaborLiczba});
-            this.dgFirmaTabor.Location = new System.Drawing.Point(12, 62);
+            this.dgFirmaTabor.Location = new System.Drawing.Point(12, 130);
             this.dgFirmaTabor.Name = "dgFirmaTabor";
-            this.dgFirmaTabor.Size = new System.Drawing.Size(760, 431);
+            this.dgFirmaTabor.Size = new System.Drawing.Size(760, 363);
             this.dgFirmaTabor.TabIndex = 1;
             this.dgFirmaTabor.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgFirmaTabor_CellDoubleClick);
             // 
@@ -1236,107 +1231,6 @@
             this.lFirmaTaborTytul.Size = new System.Drawing.Size(104, 24);
             this.lFirmaTaborTytul.TabIndex = 0;
             this.lFirmaTaborTytul.Text = "Tabor firmy";
-            // 
-            // pFirmaStaleLinie
-            // 
-            this.pFirmaStaleLinie.Controls.Add(this.dgFirmaLinia);
-            this.pFirmaStaleLinie.Controls.Add(this.button1);
-            this.pFirmaStaleLinie.Controls.Add(this.tbFirmaKierowcy);
-            this.pFirmaStaleLinie.Controls.Add(this.bFirmaStaleMenu);
-            this.pFirmaStaleLinie.Controls.Add(this.tbFirmaNazwa);
-            this.pFirmaStaleLinie.Controls.Add(this.lFirmaKierowcy);
-            this.pFirmaStaleLinie.Controls.Add(this.lFirmaNazwa);
-            this.pFirmaStaleLinie.Controls.Add(this.lFirmaStaleTytul);
-            this.pFirmaStaleLinie.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pFirmaStaleLinie.Location = new System.Drawing.Point(0, 0);
-            this.pFirmaStaleLinie.Name = "pFirmaStaleLinie";
-            this.pFirmaStaleLinie.Size = new System.Drawing.Size(784, 561);
-            this.pFirmaStaleLinie.TabIndex = 0;
-            // 
-            // dgFirmaLinia
-            // 
-            this.dgFirmaLinia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgFirmaLinia.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.cIDLinii,
-            this.cSciezkaPliku});
-            this.dgFirmaLinia.Location = new System.Drawing.Point(12, 123);
-            this.dgFirmaLinia.Name = "dgFirmaLinia";
-            this.dgFirmaLinia.Size = new System.Drawing.Size(760, 378);
-            this.dgFirmaLinia.TabIndex = 8;
-            this.dgFirmaLinia.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgFirmaLinia_CellDoubleClick);
-            // 
-            // cIDLinii
-            // 
-            this.cIDLinii.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cIDLinii.HeaderText = "Id linii";
-            this.cIDLinii.Name = "cIDLinii";
-            // 
-            // cSciezkaPliku
-            // 
-            this.cSciezkaPliku.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cSciezkaPliku.HeaderText = "Scieżka pliku";
-            this.cSciezkaPliku.Name = "cSciezkaPliku";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(697, 511);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 42);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Dalej...";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
-            // 
-            // tbFirmaKierowcy
-            // 
-            this.tbFirmaKierowcy.Location = new System.Drawing.Point(113, 91);
-            this.tbFirmaKierowcy.Name = "tbFirmaKierowcy";
-            this.tbFirmaKierowcy.Size = new System.Drawing.Size(100, 20);
-            this.tbFirmaKierowcy.TabIndex = 6;
-            // 
-            // bFirmaStaleMenu
-            // 
-            this.bFirmaStaleMenu.Location = new System.Drawing.Point(16, 505);
-            this.bFirmaStaleMenu.Name = "bFirmaStaleMenu";
-            this.bFirmaStaleMenu.Size = new System.Drawing.Size(75, 42);
-            this.bFirmaStaleMenu.TabIndex = 4;
-            this.bFirmaStaleMenu.Text = "Wróć do menu";
-            this.bFirmaStaleMenu.UseVisualStyleBackColor = true;
-            // 
-            // tbFirmaNazwa
-            // 
-            this.tbFirmaNazwa.Location = new System.Drawing.Point(113, 65);
-            this.tbFirmaNazwa.Name = "tbFirmaNazwa";
-            this.tbFirmaNazwa.Size = new System.Drawing.Size(100, 20);
-            this.tbFirmaNazwa.TabIndex = 3;
-            // 
-            // lFirmaKierowcy
-            // 
-            this.lFirmaKierowcy.AutoSize = true;
-            this.lFirmaKierowcy.Location = new System.Drawing.Point(13, 94);
-            this.lFirmaKierowcy.Name = "lFirmaKierowcy";
-            this.lFirmaKierowcy.Size = new System.Drawing.Size(92, 13);
-            this.lFirmaKierowcy.TabIndex = 2;
-            this.lFirmaKierowcy.Text = "Liczba kierowców";
-            // 
-            // lFirmaNazwa
-            // 
-            this.lFirmaNazwa.AutoSize = true;
-            this.lFirmaNazwa.Location = new System.Drawing.Point(12, 68);
-            this.lFirmaNazwa.Name = "lFirmaNazwa";
-            this.lFirmaNazwa.Size = new System.Drawing.Size(64, 13);
-            this.lFirmaNazwa.TabIndex = 1;
-            this.lFirmaNazwa.Text = "Nazwa firmy";
-            // 
-            // lFirmaStaleTytul
-            // 
-            this.lFirmaStaleTytul.AutoSize = true;
-            this.lFirmaStaleTytul.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lFirmaStaleTytul.Location = new System.Drawing.Point(20, 20);
-            this.lFirmaStaleTytul.Name = "lFirmaStaleTytul";
-            this.lFirmaStaleTytul.Size = new System.Drawing.Size(99, 24);
-            this.lFirmaStaleTytul.TabIndex = 0;
-            this.lFirmaStaleTytul.Text = "Stałe firmy";
             // 
             // pLinia
             // 
@@ -2147,6 +2041,38 @@
             this.msTrasaPlikWczytaj.Text = "Wczytaj";
             this.msTrasaPlikWczytaj.Click += new System.EventHandler(this.MsTrasaPlikWczytaj_Click);
             // 
+            // tbFirmaNazwa
+            // 
+            this.tbFirmaNazwa.Location = new System.Drawing.Point(109, 61);
+            this.tbFirmaNazwa.Name = "tbFirmaNazwa";
+            this.tbFirmaNazwa.Size = new System.Drawing.Size(100, 20);
+            this.tbFirmaNazwa.TabIndex = 4;
+            // 
+            // tbFirmaKierowcy
+            // 
+            this.tbFirmaKierowcy.Location = new System.Drawing.Point(109, 87);
+            this.tbFirmaKierowcy.Name = "tbFirmaKierowcy";
+            this.tbFirmaKierowcy.Size = new System.Drawing.Size(100, 20);
+            this.tbFirmaKierowcy.TabIndex = 5;
+            // 
+            // lNazwaFirmy
+            // 
+            this.lNazwaFirmy.AutoSize = true;
+            this.lNazwaFirmy.Location = new System.Drawing.Point(11, 64);
+            this.lNazwaFirmy.Name = "lNazwaFirmy";
+            this.lNazwaFirmy.Size = new System.Drawing.Size(64, 13);
+            this.lNazwaFirmy.TabIndex = 6;
+            this.lNazwaFirmy.Text = "Nazwa firmy";
+            // 
+            // lFirmaKierowcy
+            // 
+            this.lFirmaKierowcy.AutoSize = true;
+            this.lFirmaKierowcy.Location = new System.Drawing.Point(11, 90);
+            this.lFirmaKierowcy.Name = "lFirmaKierowcy";
+            this.lFirmaKierowcy.Size = new System.Drawing.Size(92, 13);
+            this.lFirmaKierowcy.TabIndex = 7;
+            this.lFirmaKierowcy.Text = "Liczba kierowców";
+            // 
             // AplikacjaPomocnicza
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2154,11 +2080,11 @@
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.pKonfiguracja);
             this.Controls.Add(this.pPowitanie);
-            this.Controls.Add(this.pZarzadTransportu);
-            this.Controls.Add(this.pPrzejazdy);
-            this.Controls.Add(this.pFirma);
             this.Controls.Add(this.pLinia);
             this.Controls.Add(this.pTrasa);
+            this.Controls.Add(this.pFirma);
+            this.Controls.Add(this.pZarzadTransportu);
+            this.Controls.Add(this.pPrzejazdy);
             this.Controls.Add(this.pPrzyplywyPasazerow);
             this.Controls.Add(this.pPrzystanek);
             this.Controls.Add(this.pAutobus);
@@ -2201,9 +2127,6 @@
             this.pFirmaTabor.ResumeLayout(false);
             this.pFirmaTabor.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgFirmaTabor)).EndInit();
-            this.pFirmaStaleLinie.ResumeLayout(false);
-            this.pFirmaStaleLinie.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgFirmaLinia)).EndInit();
             this.pLinia.ResumeLayout(false);
             this.pLinia.PerformLayout();
             this.msLinia.ResumeLayout(false);
@@ -2330,20 +2253,9 @@
         private System.Windows.Forms.Button bFirma;
         private System.Windows.Forms.Button bLinia;
         private System.Windows.Forms.Panel pFirma;
-        private System.Windows.Forms.Panel pFirmaStaleLinie;
         private System.Windows.Forms.Panel pLinia;
         private System.Windows.Forms.Panel pFirmaTabor;
         private System.Windows.Forms.Panel pLiniaDane;
-        private System.Windows.Forms.TextBox tbFirmaKierowcy;
-        private System.Windows.Forms.Button bFirmaStaleMenu;
-        private System.Windows.Forms.TextBox tbFirmaNazwa;
-        private System.Windows.Forms.Label lFirmaKierowcy;
-        private System.Windows.Forms.Label lFirmaNazwa;
-        private System.Windows.Forms.Label lFirmaStaleTytul;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridView dgFirmaLinia;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cIDLinii;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cSciezkaPliku;
         private System.Windows.Forms.MenuStrip msFirma;
         private System.Windows.Forms.ToolStripMenuItem msFirmaPlik;
         private System.Windows.Forms.ToolStripMenuItem msFirmaPlikZapisz;
@@ -2446,6 +2358,10 @@
         private System.Windows.Forms.TextBox tbKonfSzerokosc;
         private System.Windows.Forms.Label lKonfWysokosc;
         private System.Windows.Forms.Label lKonfSzerokosc;
+        private System.Windows.Forms.Label lFirmaKierowcy;
+        private System.Windows.Forms.Label lNazwaFirmy;
+        private System.Windows.Forms.TextBox tbFirmaKierowcy;
+        private System.Windows.Forms.TextBox tbFirmaNazwa;
     }
 }
 

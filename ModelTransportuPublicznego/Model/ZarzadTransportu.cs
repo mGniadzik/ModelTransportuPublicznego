@@ -10,6 +10,7 @@ namespace ModelTransportuPublicznego.Model {
         protected List<Firma.Firma> listaFirm;
         protected List<Linia> listaLinii;
         protected string sciezkaPliku;
+        protected bool czyLinieOdwrotneZostalyDodane;
 
         public string NazwaZarzadu => nazwaZarzadu;
 
@@ -20,10 +21,12 @@ namespace ModelTransportuPublicznego.Model {
 
         public string SciezkaPlikuKonfiguracyjnego => sciezkaPliku;
 
+
         public ZarzadTransportu(string nazwaFirmy) {
             this.nazwaZarzadu = nazwaFirmy;
             siecPrzystankow = new List<Przystanek.Przystanek>();
             listaFirm = new List<Firma.Firma>();
+            czyLinieOdwrotneZostalyDodane = false;
         }
 
         public ZarzadTransportu(string nazwaFirmy, string sciezkaPliku) : this(nazwaFirmy)
@@ -148,12 +151,13 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         public virtual void DodajLiniePowrotne() {
-            var linie = new List<Linia>();
-            
-            foreach (var firma in listaFirm) {
-                linie.AddRange(firma.LinieAutobusowe.Select(linia => linia.LiniaOdwrotna));
-                firma.DodajLinie(linie);
+            if (czyLinieOdwrotneZostalyDodane)
+            {
+                return;
             }
+
+            listaLinii.AddRange(listaLinii.Select(linia => linia.LiniaOdwrotna));
+            czyLinieOdwrotneZostalyDodane = true;
         }
 
         public virtual Przystanek.Przystanek ZwrocPrzystanekPodanejSpecyfikacji(string sciezkaPlikuKonfiguracjiPrzystanku)

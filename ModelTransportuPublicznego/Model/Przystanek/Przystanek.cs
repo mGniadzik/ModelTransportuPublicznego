@@ -34,6 +34,8 @@ namespace ModelTransportuPublicznego.Model.Przystanek
 
         public IEnumerable<Autobus> AutobusyOczekujace => autobusyOczekujace;
 
+        public Point Pozycja => new Point(pozycjaX, pozycjaY);
+
         public int PoziomZapelnieniaPasazerow
         {
             get
@@ -61,9 +63,9 @@ namespace ModelTransportuPublicznego.Model.Przystanek
 
         public Queue<Autobus> AutobusyOczekujaceQueue => autobusyOczekujace;
 
-        public Color ZapelnieniePasazerow => ZwrocKolorZapelnienia(zapelnieniaPasazerow, PoziomZapelnieniaPasazerow);
+        public Color KolorZapelnieniaPasazerow => ZwrocKolorZapelnienia(zapelnieniaPasazerow, PoziomZapelnieniaPasazerow);
 
-        public Color ZapelnienieAutobusow => ZwrocKolorZapelnienia(zapelnieniaAutobusow, PoziomZapelnieniaAutobusow);
+        public Color KolorZapelnieniaAutobusow => ZwrocKolorZapelnienia(zapelnieniaAutobusow, PoziomZapelnieniaAutobusow);
 
         public int MaksymalnaPojemnoscPasazerow => maksymalnaPojemnoscPasazerow;
 

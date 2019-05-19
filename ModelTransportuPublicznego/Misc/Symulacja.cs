@@ -1,17 +1,15 @@
 ﻿using ModelTransportuPublicznego.Implementacja;
-using ModelTransportuPublicznego.Model;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ModelTransportuPublicznego.Misc
 {
     class Symulacja
     {
         private string sciezkaPlikuTla;
+        private Image tlo;
         private int szerokoscMapy;
         private int wysokoscMapy;
         private bool czyGenerowacLinieOdwrotne;
@@ -22,13 +20,21 @@ namespace ModelTransportuPublicznego.Misc
             {
                 var dane = sr.ReadLine().Split('|');
                 sciezkaPlikuKonfiguracji = dane[0];
+                tlo = Image.FromFile(sciezkaPlikuKonfiguracji);
                 szerokoscMapy = Convert.ToInt32(dane[2]);
                 wysokoscMapy = Convert.ToInt32(dane[3]);
                 czyGenerowacLinieOdwrotne = (dane[4] == "1") ? true : false;
 
                 do
                 {
-                    zarzadyTransportu.Add(SynchronicznyZarzadTransportu.OdczytajPlik(sr.ReadLine()));
+                    var zt = SynchronicznyZarzadTransportu.OdczytajPlik(sr.ReadLine());
+                    zarzadyTransportu.Add(zt);
+
+                    if (czyGenerowacLinieOdwrotne)
+                    {
+                        zt.DodajLiniePowrotne();
+                    }
+
                 } while (!sr.EndOfStream);
 
                 using (var srPrzejazdy = File.OpenText(dane[1]))
@@ -40,6 +46,16 @@ namespace ModelTransportuPublicznego.Misc
                         zt.DodajPrzejazdDoListy(danePrzejazdu[0], danePrzejazdu[1], danePrzejazdu[2], danePrzejazdu[3]);
                     } while (!srPrzejazdy.EndOfStream);
                 }
+            }
+
+            WizualizatorMapy.Instancja(sciezkaPlikuTla, szerokoscMapy, wysokoscMapy);
+        }
+
+        public void RozpocznijSymulacje()
+        {
+            foreach (var zt in zarzadyTransportu)
+            {
+                zt.WykonajPrzejazdy();
             }
         }
 

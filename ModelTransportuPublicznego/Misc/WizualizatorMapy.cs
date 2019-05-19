@@ -7,29 +7,54 @@ using ModelTransportuPublicznego.Model.Przystanek;
 
 namespace ModelTransportuPublicznego.Misc
 {
-    static class WizualizatorMapy
+    class WizualizatorMapy
     {
-        public static void NarysujMape(string nazwaMapy, IEnumerable<Przystanek> siecPrzystankow, IEnumerable<Linia> linie, int width = 640, int height = 640)
+        private Image tlo;
+        private int szerokosc;
+        private int wysokosc;
+        private static WizualizatorMapy wizualizatorMapy = null;
+        private WizualizatorMapy(string plikTla, int szerokosc, int wysokosc)
         {
-            var bmp = new Bitmap(width, height);
-            int promien = 10;
+            tlo = Image.FromFile(plikTla);
+            this.szerokosc = szerokosc;
+            this.wysokosc = wysokosc;
+        }
+
+        public static WizualizatorMapy Instancja(string plikTla, int szerokosc, int wysokosc)
+        {
+            if (wizualizatorMapy == null)
+            {
+                wizualizatorMapy = new WizualizatorMapy(plikTla, szerokosc, wysokosc);
+            }
+
+            return wizualizatorMapy;
+        }
+
+        public static WizualizatorMapy Instancja()
+        {
+            return wizualizatorMapy;
+        }
+
+        public void NarysujMape(string nazwaMapy, IEnumerable<Przystanek> siecPrzystankow, IEnumerable<Linia> linie, int promienWewnetrzny = 10, int promienZewnetrzny = 20)
+        {
+            var bmp = new Bitmap(szerokosc, wysokosc);
             using (Graphics grph = Graphics.FromImage(bmp))
             {
+                grph.DrawImage(tlo, 0, 0, szerokosc, wysokosc);
                 grph.SmoothingMode = SmoothingMode.AntiAlias;
+
                 foreach (var p in siecPrzystankow)
                 {
-                    double procent = p.IloscPasazerowOczekujacych() / (double) p.MaksymalnaPojemnoscPasazerow;
-                    if (procent > 1) procent = 1;
-                    var color = Color.FromArgb((int)(255 * procent), (int)(128 - 128 * procent), 0);
-                    grph.DrawString(p.NazwaPrzystanku, new Font("Arial", 12), new SolidBrush(color), p.X, p.Y + 15);
-                    grph.FillEllipse(new SolidBrush(color), p.X - promien, p.Y - promien, promien + promien, promien + promien);
+                    grph.DrawString(p.NazwaPrzystanku, new Font("Arial", 12), new SolidBrush(p.KolorZapelnieniaPasazerow), p.X, p.Y + 15);
+                    grph.FillEllipse(new SolidBrush(p.KolorZapelnieniaAutobusow), p.X - promienZewnetrzny, p.Y - promienZewnetrzny, promienZewnetrzny + promienZewnetrzny, promienZewnetrzny + promienZewnetrzny);
+                    grph.FillEllipse(new SolidBrush(p.KolorZapelnieniaPasazerow), p.X - promienWewnetrzny, p.Y - promienWewnetrzny, promienWewnetrzny + promienWewnetrzny, promienWewnetrzny + promienWewnetrzny);
                 }
 
                 foreach (var l in linie)
                 {
                     for (int i = 0; i < l.Count - 1; i++)
                     {
-                        grph.DrawLine(new Pen(Color.Black), l[i].przystanek.X, l[i].przystanek.Y, l[i + 1].przystanek.X, l[i + 1].przystanek.Y);
+                        grph.DrawLines(new Pen(Color.Black), l[i].ZwrocPunktyWpisu());
                     }
                 }
             }

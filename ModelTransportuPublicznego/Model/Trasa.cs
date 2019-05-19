@@ -20,6 +20,8 @@ namespace ModelTransportuPublicznego.Model {
         public virtual int DystansTrasy => sTrasy;
         public virtual Trasa TrasaOdwrotna => OdwrocTrase();
 
+        public virtual int LiczbaPunktowTrasy => punktyTrasy.Count;
+
         public virtual IEnumerable<Point> PunktyTrasy => punktyTrasy;
 
         public Trasa()
@@ -86,7 +88,7 @@ namespace ModelTransportuPublicznego.Model {
 
             } catch (Exception e)
             {
-                System.Console.WriteLine(e);
+                Console.WriteLine(e);
 
                 return false;
             }

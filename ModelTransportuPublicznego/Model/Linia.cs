@@ -33,6 +33,12 @@ namespace ModelTransportuPublicznego.Model
             foreach (var przystanek in trasaLinii) {
                 this.trasaLinii.Add(przystanek);
             }
+
+            for (int i = 0; i < this.trasaLinii.Count - 1; i++)
+            {
+                this.trasaLinii[i].trasa.PrzystanekLewy = this.trasaLinii[i].przystanek;
+                this.trasaLinii[i].trasa.PrzystanekPrawy = this.trasaLinii[i + 1].przystanek;
+            }
         }
 
         public virtual Przystanek.Przystanek ZwrocOstatniPrzystanek() {
@@ -213,7 +219,14 @@ namespace ModelTransportuPublicznego.Model
                 do
                 {
                     wpisy.Add(WpisLinii.Odczytaj(sr, zt));
+
                 } while (!sr.EndOfStream);
+            }
+
+            for (int i = 0; i < wpisy.Count - 1; i++)
+            {
+                wpisy[i].trasa.PrzystanekLewy = wpisy[i].przystanek;
+                wpisy[i].trasa.PrzystanekPrawy = wpisy[i + 1].przystanek;
             }
 
             return new Linia(id, sciezkaPliku, wpisy);
