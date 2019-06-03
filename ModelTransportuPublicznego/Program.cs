@@ -10,6 +10,4 @@ namespace ModelTransportuPublicznego
             symulacja.RozpocznijSymulacje();
         }
     }
-
-
 }

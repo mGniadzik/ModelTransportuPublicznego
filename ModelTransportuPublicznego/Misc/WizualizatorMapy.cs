@@ -35,7 +35,7 @@ namespace ModelTransportuPublicznego.Misc
             return wizualizatorMapy;
         }
 
-        public void NarysujMape(string nazwaMapy, IEnumerable<Przystanek> siecPrzystankow, IEnumerable<Linia> linie, int promienWewnetrzny = 10, int promienZewnetrzny = 20)
+        public void NarysujMape(string nazwaMapy, IEnumerable<Przystanek> siecPrzystankow, IEnumerable<Linia> linie, int promienWewnetrzny = 8, int promienZewnetrzny = 15)
         {
             var bmp = new Bitmap(szerokosc, wysokosc);
             using (Graphics grph = Graphics.FromImage(bmp))
