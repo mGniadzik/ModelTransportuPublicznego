@@ -352,14 +352,21 @@ namespace ModelTransportuPublicznego.Model.Przystanek
 
         protected virtual void DodajProgKolor(int prog, Color kolor, SortedDictionary<int, Color> cel)
         {
-            cel.Add(prog, kolor);
+            try
+            {
+                cel.Add(prog, kolor);
+            } catch (ArgumentException)
+            {
+
+            }
         }
 
         public virtual bool Zapisz(StreamWriter sw)
         {
             try
             {
-                sw.WriteLine(string.Format("{0}|{1}|{2}|{3}|{4}|{5}", pozycjaX, pozycjaY, maksymalnaPojemnoscPasazerow, nazwaPrzystanku, dlugoscZatoki, 
+                sw.WriteLine(nazwaPrzystanku);
+                sw.WriteLine(string.Format("{0}|{1}|{2}|{3}|{4}", pozycjaX, pozycjaY, maksymalnaPojemnoscPasazerow, dlugoscZatoki, 
                     sciezkaPlikuKonfiguracyjnego));
 
                 var last = zapelnieniaPasazerow.Last();
@@ -396,11 +403,12 @@ namespace ModelTransportuPublicznego.Model.Przystanek
             Przystanek rezultat = null;
             using (var sr = File.OpenText(nazwaPliku))
             {
+                var nazwa = sr.ReadLine();
                 var stale = sr.ReadLine().Split('|');
                 var zapelnieniaPasazerow = sr.ReadLine().Split('|');
                 var zapelnieniaAutobusow = sr.ReadLine().Split('|');
 
-                rezultat = new Przystanek(stale[3], zt, Convert.ToDouble(stale[4]), Convert.ToInt32(stale[0]), Convert.ToInt32(stale[1]), Convert.ToInt32(stale[2]), stale[5]);
+                rezultat = new Przystanek(nazwa, zt, Convert.ToDouble(stale[3]), Convert.ToInt32(stale[0]), Convert.ToInt32(stale[1]), Convert.ToInt32(stale[2]), stale[4]);
                 foreach (var val in zapelnieniaPasazerow)
                 {
                     var elems = val.Split(':');

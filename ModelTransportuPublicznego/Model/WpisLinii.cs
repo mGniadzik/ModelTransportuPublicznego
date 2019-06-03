@@ -17,8 +17,11 @@ namespace ModelTransportuPublicznego.Model {
 
         public WpisLinii(Przystanek.Przystanek przystanek, TimeSpan czasPrzyjaduDoPrzystanku, string sciezkaPlikuTrasy) : this(przystanek, czasPrzyjaduDoPrzystanku)
         {
-            trasa = Trasa.OdczytajPlik(sciezkaPlikuTrasy);
-            this.sciezkaPlikuTrasy = sciezkaPlikuTrasy;
+            if (sciezkaPlikuTrasy != "")
+            {
+                trasa = Trasa.OdczytajPlik(sciezkaPlikuTrasy);
+                this.sciezkaPlikuTrasy = sciezkaPlikuTrasy;
+            }
         }
 
         public WpisLinii(WpisLinii wl) {
@@ -41,7 +44,7 @@ namespace ModelTransportuPublicznego.Model {
         {
             try
             {
-                sw.WriteLine($"{0}:{1}:{2}", przystanek.NazwaPrzystanku, czasPrzyjaduDoPrzystanku, sciezkaPlikuTrasy);
+                sw.WriteLine($"{0}-{1}-{2}", przystanek.NazwaPrzystanku, czasPrzyjaduDoPrzystanku, sciezkaPlikuTrasy);
             } catch (Exception e)
             {
                 Console.WriteLine(e);
@@ -53,7 +56,7 @@ namespace ModelTransportuPublicznego.Model {
 
         public static WpisLinii Odczytaj(StreamReader sr, ZarzadTransportu zt)
         {
-            var dane = sr.ReadLine().Split(':');
+            var dane = sr.ReadLine().Split('-');
 
             if (zt == null)
             {
@@ -61,8 +64,22 @@ namespace ModelTransportuPublicznego.Model {
                     Convert.ToInt32(dane[2]), Convert.ToInt32(dane[3])));
             } else
             {
-                return new WpisLinii(zt.ZwrocPrzystanekPodanejNazwy(dane[0]), new TimeSpan(Convert.ToInt32(dane[1]), 
+                return new WpisLinii(zt.ZwrocPrzystanekPodanejNazwy(dane[0]), TimeSpan.Parse(dane[1]), dane[2]);
+            }
+        }
+
+        public static WpisLinii Odczytaj(string tekstWpisu, ZarzadTransportu zt)
+        {
+            var dane = tekstWpisu.Split('-');
+
+            if (zt == null)
+            {
+                return new WpisLinii(Przystanek.Przystanek.OdczytajPlik(dane[0], null), new TimeSpan(Convert.ToInt32(dane[1]),
                     Convert.ToInt32(dane[2]), Convert.ToInt32(dane[3])));
+            }
+            else
+            {
+                return new WpisLinii(zt.ZwrocPrzystanekPodanejNazwy(dane[0]), TimeSpan.Parse(dane[1]), dane[2]);
             }
         }
     }

@@ -215,12 +215,18 @@ namespace ModelTransportuPublicznego.Model
             using (var sr = File.OpenText(sciezkaPliku))
             {
                 id = sr.ReadLine();
+                var tekstWpisow = sr.ReadLine().Split('|');
 
-                do
+                //do
+                //{
+                //    wpisy.Add(WpisLinii.Odczytaj(sr, zt));
+
+                //} while (!sr.EndOfStream);
+
+                foreach (var tW in tekstWpisow)
                 {
-                    wpisy.Add(WpisLinii.Odczytaj(sr, zt));
-
-                } while (!sr.EndOfStream);
+                    wpisy.Add(WpisLinii.Odczytaj(tW, zt));
+                }
             }
 
             for (int i = 0; i < wpisy.Count - 1; i++)

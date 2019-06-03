@@ -77,9 +77,18 @@ namespace ModelTransportuPublicznego.Implementacja {
 
         public override void DodajPrzejazdDoListy(string czas, string nazwaFirmy, string idLinii, string modelAutobusu = null)
         {
-            var daneCzasu = czas.Split('|');
-            listaPrzejazdow.Add(new Przejazd(ZwrocFirmePoNazwie(nazwaFirmy), ZwrocLiniePoID(idLinii), 
-                new TimeSpan(Convert.ToInt32(daneCzasu[0]), Convert.ToInt32(daneCzasu[1]), Convert.ToInt32(daneCzasu[2])), modelAutobusu));
+            var daneCzasu = czas.Split(':');
+            if (daneCzasu.Length == 2)
+            {
+                listaPrzejazdow.Add(new Przejazd(ZwrocFirmePoNazwie(nazwaFirmy), ZwrocLiniePoID(idLinii),
+                    new TimeSpan(Convert.ToInt32(daneCzasu[0]), Convert.ToInt32(daneCzasu[1]), 0), modelAutobusu));
+            }
+            else if (daneCzasu.Length == 3)
+            {
+                listaPrzejazdow.Add(new Przejazd(ZwrocFirmePoNazwie(nazwaFirmy), ZwrocLiniePoID(idLinii),
+                    new TimeSpan(Convert.ToInt32(daneCzasu[0]), Convert.ToInt32(daneCzasu[1]), Convert.ToInt32(daneCzasu[2])), modelAutobusu));
+            }
+            
         }
 
         public override void WykonajPrzejazdy() {
@@ -105,9 +114,9 @@ namespace ModelTransportuPublicznego.Implementacja {
             using (var sr = File.OpenText(sciezkaPliku))
             {
                 zt = new SynchronicznyZarzadTransportu(sr.ReadLine());
-                zt.DodajPrzystanek(sr.ReadLine().Split('|').Select(s => Przystanek.OdczytajPlik(s, zt)));
-                zt.DodajLinie(sr.ReadLine().Split('|').Select(l => Linia.OdczytajPlik(l, zt)));
-                zt.DodajFirme(sr.ReadLine().Split('|').Select(f => FirmaLosowa.OdczytajPlik(f, zt)));
+                zt.DodajPrzystanek(sr.ReadLine().Split('|').Where(p => p != "").Select(s => Przystanek.OdczytajPlik(s, zt)));
+                zt.DodajLinie(sr.ReadLine().Split('|').Where(l => l != "").Select(l => Linia.OdczytajPlik(l, zt)));
+                zt.DodajFirme(sr.ReadLine().Split('|').Where(f => f != "").Select(f => FirmaLosowa.OdczytajPlik(f, zt)));
             }
 
             return zt;

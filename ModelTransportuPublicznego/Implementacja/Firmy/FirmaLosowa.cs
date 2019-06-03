@@ -15,8 +15,7 @@ namespace ModelTransportuPublicznego.Implementacja.Firmy {
         }
 
         public FirmaLosowa(string nazwaFirmy, IEnumerable<KeyValuePair<Autobus, int>> tabor, string sciezkaPlikuKonfiguracyjnego, 
-            IEnumerable<Kierowca> listaKierowcow, IEnumerable<Linia> linieAutobusowe) : base(nazwaFirmy, tabor, sciezkaPlikuKonfiguracyjnego, 
-                listaKierowcow, linieAutobusowe) {
+            IEnumerable<Kierowca> listaKierowcow) : base(nazwaFirmy, tabor, sciezkaPlikuKonfiguracyjnego, listaKierowcow) {
             rand = new Random();
         }
 
@@ -67,14 +66,9 @@ namespace ModelTransportuPublicznego.Implementacja.Firmy {
                 var linie = sr.ReadLine().Split('|');
                 var tabor = sr.ReadLine().Split('|');
 
-                foreach (var idLinii in linie)
-                {
-                    rezultat.DodajLinie(zt.ZwrocLiniePoID(idLinii));
-                }
-
                 foreach (var dane in tabor)
                 {
-                    var daneAutobusu = dane.Split(':');
+                    var daneAutobusu = dane.Split('-');
                     rezultat.DodajAutobus(AutobusLiniowy.OdczytajPlik(daneAutobusu[0]), Convert.ToInt32(daneAutobusu[1]));
                 }
             }

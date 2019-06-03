@@ -16,11 +16,13 @@ namespace ModelTransportuPublicznego.Misc
         private List<SynchronicznyZarzadTransportu> zarzadyTransportu;
         public Symulacja(string sciezkaPlikuKonfiguracji)
         {
+            zarzadyTransportu = new List<SynchronicznyZarzadTransportu>();
+
             using (var sr = File.OpenText(sciezkaPlikuKonfiguracji))
             {
                 var dane = sr.ReadLine().Split('|');
-                sciezkaPlikuKonfiguracji = dane[0];
-                tlo = Image.FromFile(sciezkaPlikuKonfiguracji);
+                sciezkaPlikuTla = dane[0];
+                tlo = Image.FromFile(sciezkaPlikuTla);
                 szerokoscMapy = Convert.ToInt32(dane[2]);
                 wysokoscMapy = Convert.ToInt32(dane[3]);
                 czyGenerowacLinieOdwrotne = (dane[4] == "1") ? true : false;
@@ -41,7 +43,7 @@ namespace ModelTransportuPublicznego.Misc
                 {
                     do
                     {
-                        var danePrzejazdu = sr.ReadLine().Split('|');
+                        var danePrzejazdu = srPrzejazdy.ReadLine().Split('|');
                         var zt = ZwrocZarzadPosiadajacyFirmeDanejKonfiguracji(danePrzejazdu[1]);
                         zt.DodajPrzejazdDoListy(danePrzejazdu[0], danePrzejazdu[1], danePrzejazdu[2], danePrzejazdu[3]);
                     } while (!srPrzejazdy.EndOfStream);
@@ -59,13 +61,13 @@ namespace ModelTransportuPublicznego.Misc
             }
         }
 
-        private SynchronicznyZarzadTransportu ZwrocZarzadPosiadajacyFirmeDanejKonfiguracji(string sciezkaPlikuKonfiguracji)
+        private SynchronicznyZarzadTransportu ZwrocZarzadPosiadajacyFirmeDanejKonfiguracji(string nazwaFirmy)
         {
             foreach (var zt in zarzadyTransportu)
             {
                 foreach (var f in zt.ListaFirm)
                 {
-                    if (f.SciezkaPlikuKonfiguracyjnego == sciezkaPlikuKonfiguracji) return zt;
+                    if (f.NazwaFirmy == nazwaFirmy) return zt;
                 }
             }
 

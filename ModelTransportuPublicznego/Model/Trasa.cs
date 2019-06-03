@@ -102,16 +102,18 @@ namespace ModelTransportuPublicznego.Model {
 
             using (var sr = File.OpenText(sciezkaPliku))
             {
+                var nazwa = sr.ReadLine();
                 var dane = sr.ReadLine().Split('|');
+                var punktyRaw = sr.ReadLine().Split('|');
                 var punkty = new List<Point>();
 
-                do
+                foreach (var str in punktyRaw)
                 {
-                    var danePoint = sr.ReadLine().Split(':');
-                    punkty.Add(new Point(Convert.ToInt32(danePoint[0]), Convert.ToInt32(danePoint[1])));
-                } while (!sr.EndOfStream);
+                    var danePunktu = str.Split(':');
+                    punkty.Add(new Point(Convert.ToInt32(danePunktu[0]), Convert.ToInt32(danePunktu[1])));
+                }
 
-                trasa = new Trasa(dane[0], Convert.ToInt32(dane[1]), Convert.ToDouble(dane[2]), punkty);
+                trasa = new Trasa(nazwa, Convert.ToInt32(dane[0]), Convert.ToDouble(dane[1]), punkty);
             }
 
             return trasa;

@@ -10,7 +10,6 @@ namespace ModelTransportuPublicznego.Model.Firma {
         protected string nazwaFirmy;
         protected SortedDictionary<Autobus, int> dostepnyTabor;
         protected List<Kierowca> listaDostepnychKierowcow;
-        protected List<Linia> linieAutobusowe;
         protected SortedDictionary<Autobus, int> listaAutobusowZajetych;
         protected List<Kierowca> listaKierwcowZajetych;
         protected List<Przejazd> historiaPrzejazdow;
@@ -18,7 +17,6 @@ namespace ModelTransportuPublicznego.Model.Firma {
         protected string sciezkaPlikuKonfiguracyjnego;
         protected int liczbaOtrzymanychKar;
 
-        public IEnumerable<Linia> LinieAutobusowe => linieAutobusowe;
 
         public virtual string NazwaFirmy => nazwaFirmy;
 
@@ -49,24 +47,18 @@ namespace ModelTransportuPublicznego.Model.Firma {
             this.sciezkaPlikuKonfiguracyjnego = sciezkaPlikuKonfiguracyjnego;
             dostepnyTabor = new SortedDictionary<Autobus, int>();
             listaDostepnychKierowcow = new List<Kierowca>();
-            linieAutobusowe = new List<Linia>();
             listaAutobusowZajetych = new SortedDictionary<Autobus, int>();
             listaKierwcowZajetych = new List<Kierowca>();
             historiaPrzejazdow = new List<Przejazd>();
         }
 
-        public Firma(string nazwaFirmy, IEnumerable<KeyValuePair<Autobus, int>> tabor, string sciezkaPlikuKonfiguracyjnego, IEnumerable<Kierowca> listaKierowcow,
-            IEnumerable<Linia> linieAutobusowe) : this(nazwaFirmy, sciezkaPlikuKonfiguracyjnego) {
+        public Firma(string nazwaFirmy, IEnumerable<KeyValuePair<Autobus, int>> tabor, string sciezkaPlikuKonfiguracyjnego, IEnumerable<Kierowca> listaKierowcow) : this(nazwaFirmy, sciezkaPlikuKonfiguracyjnego) {
             foreach (var kvp in tabor) {
                 dostepnyTabor.Add(kvp.Key, kvp.Value);
             }
 
             foreach (var kierowca in listaKierowcow) {
                 listaDostepnychKierowcow.Add(kierowca);
-            }
-
-            foreach (var linia in linieAutobusowe) {
-                this.linieAutobusowe.Add(linia);
             }
         }
 
@@ -99,24 +91,12 @@ namespace ModelTransportuPublicznego.Model.Firma {
             }
         }
 
-        public virtual void DodajLinieAutobusowa(Linia linia) {
-            linieAutobusowe.Add(linia);
-        }
-
-        public virtual void UsunLinieAutobusowa(Linia linia) {
-            linieAutobusowe.Remove(linia);
-        }
-
         public virtual IEnumerable<KeyValuePair<Autobus, int>> ZwrocDostepnyTabor() {
             return dostepnyTabor;
         }
 
         public virtual IEnumerable<Kierowca> ZwrocKierowcow() {
             return listaDostepnychKierowcow;
-        }
-
-        public virtual IEnumerable<Linia> ZwrocLinieAutobusowe() {
-            return linieAutobusowe;
         }
 
         public virtual void DodajAutobusy(IEnumerable<KeyValuePair<Autobus, int>> autobusy) {
@@ -129,29 +109,6 @@ namespace ModelTransportuPublicznego.Model.Firma {
             foreach (var kierowca in listaKierowcow) {
                 listaDostepnychKierowcow.Add(kierowca);
             }
-        }
-
-        public virtual void DodajLinie(IEnumerable<Linia> listaLinii) {
-            foreach (var linia in listaLinii) {
-                linieAutobusowe.Add(linia);
-            }
-        }
-
-        public virtual void DodajLinie(Linia linia) {
-            linieAutobusowe.Add(linia);
-        }
-
-        public virtual Linia ZwrocLiniePoID(string idLinii)
-        {
-            foreach (var l in linieAutobusowe)
-            {
-                if (l.IdLinii == idLinii)
-                {
-                    return l;
-                }
-            }
-
-            return null;
         }
 
         public virtual void UstawLinieNaPrzystankach() {
@@ -307,17 +264,6 @@ namespace ModelTransportuPublicznego.Model.Firma {
         public virtual bool Zapisz(StreamWriter sw)
         {
             sw.WriteLine(nazwaFirmy);
-
-            foreach (var l in linieAutobusowe)
-            {
-                sw.Write(l.IdLinii);
-                if (l != linieAutobusowe.Last())
-                {
-                    sw.Write("|");
-                }
-            }
-
-            sw.WriteLine();
 
             var last = Tabor.Last();
             foreach (var kvp in Tabor)

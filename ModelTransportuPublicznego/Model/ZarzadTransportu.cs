@@ -25,6 +25,7 @@ namespace ModelTransportuPublicznego.Model {
         public ZarzadTransportu(string nazwaFirmy) {
             this.nazwaZarzadu = nazwaFirmy;
             siecPrzystankow = new List<Przystanek.Przystanek>();
+            listaLinii = new List<Linia>();
             listaFirm = new List<Firma.Firma>();
             czyLinieOdwrotneZostalyDodane = false;
         }
@@ -117,13 +118,7 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         public virtual IEnumerable<Linia> ZwrocLinie() {
-            var linie = new List<Linia>();
-
-            foreach (var firma in listaFirm) {
-                linie.AddRange(firma.LinieAutobusowe);
-            }
-
-            return linie;
+            return listaLinii;
         }
 
         public virtual Linia ZwrocLiniePoID(string id)

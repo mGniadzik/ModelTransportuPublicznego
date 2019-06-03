@@ -4,7 +4,7 @@ using System.Linq;
 using ModelTransportuPublicznego.Misc;
 
 namespace ModelTransportuPublicznego.Model {
-    public abstract class Autobus {
+    public abstract class Autobus : IComparable<Autobus> {
         protected string modelAutobusu;
         protected string idAutobusu;
         protected int maksymalnaPojemnosc;
@@ -186,5 +186,10 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         public abstract int PrzejedzTrase(Trasa trasa);
+
+        public int CompareTo(Autobus other)
+        {
+            return idAutobusu.CompareTo(other.idAutobusu);
+        }
     }
 }

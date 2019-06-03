@@ -53,7 +53,7 @@
             this.lDlugosc = new System.Windows.Forms.Label();
             this.lIloscDrzwi = new System.Windows.Forms.Label();
             this.lPojemnosc = new System.Windows.Forms.Label();
-            this.lId = new System.Windows.Forms.Label();
+            this.lAutobusModel = new System.Windows.Forms.Label();
             this.bCancel = new System.Windows.Forms.Button();
             this.bNext = new System.Windows.Forms.Button();
             this.msAutobus = new System.Windows.Forms.MenuStrip();
@@ -99,6 +99,7 @@
             this.cKolor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pPrzejazdy = new System.Windows.Forms.Panel();
             this.pPrzejazdyUstawianie = new System.Windows.Forms.Panel();
+            this.bPrzejazdyZapisz = new System.Windows.Forms.Button();
             this.dgPrzejazdy = new System.Windows.Forms.DataGridView();
             this.cPrzejazdCzas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cPrzejazdFirma = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -125,6 +126,10 @@
             this.msFirmaPlikZapiszJako = new System.Windows.Forms.ToolStripMenuItem();
             this.msFirmaPlikWczytaj = new System.Windows.Forms.ToolStripMenuItem();
             this.pFirmaTabor = new System.Windows.Forms.Panel();
+            this.lFirmaKierowcy = new System.Windows.Forms.Label();
+            this.lNazwaFirmy = new System.Windows.Forms.Label();
+            this.tbFirmaKierowcy = new System.Windows.Forms.TextBox();
+            this.tbFirmaNazwa = new System.Windows.Forms.TextBox();
             this.bFirmaZapisz = new System.Windows.Forms.Button();
             this.bFirmaTaborMenu = new System.Windows.Forms.Button();
             this.dgFirmaTabor = new System.Windows.Forms.DataGridView();
@@ -149,16 +154,6 @@
             this.bLiniaId = new System.Windows.Forms.Label();
             this.bLiniaTytul = new System.Windows.Forms.Label();
             this.pZarzadTransportu = new System.Windows.Forms.Panel();
-            this.pZarzadDanePrzystanki = new System.Windows.Forms.Panel();
-            this.bZarzadDaneDalej = new System.Windows.Forms.Button();
-            this.bZarzadDaneMenu = new System.Windows.Forms.Button();
-            this.dgZarzadPrzystanki = new System.Windows.Forms.DataGridView();
-            this.cZarzadPrzystankiNazwa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cZarzadPrzystankiPlik = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tbZarzadNazwa = new System.Windows.Forms.TextBox();
-            this.lZarzadPrzystanki = new System.Windows.Forms.Label();
-            this.lZarzadTransportuNazwa = new System.Windows.Forms.Label();
-            this.lZarzadFirmy = new System.Windows.Forms.Label();
             this.pZarzadLinieFirmy = new System.Windows.Forms.Panel();
             this.dgZarzadFirmy = new System.Windows.Forms.DataGridView();
             this.cZarzadFirmaNazwa = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -170,6 +165,16 @@
             this.bZarzadFirmy = new System.Windows.Forms.Label();
             this.bZarzadZapisz = new System.Windows.Forms.Button();
             this.bZarzadLinieFirmyMenu = new System.Windows.Forms.Button();
+            this.pZarzadDanePrzystanki = new System.Windows.Forms.Panel();
+            this.bZarzadDaneDalej = new System.Windows.Forms.Button();
+            this.bZarzadDaneMenu = new System.Windows.Forms.Button();
+            this.dgZarzadPrzystanki = new System.Windows.Forms.DataGridView();
+            this.cZarzadPrzystankiNazwa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cZarzadPrzystankiPlik = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tbZarzadNazwa = new System.Windows.Forms.TextBox();
+            this.lZarzadPrzystanki = new System.Windows.Forms.Label();
+            this.lZarzadTransportuNazwa = new System.Windows.Forms.Label();
+            this.lZarzadFirmy = new System.Windows.Forms.Label();
             this.msZarzad = new System.Windows.Forms.MenuStrip();
             this.msZarzadPlik = new System.Windows.Forms.ToolStripMenuItem();
             this.msZarzadPlikZapisz = new System.Windows.Forms.ToolStripMenuItem();
@@ -220,10 +225,6 @@
             this.msTrasaPlikZapisz = new System.Windows.Forms.ToolStripMenuItem();
             this.msTrasaPlikZapiszJako = new System.Windows.Forms.ToolStripMenuItem();
             this.msTrasaPlikWczytaj = new System.Windows.Forms.ToolStripMenuItem();
-            this.tbFirmaNazwa = new System.Windows.Forms.TextBox();
-            this.tbFirmaKierowcy = new System.Windows.Forms.TextBox();
-            this.lNazwaFirmy = new System.Windows.Forms.Label();
-            this.lFirmaKierowcy = new System.Windows.Forms.Label();
             this.pPowitanie.SuspendLayout();
             this.pAutobusStale.SuspendLayout();
             this.msAutobus.SuspendLayout();
@@ -250,11 +251,11 @@
             this.pLiniaDane.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgLiniaDane)).BeginInit();
             this.pZarzadTransportu.SuspendLayout();
-            this.pZarzadDanePrzystanki.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgZarzadPrzystanki)).BeginInit();
             this.pZarzadLinieFirmy.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgZarzadFirmy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgZarzadLinie)).BeginInit();
+            this.pZarzadDanePrzystanki.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgZarzadPrzystanki)).BeginInit();
             this.msZarzad.SuspendLayout();
             this.pPrzyplywyPasazerow.SuspendLayout();
             this.pKonfiguracja.SuspendLayout();
@@ -398,7 +399,7 @@
             this.pAutobusStale.Controls.Add(this.lDlugosc);
             this.pAutobusStale.Controls.Add(this.lIloscDrzwi);
             this.pAutobusStale.Controls.Add(this.lPojemnosc);
-            this.pAutobusStale.Controls.Add(this.lId);
+            this.pAutobusStale.Controls.Add(this.lAutobusModel);
             this.pAutobusStale.Controls.Add(this.bCancel);
             this.pAutobusStale.Controls.Add(this.bNext);
             this.pAutobusStale.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -511,14 +512,14 @@
             this.lPojemnosc.TabIndex = 3;
             this.lPojemnosc.Text = "Maksymalna pojemność";
             // 
-            // lId
+            // lAutobusModel
             // 
-            this.lId.AutoSize = true;
-            this.lId.Location = new System.Drawing.Point(12, 31);
-            this.lId.Name = "lId";
-            this.lId.Size = new System.Drawing.Size(64, 13);
-            this.lId.TabIndex = 4;
-            this.lId.Text = "Id Autobusu";
+            this.lAutobusModel.AutoSize = true;
+            this.lAutobusModel.Location = new System.Drawing.Point(12, 31);
+            this.lAutobusModel.Name = "lAutobusModel";
+            this.lAutobusModel.Size = new System.Drawing.Size(83, 13);
+            this.lAutobusModel.TabIndex = 4;
+            this.lAutobusModel.Text = "Model autobusu";
             // 
             // bCancel
             // 
@@ -936,6 +937,7 @@
             // 
             // pPrzejazdyUstawianie
             // 
+            this.pPrzejazdyUstawianie.Controls.Add(this.bPrzejazdyZapisz);
             this.pPrzejazdyUstawianie.Controls.Add(this.dgPrzejazdy);
             this.pPrzejazdyUstawianie.Controls.Add(this.lPrzejazdTytul);
             this.pPrzejazdyUstawianie.Controls.Add(this.BMenu);
@@ -944,6 +946,16 @@
             this.pPrzejazdyUstawianie.Name = "pPrzejazdyUstawianie";
             this.pPrzejazdyUstawianie.Size = new System.Drawing.Size(784, 537);
             this.pPrzejazdyUstawianie.TabIndex = 5;
+            // 
+            // bPrzejazdyZapisz
+            // 
+            this.bPrzejazdyZapisz.Location = new System.Drawing.Point(697, 481);
+            this.bPrzejazdyZapisz.Name = "bPrzejazdyZapisz";
+            this.bPrzejazdyZapisz.Size = new System.Drawing.Size(73, 46);
+            this.bPrzejazdyZapisz.TabIndex = 3;
+            this.bPrzejazdyZapisz.Text = "Zapisz do pliku";
+            this.bPrzejazdyZapisz.UseVisualStyleBackColor = true;
+            this.bPrzejazdyZapisz.Click += new System.EventHandler(this.BPrzejazdyZapisz_Click);
             // 
             // dgPrzejazdy
             // 
@@ -995,9 +1007,9 @@
             // 
             // BMenu
             // 
-            this.BMenu.Location = new System.Drawing.Point(322, 488);
+            this.BMenu.Location = new System.Drawing.Point(14, 481);
             this.BMenu.Name = "BMenu";
-            this.BMenu.Size = new System.Drawing.Size(103, 37);
+            this.BMenu.Size = new System.Drawing.Size(73, 46);
             this.BMenu.TabIndex = 2;
             this.BMenu.Text = "Wróć do menu";
             this.BMenu.UseVisualStyleBackColor = true;
@@ -1058,8 +1070,8 @@
             // 
             // pPrzystanek
             // 
-            this.pPrzystanek.Controls.Add(this.pPrzystanekStale);
             this.pPrzystanek.Controls.Add(this.pPrzystanekProgi);
+            this.pPrzystanek.Controls.Add(this.pPrzystanekStale);
             this.pPrzystanek.Controls.Add(this.msPrzystanek);
             this.pPrzystanek.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pPrzystanek.Location = new System.Drawing.Point(0, 0);
@@ -1177,6 +1189,38 @@
             this.pFirmaTabor.Name = "pFirmaTabor";
             this.pFirmaTabor.Size = new System.Drawing.Size(784, 561);
             this.pFirmaTabor.TabIndex = 1;
+            // 
+            // lFirmaKierowcy
+            // 
+            this.lFirmaKierowcy.AutoSize = true;
+            this.lFirmaKierowcy.Location = new System.Drawing.Point(11, 90);
+            this.lFirmaKierowcy.Name = "lFirmaKierowcy";
+            this.lFirmaKierowcy.Size = new System.Drawing.Size(92, 13);
+            this.lFirmaKierowcy.TabIndex = 7;
+            this.lFirmaKierowcy.Text = "Liczba kierowców";
+            // 
+            // lNazwaFirmy
+            // 
+            this.lNazwaFirmy.AutoSize = true;
+            this.lNazwaFirmy.Location = new System.Drawing.Point(11, 64);
+            this.lNazwaFirmy.Name = "lNazwaFirmy";
+            this.lNazwaFirmy.Size = new System.Drawing.Size(64, 13);
+            this.lNazwaFirmy.TabIndex = 6;
+            this.lNazwaFirmy.Text = "Nazwa firmy";
+            // 
+            // tbFirmaKierowcy
+            // 
+            this.tbFirmaKierowcy.Location = new System.Drawing.Point(109, 87);
+            this.tbFirmaKierowcy.Name = "tbFirmaKierowcy";
+            this.tbFirmaKierowcy.Size = new System.Drawing.Size(100, 20);
+            this.tbFirmaKierowcy.TabIndex = 5;
+            // 
+            // tbFirmaNazwa
+            // 
+            this.tbFirmaNazwa.Location = new System.Drawing.Point(109, 61);
+            this.tbFirmaNazwa.Name = "tbFirmaNazwa";
+            this.tbFirmaNazwa.Size = new System.Drawing.Size(100, 20);
+            this.tbFirmaNazwa.TabIndex = 4;
             // 
             // bFirmaZapisz
             // 
@@ -1384,109 +1428,14 @@
             // 
             // pZarzadTransportu
             // 
-            this.pZarzadTransportu.Controls.Add(this.pZarzadDanePrzystanki);
             this.pZarzadTransportu.Controls.Add(this.pZarzadLinieFirmy);
+            this.pZarzadTransportu.Controls.Add(this.pZarzadDanePrzystanki);
             this.pZarzadTransportu.Controls.Add(this.msZarzad);
             this.pZarzadTransportu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pZarzadTransportu.Location = new System.Drawing.Point(0, 0);
             this.pZarzadTransportu.Name = "pZarzadTransportu";
             this.pZarzadTransportu.Size = new System.Drawing.Size(784, 561);
             this.pZarzadTransportu.TabIndex = 24;
-            // 
-            // pZarzadDanePrzystanki
-            // 
-            this.pZarzadDanePrzystanki.Controls.Add(this.bZarzadDaneDalej);
-            this.pZarzadDanePrzystanki.Controls.Add(this.bZarzadDaneMenu);
-            this.pZarzadDanePrzystanki.Controls.Add(this.dgZarzadPrzystanki);
-            this.pZarzadDanePrzystanki.Controls.Add(this.tbZarzadNazwa);
-            this.pZarzadDanePrzystanki.Controls.Add(this.lZarzadPrzystanki);
-            this.pZarzadDanePrzystanki.Controls.Add(this.lZarzadTransportuNazwa);
-            this.pZarzadDanePrzystanki.Controls.Add(this.lZarzadFirmy);
-            this.pZarzadDanePrzystanki.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pZarzadDanePrzystanki.Location = new System.Drawing.Point(0, 24);
-            this.pZarzadDanePrzystanki.Name = "pZarzadDanePrzystanki";
-            this.pZarzadDanePrzystanki.Size = new System.Drawing.Size(784, 537);
-            this.pZarzadDanePrzystanki.TabIndex = 1;
-            // 
-            // bZarzadDaneDalej
-            // 
-            this.bZarzadDaneDalej.Location = new System.Drawing.Point(697, 489);
-            this.bZarzadDaneDalej.Name = "bZarzadDaneDalej";
-            this.bZarzadDaneDalej.Size = new System.Drawing.Size(75, 39);
-            this.bZarzadDaneDalej.TabIndex = 29;
-            this.bZarzadDaneDalej.Text = "Dalej...";
-            this.bZarzadDaneDalej.UseVisualStyleBackColor = true;
-            this.bZarzadDaneDalej.Click += new System.EventHandler(this.BZarzadDaneDalej_Click);
-            // 
-            // bZarzadDaneMenu
-            // 
-            this.bZarzadDaneMenu.Location = new System.Drawing.Point(12, 483);
-            this.bZarzadDaneMenu.Name = "bZarzadDaneMenu";
-            this.bZarzadDaneMenu.Size = new System.Drawing.Size(75, 39);
-            this.bZarzadDaneMenu.TabIndex = 28;
-            this.bZarzadDaneMenu.Text = "Wróć do menu";
-            this.bZarzadDaneMenu.UseVisualStyleBackColor = true;
-            this.bZarzadDaneMenu.Click += new System.EventHandler(this.BZarzadDaneMenu_Click);
-            // 
-            // dgZarzadPrzystanki
-            // 
-            this.dgZarzadPrzystanki.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgZarzadPrzystanki.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.cZarzadPrzystankiNazwa,
-            this.cZarzadPrzystankiPlik});
-            this.dgZarzadPrzystanki.Location = new System.Drawing.Point(9, 115);
-            this.dgZarzadPrzystanki.Name = "dgZarzadPrzystanki";
-            this.dgZarzadPrzystanki.Size = new System.Drawing.Size(763, 362);
-            this.dgZarzadPrzystanki.TabIndex = 27;
-            this.dgZarzadPrzystanki.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgZarzadPrzystanki_CellDoubleClick);
-            // 
-            // cZarzadPrzystankiNazwa
-            // 
-            this.cZarzadPrzystankiNazwa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cZarzadPrzystankiNazwa.HeaderText = "Nazwa przystanku";
-            this.cZarzadPrzystankiNazwa.Name = "cZarzadPrzystankiNazwa";
-            // 
-            // cZarzadPrzystankiPlik
-            // 
-            this.cZarzadPrzystankiPlik.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cZarzadPrzystankiPlik.HeaderText = "Scieżka pliku";
-            this.cZarzadPrzystankiPlik.Name = "cZarzadPrzystankiPlik";
-            // 
-            // tbZarzadNazwa
-            // 
-            this.tbZarzadNazwa.Location = new System.Drawing.Point(99, 50);
-            this.tbZarzadNazwa.Name = "tbZarzadNazwa";
-            this.tbZarzadNazwa.Size = new System.Drawing.Size(100, 20);
-            this.tbZarzadNazwa.TabIndex = 26;
-            // 
-            // lZarzadPrzystanki
-            // 
-            this.lZarzadPrzystanki.AutoSize = true;
-            this.lZarzadPrzystanki.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lZarzadPrzystanki.Location = new System.Drawing.Point(12, 90);
-            this.lZarzadPrzystanki.Name = "lZarzadPrzystanki";
-            this.lZarzadPrzystanki.Size = new System.Drawing.Size(132, 20);
-            this.lZarzadPrzystanki.TabIndex = 2;
-            this.lZarzadPrzystanki.Text = "Sieć przystanków";
-            // 
-            // lZarzadTransportuNazwa
-            // 
-            this.lZarzadTransportuNazwa.AutoSize = true;
-            this.lZarzadTransportuNazwa.Location = new System.Drawing.Point(13, 53);
-            this.lZarzadTransportuNazwa.Name = "lZarzadTransportuNazwa";
-            this.lZarzadTransportuNazwa.Size = new System.Drawing.Size(80, 13);
-            this.lZarzadTransportuNazwa.TabIndex = 1;
-            this.lZarzadTransportuNazwa.Text = "Nazwa zarządu";
-            // 
-            // lZarzadFirmy
-            // 
-            this.lZarzadFirmy.AutoSize = true;
-            this.lZarzadFirmy.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lZarzadFirmy.Location = new System.Drawing.Point(10, 9);
-            this.lZarzadFirmy.Name = "lZarzadFirmy";
-            this.lZarzadFirmy.Size = new System.Drawing.Size(112, 24);
-            this.lZarzadFirmy.TabIndex = 0;
-            this.lZarzadFirmy.Text = "Zarząd firmy";
             // 
             // pZarzadLinieFirmy
             // 
@@ -1589,6 +1538,101 @@
             this.bZarzadLinieFirmyMenu.Text = "Wróć do menu";
             this.bZarzadLinieFirmyMenu.UseVisualStyleBackColor = true;
             this.bZarzadLinieFirmyMenu.Click += new System.EventHandler(this.BZarzadLinieFirmyMenu_Click);
+            // 
+            // pZarzadDanePrzystanki
+            // 
+            this.pZarzadDanePrzystanki.Controls.Add(this.bZarzadDaneDalej);
+            this.pZarzadDanePrzystanki.Controls.Add(this.bZarzadDaneMenu);
+            this.pZarzadDanePrzystanki.Controls.Add(this.dgZarzadPrzystanki);
+            this.pZarzadDanePrzystanki.Controls.Add(this.tbZarzadNazwa);
+            this.pZarzadDanePrzystanki.Controls.Add(this.lZarzadPrzystanki);
+            this.pZarzadDanePrzystanki.Controls.Add(this.lZarzadTransportuNazwa);
+            this.pZarzadDanePrzystanki.Controls.Add(this.lZarzadFirmy);
+            this.pZarzadDanePrzystanki.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pZarzadDanePrzystanki.Location = new System.Drawing.Point(0, 24);
+            this.pZarzadDanePrzystanki.Name = "pZarzadDanePrzystanki";
+            this.pZarzadDanePrzystanki.Size = new System.Drawing.Size(784, 537);
+            this.pZarzadDanePrzystanki.TabIndex = 1;
+            // 
+            // bZarzadDaneDalej
+            // 
+            this.bZarzadDaneDalej.Location = new System.Drawing.Point(697, 489);
+            this.bZarzadDaneDalej.Name = "bZarzadDaneDalej";
+            this.bZarzadDaneDalej.Size = new System.Drawing.Size(75, 39);
+            this.bZarzadDaneDalej.TabIndex = 29;
+            this.bZarzadDaneDalej.Text = "Dalej...";
+            this.bZarzadDaneDalej.UseVisualStyleBackColor = true;
+            this.bZarzadDaneDalej.Click += new System.EventHandler(this.BZarzadDaneDalej_Click);
+            // 
+            // bZarzadDaneMenu
+            // 
+            this.bZarzadDaneMenu.Location = new System.Drawing.Point(12, 483);
+            this.bZarzadDaneMenu.Name = "bZarzadDaneMenu";
+            this.bZarzadDaneMenu.Size = new System.Drawing.Size(75, 39);
+            this.bZarzadDaneMenu.TabIndex = 28;
+            this.bZarzadDaneMenu.Text = "Wróć do menu";
+            this.bZarzadDaneMenu.UseVisualStyleBackColor = true;
+            this.bZarzadDaneMenu.Click += new System.EventHandler(this.BZarzadDaneMenu_Click);
+            // 
+            // dgZarzadPrzystanki
+            // 
+            this.dgZarzadPrzystanki.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgZarzadPrzystanki.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.cZarzadPrzystankiNazwa,
+            this.cZarzadPrzystankiPlik});
+            this.dgZarzadPrzystanki.Location = new System.Drawing.Point(9, 115);
+            this.dgZarzadPrzystanki.Name = "dgZarzadPrzystanki";
+            this.dgZarzadPrzystanki.Size = new System.Drawing.Size(763, 362);
+            this.dgZarzadPrzystanki.TabIndex = 27;
+            this.dgZarzadPrzystanki.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgZarzadPrzystanki_CellDoubleClick);
+            // 
+            // cZarzadPrzystankiNazwa
+            // 
+            this.cZarzadPrzystankiNazwa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cZarzadPrzystankiNazwa.HeaderText = "Nazwa przystanku";
+            this.cZarzadPrzystankiNazwa.Name = "cZarzadPrzystankiNazwa";
+            // 
+            // cZarzadPrzystankiPlik
+            // 
+            this.cZarzadPrzystankiPlik.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cZarzadPrzystankiPlik.HeaderText = "Scieżka pliku";
+            this.cZarzadPrzystankiPlik.Name = "cZarzadPrzystankiPlik";
+            // 
+            // tbZarzadNazwa
+            // 
+            this.tbZarzadNazwa.Location = new System.Drawing.Point(99, 50);
+            this.tbZarzadNazwa.Name = "tbZarzadNazwa";
+            this.tbZarzadNazwa.Size = new System.Drawing.Size(100, 20);
+            this.tbZarzadNazwa.TabIndex = 26;
+            // 
+            // lZarzadPrzystanki
+            // 
+            this.lZarzadPrzystanki.AutoSize = true;
+            this.lZarzadPrzystanki.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lZarzadPrzystanki.Location = new System.Drawing.Point(12, 90);
+            this.lZarzadPrzystanki.Name = "lZarzadPrzystanki";
+            this.lZarzadPrzystanki.Size = new System.Drawing.Size(132, 20);
+            this.lZarzadPrzystanki.TabIndex = 2;
+            this.lZarzadPrzystanki.Text = "Sieć przystanków";
+            // 
+            // lZarzadTransportuNazwa
+            // 
+            this.lZarzadTransportuNazwa.AutoSize = true;
+            this.lZarzadTransportuNazwa.Location = new System.Drawing.Point(13, 53);
+            this.lZarzadTransportuNazwa.Name = "lZarzadTransportuNazwa";
+            this.lZarzadTransportuNazwa.Size = new System.Drawing.Size(80, 13);
+            this.lZarzadTransportuNazwa.TabIndex = 1;
+            this.lZarzadTransportuNazwa.Text = "Nazwa zarządu";
+            // 
+            // lZarzadFirmy
+            // 
+            this.lZarzadFirmy.AutoSize = true;
+            this.lZarzadFirmy.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lZarzadFirmy.Location = new System.Drawing.Point(10, 9);
+            this.lZarzadFirmy.Name = "lZarzadFirmy";
+            this.lZarzadFirmy.Size = new System.Drawing.Size(112, 24);
+            this.lZarzadFirmy.TabIndex = 0;
+            this.lZarzadFirmy.Text = "Zarząd firmy";
             // 
             // msZarzad
             // 
@@ -1729,6 +1773,7 @@
             this.tbKonfiguracjaPrzejazdy.Name = "tbKonfiguracjaPrzejazdy";
             this.tbKonfiguracjaPrzejazdy.Size = new System.Drawing.Size(100, 20);
             this.tbKonfiguracjaPrzejazdy.TabIndex = 8;
+            this.tbKonfiguracjaPrzejazdy.DoubleClick += new System.EventHandler(this.TbKonfiguracjaPrzejazdy_DoubleClick);
             // 
             // tbKonfiguracjaZdjecie
             // 
@@ -1736,6 +1781,7 @@
             this.tbKonfiguracjaZdjecie.Name = "tbKonfiguracjaZdjecie";
             this.tbKonfiguracjaZdjecie.Size = new System.Drawing.Size(100, 20);
             this.tbKonfiguracjaZdjecie.TabIndex = 7;
+            this.tbKonfiguracjaZdjecie.DoubleClick += new System.EventHandler(this.TbKonfiguracjaZdjecie_DoubleClick);
             // 
             // lKonfiguracjaPrzjeazdy
             // 
@@ -2041,53 +2087,21 @@
             this.msTrasaPlikWczytaj.Text = "Wczytaj";
             this.msTrasaPlikWczytaj.Click += new System.EventHandler(this.MsTrasaPlikWczytaj_Click);
             // 
-            // tbFirmaNazwa
-            // 
-            this.tbFirmaNazwa.Location = new System.Drawing.Point(109, 61);
-            this.tbFirmaNazwa.Name = "tbFirmaNazwa";
-            this.tbFirmaNazwa.Size = new System.Drawing.Size(100, 20);
-            this.tbFirmaNazwa.TabIndex = 4;
-            // 
-            // tbFirmaKierowcy
-            // 
-            this.tbFirmaKierowcy.Location = new System.Drawing.Point(109, 87);
-            this.tbFirmaKierowcy.Name = "tbFirmaKierowcy";
-            this.tbFirmaKierowcy.Size = new System.Drawing.Size(100, 20);
-            this.tbFirmaKierowcy.TabIndex = 5;
-            // 
-            // lNazwaFirmy
-            // 
-            this.lNazwaFirmy.AutoSize = true;
-            this.lNazwaFirmy.Location = new System.Drawing.Point(11, 64);
-            this.lNazwaFirmy.Name = "lNazwaFirmy";
-            this.lNazwaFirmy.Size = new System.Drawing.Size(64, 13);
-            this.lNazwaFirmy.TabIndex = 6;
-            this.lNazwaFirmy.Text = "Nazwa firmy";
-            // 
-            // lFirmaKierowcy
-            // 
-            this.lFirmaKierowcy.AutoSize = true;
-            this.lFirmaKierowcy.Location = new System.Drawing.Point(11, 90);
-            this.lFirmaKierowcy.Name = "lFirmaKierowcy";
-            this.lFirmaKierowcy.Size = new System.Drawing.Size(92, 13);
-            this.lFirmaKierowcy.TabIndex = 7;
-            this.lFirmaKierowcy.Text = "Liczba kierowców";
-            // 
             // AplikacjaPomocnicza
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.pPrzejazdy);
+            this.Controls.Add(this.pFirma);
+            this.Controls.Add(this.pAutobus);
+            this.Controls.Add(this.pLinia);
+            this.Controls.Add(this.pZarzadTransportu);
+            this.Controls.Add(this.pTrasa);
             this.Controls.Add(this.pKonfiguracja);
             this.Controls.Add(this.pPowitanie);
-            this.Controls.Add(this.pLinia);
-            this.Controls.Add(this.pTrasa);
-            this.Controls.Add(this.pFirma);
-            this.Controls.Add(this.pZarzadTransportu);
-            this.Controls.Add(this.pPrzejazdy);
-            this.Controls.Add(this.pPrzyplywyPasazerow);
             this.Controls.Add(this.pPrzystanek);
-            this.Controls.Add(this.pAutobus);
+            this.Controls.Add(this.pPrzyplywyPasazerow);
             this.MainMenuStrip = this.msPrzejazdy;
             this.Name = "AplikacjaPomocnicza";
             this.Text = "Aplikacja pomocnicza";
@@ -2136,13 +2150,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgLiniaDane)).EndInit();
             this.pZarzadTransportu.ResumeLayout(false);
             this.pZarzadTransportu.PerformLayout();
-            this.pZarzadDanePrzystanki.ResumeLayout(false);
-            this.pZarzadDanePrzystanki.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgZarzadPrzystanki)).EndInit();
             this.pZarzadLinieFirmy.ResumeLayout(false);
             this.pZarzadLinieFirmy.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgZarzadFirmy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgZarzadLinie)).EndInit();
+            this.pZarzadDanePrzystanki.ResumeLayout(false);
+            this.pZarzadDanePrzystanki.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgZarzadPrzystanki)).EndInit();
             this.msZarzad.ResumeLayout(false);
             this.msZarzad.PerformLayout();
             this.pPrzyplywyPasazerow.ResumeLayout(false);
@@ -2185,7 +2199,7 @@
         private System.Windows.Forms.Label lDlugosc;
         private System.Windows.Forms.Label lIloscDrzwi;
         private System.Windows.Forms.Label lPojemnosc;
-        private System.Windows.Forms.Label lId;
+        private System.Windows.Forms.Label lAutobusModel;
         private System.Windows.Forms.Panel pZmianaPrzyspieszenia;
         private System.Windows.Forms.Button bSave;
         private System.Windows.Forms.Button bBack;
@@ -2362,6 +2376,7 @@
         private System.Windows.Forms.Label lNazwaFirmy;
         private System.Windows.Forms.TextBox tbFirmaKierowcy;
         private System.Windows.Forms.TextBox tbFirmaNazwa;
+        private System.Windows.Forms.Button bPrzejazdyZapisz;
     }
 }
 
