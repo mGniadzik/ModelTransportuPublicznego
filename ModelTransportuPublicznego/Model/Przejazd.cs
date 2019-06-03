@@ -22,6 +22,10 @@ namespace ModelTransportuPublicznego.Model
 
         public bool TrasaZakonczona => trasaZakonczona;
 
+        public Linia Linia => linia;
+
+        public TimeSpan CzasRozpoczeciaPrzejazdu => czasRozpoczeciaPrzejazdu;
+
         public TimeSpan CzasNastepnejAkcji
         {
             get
@@ -86,8 +90,13 @@ namespace ModelTransportuPublicznego.Model
 
         public void WykonajNastepnaAkcje()
         {
+            if (obecnyPrzystanek == null)
+            {
+                obecnyPrzystanek = linia.PierwszyPrzystanek;
+            }
+
             obecnyPrzystanek.WykonajPrzyplywy(czasRozpoczeciaPrzejazdu + czasPrzejazdu);
-            SprawdzCzyPrzejazdPosiadaAutobus();
+            SprawdzCzyPrzejazdPosiadaZasoby();
 
             if (trasaZakonczona)
             {
@@ -213,12 +222,15 @@ namespace ModelTransportuPublicznego.Model
             return new TimeSpan(czasRozpoczeciaPrzejazdu.Ticks + czasRozpoczecia.Ticks);
         }
 
-        private void SprawdzCzyPrzejazdPosiadaAutobus()
+        private void SprawdzCzyPrzejazdPosiadaZasoby()
         {
-            if (autobus != null) return;
-
             UstawAutobus();
             UstawKierowce();
+
+            if (autobus.liniaAutobusu == null)
+            {
+                autobus.liniaAutobusu = linia;
+            }
         }
 
         private void UstawCzasyAkcjiPojazdowOczekujacych(TimeSpan czas)

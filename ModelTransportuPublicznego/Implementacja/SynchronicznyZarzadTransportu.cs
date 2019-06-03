@@ -88,7 +88,19 @@ namespace ModelTransportuPublicznego.Implementacja {
                 listaPrzejazdow.Add(new Przejazd(ZwrocFirmePoNazwie(nazwaFirmy), ZwrocLiniePoID(idLinii),
                     new TimeSpan(Convert.ToInt32(daneCzasu[0]), Convert.ToInt32(daneCzasu[1]), Convert.ToInt32(daneCzasu[2])), modelAutobusu));
             }
-            
+        }
+
+        public override void StworzRozkladJazdyNaPrzystankach()
+        {
+            foreach (var przejazd in listaPrzejazdow)
+            {
+                var suma = TimeSpan.Zero;
+                foreach (WpisLinii wpis in przejazd.Linia)
+                {
+                    suma += wpis.czasPrzyjaduDoPrzystanku;
+                    wpis.przystanek.RozkladJazdy.DodajWpisDoRozkladu(new WpisRozkladuJazdy(przejazd.Linia, przejazd.CzasRozpoczeciaPrzejazdu + suma));
+                }
+            }
         }
 
         public override void WykonajPrzejazdy() {

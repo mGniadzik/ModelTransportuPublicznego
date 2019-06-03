@@ -46,6 +46,7 @@ namespace ModelTransportuPublicznego.Misc
                         var danePrzejazdu = srPrzejazdy.ReadLine().Split('|');
                         var zt = ZwrocZarzadPosiadajacyFirmeDanejKonfiguracji(danePrzejazdu[1]);
                         zt.DodajPrzejazdDoListy(danePrzejazdu[0], danePrzejazdu[1], danePrzejazdu[2], danePrzejazdu[3]);
+                        zt.StworzRozkladJazdyNaPrzystankach();
                     } while (!srPrzejazdy.EndOfStream);
                 }
             }

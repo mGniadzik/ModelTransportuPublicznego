@@ -20,6 +20,7 @@ namespace ModelTransportuPublicznego.Model {
             if (sciezkaPlikuTrasy != "")
             {
                 trasa = Trasa.OdczytajPlik(sciezkaPlikuTrasy);
+                przystanek.DodajTrase(trasa);
                 this.sciezkaPlikuTrasy = sciezkaPlikuTrasy;
             }
         }
@@ -71,15 +72,33 @@ namespace ModelTransportuPublicznego.Model {
         public static WpisLinii Odczytaj(string tekstWpisu, ZarzadTransportu zt)
         {
             var dane = tekstWpisu.Split('-');
+            var czasRaw = dane[1].Split(':');
+            TimeSpan czas = TimeSpan.Zero;
 
-            if (zt == null)
+            if (czasRaw.Length == 1)
             {
-                return new WpisLinii(Przystanek.Przystanek.OdczytajPlik(dane[0], null), new TimeSpan(Convert.ToInt32(dane[1]),
-                    Convert.ToInt32(dane[2]), Convert.ToInt32(dane[3])));
+                czas = new TimeSpan(0, Convert.ToInt32(czasRaw[0]), 0);
+            }
+            else if (czasRaw.Length == 2)
+            {
+                czas = new TimeSpan(0, Convert.ToInt32(czasRaw[0]), Convert.ToInt32(czasRaw[1]));
+            }
+            else if (czasRaw.Length == 3)
+            {
+                czas = new TimeSpan(Convert.ToInt32(czasRaw[0]), Convert.ToInt32(czasRaw[1]), Convert.ToInt32(czasRaw[2]));
             }
             else
             {
-                return new WpisLinii(zt.ZwrocPrzystanekPodanejNazwy(dane[0]), TimeSpan.Parse(dane[1]), dane[2]);
+                throw new ArgumentException("Podany czas jest w z³ym formacie");
+            }
+
+            if (zt == null)
+            {
+                return new WpisLinii(Przystanek.Przystanek.OdczytajPlik(dane[0], null), czas, dane[2]);
+            }
+            else
+            {
+                return new WpisLinii(zt.ZwrocPrzystanekPodanejNazwy(dane[0]), czas, dane[2]);
             }
         }
     }

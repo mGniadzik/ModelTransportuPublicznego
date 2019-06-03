@@ -51,8 +51,7 @@ namespace ModelTransportuPublicznego.Model.Przystanek {
             } 
             
             
-            throw new InvalidEnumArgumentException(
-                $"W rozkładzie nie ma przejazdu linii {linia.IdLinii} o godzinie {czas}");
+            throw new InvalidEnumArgumentException($"W rozkładzie nie ma przejazdu linii {linia.IdLinii} o godzinie {czas}");
         }
         
         IEnumerator IEnumerable.GetEnumerator() {

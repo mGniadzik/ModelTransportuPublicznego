@@ -63,8 +63,16 @@ namespace ModelTransportuPublicznego.Implementacja.Firmy {
             using (var sr = File.OpenText(sciezkaPliku))
             {
                 rezultat = new FirmaLosowa(sr.ReadLine(), sciezkaPliku);
-                var linie = sr.ReadLine().Split('|');
+                var liczbaKierowcow = Convert.ToInt32(sr.ReadLine());
                 var tabor = sr.ReadLine().Split('|');
+                var kierowcy = new List<Kierowca>();
+
+                for (int i = 0; i < liczbaKierowcow; i++)
+                {
+                    kierowcy.Add(new Kierowca());
+                }
+
+                rezultat.DodajKierowcow(kierowcy);
 
                 foreach (var dane in tabor)
                 {

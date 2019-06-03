@@ -412,7 +412,7 @@ namespace ModelTransportuPublicznego.Model.Przystanek
                 foreach (var val in zapelnieniaPasazerow)
                 {
                     var elems = val.Split(':');
-                    rezultat.DodajProgKolorZapelnieniaAutobusow(Convert.ToInt32(elems[0]), Color.FromArgb(Convert.ToInt32(elems[1])));
+                    rezultat.DodajProgKolorZapelnieniaPasazerow(Convert.ToInt32(elems[0]), Color.FromArgb(Convert.ToInt32(elems[1])));
 
                 }
 

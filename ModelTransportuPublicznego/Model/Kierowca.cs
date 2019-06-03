@@ -28,7 +28,7 @@ namespace ModelTransportuPublicznego.Model {
         }
 
         public virtual bool CzyMozeWykonacPrzejazd(TimeSpan spodziewanyCzasPrzejazdu) {
-            return (czasPracyOdOstatniejPrzerwy + spodziewanyCzasPrzejazdu < new TimeSpan(4, 30, 0));
+            return (czasPracyOdOstatniejPrzerwy + spodziewanyCzasPrzejazdu) < new TimeSpan(4, 30, 0);
         }
 
         public virtual void ZakonczPrace(TimeSpan czas) {

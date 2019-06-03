@@ -123,11 +123,10 @@ namespace ModelTransportuPublicznego.Implementacja.Autobusy
             {
                 if (kvp.Key > procentZapelnienia)
                 {
-                    return zwiekszenieTrasyHamowania;
-                } else
-                {
-                    zwiekszenieTrasyHamowania = kvp.Value;
+                    break;
                 }
+
+                zwiekszenieTrasyHamowania = kvp.Value;
             }
 
             return trasaHamowania100 * (1 + zwiekszenieTrasyHamowania);

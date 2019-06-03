@@ -21,6 +21,8 @@ namespace ModelTransportuPublicznego.Model
 
         public int Count => trasaLinii.Count;
 
+        public Przystanek.Przystanek PierwszyPrzystanek => trasaLinii.ElementAt(0).przystanek;
+
         public string SciezkaPlikuKonfiguracyjnego => sciezkaPlikuKonfiguracyjnego;
 
         public Linia(string idLinii, string sciezkaPlikuKonfiguracyjnego) {
@@ -184,7 +186,7 @@ namespace ModelTransportuPublicznego.Model
         }
 
         public virtual TimeSpan ZwrocSpodziewanyCzasPrzejazduLinii() {
-            return new TimeSpan(trasaLinii.Sum(w => w.czasPrzyjaduDoPrzystanku.Ticks));
+            return new TimeSpan(trasaLinii.Sum(w => w.czasPrzyjaduDoPrzystanku.Ticks)); ;
         }
 
         public virtual bool Zapisz(StreamWriter sw)
@@ -216,12 +218,6 @@ namespace ModelTransportuPublicznego.Model
             {
                 id = sr.ReadLine();
                 var tekstWpisow = sr.ReadLine().Split('|');
-
-                //do
-                //{
-                //    wpisy.Add(WpisLinii.Odczytaj(sr, zt));
-
-                //} while (!sr.EndOfStream);
 
                 foreach (var tW in tekstWpisow)
                 {

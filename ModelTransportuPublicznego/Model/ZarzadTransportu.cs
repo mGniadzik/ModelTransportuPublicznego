@@ -139,11 +139,7 @@ namespace ModelTransportuPublicznego.Model {
 
         public abstract void WykonajPrzejazdy();
 
-        public virtual void StworzRozkladJazdyNaPrzystankach() {
-            foreach (var firma in listaFirm) {
-                firma.UstawLinieNaPrzystankach();
-            }
-        }
+        public abstract void StworzRozkladJazdyNaPrzystankach();
 
         public virtual void DodajLiniePowrotne() {
             if (czyLinieOdwrotneZostalyDodane)

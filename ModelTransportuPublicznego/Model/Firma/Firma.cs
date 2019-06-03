@@ -111,22 +111,6 @@ namespace ModelTransportuPublicznego.Model.Firma {
             }
         }
 
-        public virtual void UstawLinieNaPrzystankach() {
-            DodajWpisyDoRozkladowPrzystankowLinii();
-        }
-
-//        public virtual IEnumerable<Przejazd> UtworzListePrzejazdow() {
-//            var listaPrzejazdow = new List<Przejazd>();
-//
-//            foreach (var linia in linieAutobusowe) {
-//                foreach (var wpis in linia.RozkladPrzejazdow.CzasyPrzejazdow) {
-//                    listaPrzejazdow.Add(new Przejazd(this, linia, wpis));
-//                }
-//            }
-//
-//            return listaPrzejazdow;    
-//        }
-
         public virtual IEnumerable<Przejazd> UtworzListePrzejazdow()
         {
             var listaPrzejazdow = new List<Przejazd>();
@@ -137,19 +121,6 @@ namespace ModelTransportuPublicznego.Model.Firma {
             }
 
             return listaPrzejazdow;
-        }
-
-        public virtual void DodajWpisyDoRozkladowPrzystankowLinii()
-        {
-            foreach (var elem in przejazdy)
-            {
-                var suma = TimeSpan.Zero;
-                foreach (WpisLinii wpis in elem.Linia)
-                {
-                    suma += wpis.czasPrzyjaduDoPrzystanku;
-                    wpis.przystanek.RozkladJazdy.DodajWpisDoRozkladu(new WpisRozkladuJazdy(elem.Linia, elem.CzasPrzejazdu + suma));
-                }
-            }
         }
 
         public abstract Autobus WybierzAutobusDoObslugiPrzejazdu();
@@ -209,15 +180,17 @@ namespace ModelTransportuPublicznego.Model.Firma {
 
         protected virtual Autobus ZwrocAutobusPoModelu(SortedDictionary<Autobus, int> dict, string modelAutobusu)
         {
+            Autobus autobus = null;
+
             foreach (var a in dict.Keys)
             {
                 if (a.ModelAutobusu == modelAutobusu)
                 {
-                    ZajmijAutobus(a);
+                    autobus = a;
                 }
             }
 
-            return null;
+            return autobus;
         }
 
         public virtual Autobus ZwrocAutobusPoModelu(string modelAutobusu)
