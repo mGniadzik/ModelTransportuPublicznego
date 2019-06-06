@@ -144,6 +144,11 @@ namespace ModelTransportuPublicznego.Model.Przystanek
             oczekujacyPasazerowie.Add(pasazer);
         }
 
+        public virtual void DodajPasazerow(IEnumerable<Pasazer> pasazerowie)
+        {
+            oczekujacyPasazerowie.AddRange(pasazerowie);
+        }
+
         public virtual void DodajTrase(Trasa trasa) {
             trasy.Add(trasa);
         }
@@ -292,11 +297,6 @@ namespace ModelTransportuPublicznego.Model.Przystanek
             }
         }
 
-        public virtual void DodajPrzyplyw(TimeSpan czas, int ilosc) {
-            przyplywyPasazerow.Add(new PrzyplywPasazerow(czas, ilosc));
-            przyplywyPasazerow.Sort();
-        }
-
         public virtual void DodajPrzyplyw(PrzyplywPasazerow przyplywPasazerow) {
             przyplywyPasazerow.Add(przyplywPasazerow);
             przyplywyPasazerow.Sort();
@@ -310,21 +310,9 @@ namespace ModelTransportuPublicznego.Model.Przystanek
             przyplywyPasazerow.Sort();
         }
 
-        public virtual void WykonajPrzyplywy(TimeSpan czas) {
-            foreach (var przyplyw in przyplywyPasazerow.Where(p => p.CzyWykonany == false && p.czasPrzyplywu < czas).ToList()) {
-                WykonajPrzyplyw(przyplyw, czas);   
-            }
-        }
-
         public virtual Linia ZnajdzLinieDoPrzystanku(Przystanek przystanek)
         {
             return rozkladJazdy.ZwrocLinie().FirstOrDefault(linia => linia.ZwrocNastepnyPrzystanek(this) == przystanek);
-        }
-
-        protected virtual void WykonajPrzyplyw(PrzyplywPasazerow przyplyw, TimeSpan czas) {
-            for (int i = 0; i < przyplyw.IloscPasazerow; i++) {
-                DodajPasazera(WygenerujPasazera(czas));
-            }
         }
 
         protected virtual Color ZwrocKolorZapelnienia(SortedDictionary<int, Color> dict, int val)

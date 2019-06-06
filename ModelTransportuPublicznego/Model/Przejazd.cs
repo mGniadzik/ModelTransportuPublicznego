@@ -95,7 +95,7 @@ namespace ModelTransportuPublicznego.Model
                 obecnyPrzystanek = linia.PierwszyPrzystanek;
             }
 
-            obecnyPrzystanek.WykonajPrzyplywy(czasRozpoczeciaPrzejazdu + czasPrzejazdu);
+            //obecnyPrzystanek.WykonajPrzyplywy(czasRozpoczeciaPrzejazdu + czasPrzejazdu);
             SprawdzCzyPrzejazdPosiadaZasoby();
 
             if (trasaZakonczona)

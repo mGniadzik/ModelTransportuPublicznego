@@ -1,3 +1,4 @@
+using ModelTransportuPublicznego.Implementacja.Pasazerowie;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,9 @@ namespace ModelTransportuPublicznego.Model {
             obecnyPrzystanek = przystanekPoczatkowy;
             this.przystanekKoncowy = przystanekKoncowy;
         }
+
+        public static explicit operator DanePasazera(Pasazer pasazer) => new DanePasazera(pasazer.GetType(), pasazer.CzasWsiadania, pasazer.CzasWysiadania, 
+            pasazer.przystanekPoczatkowy.NazwaPrzystanku, pasazer.PrzystanekKoncowy.NazwaPrzystanku);
 
         public virtual void WybierzKolejke(List<List<Pasazer>> listaKolejek) {
             var obecnyWybor = listaKolejek.ElementAt(0);
