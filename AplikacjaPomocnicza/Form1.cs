@@ -832,7 +832,7 @@ namespace AplikacjaPomocnicza
             {
                 using (var sr = File.OpenText(dialog.FileName))
                 {
-                    var firma = FirmaLosowa.OdczytajPlik(dialog.FileName, null);
+                    var firma = FirmaLosowa.OdczytajPlik(dialog.FileName);
                     tbFirmaNazwa.Text = firma.NazwaFirmy;
                     tbFirmaKierowcy.Text = firma.ZwrocKierowcow().Count().ToString();
 
@@ -1144,7 +1144,7 @@ namespace AplikacjaPomocnicza
             foreach (DataGridViewRow row in dgZarzadFirmy.Rows)
             {
                 if (row.Cells[0].Value == null || row.Cells[1].Value == null) continue;
-                zt.DodajFirme(FirmaLosowa.OdczytajPlik(row.Cells[1].Value.ToString(), zt));
+                zt.DodajFirme(FirmaLosowa.OdczytajPlik(row.Cells[1].Value.ToString()));
             }
 
             foreach (DataGridViewRow row in dgZarzadLinie.Rows)

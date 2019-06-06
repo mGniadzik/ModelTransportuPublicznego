@@ -38,6 +38,11 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
             }
         }
 
+        public PasazerDijkstry(int czasWsiadania, int czasWysiadania, Przystanek przystanekPoczatkowy,
+            Przystanek przystanekKoncowy, IEnumerable<Przystanek> siecPrzystankow, IEnumerable<Linia> linie, TimeSpan czasOstatniegoStworzeniaTrasy)
+            : this(czasWsiadania, czasWysiadania, przystanekPoczatkowy, przystanekKoncowy, new Graf<TimeSpan>(siecPrzystankow, linie, TimeSpan.MaxValue), czasOstatniegoStworzeniaTrasy)
+        { }
+
         public TrasaPasazera ZnajdzTrase(Graf.Graf<TimeSpan> graf, TimeSpan czasUtworzenia) {
             UsunPrzedawnioneTrasy(czasUtworzenia);
             
@@ -114,8 +119,6 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
         }
 
         protected virtual void AlgorytmDijkstry(Wierzcholek<TimeSpan> wierzcholek, Graf.Graf<TimeSpan> graf, TimeSpan czasPoczatkowy) {
-            var rezultat = new List<ElementTrasy>();
-            
             if (wierzcholek.przystanek != przystanekKoncowy) {
 
                 TimeSpan minWaga = TimeSpan.Zero;

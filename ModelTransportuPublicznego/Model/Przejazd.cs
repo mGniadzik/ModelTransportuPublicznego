@@ -302,7 +302,7 @@ namespace ModelTransportuPublicznego.Model
 
             using (var sr = File.OpenText(sciezkaPliku))
             {
-                var firma = FirmaLosowa.OdczytajPlik(sciezkaPliku, zt);
+                var firma = FirmaLosowa.OdczytajPlik(sciezkaPliku);
                 var linia = zt.ZwrocLiniePoID(sr.ReadLine());
                 var czasR = sr.ReadLine().Split(':');
                 var modelAutobusu = firma.ZwrocAutobusPoModelu(sr.ReadLine());

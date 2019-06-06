@@ -128,7 +128,7 @@ namespace ModelTransportuPublicznego.Implementacja {
                 zt = new SynchronicznyZarzadTransportu(sr.ReadLine());
                 zt.DodajPrzystanek(sr.ReadLine().Split('|').Where(p => p != "").Select(s => Przystanek.OdczytajPlik(s, zt)));
                 zt.DodajLinie(sr.ReadLine().Split('|').Where(l => l != "").Select(l => Linia.OdczytajPlik(l, zt)));
-                zt.DodajFirme(sr.ReadLine().Split('|').Where(f => f != "").Select(f => FirmaLosowa.OdczytajPlik(f, zt)));
+                zt.DodajFirme(sr.ReadLine().Split('|').Where(f => f != "").Select(f => FirmaLosowa.OdczytajPlik(f)));
             }
 
             return zt;

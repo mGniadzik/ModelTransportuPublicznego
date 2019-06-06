@@ -23,6 +23,8 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie {
         public ElementTrasy(Linia linia, Przystanek przystanek, TimeSpan czasOczekiwania, TimeSpan czasPrzejazdu) : this() {
             this.linia = linia;
             this.przystanek = przystanek;
+            this.czasOczekiwania = czasOczekiwania;
+            this.czasPrzejazdu = czasPrzejazdu;
         }
 
         public ElementTrasy(Linia linia, TimeSpan czasOczekiwania, TimeSpan czasPrzejazdu, Przystanek przystanek) : this() {

@@ -39,6 +39,11 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
             }
         }
 
+        public PasazerKrotkodystansowy(int czasWsiadania, int czasWysiadania, Przystanek przystanekPoczatkowy,
+            Przystanek przystanekKoncowy, IEnumerable<Przystanek> siecPrzystankow, IEnumerable<Linia> linie, TimeSpan czasOstatniegoStworzeniaTrasy) 
+            : this(czasWsiadania, czasWysiadania, przystanekPoczatkowy, przystanekKoncowy, new Graf<ulong>(siecPrzystankow, linie, ulong.MaxValue), czasOstatniegoStworzeniaTrasy)
+        { }
+
         public TrasaPasazera ZnajdzTrase(Graf<ulong> graf)
         {
             return ZnajdzNajwygodniejszaTrase(graf);

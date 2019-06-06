@@ -56,7 +56,7 @@ namespace ModelTransportuPublicznego.Implementacja.Firmy {
             return kierowca;
         }
 
-        public static FirmaLosowa OdczytajPlik(string sciezkaPliku, ZarzadTransportu zt)
+        public static FirmaLosowa OdczytajPlik(string sciezkaPliku)
         {
             FirmaLosowa rezultat;
 

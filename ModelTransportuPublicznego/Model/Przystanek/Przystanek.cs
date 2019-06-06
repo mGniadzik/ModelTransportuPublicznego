@@ -447,19 +447,16 @@ namespace ModelTransportuPublicznego.Model.Przystanek
 
             if (rng < 33)
             {
-            var grafTs = new Graf<TimeSpan>(zt.SiecPrzystankow, TimeSpan.MaxValue);
-            grafTs.DodajKrawedzie(zt.ZwrocLinie());
+            var grafTs = new Graf<TimeSpan>(zt.SiecPrzystankow, zt.ZwrocLinie(), TimeSpan.MaxValue);
             return new PasazerDijkstry(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, grafTs, czas);
             }
             if (rng< 66)
             {
-                var grafB = new Graf<byte>(zt.SiecPrzystankow, byte.MaxValue);
-                grafB.DodajKrawedzie(zt.ZwrocLinie());
+                var grafB = new Graf<byte>(zt.SiecPrzystankow, zt.ZwrocLinie(), byte.MaxValue);
                 return new PasazerWygodnicki(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, grafB, czas);
             }
 
-            var grafUl = new Graf<ulong>(zt.SiecPrzystankow, ulong.MaxValue);
-            grafUl.DodajKrawedzie(zt.ZwrocLinie());
+            var grafUl = new Graf<ulong>(zt.SiecPrzystankow, zt.ZwrocLinie(), ulong.MaxValue);
             return new PasazerKrotkodystansowy(rand.Next(2, 11), rand.Next(2, 11), this, pKoncowy, grafUl, czas);
         }
     }

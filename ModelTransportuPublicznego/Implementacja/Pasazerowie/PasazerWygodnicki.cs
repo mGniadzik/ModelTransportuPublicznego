@@ -41,6 +41,11 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
             }
         }
 
+        public PasazerWygodnicki(int czasWsiadania, int czasWysiadania, Przystanek przystanekPoczatkowy,
+            Przystanek przystanekKoncowy, IEnumerable<Przystanek> siecPrzystankow, IEnumerable<Linia> linie, TimeSpan czasOstatniegoStworzeniaTrasy)
+            : this(czasWsiadania, czasWysiadania, przystanekPoczatkowy, przystanekKoncowy, new Graf<byte>(siecPrzystankow, linie, byte.MaxValue), czasOstatniegoStworzeniaTrasy)
+        { }
+
         private TrasaPasazera ZnajdzTrase(Graf<byte> graf)
         {
             return ZnajdzNajwygodniejszaTrase(graf);
@@ -106,7 +111,6 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
 
         protected void AlgorytmDijkstry(Wierzcholek<byte> wierzcholek, Graf.Graf<byte> graf, byte iloscPrzesiadek, Linia linia)
         {
-            var rezultat = new List<ElementTrasy>();
             Linia liniaWynikowa = null;
             var min = byte.MaxValue;
             

@@ -15,11 +15,12 @@ namespace ModelTransportuPublicznego.Implementacja.Graf {
             odwiedzoneWierzcholki = new List<Wierzcholek<T>>();
         }
         
-        public Graf(IEnumerable<Przystanek> listaPrzystankow, T val) : this() {
+        public Graf(IEnumerable<Przystanek> listaPrzystankow, IEnumerable<Linia> linie, T val) : this() {
             foreach (var przystanek in listaPrzystankow) {
                 wierzcholki.Dodaj(new Wierzcholek<T>(przystanek));
             }
-            
+
+            DodajKrawedzie(linie);
             UstawWartosciWierzcholkow(val);
         }
 
