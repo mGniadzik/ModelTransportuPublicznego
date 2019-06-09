@@ -1,3 +1,5 @@
+using ModelTransportuPublicznego.Model.Przystanek;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,6 +13,7 @@ namespace ModelTransportuPublicznego.Model {
         protected List<Linia> listaLinii;
         protected string sciezkaPliku;
         protected bool czyLinieOdwrotneZostalyDodane;
+        public List<PrzyplywPasazerow> przyplywyPasazerow;
 
         public string NazwaZarzadu => nazwaZarzadu;
 
@@ -59,6 +62,11 @@ namespace ModelTransportuPublicznego.Model {
             foreach (var firma in listaFirm) {
                 this.listaFirm.Add(firma);
             }
+        }
+
+        public virtual void WykonajPrzyplywy(TimeSpan czas)
+        {
+            przyplywyPasazerow.Where(p => !p.CzyWykonany && p.czasPrzyplywu < czas).ToList().ForEach(p => p.WykonajPrzyplyw());
         }
 
         public virtual void DodajPrzystanek(Przystanek.Przystanek przystanek) {
@@ -130,8 +138,6 @@ namespace ModelTransportuPublicznego.Model {
 
             return null;
         }
-
-        public abstract void StworzListePrzejazdow();
 
         public abstract void DodajPrzejazdDoListy(Przejazd przejazd);
 

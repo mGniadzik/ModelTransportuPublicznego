@@ -9,20 +9,21 @@ using ModelTransportuPublicznego.Model.Firma;
 using ModelTransportuPublicznego.Model.Przystanek;
 
 namespace ModelTransportuPublicznego.Implementacja {
-    
+
     public class SynchronicznyZarzadTransportu : ZarzadTransportu {
 
         private List<Przejazd> listaPrzejazdow;
+        private List<Przejazd> historiaPrzejazdow;
 
         public SynchronicznyZarzadTransportu(string nazwaFirmy) : base(nazwaFirmy) {
             listaPrzejazdow = new List<Przejazd>();
         }
 
         public SynchronicznyZarzadTransportu(string nazwaFirmy, IEnumerable<Przystanek> listaPrzystankow) : base(nazwaFirmy, listaPrzystankow) { }
-        
+
         public SynchronicznyZarzadTransportu(string nazwaFirmy, IEnumerable<Firma> listaFirm) : base(nazwaFirmy, listaFirm) { }
-        
-        public SynchronicznyZarzadTransportu(string nazwaFirmy, IEnumerable<Przystanek> siecPrzystankow, IEnumerable<Firma> listaFirm) 
+
+        public SynchronicznyZarzadTransportu(string nazwaFirmy, IEnumerable<Przystanek> siecPrzystankow, IEnumerable<Firma> listaFirm)
             : base(nazwaFirmy, siecPrzystankow, listaFirm) { }
         
         public override void DodajPrzystanek(Przystanek przystanek) {
@@ -33,6 +34,11 @@ namespace ModelTransportuPublicznego.Implementacja {
             foreach (var przystanek in przystanki) {
                 siecPrzystankow.Add(przystanek);
             }
+        }
+
+        public void DodajPrzejazdDoHistorii(Przejazd przejazd)
+        {
+            historiaPrzejazdow.Add(przejazd);
         }
 
         public override void UsunPrzystanek(Przystanek przystanek) {
@@ -51,14 +57,6 @@ namespace ModelTransportuPublicznego.Implementacja {
 
         public override void UsunFirme(Firma firma) {
             listaFirm.Remove(firma);
-        }
-
-        public override void StworzListePrzejazdow() {
-            foreach (var firma in listaFirm) {
-                listaPrzejazdow.AddRange(firma.UtworzListePrzejazdow());
-            }
-            
-            listaPrzejazdow.Sort();
         }
         
         public override void DodajPrzejazdDoListy(Przejazd przejazd) {
@@ -80,12 +78,12 @@ namespace ModelTransportuPublicznego.Implementacja {
             var daneCzasu = czas.Split(':');
             if (daneCzasu.Length == 2)
             {
-                listaPrzejazdow.Add(new Przejazd(ZwrocFirmePoNazwie(nazwaFirmy), ZwrocLiniePoID(idLinii),
+                listaPrzejazdow.Add(new Przejazd(this, ZwrocFirmePoNazwie(nazwaFirmy), ZwrocLiniePoID(idLinii),
                     new TimeSpan(Convert.ToInt32(daneCzasu[0]), Convert.ToInt32(daneCzasu[1]), 0), modelAutobusu));
             }
             else if (daneCzasu.Length == 3)
             {
-                listaPrzejazdow.Add(new Przejazd(ZwrocFirmePoNazwie(nazwaFirmy), ZwrocLiniePoID(idLinii),
+                listaPrzejazdow.Add(new Przejazd(this, ZwrocFirmePoNazwie(nazwaFirmy), ZwrocLiniePoID(idLinii),
                     new TimeSpan(Convert.ToInt32(daneCzasu[0]), Convert.ToInt32(daneCzasu[1]), Convert.ToInt32(daneCzasu[2])), modelAutobusu));
             }
         }
@@ -115,7 +113,6 @@ namespace ModelTransportuPublicznego.Implementacja {
                     DodajPrzejazdDoListy(przejazd);
                 }
                 
-                przejazd.Firma.DodajPrzejazdDoHistorii(przejazd);
                 WizualizatorMapy.Instancja().NarysujMape(nazwaZarzadu + "_" + przejazd.CzasNastepnejAkcji.ToString().Replace(':', '-'), siecPrzystankow, ZwrocLinie());
             }
         }

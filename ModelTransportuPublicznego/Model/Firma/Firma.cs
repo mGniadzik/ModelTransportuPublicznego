@@ -12,7 +12,6 @@ namespace ModelTransportuPublicznego.Model.Firma {
         protected List<Kierowca> listaDostepnychKierowcow;
         protected SortedDictionary<Autobus, int> listaAutobusowZajetych;
         protected List<Kierowca> listaKierwcowZajetych;
-        protected List<Przejazd> historiaPrzejazdow;
         protected RozkladPrzejazdow przejazdy;
         protected string sciezkaPlikuKonfiguracyjnego;
         protected int liczbaOtrzymanychKar;
@@ -49,7 +48,6 @@ namespace ModelTransportuPublicznego.Model.Firma {
             listaDostepnychKierowcow = new List<Kierowca>();
             listaAutobusowZajetych = new SortedDictionary<Autobus, int>();
             listaKierwcowZajetych = new List<Kierowca>();
-            historiaPrzejazdow = new List<Przejazd>();
         }
 
         public Firma(string nazwaFirmy, IEnumerable<KeyValuePair<Autobus, int>> tabor, string sciezkaPlikuKonfiguracyjnego, IEnumerable<Kierowca> listaKierowcow) : this(nazwaFirmy, sciezkaPlikuKonfiguracyjnego) {
@@ -111,18 +109,6 @@ namespace ModelTransportuPublicznego.Model.Firma {
             }
         }
 
-        public virtual IEnumerable<Przejazd> UtworzListePrzejazdow()
-        {
-            var listaPrzejazdow = new List<Przejazd>();
-
-            foreach (var przejazd in przejazdy)
-            {
-                listaPrzejazdow.Add(new Przejazd(this, przejazd.Linia, przejazd.CzasPrzejazdu));
-            }
-
-            return listaPrzejazdow;
-        }
-
         public abstract Autobus WybierzAutobusDoObslugiPrzejazdu();
 
         public abstract Kierowca WybierzKierowceDoObslugiPrzejazdu(Linia linia);
@@ -138,10 +124,6 @@ namespace ModelTransportuPublicznego.Model.Firma {
         protected virtual void ZwolnijKierowce(Kierowca kierowca) {
             listaKierwcowZajetych.Remove(kierowca);
             listaDostepnychKierowcow.Add(kierowca);
-        }
-
-        public virtual void DodajPrzejazdDoHistorii(Przejazd przejazd) {
-            historiaPrzejazdow.Add(przejazd);
         }
 
         protected virtual void DodajAutobusDoSlownika(SortedDictionary<Autobus, int> dict, Autobus autobus, int liczba)

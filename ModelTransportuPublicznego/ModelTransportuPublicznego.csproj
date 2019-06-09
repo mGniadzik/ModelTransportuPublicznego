@@ -47,6 +47,7 @@
     <Compile Include="Implementacja\Graf\Graf.cs" />
     <Compile Include="Implementacja\Graf\Krawedz.cs" />
     <Compile Include="Implementacja\Graf\Wierzcholek.cs" />
+    <Compile Include="Implementacja\Pasazerowie\DanePasazera.cs" />
     <Compile Include="Implementacja\Pasazerowie\ElementTrasy.cs" />
     <Compile Include="Implementacja\Pasazerowie\PasazerDijkstryBazowy.cs" />
     <Compile Include="Implementacja\Pasazerowie\PasazerKrotkodystansowy.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Implementacja\Wyjatki\TrasaNieZnalezionaWyjatek.cs" />
     <Compile Include="Implementacja\Wyjatki\ZasobNieZnalezionyWyjatek.cs" />
     <Compile Include="Misc\GeneratorPasazerow.cs" />
+    <Compile Include="Misc\GeneratorPrzyplywowPasazerow.cs" />
     <Compile Include="Misc\Logger.cs" />
     <Compile Include="Misc\MinKopiec.cs" />
     <Compile Include="Misc\Symulacja.cs" />

@@ -72,7 +72,6 @@ namespace ModelTransportuPublicznego.Model.Przystanek {
 
         public void WygenerujPasazerow()
         {
-            var rezultat = new List<Pasazer>();
             var generator = GeneratorPasazerow.Instancja();
 
             foreach (var pasazer in pasazerowie)

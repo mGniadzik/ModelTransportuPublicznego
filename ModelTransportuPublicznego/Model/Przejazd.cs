@@ -18,6 +18,7 @@ namespace ModelTransportuPublicznego.Model
         private bool trasaZakonczona;
         private readonly Firma.Firma firma;
         private readonly Linia linia;
+        private readonly ZarzadTransportu zt;
         private readonly string uid;
 
         public bool TrasaZakonczona => trasaZakonczona;
@@ -50,33 +51,36 @@ namespace ModelTransportuPublicznego.Model
             uid = UidGenerator.WygenerujUid();
         }
 
-        public Przejazd(Autobus autobus, Firma.Firma firma, TimeSpan czasRozpoczeciaPrzejazdu) : this()
+        public Przejazd(Autobus autobus, ZarzadTransportu zt, Firma.Firma firma, TimeSpan czasRozpoczeciaPrzejazdu) : this()
         {
             this.autobus = autobus;
+            this.zt = zt;
             this.firma = firma;
             linia = autobus.liniaAutobusu;
             obecnyPrzystanek = autobus.liniaAutobusu.ZwrocPrzystanekIndeks(0);
             this.czasRozpoczeciaPrzejazdu = czasRozpoczeciaPrzejazdu;
         }
 
-        public Przejazd(Firma.Firma firma, Linia linia, TimeSpan czasRozpoczeciaPrzejazdu) : this()
+        public Przejazd(ZarzadTransportu zt, Firma.Firma firma, Linia linia, TimeSpan czasRozpoczeciaPrzejazdu) : this()
         {
             autobus = null;
+            this.zt = zt;
             this.firma = firma;
             this.czasRozpoczeciaPrzejazdu = czasRozpoczeciaPrzejazdu;
             this.linia = linia;
             obecnyPrzystanek = linia.ZwrocPrzystanekIndeks(0);
         }
 
-        public Przejazd(Firma.Firma firma, Linia linia, TimeSpan czasRozpoczeciaPrzejazdu, string modelAutobusu) : this()
+        public Przejazd(ZarzadTransportu zt, Firma.Firma firma, Linia linia, TimeSpan czasRozpoczeciaPrzejazdu, string modelAutobusu) : this()
         {
+            this.zt = zt;
             this.firma = firma;
             this.linia = linia;
             this.czasRozpoczeciaPrzejazdu = czasRozpoczeciaPrzejazdu;
             this.modelAutobusu = modelAutobusu;
         }
 
-        public Przejazd(Firma.Firma firma, Linia linia, TimeSpan czasRozpoczeciaPrzejazdu, Autobus autobus) : this(firma, linia, czasRozpoczeciaPrzejazdu)
+        public Przejazd(ZarzadTransportu zt, Firma.Firma firma, Linia linia, TimeSpan czasRozpoczeciaPrzejazdu, Autobus autobus) : this(zt, firma, linia, czasRozpoczeciaPrzejazdu)
         {
             this.autobus = autobus;
         }
@@ -96,6 +100,7 @@ namespace ModelTransportuPublicznego.Model
             }
 
             //obecnyPrzystanek.WykonajPrzyplywy(czasRozpoczeciaPrzejazdu + czasPrzejazdu);
+            zt.WykonajPrzyplywy(czasRozpoczeciaPrzejazdu + czasPrzejazdu);
             SprawdzCzyPrzejazdPosiadaZasoby();
 
             if (trasaZakonczona)
@@ -192,7 +197,6 @@ namespace ModelTransportuPublicznego.Model
             {
                 trasaZakonczona = true;
                 obecnyPrzystanek.UsunAutobus(autobus);
-                firma.DodajPrzejazdDoHistorii(this);
                 autobus.WypuscWszystkichPasazerow(obecnyPrzystanek);
 
                 pasazerowie = autobus.ObecniPasazerowie;
@@ -307,7 +311,7 @@ namespace ModelTransportuPublicznego.Model
                 var czasR = sr.ReadLine().Split(':');
                 var modelAutobusu = firma.ZwrocAutobusPoModelu(sr.ReadLine());
 
-                rezultat = new Przejazd(firma, linia, new TimeSpan(Convert.ToInt32(czasR[0]), Convert.ToInt32(czasR[1]), Convert.ToInt32(czasR[2])), modelAutobusu);
+                rezultat = new Przejazd(zt, firma, linia, new TimeSpan(Convert.ToInt32(czasR[0]), Convert.ToInt32(czasR[1]), Convert.ToInt32(czasR[2])), modelAutobusu);
             }
 
             return rezultat;
