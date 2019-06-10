@@ -17,6 +17,7 @@ namespace ModelTransportuPublicznego.Implementacja {
 
         public SynchronicznyZarzadTransportu(string nazwaFirmy) : base(nazwaFirmy) {
             listaPrzejazdow = new List<Przejazd>();
+            historiaPrzejazdow = new List<Przejazd>();
         }
 
         public SynchronicznyZarzadTransportu(string nazwaFirmy, IEnumerable<Przystanek> listaPrzystankow) : base(nazwaFirmy, listaPrzystankow) { }

@@ -34,6 +34,10 @@ namespace ModelTransportuPublicznego.Model.Przystanek
 
         public IEnumerable<Autobus> AutobusyOczekujace => autobusyOczekujace;
 
+        public double WolneMiejsceZatoki => dlugoscZatoki - obecneAutobusy.Sum((a) => a.DlugoscAutobusu);
+
+        public int IloscPasazerowOczekujacych => oczekujacyPasazerowie.Count;
+
         public Point Pozycja => new Point(pozycjaX, pozycjaY);
 
         public int PoziomZapelnieniaPasazerow
@@ -55,7 +59,7 @@ namespace ModelTransportuPublicznego.Model.Przystanek
         {
             get
             {
-                return Convert.ToInt32(Math.Floor((dlugoscZatoki - ZwrocDlugoscWolnegoMiejscaZatoki()) / dlugoscZatoki));
+                return Convert.ToInt32(Math.Floor((dlugoscZatoki - WolneMiejsceZatoki) / dlugoscZatoki));
             }
         }
 
@@ -165,10 +169,6 @@ namespace ModelTransportuPublicznego.Model.Przystanek
             return oczekujacyNaLinie;
         }
 
-        public virtual int IloscPasazerowOczekujacych() {
-            return oczekujacyPasazerowie.Count;
-        }
-
         public virtual Trasa ZnajdzTraseDoNastepnegoPrzystanku(Przystanek nastepnyPrzystanek) {
             foreach (var trasa in trasy) {
                 if (trasa.PrzystanekPrawy == nastepnyPrzystanek) {
@@ -189,7 +189,7 @@ namespace ModelTransportuPublicznego.Model.Przystanek
             if (autobusyOczekujace.Any())
             {
                 var autobus = autobusyOczekujace.Peek();
-                if (autobus.DlugoscAutobusu <= ZwrocDlugoscWolnegoMiejscaZatoki())
+                if (autobus.DlugoscAutobusu <= WolneMiejsceZatoki)
                 {
                     obecneAutobusy.Add(autobusyOczekujace.Dequeue());
                     return true;
@@ -201,7 +201,7 @@ namespace ModelTransportuPublicznego.Model.Przystanek
 
         public virtual void DodajAutobus(Autobus a)
         {
-            if (a.DlugoscAutobusu <= ZwrocDlugoscWolnegoMiejscaZatoki())
+            if (a.DlugoscAutobusu <= WolneMiejsceZatoki)
             {
                 obecneAutobusy.Add(a);
             }

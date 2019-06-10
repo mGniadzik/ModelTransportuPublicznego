@@ -39,6 +39,11 @@ namespace ModelTransportuPublicznego.Implementacja.Pasazerowie
             return id.Equals(other.id);
         }
 
+        public override bool Equals(Object o)
+        {
+            return this.GetHashCode() == o.GetHashCode();
+        }
+
         public void Zapisz(StreamWriter sw)
         {
             sw.Write($"{typPasazera}:{czasWsiadania}:{czasWysiadania}:{pPoczatkowy}:{pKoncowy}");

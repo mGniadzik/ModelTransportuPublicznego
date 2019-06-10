@@ -25,7 +25,7 @@ namespace AplikacjaPomocnicza
             InitializeComponent();
             panele = new List<Panel>() { pPowitanie, pZmianaPrzyspieszenia, pAutobusStale, pPrzystanekStale, pPrzystanekProgi, pPrzejazdy,
                 pPrzejazdyUstawianie, pAutobus, pPrzystanek, pFirma, pFirmaTabor, pLinia, pLiniaDane, pZarzadTransportu,
-                pZarzadDanePrzystanki, pZarzadLinieFirmy, pKonfiguracja, pKonfiguracjaDaneZarzady, pPrzyplywyPasazerow, pTrasa, pTrasaDane };
+                pZarzadDanePrzystanki, pZarzadLinieFirmy, pKonfiguracja, pKonfiguracjaDaneZarzady, pTrasa, pTrasaDane };
             UstawPaneleJakoWidoczne(pPowitanie);
             nazwaPliku = null;
         }
@@ -703,7 +703,7 @@ namespace AplikacjaPomocnicza
                 wpisyLinii.Add(new WpisLinii(Przystanek.OdczytajPlik(row.Cells[1].Value.ToString(), null), new TimeSpan(Convert.ToInt32(czas[0]), Convert.ToInt32(czas[1]), Convert.ToInt32(czas[2])), row.Cells[3].Value.ToString()));
             }
 
-            return new Linia(tbLiniaId.Text, nazwaPliku, wpisyLinii);
+            return new Linia(tbLiniaId.Text, Convert.ToInt32(tbLiniaPasazerowie.Text), nazwaPliku, wpisyLinii);
         }
 
         private void MsLiniaPlikZapisz_Click(object sender, EventArgs e)
@@ -746,6 +746,7 @@ namespace AplikacjaPomocnicza
                 var linia = Linia.OdczytajPlik(dialog.FileName, null);
 
                 tbLiniaId.Text = linia.IdLinii;
+                tbLiniaPasazerowie.Text = linia.MinLiczbaPasazerowDlaPrzejazdu.ToString();
 
                 foreach (var wpis in linia.Wpisy)
                 {
@@ -1326,9 +1327,11 @@ namespace AplikacjaPomocnicza
         {
             OtworzPlikDoZapisu(sw => {
                 sw.WriteLine(tbLiniaId.Text);
+                sw.WriteLine(tbLiniaPasazerowie.Text);
+                var rows = RzedyWgPredykatu(dgLiniaDane.Rows, row => row.Cells[0].Value != null || row.Cells[1].Value != null || row.Cells[2].Value != null);
 
-                DataGridViewRow last = dgLiniaDane.Rows[dgLiniaDane.Rows.Count - 1];
-                foreach (DataGridViewRow row in dgLiniaDane.Rows)
+                DataGridViewRow last = rows.Last();
+                foreach (DataGridViewRow row in rows)
                 {
                     sw.Write(string.Format("{0}-{1}-{2}", row.Cells[0].Value, row.Cells[2].Value, row.Cells[3].Value));
                     if (row != last)
@@ -1338,8 +1341,22 @@ namespace AplikacjaPomocnicza
                 }
             });
 
-            ZresetujDaneFirmy();
+            ZresetujeDaneLinii();
             UstawPaneleJakoWidoczne(pPowitanie);
+        }
+
+        private List<DataGridViewRow> RzedyWgPredykatu(DataGridViewRowCollection rows, Predicate<DataGridViewRow> predicate)
+        {
+            var result = new List<DataGridViewRow>();
+            foreach (DataGridViewRow row in rows)
+            {
+                if (predicate(row))
+                {
+                    result.Add(row);
+                }
+            }
+
+            return result;
         }
 
         private void ZresetujDaneFirmy()
@@ -1347,6 +1364,13 @@ namespace AplikacjaPomocnicza
             tbFirmaNazwa.Text = null;
             tbFirmaKierowcy.Text = null;
             dgFirmaTabor.Rows.Clear();
+        }
+
+        private void ZresetujeDaneLinii()
+        {
+            tbLiniaId.Text = null;
+            tbLiniaPasazerowie.Text = null;
+            dgLiniaDane.Rows.Clear();
         }
 
         private void ZresetujDaneZarzadu()

@@ -24,6 +24,7 @@ namespace ModelTransportuPublicznego.Model.Przystanek {
         public PrzyplywPasazerow(TimeSpan czasPrzyplywu, Przystanek przystanek) : this()
         {
             this.czasPrzyplywu = czasPrzyplywu;
+            this.przystanek = przystanek;
         }
 
         public void DodajPasazera(Pasazer pasazer)

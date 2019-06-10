@@ -73,7 +73,7 @@ namespace ModelTransportuPublicznego.Model {
         {
             var dane = tekstWpisu.Split('-');
             var czasRaw = dane[1].Split(':');
-            TimeSpan czas = TimeSpan.Zero;
+            TimeSpan czas;
 
             if (czasRaw.Length == 1)
             {

@@ -1,3 +1,4 @@
+using ModelTransportuPublicznego.Implementacja.LiniaImpl;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +10,9 @@ namespace ModelTransportuPublicznego.Model
     public class Linia : IEnumerable<WpisLinii> {
         protected string idLinii;
         protected string sciezkaPlikuKonfiguracyjnego;
+        protected int minLiczbaPasazerowDlaPrzejazdu;
         protected List<WpisLinii> trasaLinii;
+        protected List<WpisStatusuLinii> wpisyStatusuLinii;
 
         public string IdLinii => idLinii;
 
@@ -21,16 +24,27 @@ namespace ModelTransportuPublicznego.Model
 
         public int Count => trasaLinii.Count;
 
+        public IEnumerable<WpisStatusuLinii> WpisyStatusuLinii => wpisyStatusuLinii;
+
+        public bool CzyPrzejazdUwarunkowany => trasaLinii.Sum(wpis => wpis.przystanek.IloscPasazerowOczekujacych) > minLiczbaPasazerowDlaPrzejazdu;
+
+        public double MinWolnaDlugoscZatoki => trasaLinii.Min(wpis => wpis.przystanek.WolneMiejsceZatoki);
+
+        public int MinLiczbaPasazerowDlaPrzejazdu => minLiczbaPasazerowDlaPrzejazdu;
+
         public Przystanek.Przystanek PierwszyPrzystanek => trasaLinii.ElementAt(0).przystanek;
 
         public string SciezkaPlikuKonfiguracyjnego => sciezkaPlikuKonfiguracyjnego;
 
-        public Linia(string idLinii, string sciezkaPlikuKonfiguracyjnego) {
+        public Linia(string idLinii, int minLiczbaPasazerowDlaPrzejazdu, string sciezkaPlikuKonfiguracyjnego) {
             this.idLinii = idLinii;
+            this.sciezkaPlikuKonfiguracyjnego = sciezkaPlikuKonfiguracyjnego;
+            this.minLiczbaPasazerowDlaPrzejazdu = minLiczbaPasazerowDlaPrzejazdu;
             trasaLinii = new List<WpisLinii>();
+            wpisyStatusuLinii = new List<WpisStatusuLinii>();
         }
 
-        public Linia(string idLinii, string sciezkaPlikuKonfiguracyjnego, IEnumerable<WpisLinii> trasaLinii) : this(idLinii, sciezkaPlikuKonfiguracyjnego) {
+        public Linia(string idLinii, int minLiczbaPasazerowDlaPrzejazdu, string sciezkaPlikuKonfiguracyjnego, IEnumerable<WpisLinii> trasaLinii) : this(idLinii, minLiczbaPasazerowDlaPrzejazdu, sciezkaPlikuKonfiguracyjnego) {
 
             foreach (var przystanek in trasaLinii) {
                 this.trasaLinii.Add(przystanek);
@@ -91,6 +105,21 @@ namespace ModelTransportuPublicznego.Model
             return trasaLinii[rezultat + 1].przystanek;
         }
 
+        public void DodajWpisStatusuLinii(WpisStatusuLinii wsl)
+        {
+            wpisyStatusuLinii.Add(wsl);
+        }
+
+        public void DodajWpisStatusuLinii(bool czyPrzejazdUwarunkowany, TimeSpan czas, double minDlugoscZatoki)
+        {
+            wpisyStatusuLinii.Add(new WpisStatusuLinii(czyPrzejazdUwarunkowany, czas, minDlugoscZatoki));
+        }
+
+        public void DodajWpisStatusuLinii(TimeSpan czas)
+        {
+            wpisyStatusuLinii.Add(new WpisStatusuLinii(CzyPrzejazdUwarunkowany, czas, MinWolnaDlugoscZatoki));
+        }
+
         public virtual int ZnajdzIndexPrzystanku(Przystanek.Przystanek przystanek)
         {
             var rezultat = 0;
@@ -122,7 +151,7 @@ namespace ModelTransportuPublicznego.Model
             wpisyLinii.Reverse();
             OdwrocCzasyPrzejazdow(wpisyLinii);
             
-            var rezultat = new Linia(idLinii + "R", sciezkaPlikuKonfiguracyjnego, wpisyLinii);
+            var rezultat = new Linia(idLinii + "R", minLiczbaPasazerowDlaPrzejazdu, sciezkaPlikuKonfiguracyjnego, wpisyLinii);
             
             rezultat.DodajTrasyPowrotne();
 
@@ -194,6 +223,7 @@ namespace ModelTransportuPublicznego.Model
             try
             {
                 sw.WriteLine(idLinii);
+                sw.WriteLine(minLiczbaPasazerowDlaPrzejazdu);
 
                 foreach (var wl in trasaLinii)
                 {
@@ -212,11 +242,13 @@ namespace ModelTransportuPublicznego.Model
         public static Linia OdczytajPlik(string sciezkaPliku, ZarzadTransportu zt)
         {
             string id;
+            int minLiczbaPasazerow;
             var wpisy = new List<WpisLinii>();
 
             using (var sr = File.OpenText(sciezkaPliku))
             {
                 id = sr.ReadLine();
+                minLiczbaPasazerow = Convert.ToInt32(sr.ReadLine());
                 var tekstWpisow = sr.ReadLine().Split('|');
 
                 foreach (var tW in tekstWpisow)
@@ -231,7 +263,7 @@ namespace ModelTransportuPublicznego.Model
                 wpisy[i].trasa.PrzystanekPrawy = wpisy[i + 1].przystanek;
             }
 
-            return new Linia(id, sciezkaPliku, wpisy);
+            return new Linia(id, minLiczbaPasazerow, sciezkaPliku, wpisy);
         }
     }
 }

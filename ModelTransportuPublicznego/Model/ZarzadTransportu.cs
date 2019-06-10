@@ -31,6 +31,7 @@ namespace ModelTransportuPublicznego.Model {
             listaLinii = new List<Linia>();
             listaFirm = new List<Firma.Firma>();
             czyLinieOdwrotneZostalyDodane = false;
+            przyplywyPasazerow = new List<PrzyplywPasazerow>();
         }
 
         public ZarzadTransportu(string nazwaFirmy, string sciezkaPliku) : this(nazwaFirmy)
