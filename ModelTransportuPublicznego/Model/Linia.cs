@@ -115,9 +115,10 @@ namespace ModelTransportuPublicznego.Model
             wpisyStatusuLinii.Add(new WpisStatusuLinii(czyPrzejazdUwarunkowany, czas, minDlugoscZatoki));
         }
 
-        public void DodajWpisStatusuLinii(TimeSpan czas)
+        public void DodajWpisStatusuLinii(TimeSpan czas, double dlugoscNajkrotszegoAutobusu)
         {
-            wpisyStatusuLinii.Add(new WpisStatusuLinii(CzyPrzejazdUwarunkowany, czas, MinWolnaDlugoscZatoki));
+            var czyIstniejePasujacyAutobus = MinWolnaDlugoscZatoki > dlugoscNajkrotszegoAutobusu;
+            wpisyStatusuLinii.Add(new WpisStatusuLinii(CzyPrzejazdUwarunkowany && czyIstniejePasujacyAutobus, czas, MinWolnaDlugoscZatoki));
         }
 
         public virtual int ZnajdzIndexPrzystanku(Przystanek.Przystanek przystanek)

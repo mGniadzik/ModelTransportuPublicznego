@@ -19,6 +19,8 @@ namespace ModelTransportuPublicznego.Model.Firma {
 
         public virtual string NazwaFirmy => nazwaFirmy;
 
+        public virtual double DlugoscNajkrotszegoAutobusu => dostepnyTabor.Keys.Min(a => a.DlugoscAutobusu);
+
         public virtual string SciezkaPlikuKonfiguracyjnego => sciezkaPlikuKonfiguracyjnego;
 
         public virtual IEnumerable<KeyValuePair<Autobus, int>> Tabor

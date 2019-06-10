@@ -102,7 +102,6 @@ namespace ModelTransportuPublicznego.Model
             //obecnyPrzystanek.WykonajPrzyplywy(czasRozpoczeciaPrzejazdu + czasPrzejazdu);
             zt.WykonajPrzyplywy(czasRozpoczeciaPrzejazdu + czasPrzejazdu);
             SprawdzCzyPrzejazdPosiadaZasoby();
-            linia.DodajWpisStatusuLinii(czasRozpoczeciaPrzejazdu + czasPrzejazdu);
 
             if (trasaZakonczona)
             {
@@ -123,6 +122,8 @@ namespace ModelTransportuPublicznego.Model
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            linia.DodajWpisStatusuLinii(czasRozpoczeciaPrzejazdu + czasPrzejazdu, firma.DlugoscNajkrotszegoAutobusu);
         }
 
         public int CompareTo(Przejazd other)
