@@ -100,6 +100,8 @@ namespace ModelTransportuPublicznego.Model.Przystanek {
                     sw.Write("|");
                 }
             }
+
+            sw.WriteLine();
         }
 
         public static PrzyplywPasazerow Odczytaj(StreamReader sr, ZarzadTransportu zt)

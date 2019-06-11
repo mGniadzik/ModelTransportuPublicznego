@@ -142,6 +142,8 @@
             this.msLiniaPlikZapiszJako = new System.Windows.Forms.ToolStripMenuItem();
             this.msLiniaPlikWczytaj = new System.Windows.Forms.ToolStripMenuItem();
             this.pLiniaDane = new System.Windows.Forms.Panel();
+            this.tbLiniaPasazerowie = new System.Windows.Forms.TextBox();
+            this.lLiniaPasazerowie = new System.Windows.Forms.Label();
             this.bLiniaZapisz = new System.Windows.Forms.Button();
             this.bLiniaMenu = new System.Windows.Forms.Button();
             this.dgLiniaDane = new System.Windows.Forms.DataGridView();
@@ -181,6 +183,8 @@
             this.msZarzadPlikWczytaj = new System.Windows.Forms.ToolStripMenuItem();
             this.pKonfiguracja = new System.Windows.Forms.Panel();
             this.pKonfiguracjaDaneZarzady = new System.Windows.Forms.Panel();
+            this.tbKonfiguracjaPrzyplywy = new System.Windows.Forms.TextBox();
+            this.lKonfiguracjaPrzyplywy = new System.Windows.Forms.Label();
             this.tbKonfWysokosc = new System.Windows.Forms.TextBox();
             this.tbKonfSzerokosc = new System.Windows.Forms.TextBox();
             this.lKonfWysokosc = new System.Windows.Forms.Label();
@@ -222,8 +226,6 @@
             this.msTrasaPlikZapisz = new System.Windows.Forms.ToolStripMenuItem();
             this.msTrasaPlikZapiszJako = new System.Windows.Forms.ToolStripMenuItem();
             this.msTrasaPlikWczytaj = new System.Windows.Forms.ToolStripMenuItem();
-            this.lLiniaPasazerowie = new System.Windows.Forms.Label();
-            this.tbLiniaPasazerowie = new System.Windows.Forms.TextBox();
             this.pPowitanie.SuspendLayout();
             this.pAutobusStale.SuspendLayout();
             this.msAutobus.SuspendLayout();
@@ -1331,6 +1333,22 @@
             this.pLiniaDane.Size = new System.Drawing.Size(784, 561);
             this.pLiniaDane.TabIndex = 0;
             // 
+            // tbLiniaPasazerowie
+            // 
+            this.tbLiniaPasazerowie.Location = new System.Drawing.Point(371, 71);
+            this.tbLiniaPasazerowie.Name = "tbLiniaPasazerowie";
+            this.tbLiniaPasazerowie.Size = new System.Drawing.Size(100, 20);
+            this.tbLiniaPasazerowie.TabIndex = 7;
+            // 
+            // lLiniaPasazerowie
+            // 
+            this.lLiniaPasazerowie.AutoSize = true;
+            this.lLiniaPasazerowie.Location = new System.Drawing.Point(164, 75);
+            this.lLiniaPasazerowie.Name = "lLiniaPasazerowie";
+            this.lLiniaPasazerowie.Size = new System.Drawing.Size(203, 13);
+            this.lLiniaPasazerowie.TabIndex = 6;
+            this.lLiniaPasazerowie.Text = "Minimalna liczba pasażerów dla przejazdu";
+            // 
             // bLiniaZapisz
             // 
             this.bLiniaZapisz.Location = new System.Drawing.Point(697, 510);
@@ -1678,6 +1696,8 @@
             // 
             // pKonfiguracjaDaneZarzady
             // 
+            this.pKonfiguracjaDaneZarzady.Controls.Add(this.tbKonfiguracjaPrzyplywy);
+            this.pKonfiguracjaDaneZarzady.Controls.Add(this.lKonfiguracjaPrzyplywy);
             this.pKonfiguracjaDaneZarzady.Controls.Add(this.tbKonfWysokosc);
             this.pKonfiguracjaDaneZarzady.Controls.Add(this.tbKonfSzerokosc);
             this.pKonfiguracjaDaneZarzady.Controls.Add(this.lKonfWysokosc);
@@ -1697,6 +1717,23 @@
             this.pKonfiguracjaDaneZarzady.Name = "pKonfiguracjaDaneZarzady";
             this.pKonfiguracjaDaneZarzady.Size = new System.Drawing.Size(784, 537);
             this.pKonfiguracjaDaneZarzady.TabIndex = 0;
+            // 
+            // tbKonfiguracjaPrzyplywy
+            // 
+            this.tbKonfiguracjaPrzyplywy.Location = new System.Drawing.Point(607, 47);
+            this.tbKonfiguracjaPrzyplywy.Name = "tbKonfiguracjaPrzyplywy";
+            this.tbKonfiguracjaPrzyplywy.Size = new System.Drawing.Size(100, 20);
+            this.tbKonfiguracjaPrzyplywy.TabIndex = 15;
+            this.tbKonfiguracjaPrzyplywy.TextChanged += new System.EventHandler(this.TbKonfiguracjaPrzyplywy_TextChanged);
+            // 
+            // lKonfiguracjaPrzyplywy
+            // 
+            this.lKonfiguracjaPrzyplywy.AutoSize = true;
+            this.lKonfiguracjaPrzyplywy.Location = new System.Drawing.Point(492, 51);
+            this.lKonfiguracjaPrzyplywy.Name = "lKonfiguracjaPrzyplywy";
+            this.lKonfiguracjaPrzyplywy.Size = new System.Drawing.Size(109, 13);
+            this.lKonfiguracjaPrzyplywy.TabIndex = 14;
+            this.lKonfiguracjaPrzyplywy.Text = "Przypływy pasażerów";
             // 
             // tbKonfWysokosc
             // 
@@ -2060,27 +2097,12 @@
             this.msTrasaPlikWczytaj.Text = "Wczytaj";
             this.msTrasaPlikWczytaj.Click += new System.EventHandler(this.MsTrasaPlikWczytaj_Click);
             // 
-            // lLiniaPasazerowie
-            // 
-            this.lLiniaPasazerowie.AutoSize = true;
-            this.lLiniaPasazerowie.Location = new System.Drawing.Point(164, 75);
-            this.lLiniaPasazerowie.Name = "lLiniaPasazerowie";
-            this.lLiniaPasazerowie.Size = new System.Drawing.Size(203, 13);
-            this.lLiniaPasazerowie.TabIndex = 6;
-            this.lLiniaPasazerowie.Text = "Minimalna liczba pasażerów dla przejazdu";
-            // 
-            // bLiniaPasazerowie
-            // 
-            this.tbLiniaPasazerowie.Location = new System.Drawing.Point(371, 71);
-            this.tbLiniaPasazerowie.Name = "bLiniaPasazerowie";
-            this.tbLiniaPasazerowie.Size = new System.Drawing.Size(100, 20);
-            this.tbLiniaPasazerowie.TabIndex = 7;
-            // 
             // AplikacjaPomocnicza
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.pKonfiguracja);
             this.Controls.Add(this.pLinia);
             this.Controls.Add(this.pPowitanie);
             this.Controls.Add(this.pPrzejazdy);
@@ -2088,7 +2110,6 @@
             this.Controls.Add(this.pAutobus);
             this.Controls.Add(this.pZarzadTransportu);
             this.Controls.Add(this.pTrasa);
-            this.Controls.Add(this.pKonfiguracja);
             this.Controls.Add(this.pPrzystanek);
             this.MainMenuStrip = this.msPrzejazdy;
             this.Name = "AplikacjaPomocnicza";
@@ -2363,6 +2384,8 @@
         private System.Windows.Forms.Button bPrzejazdyZapisz;
         private System.Windows.Forms.TextBox tbLiniaPasazerowie;
         private System.Windows.Forms.Label lLiniaPasazerowie;
+        private System.Windows.Forms.TextBox tbKonfiguracjaPrzyplywy;
+        private System.Windows.Forms.Label lKonfiguracjaPrzyplywy;
     }
 }
 

@@ -13,6 +13,7 @@ namespace ModelTransportuPublicznego.Misc
         private int szerokoscMapy;
         private int wysokoscMapy;
         private bool czyGenerowacLinieOdwrotne;
+        private string sciezkaPlikuPrzyplywow;
         private List<SynchronicznyZarzadTransportu> zarzadyTransportu;
         public Symulacja(string sciezkaPlikuKonfiguracji)
         {
@@ -26,6 +27,15 @@ namespace ModelTransportuPublicznego.Misc
                 szerokoscMapy = Convert.ToInt32(dane[2]);
                 wysokoscMapy = Convert.ToInt32(dane[3]);
                 czyGenerowacLinieOdwrotne = (dane[4] == "1") ? true : false;
+
+                if (dane.Length == 6)
+                {
+                    sciezkaPlikuPrzyplywow = dane[5];
+                }
+                else
+                {
+                    sciezkaPlikuPrzyplywow = null;
+                }
 
                 do
                 {
@@ -52,8 +62,18 @@ namespace ModelTransportuPublicznego.Misc
             }
 
             GeneratorPasazerow.Instancja(zarzadyTransportu[0].SiecPrzystankow, zarzadyTransportu[0].ListaLinii);
+
+            var generator = GeneratorPrzyplywowPasazerow.Instancja();
+            if (DaneWczytane)
+            {
+                generator.OdczytajPlik(sciezkaPlikuPrzyplywow, zarzadyTransportu[0]);
+                zarzadyTransportu[0].DodajPrzyplywy(generator.Przyplywy);
+            }
+
             WizualizatorMapy.Instancja(sciezkaPlikuTla, szerokoscMapy, wysokoscMapy);
         }
+
+        public bool DaneWczytane => sciezkaPlikuPrzyplywow != null;
 
         public void RozpocznijSymulacje()
         {

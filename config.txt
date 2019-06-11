@@ -1,2 +1,2 @@
-C:\Users\Maciej\Desktop\img.jpg|C:\Users\Maciej\Documents\GitHub\ModelTransportuPublicznego\Prz1.txt|960|640|False
+C:\Users\Maciej\Desktop\img.jpg|C:\Users\Maciej\Documents\GitHub\ModelTransportuPublicznego\Prz1.txt|960|640|False|C:\Users\Maciej\Documents\GitHub\ModelTransportuPublicznego\ModelTransportuPublicznego\bin\Debug\16-02-35.4833050.txt
 C:\Users\Maciej\Documents\GitHub\ModelTransportuPublicznego\ZT1.txt

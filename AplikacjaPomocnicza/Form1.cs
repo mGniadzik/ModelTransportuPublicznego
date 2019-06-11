@@ -1480,7 +1480,7 @@ namespace AplikacjaPomocnicza
         {
             OtworzPlikDoZapisu(sw =>
             {
-                sw.WriteLine(string.Format("{0}|{1}|{2}|{3}|{4}", tbKonfiguracjaZdjecie.Text, tbKonfiguracjaPrzejazdy.Text, tbKonfSzerokosc.Text, tbKonfWysokosc.Text, cbKonfiguracjaGeneracjaLinii.Checked));
+                sw.WriteLine(string.Format("{0}|{1}|{2}|{3}|{4}|{5}", tbKonfiguracjaZdjecie.Text, tbKonfiguracjaPrzejazdy.Text, tbKonfSzerokosc.Text, tbKonfWysokosc.Text, cbKonfiguracjaGeneracjaLinii.Checked, tbKonfiguracjaPrzyplywy.Text));
 
                 DataGridViewRow last = dgKonfiguracjaZarzady.Rows[dgKonfiguracjaZarzady.Rows.Count - 1];
                 foreach (DataGridViewRow row in dgKonfiguracjaZarzady.Rows)
@@ -1546,6 +1546,14 @@ namespace AplikacjaPomocnicza
             OtworzFileDialogDoOdczytu(dialog => 
             {
                 tbKonfiguracjaPrzejazdy.Text = dialog.FileName;
+            });
+        }
+
+        private void TbKonfiguracjaPrzyplywy_TextChanged(object sender, EventArgs e)
+        {
+            OtworzFileDialogDoOdczytu(dialog =>
+            {
+                tbKonfiguracjaPrzyplywy.Text = dialog.FileName;
             });
         }
     }
