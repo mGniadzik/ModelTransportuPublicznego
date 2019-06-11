@@ -48,7 +48,7 @@ namespace ModelTransportuPublicznego.Implementacja.Firmy {
             {
                 wybor = rand.Next(listaDostepnychKierowcow.Count);
                 kierowca = listaDostepnychKierowcow[wybor];
-            } while (!kierowca.CzyMozeWykonacPrzejazd(linia.ZwrocSpodziewanyCzasPrzejazduLinii()));
+            } while (!kierowca.CzyMozeWykonacPrzejazd(linia.EstymowanyCzasPrzejazduLinii));
 
             listaDostepnychKierowcow.RemoveAt(wybor);
             listaKierwcowZajetych.Add(kierowca);

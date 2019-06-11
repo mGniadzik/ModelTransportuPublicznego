@@ -218,5 +218,13 @@ namespace ModelTransportuPublicznego.Model {
                 sw.WriteLine();
             }
         }
+
+        public virtual void WygenerujStatusyLinii(StreamWriter sw)
+        {
+            foreach (var linia in listaLinii)
+            {
+                linia.WygenerujStatusyLinii(sw);
+            }
+        }
     }
 }

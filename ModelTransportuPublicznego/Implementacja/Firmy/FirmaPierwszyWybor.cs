@@ -23,7 +23,7 @@ namespace ModelTransportuPublicznego.Implementacja.Firmy {
         public override Kierowca WybierzKierowceDoObslugiPrzejazdu(Linia linia) {
             if (IstniejaDostepniKierowcy()) {
                 foreach (var k in listaDostepnychKierowcow) {
-                    if (k.CzyMozeWykonacPrzejazd(linia.ZwrocSpodziewanyCzasPrzejazduLinii())) {
+                    if (k.CzyMozeWykonacPrzejazd(linia.EstymowanyCzasPrzejazduLinii)) {
                         var kierowca = listaDostepnychKierowcow[0];
                         listaDostepnychKierowcow.Remove(kierowca);
                         listaKierwcowZajetych.Add(kierowca);

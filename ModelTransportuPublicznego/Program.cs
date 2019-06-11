@@ -8,6 +8,7 @@ namespace ModelTransportuPublicznego
         {
             Symulacja symulacja = new Symulacja("../../../config.txt");
             symulacja.RozpocznijSymulacje();
+            symulacja.ZapiszStatusyLinii("linie.txt");
         }
     }
 }

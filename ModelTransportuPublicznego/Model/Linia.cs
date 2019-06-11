@@ -26,6 +26,8 @@ namespace ModelTransportuPublicznego.Model
 
         public IEnumerable<WpisStatusuLinii> WpisyStatusuLinii => wpisyStatusuLinii;
 
+        public virtual TimeSpan EstymowanyCzasPrzejazduLinii => new TimeSpan(trasaLinii.Sum(w => w.czasPrzyjaduDoPrzystanku.Ticks));
+
         public bool CzyPrzejazdUwarunkowany => trasaLinii.Sum(wpis => wpis.przystanek.IloscPasazerowOczekujacych) > minLiczbaPasazerowDlaPrzejazdu;
 
         public double MinWolnaDlugoscZatoki => trasaLinii.Min(wpis => wpis.przystanek.WolneMiejsceZatoki);
@@ -118,7 +120,17 @@ namespace ModelTransportuPublicznego.Model
         public void DodajWpisStatusuLinii(TimeSpan czas, double dlugoscNajkrotszegoAutobusu)
         {
             var czyIstniejePasujacyAutobus = MinWolnaDlugoscZatoki > dlugoscNajkrotszegoAutobusu;
-            wpisyStatusuLinii.Add(new WpisStatusuLinii(CzyPrzejazdUwarunkowany && czyIstniejePasujacyAutobus, czas, MinWolnaDlugoscZatoki));
+            PowodBrakuUwarunkowania powod = PowodBrakuUwarunkowania.Brak;
+
+            if (CzyPrzejazdUwarunkowany && !czyIstniejePasujacyAutobus)
+            {
+                powod = PowodBrakuUwarunkowania.DlugoscAutobusu;
+            } else if (!CzyPrzejazdUwarunkowany)
+            {
+                powod = PowodBrakuUwarunkowania.LiczbaPasazerow;
+            }
+
+            wpisyStatusuLinii.Add(new WpisStatusuLinii(CzyPrzejazdUwarunkowany && czyIstniejePasujacyAutobus, czas, MinWolnaDlugoscZatoki, powod));
         }
 
         public virtual int ZnajdzIndexPrzystanku(Przystanek.Przystanek przystanek)
@@ -215,10 +227,6 @@ namespace ModelTransportuPublicznego.Model
             return false;
         }
 
-        public virtual TimeSpan ZwrocSpodziewanyCzasPrzejazduLinii() {
-            return new TimeSpan(trasaLinii.Sum(w => w.czasPrzyjaduDoPrzystanku.Ticks)); ;
-        }
-
         public virtual bool Zapisz(StreamWriter sw)
         {
             try
@@ -265,6 +273,22 @@ namespace ModelTransportuPublicznego.Model
             }
 
             return new Linia(id, minLiczbaPasazerow, sciezkaPliku, wpisy);
+        }
+
+        public void WygenerujStatusyLinii(StreamWriter sw)
+        {
+            sw.WriteLine($" { idLinii }");
+
+            foreach (var wpis in wpisyStatusuLinii)
+            {
+                var negator = wpis.CzyPrzejazdUwarunkowany ? null : "nie ";
+                var powod = wpis.CzyPrzejazdUwarunkowany ? null : wpis.Powod == PowodBrakuUwarunkowania.LiczbaPasazerow ? 
+                    " (Zbyt mała liczba pasażerów)" : " (Brak autobusu wymaganej długości)";
+                var text = wpis.CzyPrzejazdUwarunkowany ? ", Maksymalna długość autobusu: { wpis.DostepnaDlugoscZatoki }m." : powod;
+                sw.WriteLine($"  [{ wpis.Czas - EstymowanyCzasPrzejazduLinii }] - Przejazd { negator }uwarunkowany" + text);
+            }
+
+            sw.WriteLine();
         }
     }
 }

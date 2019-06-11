@@ -11,15 +11,27 @@ namespace ModelTransportuPublicznego.Implementacja.LiniaImpl
         private bool czyPrzejazdUwarunkowany;
         private TimeSpan czas;
         private double dostepnaDlugoscZatoki;
-        public WpisStatusuLinii(bool czyPrzejazdUwarunkowany, TimeSpan czas, double dostepnaDlugoscZatoki)
+        private PowodBrakuUwarunkowania powod;
+        public WpisStatusuLinii(bool czyPrzejazdUwarunkowany, TimeSpan czas, double dostepnaDlugoscZatoki, 
+            PowodBrakuUwarunkowania powod = PowodBrakuUwarunkowania.LiczbaPasazerow)
         {
             this.czyPrzejazdUwarunkowany = czyPrzejazdUwarunkowany;
             this.czas = czas;
             this.dostepnaDlugoscZatoki = dostepnaDlugoscZatoki;
+            this.powod = powod;
         }
 
         public bool CzyPrzejazdUwarunkowany => czyPrzejazdUwarunkowany;
         public TimeSpan Czas => czas;
         public double DostepnaDlugoscZatoki => dostepnaDlugoscZatoki;
+
+        public PowodBrakuUwarunkowania Powod;
+    }
+
+    public enum PowodBrakuUwarunkowania
+    {
+        LiczbaPasazerow,
+        DlugoscAutobusu,
+        Brak
     }
 }

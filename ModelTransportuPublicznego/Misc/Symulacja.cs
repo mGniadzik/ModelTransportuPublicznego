@@ -62,6 +62,18 @@ namespace ModelTransportuPublicznego.Misc
             }
         }
 
+        public void ZapiszStatusyLinii(string sciezkaPliku)
+        {
+            using (var sw = File.CreateText(sciezkaPliku))
+            {
+                foreach (var zt in zarzadyTransportu)
+                {
+                    sw.WriteLine(zt.NazwaZarzadu);
+                    zt.WygenerujStatusyLinii(sw);
+                }
+            }
+        }
+
         private SynchronicznyZarzadTransportu ZwrocZarzadPosiadajacyFirmeDanejKonfiguracji(string nazwaFirmy)
         {
             foreach (var zt in zarzadyTransportu)
