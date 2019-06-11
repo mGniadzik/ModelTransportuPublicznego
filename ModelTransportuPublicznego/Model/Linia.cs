@@ -112,12 +112,12 @@ namespace ModelTransportuPublicznego.Model
             wpisyStatusuLinii.Add(wsl);
         }
 
-        public void DodajWpisStatusuLinii(bool czyPrzejazdUwarunkowany, TimeSpan czas, double minDlugoscZatoki)
+        public void DodajWpisStatusuLinii(bool czyPrzejazdUwarunkowany, Przystanek.Przystanek przystanek, TimeSpan czas, double minDlugoscZatoki)
         {
-            wpisyStatusuLinii.Add(new WpisStatusuLinii(czyPrzejazdUwarunkowany, czas, minDlugoscZatoki));
+            wpisyStatusuLinii.Add(new WpisStatusuLinii(czyPrzejazdUwarunkowany, czas, SpodziewanyCzasPrzejazduDoPrzystanku(przystanek), minDlugoscZatoki, przystanek));
         }
 
-        public void DodajWpisStatusuLinii(TimeSpan czas, double dlugoscNajkrotszegoAutobusu)
+        public void DodajWpisStatusuLinii(TimeSpan czas, double dlugoscNajkrotszegoAutobusu, Przystanek.Przystanek przystanek)
         {
             var czyIstniejePasujacyAutobus = MinWolnaDlugoscZatoki > dlugoscNajkrotszegoAutobusu;
             PowodBrakuUwarunkowania powod = PowodBrakuUwarunkowania.Brak;
@@ -130,7 +130,7 @@ namespace ModelTransportuPublicznego.Model
                 powod = PowodBrakuUwarunkowania.LiczbaPasazerow;
             }
 
-            wpisyStatusuLinii.Add(new WpisStatusuLinii(CzyPrzejazdUwarunkowany && czyIstniejePasujacyAutobus, czas, MinWolnaDlugoscZatoki, powod));
+            DodajWpisDoListyStatusow(new WpisStatusuLinii(CzyPrzejazdUwarunkowany && czyIstniejePasujacyAutobus, czas, czas - SpodziewanyCzasPrzejazduDoPrzystanku(przystanek), MinWolnaDlugoscZatoki, przystanek, powod));
         }
 
         public virtual int ZnajdzIndexPrzystanku(Przystanek.Przystanek przystanek)
@@ -279,16 +279,38 @@ namespace ModelTransportuPublicznego.Model
         {
             sw.WriteLine($" { idLinii }");
 
-            foreach (var wpis in wpisyStatusuLinii)
+            foreach (var wpis in wpisyStatusuLinii.OrderBy(w => w.CzasStartu))
             {
                 var negator = wpis.CzyPrzejazdUwarunkowany ? null : "nie ";
                 var powod = wpis.CzyPrzejazdUwarunkowany ? null : wpis.Powod == PowodBrakuUwarunkowania.LiczbaPasazerow ? 
                     " (Zbyt mała liczba pasażerów)" : " (Brak autobusu wymaganej długości)";
                 var text = wpis.CzyPrzejazdUwarunkowany ? ", Maksymalna długość autobusu: { wpis.DostepnaDlugoscZatoki }m." : powod;
-                sw.WriteLine($"  [{ wpis.Czas - EstymowanyCzasPrzejazduLinii }] - Przejazd { negator }uwarunkowany" + text);
+                sw.WriteLine($"  [{ wpis.CzasStartu }] - Przejazd { negator }uwarunkowany" + text);
             }
 
             sw.WriteLine();
+        }
+
+        private void DodajWpisDoListyStatusow(WpisStatusuLinii wpis)
+        {
+            var tmp = wpisyStatusuLinii.Find(w => w.CzasStartu == wpis.CzasStartu);
+
+            if (tmp != null)
+            {
+                if (!tmp.CzyPrzejazdUwarunkowany || (tmp.CzyPrzejazdUwarunkowany && wpis.CzyPrzejazdUwarunkowany))
+                {
+                    return;
+                }
+                else
+                {
+                    wpisyStatusuLinii.Remove(tmp);
+                    wpisyStatusuLinii.Add(wpis);
+                }
+            }
+            else
+            {
+                wpisyStatusuLinii.Add(wpis);
+            }
         }
     }
 }

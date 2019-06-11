@@ -123,7 +123,7 @@ namespace ModelTransportuPublicznego.Model
                     throw new ArgumentOutOfRangeException();
             }
 
-            linia.DodajWpisStatusuLinii(czasRozpoczeciaPrzejazdu + czasPrzejazdu, firma.DlugoscNajkrotszegoAutobusu);
+            linia.DodajWpisStatusuLinii(czasRozpoczeciaPrzejazdu + czasPrzejazdu, firma.DlugoscNajkrotszegoAutobusu, obecnyPrzystanek);
         }
 
         public int CompareTo(Przejazd other)
