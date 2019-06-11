@@ -89,7 +89,7 @@ namespace ModelTransportuPublicznego.Model.Przystanek {
         public void Zapisz(StreamWriter sw)
         {
             sw.WriteLine($"{ czasPrzyplywu }|{ przystanek.NazwaPrzystanku }");
-            var last = pasazerowie[pasazerowie.Count];
+            var last = pasazerowie[pasazerowie.Count - 1];
 
             foreach (var pasazerDane in pasazerowie)
             {

@@ -84,6 +84,8 @@ namespace ModelTransportuPublicznego.Misc
                 generator.WygenerujLosowePrzyplywyDlaPrzystanku(przystanek, iloscPrzyplywow, liczbaPasazerow);
             }
 
+            var czas = DateTime.Now.TimeOfDay.ToString().Replace(':', '-');
+            generator.Zapisz($"{ czas }.txt");
             zarzadyTransportu[0].DodajPrzyplywy(generator.Przyplywy);
         }
 
