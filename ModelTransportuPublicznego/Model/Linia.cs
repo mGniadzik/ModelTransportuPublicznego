@@ -284,7 +284,7 @@ namespace ModelTransportuPublicznego.Model
                 var negator = wpis.CzyPrzejazdUwarunkowany ? null : "nie ";
                 var powod = wpis.CzyPrzejazdUwarunkowany ? null : wpis.Powod == PowodBrakuUwarunkowania.LiczbaPasazerow ? 
                     " (Zbyt mała liczba pasażerów)" : " (Brak autobusu wymaganej długości)";
-                var text = wpis.CzyPrzejazdUwarunkowany ? ", Maksymalna długość autobusu: { wpis.DostepnaDlugoscZatoki }m." : powod;
+                var text = wpis.CzyPrzejazdUwarunkowany ? $", Maksymalna długość autobusu: { wpis.DostepnaDlugoscZatoki }m." : powod;
                 sw.WriteLine($"  [{ wpis.CzasStartu }] - Przejazd { negator }uwarunkowany" + text);
             }
 

@@ -1,0 +1,3 @@
+F1
+100
+C:\Users\Maciej\Documents\GitHub\ModelTransportuPublicznego\A1.txt-100|C:\Users\Maciej\Documents\GitHub\ModelTransportuPublicznego\A2.txt-50

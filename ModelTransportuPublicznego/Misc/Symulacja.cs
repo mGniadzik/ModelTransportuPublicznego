@@ -51,6 +51,7 @@ namespace ModelTransportuPublicznego.Misc
                 }
             }
 
+            GeneratorPasazerow.Instancja(zarzadyTransportu[0].SiecPrzystankow, zarzadyTransportu[0].ListaLinii);
             WizualizatorMapy.Instancja(sciezkaPlikuTla, szerokoscMapy, wysokoscMapy);
         }
 
@@ -72,6 +73,18 @@ namespace ModelTransportuPublicznego.Misc
                     zt.WygenerujStatusyLinii(sw);
                 }
             }
+        }
+
+        public void WygenerujLosowePrzyplywy(int iloscPrzyplywow, int liczbaPasazerow)
+        {
+            var generator = GeneratorPrzyplywowPasazerow.Instancja();
+
+            foreach (var przystanek in zarzadyTransportu[0].SiecPrzystankow)
+            {
+                generator.WygenerujLosowePrzyplywyDlaPrzystanku(przystanek, iloscPrzyplywow, liczbaPasazerow);
+            }
+
+            zarzadyTransportu[0].DodajPrzyplywy(generator.Przyplywy);
         }
 
         private SynchronicznyZarzadTransportu ZwrocZarzadPosiadajacyFirmeDanejKonfiguracji(string nazwaFirmy)

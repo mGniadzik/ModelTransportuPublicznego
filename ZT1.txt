@@ -1,0 +1,4 @@
+ZT1
+C:\Users\Maciej\Documents\GitHub\ModelTransportuPublicznego\P1.txt|C:\Users\Maciej\Documents\GitHub\ModelTransportuPublicznego\P2.txt|C:\Users\Maciej\Documents\GitHub\ModelTransportuPublicznego\P3.txt|
+C:\Users\Maciej\Documents\GitHub\ModelTransportuPublicznego\L1.txt
+C:\Users\Maciej\Documents\GitHub\ModelTransportuPublicznego\F1.txt

@@ -12,10 +12,12 @@ namespace ModelTransportuPublicznego.Misc
         private IEnumerable<Przystanek> siecPrzystankow;
         private IEnumerable<Linia> linie;
         private static GeneratorPasazerow instancja = null;
+        private Random rand;
         private GeneratorPasazerow(IEnumerable<Przystanek> siecPrzystankow, IEnumerable<Linia> linie)
         {
             this.siecPrzystankow = siecPrzystankow;
             this.linie = linie;
+            rand = new Random();
         }
 
         public static GeneratorPasazerow Instancja(IEnumerable<Przystanek> siecPrzystankow, IEnumerable<Linia> linie)
@@ -62,8 +64,6 @@ namespace ModelTransportuPublicznego.Misc
 
         public Pasazer WygenerujLosowegoPasazera(TimeSpan czas)
         {
-            var rand = new Random();
-
             Przystanek pPoczatkowy = siecPrzystankow.ToList()[rand.Next(siecPrzystankow.Count())];
             Przystanek pKoncowy;
 

@@ -70,6 +70,16 @@ namespace ModelTransportuPublicznego.Model {
             przyplywyPasazerow.Where(p => !p.CzyWykonany && p.czasPrzyplywu < czas).ToList().ForEach(p => p.WykonajPrzyplyw());
         }
 
+        public virtual void DodajPrzyplyw(PrzyplywPasazerow przyplywPasazerow)
+        {
+            przyplywyPasazerow.Add(przyplywPasazerow);
+        }
+
+        public virtual void DodajPrzyplywy(IEnumerable<PrzyplywPasazerow> przyplywyPasazerow)
+        {
+            this.przyplywyPasazerow.AddRange(przyplywyPasazerow);
+        }
+
         public virtual void DodajPrzystanek(Przystanek.Przystanek przystanek) {
             siecPrzystankow.Add(przystanek);
         }

@@ -10,11 +10,13 @@ namespace ModelTransportuPublicznego.Misc
     {
         private static GeneratorPrzyplywowPasazerow instancja;
         private List<PrzyplywPasazerow> przyplywyPasazerow;
+        private Random random;
 
         public IEnumerable<PrzyplywPasazerow> Przyplywy => przyplywyPasazerow;
         private GeneratorPrzyplywowPasazerow()
         {
             przyplywyPasazerow = new List<PrzyplywPasazerow>();
+            random = new Random();
         }
 
         public static GeneratorPrzyplywowPasazerow Instancja()
@@ -55,6 +57,26 @@ namespace ModelTransportuPublicznego.Misc
                     przyplywyPasazerow.Add(PrzyplywPasazerow.Odczytaj(sr, zt));
                 } while (!sr.EndOfStream);
             }
+        }
+
+        public void WygenerujLosowePrzyplywyDlaPrzystanku(Przystanek przystanek, int iloscPrzyplywow, int iloscPasazerow)
+        {
+            for (int i = 0; i < iloscPrzyplywow; i++)
+            {
+                var przyplyw = new PrzyplywPasazerow(WygenerujLosowyCzas(), przystanek);
+
+                for (int j = 0; j < iloscPasazerow; j++)
+                {
+                    przyplyw.DodajPasazera(GeneratorPasazerow.Instancja().WygenerujLosowegoPasazera(przyplyw.czasPrzyplywu));
+                }
+
+                przyplywyPasazerow.Add(przyplyw);
+            }
+        }
+
+        private TimeSpan WygenerujLosowyCzas()
+        {
+            return new TimeSpan(random.Next(0, 24), random.Next(0, 60), random.Next(0, 60));
         }
     }
 }
