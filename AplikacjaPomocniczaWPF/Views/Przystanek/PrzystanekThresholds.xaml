@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="AplikacjaPomocniczaWPF.Views.Przystanek.PrzystanekThresholds"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AplikacjaPomocniczaWPF.Views.Przystanek"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Text="Pasażerowie" Style="{StaticResource StdTitleTextBox}" />
+        <DataGrid Grid.Row="1" Margin="5 0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Próg zapełnienia" Width="*" />
+                <DataGridTextColumn Header="Kolor" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock Text="Autobusy" Grid.Row="2" Style="{StaticResource StdTitleTextBox}" />
+        <DataGrid Grid.Row="3" Margin="5 0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Próg zapełnienia" Width="*" />
+                <DataGridTextColumn Header="Kolor" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Content="Wróć do menu" Margin="5" Command="{Binding GoToMenu}" />
+            <Button Content="Zapisz" Grid.Column="2" Margin="5" />
+        </Grid>
+    </Grid>
+</UserControl>

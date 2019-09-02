@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{80C4D313-E37B-406D-8E7A-F1A51C253E72}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>AplikacjaPomocniczaWPF</RootNamespace>
+    <AssemblyName>AplikacjaPomocniczaWPF</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Commands\ParameteredRelayCommand.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Helpers\PageType.cs" />
+    <Compile Include="Models\Autobus.cs" />
+    <Compile Include="Models\Firma.cs" />
+    <Compile Include="Models\Konfiguracja.cs" />
+    <Compile Include="Models\Linia.cs" />
+    <Compile Include="Models\ProgAutobusu.cs" />
+    <Compile Include="Models\Przejazdy.cs" />
+    <Compile Include="Models\Przystanek.cs" />
+    <Compile Include="Models\Trasa.cs" />
+    <Compile Include="Models\ZarzadTransportu.cs" />
+    <Compile Include="ValueConverters\Base\BaseValueConverter.cs" />
+    <Compile Include="ValueConverters\PageTypeToUserControlValueConverter.cs" />
+    <Compile Include="ViewModels\AutobusViewModel.cs" />
+    <Compile Include="ViewModels\Base\BaseViewModel.cs" />
+    <Compile Include="ViewModels\FirmaViewModel.cs" />
+    <Compile Include="ViewModels\KonfiguracjaViewModel.cs" />
+    <Compile Include="ViewModels\LiniaViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\PrzejazdyViewModel.cs" />
+    <Compile Include="ViewModels\PrzystanekViewModel.cs" />
+    <Compile Include="ViewModels\TrasaViewModel.cs" />
+    <Compile Include="ViewModels\ZarzadViewModel.cs" />
+    <Compile Include="Views\Autobus\AutobusAcceleraction.xaml.cs">
+      <DependentUpon>AutobusAcceleraction.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Autobus\AutobusConstants.xaml.cs">
+      <DependentUpon>AutobusConstants.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Autobus\AutobusContainer.xaml.cs">
+      <DependentUpon>AutobusContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Firma\FirmaContainer.xaml.cs">
+      <DependentUpon>FirmaContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Firma\FirmaData.xaml.cs">
+      <DependentUpon>FirmaData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Konfiguracja\KonfiguracjaConstants.xaml.cs">
+      <DependentUpon>KonfiguracjaConstants.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Konfiguracja\KonfiguracjaContainer.xaml.cs">
+      <DependentUpon>KonfiguracjaContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Konfiguracja\KonfiguracjaZarzady.xaml.cs">
+      <DependentUpon>KonfiguracjaZarzady.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Linia\LiniaContainer.xaml.cs">
+      <DependentUpon>LiniaContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Linia\LiniaData.xaml.cs">
+      <DependentUpon>LiniaData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Przejazdy\PrzejazdyContainer.xaml.cs">
+      <DependentUpon>PrzejazdyContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Przejazdy\PrzejazdyData.xaml.cs">
+      <DependentUpon>PrzejazdyData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Przystanek\PrzystanekConstants.xaml.cs">
+      <DependentUpon>PrzystanekConstants.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Przystanek\PrzystanekContainer.xaml.cs">
+      <DependentUpon>PrzystanekContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Przystanek\PrzystanekThresholds.xaml.cs">
+      <DependentUpon>PrzystanekThresholds.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Trasa\TrasaContainer.xaml.cs">
+      <DependentUpon>TrasaContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Trasa\TrasaData.xaml.cs">
+      <DependentUpon>TrasaData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Zarzad\ZarzadContainer.xaml.cs">
+      <DependentUpon>ZarzadContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Zarzad\ZarzadData.xaml.cs">
+      <DependentUpon>ZarzadData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Styles\Buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Fonts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\TextBlocks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\TextBoxes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Autobus\AutobusAcceleraction.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Autobus\AutobusConstants.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Autobus\AutobusContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Firma\FirmaContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Firma\FirmaData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Konfiguracja\KonfiguracjaConstants.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Konfiguracja\KonfiguracjaContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Konfiguracja\KonfiguracjaZarzady.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Linia\LiniaContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Linia\LiniaData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Przejazdy\PrzejazdyContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Przejazdy\PrzejazdyData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Przystanek\PrzystanekConstants.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Przystanek\PrzystanekContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Przystanek\PrzystanekThresholds.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Trasa\TrasaContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Trasa\TrasaData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Zarzad\ZarzadContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Zarzad\ZarzadData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
