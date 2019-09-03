@@ -35,7 +35,7 @@
                 <RowDefinition Height="4*" />
             </Grid.RowDefinitions>
             <Button Content="Wróć do menu" Margin="5" Grid.Row="1" Command="{Binding GoToMenu}" />
-            <Button Content="Dalej..." Margin="5" Grid.Column="2" Grid.Row="1" Command="{Binding Zapisz}" />
+            <Button Content="Zapisz" Margin="5" Grid.Column="2" Grid.Row="1" Command="{Binding Zapisz}" />
         </Grid>
     </Grid>
 </UserControl>

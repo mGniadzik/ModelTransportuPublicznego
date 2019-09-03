@@ -27,7 +27,7 @@
         <TextBlock Text="Prędkość Maksymalna" Grid.Row="3" Style="{StaticResource StdRightTextBlock}" />
         <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource StdTextBox}" Text="{Binding PredkoscMaksymalna}" />
         <TextBlock Text="Punkty Trasy" Grid.ColumnSpan="2" Grid.Row="4" Style="{StaticResource StdTitleTextBox}" />
-        <ScrollViewer  Grid.Row="5" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer  Grid.Row="5" Grid.ColumnSpan="2" Margin="5 0" VerticalScrollBarVisibility="Auto">
             <DataGrid>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="X" Width="*" />
@@ -46,7 +46,7 @@
                 <RowDefinition Height="4*" />
             </Grid.RowDefinitions>
             <Button Content="Wróć do menu" Margin="5" Grid.Row="1" Command="{Binding GoToMenu}" />
-            <Button Content="Dalej..." Margin="5" Grid.Column="2" Grid.Row="1" Command="{Binding Zapisz}" />
+            <Button Content="Zapisz" Margin="5" Grid.Column="2" Grid.Row="1" Command="{Binding Zapisz}" />
         </Grid>
     </Grid>
 </UserControl>
