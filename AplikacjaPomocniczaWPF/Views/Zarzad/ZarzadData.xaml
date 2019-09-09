@@ -22,11 +22,24 @@
         <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource StdTextBox}" Text="{Binding Nazwa}" />
         <TextBlock Text="Sieć przystanków" Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource StdTitleTextBox}" />
         <ScrollViewer Grid.Row="3" Grid.ColumnSpan="2" Margin="5 0"  VerticalScrollBarVisibility="Auto">
-            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding SiecPrzystankow}">
+            <!--<DataGrid AutoGenerateColumns="False" ItemsSource="{Binding SiecPrzystankow}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Przystanek" Width="*" />
                     <DataGridTextColumn Header="Scieżka pliku" Width="*" />
                 </DataGrid.Columns>
+            </DataGrid>-->
+            <DataGrid x:Name="dGrid" ItemsSource="{Binding SiecPrzystankow}" Style="{StaticResource BasicDataGrid}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Przystanek" Width="*" Binding="{Binding Przystanek}" />
+                    <DataGridTextColumn Header="Scieżka pliku" Width="*" Binding="{Binding SciezkaPliku}" />
+                </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Dodaj wpis" Command="{Binding DodajWpis}" />
+                        <MenuItem Header="Usuń wpis" Command="{Binding UsunWpis}" CommandParameter="{x:Reference Name=dGrid}" />
+                        <MenuItem Header="Wyczyść wpisy" Command="{Binding WyczyscWpisy}" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
             </DataGrid>
         </ScrollViewer>
         <Grid Grid.Row="4" Grid.ColumnSpan="2">

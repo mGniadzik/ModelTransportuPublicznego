@@ -28,11 +28,18 @@
         <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource StdTextBox}" Text="{Binding PredkoscMaksymalna}" />
         <TextBlock Text="Punkty Trasy" Grid.ColumnSpan="2" Grid.Row="4" Style="{StaticResource StdTitleTextBox}" />
         <ScrollViewer  Grid.Row="5" Grid.ColumnSpan="2" Margin="5 0" VerticalScrollBarVisibility="Auto">
-            <DataGrid>
+            <DataGrid x:Name="dGrid" ItemsSource="{Binding PunktyTrasy}" Style="{StaticResource BasicDataGrid}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="X" Width="*" />
-                    <DataGridTextColumn Header="Y" Width="*" />
+                    <DataGridTextColumn Header="X" Width="*" Binding="{Binding X}" />
+                    <DataGridTextColumn Header="Y" Width="*" Binding="{Binding Y}" />
                 </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Dodaj wpis" Command="{Binding DodajWpis}" />
+                        <MenuItem Header="Usuń wpis" Command="{Binding UsunWpis}" CommandParameter="{x:Reference Name=dGrid}" />
+                        <MenuItem Header="Wyczyść wpisy" Command="{Binding WyczyscWpisy}" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
             </DataGrid>
         </ScrollViewer>
         <Grid Grid.Row="6" Grid.ColumnSpan="2">

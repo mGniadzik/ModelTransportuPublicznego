@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using AplikacjaPomocniczaWPF.ViewModels.CollectionElementViewModels;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace AplikacjaPomocniczaWPF.Models
 {
@@ -6,8 +8,8 @@ namespace AplikacjaPomocniczaWPF.Models
     {
         public Autobus()
         {
-            Przyspieszenia = new List<ProgAutobusu>();
-            Hamowania = new List<ProgAutobusu>();
+            Przyspieszenia = new ObservableCollection<ProgAutobusuViewModel>();
+            Hamowania = new ObservableCollection<ProgAutobusuViewModel>();
         }
 
         public string ModelAutobusu { get; set; }
@@ -24,8 +26,8 @@ namespace AplikacjaPomocniczaWPF.Models
 
         public double PredkoscMaksymalna { get; set; }
 
-        public ICollection<ProgAutobusu> Przyspieszenia { get; set; }
+        public ObservableCollection<ProgAutobusuViewModel> Przyspieszenia { get; set; }
 
-        public ICollection<ProgAutobusu> Hamowania { get; set; }
+        public ObservableCollection<ProgAutobusuViewModel> Hamowania { get; set; }
     }
 }

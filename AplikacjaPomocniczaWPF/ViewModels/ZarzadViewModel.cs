@@ -2,11 +2,14 @@
 using AplikacjaPomocniczaWPF.Helpers;
 using AplikacjaPomocniczaWPF.Models;
 using AplikacjaPomocniczaWPF.ViewModels.Base;
+using AplikacjaPomocniczaWPF.ViewModels.CollectionElementViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace AplikacjaPomocniczaWPF.ViewModels
 {
@@ -20,6 +23,12 @@ namespace AplikacjaPomocniczaWPF.ViewModels
 
         public ZarzadTransportu ZarzadTransportu { get { return zarzadTransportu ?? (zarzadTransportu = new ZarzadTransportu()); } }
 
+        public RelayCommand DodajWpis { get; set; }
+
+        public RelayCommand WyczyscWpisy { get; set; }
+
+        public ParameteredRelayCommand<DataGrid> UsunWpis { get; set; }
+
         public PageType CurrentPage { get; set; }
 
         public string Nazwa
@@ -28,7 +37,7 @@ namespace AplikacjaPomocniczaWPF.ViewModels
             set { zarzadTransportu.Nazwa = value; }
         }
 
-        public ICollection<WpisSieci> SiecPrzystankow
+        public ObservableCollection<WpisSieciViewModel> SiecPrzystankow
         {
             get { return zarzadTransportu.SiecPrzystankow; }
             set { zarzadTransportu.SiecPrzystankow = value; }
@@ -48,7 +57,26 @@ namespace AplikacjaPomocniczaWPF.ViewModels
                 OnPropertyChanged("ZarzadTransportu");
                 MainWindowViewModel.Instance.CurrentPage = PageType.MainPage;
                 MainWindowViewModel.Instance.OnPropertyChanged("CurrentPage");
-            });            
+            });
+            DodajWpis = new RelayCommand(() =>
+            {
+                zarzadTransportu.SiecPrzystankow.Add(new WpisSieciViewModel());
+                OnPropertyChanged("SiecPrzystankow");
+            });
+            WyczyscWpisy = new RelayCommand(() =>
+            {
+                zarzadTransportu.SiecPrzystankow.Clear();
+                OnPropertyChanged("SiecPrzystankow");
+            });
+            UsunWpis = new ParameteredRelayCommand<DataGrid>((dGrid) =>
+            {
+                var item = dGrid.SelectedItem;
+                if (item != null && item is WpisSieciViewModel)
+                {
+                    SiecPrzystankow.Remove((WpisSieciViewModel)item);
+                    OnPropertyChanged("SiecPrzystankow");
+                }
+            });
         }
     }
 }

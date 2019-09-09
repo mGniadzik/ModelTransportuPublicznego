@@ -6,7 +6,7 @@
         <Setter Property="TextTrimming" Value="None" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Right" />
-        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontSize" Value="18" />
         <Setter Property="Margin" Value="6 3" />
     </Style>
 

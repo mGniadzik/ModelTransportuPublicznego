@@ -65,24 +65,29 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Helpers\PageType.cs" />
     <Compile Include="Models\Autobus.cs" />
+    <Compile Include="Models\CollectionModels\WpisSieci.cs" />
     <Compile Include="Models\Firma.cs" />
     <Compile Include="Models\Konfiguracja.cs" />
     <Compile Include="Models\Linia.cs" />
-    <Compile Include="Models\ProgAutobusu.cs" />
+    <Compile Include="Models\CollectionModels\ProgAutobusu.cs" />
     <Compile Include="Models\Przejazdy.cs" />
     <Compile Include="Models\Przystanek.cs" />
+    <Compile Include="Models\CollectionModels\PunktTrasy.cs" />
     <Compile Include="Models\Trasa.cs" />
     <Compile Include="Models\ZarzadTransportu.cs" />
     <Compile Include="ValueConverters\Base\BaseValueConverter.cs" />
     <Compile Include="ValueConverters\PageTypeToUserControlValueConverter.cs" />
     <Compile Include="ViewModels\AutobusViewModel.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
+    <Compile Include="ViewModels\CollectionElementViewModels\ProgAutobusuViewModel.cs" />
+    <Compile Include="ViewModels\CollectionElementViewModels\WpisSieciViewModel.cs" />
     <Compile Include="ViewModels\FirmaViewModel.cs" />
     <Compile Include="ViewModels\KonfiguracjaViewModel.cs" />
     <Compile Include="ViewModels\LiniaViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\PrzejazdyViewModel.cs" />
     <Compile Include="ViewModels\PrzystanekViewModel.cs" />
+    <Compile Include="ViewModels\CollectionElementViewModels\PunktTrasyViewModel.cs" />
     <Compile Include="ViewModels\TrasaViewModel.cs" />
     <Compile Include="ViewModels\ZarzadViewModel.cs" />
     <Compile Include="Views\Autobus\AutobusAcceleraction.xaml.cs">
@@ -181,6 +186,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\DataGrids.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

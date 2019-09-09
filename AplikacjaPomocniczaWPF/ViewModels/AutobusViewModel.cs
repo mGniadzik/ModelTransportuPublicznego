@@ -2,8 +2,10 @@
 using AplikacjaPomocniczaWPF.Helpers;
 using AplikacjaPomocniczaWPF.Models;
 using AplikacjaPomocniczaWPF.ViewModels.Base;
+using AplikacjaPomocniczaWPF.ViewModels.CollectionElementViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,10 +48,43 @@ namespace AplikacjaPomocniczaWPF.ViewModels
                 autobus = new Autobus();
                 OnPropertyChanged("Autobus");
             });
-            DeletePrzyspieszeniaRow = new ParameteredRelayCommand<DataGridRow>((row) =>
+            DodajWpisAcc = new RelayCommand(() =>
             {
-                Przyspieszenia.Remove(row.Item as ProgAutobusu);
-                OnPropertyChanged("Przyspieszenia");
+                autobus.Przyspieszenia.Add(new ProgAutobusuViewModel());
+                OnPropertyChanged("PunktyTrasy");
+            });
+            WyczyscWpisyAcc = new RelayCommand(() =>
+            {
+                autobus.Przyspieszenia.Clear();
+                OnPropertyChanged("PunktyTrasy");
+            });
+            UsunWpisAcc = new ParameteredRelayCommand<DataGrid>((dGrid) =>
+            {
+                var item = dGrid.SelectedItem;
+                if (item != null && item is ProgAutobusuViewModel)
+                {
+                    Przyspieszenia.Remove((ProgAutobusuViewModel)item);
+                    OnPropertyChanged("PunktyTrasy");
+                }
+            });
+            DodajWpisBrk = new RelayCommand(() =>
+            {
+                autobus.Hamowania.Add(new ProgAutobusuViewModel());
+                OnPropertyChanged("PunktyTrasy");
+            });
+            WyczyscWpisyBrk = new RelayCommand(() =>
+            {
+                autobus.Hamowania.Clear();
+                OnPropertyChanged("PunktyTrasy");
+            });
+            UsunWpisBrk = new ParameteredRelayCommand<DataGrid>((dGrid) =>
+            {
+                var item = dGrid.SelectedItem;
+                if (item != null && item is ProgAutobusuViewModel)
+                {
+                    autobus.Hamowania.Remove((ProgAutobusuViewModel)item);
+                    OnPropertyChanged("PunktyTrasy");
+                }
             });
         }
 
@@ -97,13 +132,13 @@ namespace AplikacjaPomocniczaWPF.ViewModels
             set { autobus.PredkoscMaksymalna = value; }
         }
 
-        public ICollection<ProgAutobusu> Przyspieszenia
+        public ObservableCollection<ProgAutobusuViewModel> Przyspieszenia
         {
             get { return autobus.Przyspieszenia; }
             set { autobus.Przyspieszenia = value; }
         }
 
-        public ICollection<ProgAutobusu> Hamowania
+        public ObservableCollection<ProgAutobusuViewModel> Hamowania
         {
             get { return autobus.Hamowania; }
             set { autobus.Hamowania = value; }
@@ -115,6 +150,16 @@ namespace AplikacjaPomocniczaWPF.ViewModels
 
         public RelayCommand GoToMenu { get; set; }
 
-        public ParameteredRelayCommand<DataGridRow> DeletePrzyspieszeniaRow { get; set; }
+        public RelayCommand DodajWpisAcc { get; set; }
+
+        public ParameteredRelayCommand<DataGrid> UsunWpisAcc { get; set; }
+
+        public RelayCommand WyczyscWpisyAcc { get; set; }
+
+        public RelayCommand DodajWpisBrk { get; set; }
+
+        public ParameteredRelayCommand<DataGrid> UsunWpisBrk { get; set; }
+
+        public RelayCommand WyczyscWpisyBrk { get; set; }
     }
 }

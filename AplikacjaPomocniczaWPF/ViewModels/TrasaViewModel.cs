@@ -2,12 +2,15 @@
 using AplikacjaPomocniczaWPF.Helpers;
 using AplikacjaPomocniczaWPF.Models;
 using AplikacjaPomocniczaWPF.ViewModels.Base;
+using AplikacjaPomocniczaWPF.ViewModels.CollectionElementViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace AplikacjaPomocniczaWPF.ViewModels
 {
@@ -27,6 +30,12 @@ namespace AplikacjaPomocniczaWPF.ViewModels
 
         public RelayCommand Zapisz { get; set; }
 
+        public RelayCommand DodajWpis { get; set; }
+
+        public RelayCommand WyczyscWpisy { get; set; }
+
+        public ParameteredRelayCommand<DataGrid> UsunWpis { get; set; }
+
         public string Nazwa
         {
             get { return trasa.Nazwa; }
@@ -45,10 +54,14 @@ namespace AplikacjaPomocniczaWPF.ViewModels
             set { trasa.PredkoscMaksymalna = value; }
         }
 
-        public ICollection<Point> PunktyTrasy
+        public ObservableCollection<PunktTrasyViewModel> PunktyTrasy
         {
             get { return trasa.PunktyTrasy; }
-            set { trasa.PunktyTrasy = value; }
+            set
+            {
+                trasa.PunktyTrasy = value;
+                OnPropertyChanged("PunktyTrasy");
+            }
         }
 
         private TrasaViewModel()
@@ -63,6 +76,25 @@ namespace AplikacjaPomocniczaWPF.ViewModels
                 OnPropertyChanged("CurrentPage");
                 MainWindowViewModel.Instance.CurrentPage = PageType.MainPage;
                 MainWindowViewModel.Instance.OnPropertyChanged("CurrentPage");
+            });
+            DodajWpis = new RelayCommand(() =>
+            {
+                trasa.PunktyTrasy.Add(new PunktTrasyViewModel());
+                OnPropertyChanged("PunktyTrasy");
+            });
+            WyczyscWpisy = new RelayCommand(() =>
+            {
+                trasa.PunktyTrasy.Clear();
+                OnPropertyChanged("PunktyTrasy");
+            });
+            UsunWpis = new ParameteredRelayCommand<DataGrid>((dGrid) =>
+            {
+                var item = dGrid.SelectedItem;
+                if (item != null && item is PunktTrasyViewModel)
+                {
+                    PunktyTrasy.Remove((PunktTrasyViewModel)item);
+                    OnPropertyChanged("PunktyTrasy");
+                }
             });
         }
     }

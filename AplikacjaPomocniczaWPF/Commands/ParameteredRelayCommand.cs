@@ -9,7 +9,7 @@ namespace AplikacjaPomocniczaWPF.Commands
 {
     class ParameteredRelayCommand<T> : ICommand where T : class, new()
     {
-        private Action<T> action;
+        private readonly Action<T> action;
 
         public ParameteredRelayCommand(Action<T> action)
         {

@@ -16,27 +16,34 @@
         </Grid.RowDefinitions>
         <TextBlock Text="Przyśpieszenie" Style="{StaticResource StdTitleTextBox}" />
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <DataGrid Margin="5 0" CanUserAddRows="True" AutoGenerateColumns="False" ItemsSource="{Binding Przyspieszenia}">
+            <DataGrid x:Name="dGridAcceleration" Margin="5 0" ItemsSource="{Binding Przyspieszenia}" Style="{StaticResource BasicDataGrid}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Próg zapełnienia" Width="*" Binding="{Binding Zapelnienie}" />
                     <DataGridTextColumn Header="Procent spowolnienia" Width="*" Binding="{Binding Efektywnosc}" />
-                    <DataGridTemplateColumn Header="Usuń">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Usuń" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Dodaj wpis" Command="{Binding DodajWpisAcc}" />
+                        <MenuItem Header="Usuń wpis" Command="{Binding UsunWpisAcc}" CommandParameter="{x:Reference Name=dGridAcceleration}" />
+                        <MenuItem Header="Wyczyść wpisy" Command="{Binding WyczyscWpisyAcc}" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
             </DataGrid>
         </ScrollViewer>
         <TextBlock Text="Hamowanie" Grid.Row="2" Style="{StaticResource StdTitleTextBox}" />
         <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">
-            <DataGrid Margin="5 0" AutoGenerateColumns="False" ItemsSource="{Binding Hamowania, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid Margin="5 0" x:Name="dGridBraking" ItemsSource="{Binding Hamowania}" Style="{StaticResource BasicDataGrid}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Próg zapełnienia" Width="*" Binding="{Binding Zapelnienie}" />
                     <DataGridTextColumn Header="Procent wydłużenia" Width="*" Binding="{Binding Efektywnosc}" />
                 </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Dodaj wpis" Command="{Binding DodajWpisBrk}" />
+                        <MenuItem Header="Usuń wpis" Command="{Binding UsunWpisBrk}" CommandParameter="{x:Reference Name=dGridBraking}" />
+                        <MenuItem Header="Wyczyść wpisy" Command="{Binding WyczyscWpisyBrk}" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
             </DataGrid>
         </ScrollViewer>
         <Grid Grid.Row="4">
