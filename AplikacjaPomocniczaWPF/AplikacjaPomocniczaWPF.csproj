@@ -63,8 +63,10 @@
     </Compile>
     <Compile Include="Commands\ParameteredRelayCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Helpers\ColorToStringHash.cs" />
     <Compile Include="Helpers\PageType.cs" />
     <Compile Include="Models\Autobus.cs" />
+    <Compile Include="Models\CollectionModels\WpisProguPrzystanku.cs" />
     <Compile Include="Models\CollectionModels\WpisSieci.cs" />
     <Compile Include="Models\Firma.cs" />
     <Compile Include="Models\Konfiguracja.cs" />
@@ -76,10 +78,14 @@
     <Compile Include="Models\Trasa.cs" />
     <Compile Include="Models\ZarzadTransportu.cs" />
     <Compile Include="ValueConverters\Base\BaseValueConverter.cs" />
+    <Compile Include="ValueConverters\ColorToArgbValueConverter.cs" />
+    <Compile Include="ValueConverters\ColorToStringValueConverter.cs" />
     <Compile Include="ValueConverters\PageTypeToUserControlValueConverter.cs" />
+    <Compile Include="ValueConverters\ReverseColorToArgbValueConverter.cs" />
     <Compile Include="ViewModels\AutobusViewModel.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\CollectionElementViewModels\ProgAutobusuViewModel.cs" />
+    <Compile Include="ViewModels\CollectionElementViewModels\WpisProguPrzystankuViewModel.cs" />
     <Compile Include="ViewModels\CollectionElementViewModels\WpisSieciViewModel.cs" />
     <Compile Include="ViewModels\FirmaViewModel.cs" />
     <Compile Include="ViewModels\KonfiguracjaViewModel.cs" />

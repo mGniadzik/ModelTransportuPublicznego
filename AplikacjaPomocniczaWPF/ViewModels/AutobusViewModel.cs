@@ -93,43 +93,71 @@ namespace AplikacjaPomocniczaWPF.ViewModels
         public string Model
         {
             get { return autobus.ModelAutobusu; }
-            set { autobus.ModelAutobusu = value; }
+            set
+            {
+                autobus.ModelAutobusu = value;
+                OnPropertyChanged("Model");
+            }
         }
 
         public int MaksymalnaPojemnosc
         {
             get { return autobus.MaksymalnaPojemnosc; }
-            set { autobus.MaksymalnaPojemnosc = value; }
+            set
+            {
+                autobus.MaksymalnaPojemnosc = value;
+                OnPropertyChanged("MaksymalnaPojemnosc");
+            }
         }
 
         public int IloscDrzwi
         {
             get { return autobus.IloscDrzwi; }
-            set { autobus.IloscDrzwi = value; }
+            set
+            {
+                autobus.IloscDrzwi = value;
+                OnPropertyChanged("IloscDrzwi");
+            }
         }
 
         public double DlugoscAutobusu
         {
             get { return autobus.DlugoscAutobusu; }
-            set { autobus.DlugoscAutobusu = value; }
+            set
+            {
+                autobus.DlugoscAutobusu = value;
+                OnPropertyChanged("DlugoscAutobusu");
+            }
         }
 
         public double Przyspieszenie
         {
             get { return autobus.Przyspieszenie; }
-            set { autobus.Przyspieszenie = value; }
+            set
+            {
+                autobus.Przyspieszenie = value;
+                OnPropertyChanged("Przyspieszenie");
+            }
         }
 
         public double DrogaHamowania
         {
             get { return autobus.DrogaHamowania; }
-            set { autobus.DrogaHamowania = value; }
+            set
+            {
+                autobus.DrogaHamowania = value;
+                OnPropertyChanged("DrogaHamowania");
+            }
         }
 
         public double PredkoscMaksymalna
         {
             get { return autobus.PredkoscMaksymalna; }
-            set { autobus.PredkoscMaksymalna = value; }
+            set
+            {
+                autobus.PredkoscMaksymalna = value;
+                OnPropertyChanged("PredkoscMaksymalna");
+            }
         }
 
         public ObservableCollection<ProgAutobusuViewModel> Przyspieszenia

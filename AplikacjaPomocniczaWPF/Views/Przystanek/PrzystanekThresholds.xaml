@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AplikacjaPomocniczaWPF.Views.Przystanek"
+             xmlns:vc="clr-namespace:AplikacjaPomocniczaWPF.ValueConverters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -15,18 +16,46 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock Text="Pasażerowie" Style="{StaticResource StdTitleTextBox}" />
-        <DataGrid Grid.Row="1" Margin="5 0">
+        <DataGrid Grid.Row="1" Margin="5 0" x:Name="dGridPasazerowie" Style="{StaticResource BasicDataGrid}" ItemsSource="{Binding ProgiPasazerow}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Próg zapełnienia" Width="*" />
-                <DataGridTextColumn Header="Kolor" Width="*" />
+                <DataGridTextColumn Header="Próg zapełnienia" Width="*" Binding="{Binding Prog}" />
+                <DataGridTextColumn Header="Kolor" Width="*" Binding="{Binding Kolor, Converter={vc:ColorToStringValueConverter}}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Background" Value="{Binding Kolor, Converter={vc:ColorToArgbValueConverter}}" />
+                            <Setter Property="Foreground" Value="{Binding Kolor, Converter={vc:ReverseColorToArgbValueConverter}}" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Dodaj wpis" Command="{Binding DodajWpisPasazerowie}" />
+                    <MenuItem Header="Usuń wpis" Command="{Binding UsunWpisPasazerowie}" CommandParameter="{x:Reference Name=dGridPasazerowie}" />
+                    <MenuItem Header="Wyczyść wpisy" Command="{Binding WyczyscWpisyPasazerowie}" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
         </DataGrid>
         <TextBlock Text="Autobusy" Grid.Row="2" Style="{StaticResource StdTitleTextBox}" />
-        <DataGrid Grid.Row="3" Margin="5 0">
+        <DataGrid Grid.Row="3" Margin="5 0" x:Name="dGridAutobusy" Style="{StaticResource BasicDataGrid}" ItemsSource="{Binding ProgiAutobusow}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Próg zapełnienia" Width="*" />
-                <DataGridTextColumn Header="Kolor" Width="*" />
+                <DataGridTextColumn Header="Próg zapełnienia" Width="*" Binding="{Binding Prog}" />
+                <DataGridTextColumn Header="Kolor" Width="*" Binding="{Binding Kolor, Converter={vc:ColorToStringValueConverter}}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Background" Value="{Binding Kolor, Converter={vc:ColorToArgbValueConverter}}" />
+                            <Setter Property="Foreground" Value="{Binding Kolor, Converter={vc:ReverseColorToArgbValueConverter}}" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Dodaj wpis" Command="{Binding DodajWpisAutobusy}" />
+                    <MenuItem Header="Usuń wpis" Command="{Binding UsunWpisAutobusy}" CommandParameter="{x:Reference Name=dGridAutobusy}" />
+                    <MenuItem Header="Wyczyść wpisy" Command="{Binding WyczyscWpisyAutobusy}" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
         </DataGrid>
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
